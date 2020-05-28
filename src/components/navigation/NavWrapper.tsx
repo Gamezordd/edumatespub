@@ -3,16 +3,18 @@ import { ItemProps } from 'semantic-ui-react';
 import { NavBar } from './NavBar';
 
 const leftItems: ItemProps[] = [
-	{ content: 'Home', key: 'home', href: '/' },
-	{ content: 'Maps', key: 'maps', href: '/maps' },
-	{ content: 'Chat', key: 'chat', href: '/chat' },
+	{ content: 'Home', key: 'home', to: '/' },
+	{ content: 'Maps', key: 'maps', to: '/maps' },
+	{ content: 'Chat', key: 'chat', to: '/chat' },
 ];
 
 const rightItems: ItemProps[] = [
-	{ content: 'Register', key: 'register', href: '/register' },
-	{ content: 'Login', key: 'login', href: '/login' },
+	{ content: 'Register', key: 'register', to: '/register' },
+	{ content: 'Login', key: 'login', to: '/login' },
 ];
 
-export const NavBarWrapper: React.FC = _ => (
-	<NavBar leftItems={leftItems} rightItems={rightItems} />
+export const NavBarWrapper: React.FC = ({ children }) => (
+	<NavBar leftItems={leftItems} rightItems={rightItems}>
+		{children}
+	</NavBar>
 );

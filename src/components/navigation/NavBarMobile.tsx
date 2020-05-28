@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Sidebar, Menu, Image, Icon, SidebarProps } from 'semantic-ui-react';
 import './NavBarStyle.css';
+import { Link } from 'react-router-dom';
 
 export const NavBarMobile: React.FC<SidebarProps> = ({
 	children,
@@ -19,10 +20,10 @@ export const NavBarMobile: React.FC<SidebarProps> = ({
 			inverted
 			vertical
 			visible={visible}
-			width="wide"
+			width="thin"
 		>
 			{_.map(leftItems, item => (
-				<Menu.Item {...item} />
+				<Menu.Item as={Link} onClick={onPusherClick} {...item} />
 			))}
 			{_.map(rightItems, item => (
 				<Menu.Item {...item} />
@@ -35,12 +36,15 @@ export const NavBarMobile: React.FC<SidebarProps> = ({
 		>
 			<Menu fixed="top" inverted color="teal">
 				<Menu.Item>
-					<Image size="small" src={process.env.PUBLIC_URL + '/logo.png'} />
+					<Image size="tiny" src={process.env.PUBLIC_URL + '/logo.png'} />
 				</Menu.Item>
 				<Menu.Menu position="right">
 					<Menu.Item onClick={onToggle}>
 						<Icon name="sidebar" />
 					</Menu.Item>
+					{_.map(rightItems, item => (
+						<Menu.Item as={Link} {...item} />
+					))}
 				</Menu.Menu>
 			</Menu>
 			{children}
