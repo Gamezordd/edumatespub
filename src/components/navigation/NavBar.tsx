@@ -3,7 +3,7 @@ import { Responsive, Container, MenuProps, ItemProps } from 'semantic-ui-react';
 import { NavBarDesktop } from './NavBarDesktop';
 import { NavBarMobile } from './NavBarMobile';
 
-//A wrapper for styling children. Add all changes to style here.
+//Add margin above components added after NavBar
 const NavBarChildren: React.FC = ({ children }) => (
 	<Container style={{ marginTop: '5em' }}>{children}</Container>
 );
