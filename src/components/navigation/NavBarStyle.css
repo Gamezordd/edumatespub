@@ -1,0 +1,7 @@
+.sidebar {
+    background: cadetblue !important;
+}
+
+.item::before {
+    width: 0 !important;
+}
