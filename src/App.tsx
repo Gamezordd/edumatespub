@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export function App() {
 	return (
-		<div className="App">
+		<div className='App'>
 			<Router>
 				<NavBar>
 					<Switch>
-						<Route exact path="/" component={LandingContainer} />
-						<Route exact path="/maps" component={MapsContainer} />
+						<Route exact path='/' component={LandingContainer} />
+						<Route exact path='/maps' component={MapsContainer} />
 					</Switch>
 				</NavBar>
 			</Router>

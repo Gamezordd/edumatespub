@@ -1,7 +1,7 @@
 {
 	"arrowParens": "avoid",
 	"jsxBracketSameLine": false,
-	"jsxSingleQuote": false,
+	"jsxSingleQuote": true,
 	"printWidth": 80,
 	"parser": "typescript",
 	"quoteProps": "as-needed",
