@@ -25,9 +25,6 @@ export const NavBarMobile: React.FC<SidebarProps> = ({
 			{_.map(leftItems, item => (
 				<Menu.Item as={Link} onClick={onPusherClick} {...item} />
 			))}
-			{_.map(rightItems, item => (
-				<Menu.Item {...item} />
-			))}
 		</Sidebar>
 		<Sidebar.Pusher
 			dimmed={visible}
