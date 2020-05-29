@@ -31,4 +31,4 @@ export class Firebase {
 	doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
 }
 
-export const FirebaseContext = React.createContext({});
+export const FirebaseContext = React.createContext<Firebase | null>(null);
