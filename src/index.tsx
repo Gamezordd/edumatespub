@@ -4,12 +4,16 @@ import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css';
 import { Firebase, FirebaseContext } from './firebase';
+import { Provider } from 'react-redux';
+import { ConfigureStore } from './redux';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<FirebaseContext.Provider value={new Firebase()}>
-			<App />
-		</FirebaseContext.Provider>
+		<Provider store={ConfigureStore()}>
+			<FirebaseContext.Provider value={new Firebase()}>
+				<App />
+			</FirebaseContext.Provider>
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

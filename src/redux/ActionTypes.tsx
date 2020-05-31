@@ -1,1 +1,2 @@
-export const EXAMPLE_ACTION = 'EXAMPLE_ACTION'
+export const EXAMPLE_ACTION = 'EXAMPLE_ACTION';
+export type EXAMPLE_ACTION = typeof EXAMPLE_ACTION;
