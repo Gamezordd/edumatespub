@@ -12,7 +12,8 @@ export function App() {
 						<Switch>
 							<Route exact path='/' component={LandingContainer} />
 							<Route exact path='/maps' component={MapsContainer} />
-							<Route exact path='/register' component={RenderForm} />
+							<Route exact path={'/register'} component={RenderForm} />
+							<Route exact path={'/login'} component={RenderForm} />
 						</Switch>
 					</NavBar>
 				</Router>

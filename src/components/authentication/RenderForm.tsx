@@ -1,6 +1,7 @@
-import React, { ChangeEvent } from 'react';
-import {AmbassadorEssentialFields} from "./FormFields";
-import { FormInput, Form, } from 'semantic-ui-react';
+import React from 'react';
+import { RegistrationFormFields, LoginFormFields } from "./FormFields";
+import { FormInput, Form, Button, } from 'semantic-ui-react';
+import { CustomInputProps } from "./CustomProps";
 
 interface field{
     id: string;
@@ -9,31 +10,33 @@ interface field{
 
 
 export class RenderForm extends React.Component{
+    
 
     state: any = {
         fields: [],
-        errors: []
+        errors: [],
+        registrationPage:0,
+        setFields: []
     };
 
-    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        var {fields} = this.state;
+    props: any ={
+        
+    }
 
+    handleChange(e: React.ChangeEvent<HTMLInputElement>, minLength?:number){
+        console.log(this.props.location.pathname);
+        
+        var {fields} = this.state;
         if( fields.length === 0){
             this.setState({fields: fields.concat({id:e.target.id, value:e.target.value})});
-            console.log(fields);
-            
         }
         else{
             this.state.fields.map((el:field, index: number) => {
-                console.log("id: ", e.target.id);
-                
                 if(el.id === e.target.id){
                     let items = fields;
                     let item = {id:e.target.id, value:e.target.value}
                     items.splice(index,1,item);
                     this.setState({fields: items})
-                    console.log(fields);
-                    
                 }
                 else{
                     this.setState({fields: fields.concat({id:e.target.id, value:e.target.value})});
@@ -42,20 +45,40 @@ export class RenderForm extends React.Component{
         }
     }
 
-    render(){
-        const {fields, errors} = this.state
+    setFields(pathname: string){
+        if(pathname === "/register" && this.state.setFields !== RegistrationFormFields){
+            this.setState({setFields: RegistrationFormFields})
+         }
+         else if(pathname === '/login' && this.state.setFields !== LoginFormFields){
+             this.setState({setFields: LoginFormFields})
+         } 
+    }
 
-        const formFields = AmbassadorEssentialFields.map(field => {
-            if(field.fieldType == "input"){
+    
+
+    render(){
+        this.setFields(this.props.location.pathname)                //Sets the form fields to  be rendered
+
+        const formFields = this.state.setFields.map((field: CustomInputProps) => {      //Render Form fields
+            if(field.fieldType === "input"){
                 return(
                     <Form.Field>
                     <label>{field.label}</label>
-                    <FormInput id={field.id} placeholder={field.placeholder} onChange={this.handleChange} />
+                    <FormInput id={field.id} placeholder={field.placeholder}  onChange={(e) => this.handleChange(e,field.minLength)} />
+                    </Form.Field>
+                )
+            }
+            else if(field.fieldType === "button"){
+                return(
+                    <Form.Field>
+                        <Button color={field.buttonColor} onClick={() => {}} basic={field.basic}>{field.label}</Button>
                     </Form.Field>
                 )
             }
         })
-        return(
+
+
+        return(                                         //Returns the rendered form
             <div>
                 {formFields}
             </div>

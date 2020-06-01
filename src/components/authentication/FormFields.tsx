@@ -1,20 +1,14 @@
-import React from "react";
-import { InputProps, StickyProps } from "semantic-ui-react";
+import { CustomInputProps } from "./CustomProps";
 
-type CustomInputProps = {
-    fieldType?: "input" | "button" | "dropdown";
-    id:string;
-    placeholder?:string;
-    onChange?: string;
-    onClick? : string;
-    minLength?: number;
-    password?: boolean;
-    warnings?: boolean;    
-    label: string;
-}
-
-export const AmbassadorEssentialFields: CustomInputProps[] = [
-    {fieldType:"input", id: "name", label:"Name", placeholder:"Name", onChange:"name"},
-    {fieldType:"input", id: "email", label:"Email", placeholder:"Email Id", onChange:"email"},
-    {fieldType:"input", warnings: true, id: "newPassword", label:"Password", placeholder:"New Password", onChange:"password"},
+export const RegistrationFormFields: CustomInputProps[]  = [
+    {fieldType:"input", id: "name", label:"Name", placeholder:"Name"},
+    {fieldType:"input", id: "email", label:"Email", placeholder:"Email Id"},
+    {fieldType:"input", warnings: true, id: "newPassword", label:"Password", placeholder:"New Password"},
+    {fieldType:"button", id:"test", buttonColor:"red", placeholder:"pressme", label:"Button", onClick:"Submit"}
 ]
+
+export const LoginFormFields: CustomInputProps[] = [
+    {fieldType:"input", id: "name", label:"Name", placeholder:"Name"},
+    {fieldType:"input", id: "email", label:"Email", placeholder:"Email Id"},
+]
+
