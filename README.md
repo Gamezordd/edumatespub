@@ -1,4 +1,4 @@
-##Importing Login/Registration Form
+## Importing Login/Registration Form
 Import `RenderForm` from `./components` to add form to your component. You may define your custom "login" and "registration" components and add it to the respective routes in the current `App.tsx` file. Since the form fields rendered and actions handled depend on the route, it should work just fine throughout the app.
 
 If you wish to edit the fields, this may be done through `FormFields.tsx` which currently supports Input fields (semantic-ui), Buttons and Dropdowns. Supported props (ex: field type, button color etc.) maybe viewed at `CustomProps.tsx` in the same folder.
