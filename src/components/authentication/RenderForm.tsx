@@ -15,7 +15,7 @@ export class RenderForm extends React.Component{
     state: any = {
         fields: [],
         errors: [],
-        registrationPage:0,
+        registrationPage:1,
         setFields: []
     };
 
@@ -46,9 +46,14 @@ export class RenderForm extends React.Component{
     }
 
     setFields(pathname: string){
-        if(pathname === "/register" && this.state.setFields !== RegistrationFormFields){
-            this.setState({setFields: RegistrationFormFields})
+
+        if(pathname === "/register"){
+            const currentFields = RegistrationFormFields[this.state.registrationPage]
+            if(this.state.setFields !== currentFields){
+                this.setState({setFields: currentFields})
+            }
          }
+
          else if(pathname === '/login' && this.state.setFields !== LoginFormFields){
              this.setState({setFields: LoginFormFields})
          } 
