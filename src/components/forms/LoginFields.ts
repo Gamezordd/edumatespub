@@ -1,6 +1,6 @@
-import { FieldType } from './types';
+import { LoginFieldType } from './types';
 
-export const FormFields: FieldType[] = [
+export const FormFields: LoginFieldType[] = [
 	{
 		key: 'email',
 		validate: 'email',

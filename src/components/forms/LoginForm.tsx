@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { ValidatorType, validators } from './constants';
 import { Form, Button, FormField, Input } from 'semantic-ui-react';
-import { LoginState } from './types';
+import { LoginState, RegisterState } from './types';
 import { FormFields } from './LoginFields';
 
 export class LoginForm extends React.Component<{}, LoginState> {
