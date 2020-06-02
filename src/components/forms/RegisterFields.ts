@@ -1,4 +1,4 @@
-import { FieldType } from './types';
+import { RegisterFieldType } from './types';
 
 /*
 TODO: Make all fields for users. StudentFields and AmbassadorFields are keys inside the data map.
@@ -9,7 +9,7 @@ https://react.semantic-ui.com/elements/icon/
 Update type interface in ./types.ts
 */
 
-export const CommonFields: FieldType[] = [
+export const CommonFields: RegisterFieldType[] = [
 	{
 		key: 'email',
 		validate: 'email',
@@ -23,7 +23,7 @@ export const CommonFields: FieldType[] = [
 	},
 ];
 
-export const StudentFields: FieldType[] = [
+export const StudentFields: RegisterFieldType[] = [
 	{
 		key: 'GRE',
 		validate: 'any',
@@ -37,7 +37,7 @@ export const StudentFields: FieldType[] = [
 	},
 ];
 
-export const AmbassadorFields: FieldType[] = [
+export const AmbassadorFields: RegisterFieldType[] = [
 	{
 		key: 'university',
 		validate: 'any',

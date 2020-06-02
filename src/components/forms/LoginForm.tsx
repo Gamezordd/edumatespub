@@ -1,11 +1,14 @@
 import _ from 'lodash';
-import React from 'react';
+import React, { useContext } from 'react';
 import { ValidatorType, validators } from './constants';
 import { Form, Button, FormField, Input } from 'semantic-ui-react';
-import { LoginState, RegisterState } from './types';
+import { LoginState } from './types';
 import { FormFields } from './LoginFields';
+import { Firebase } from '../../firebase';
+import { compose } from 'recompose';
+import { withFirebase } from '../../firebase/withFirebase';
 
-export class LoginForm extends React.Component<{}, LoginState> {
+class LoginForm extends React.Component<{ firebase: Firebase }, LoginState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -14,24 +17,34 @@ export class LoginForm extends React.Component<{}, LoginState> {
 		};
 	}
 
-	handleSubmit = () => {
-		console.log('submitted');
+	handleSubmit = async () => {
+		try {
+			console.log(this.state);
+			const user = await this.props.firebase.doSignInWithEmailAndPassword(
+				this.state.email.value,
+				this.state.password.value
+			);
+			console.log(user);
+		} catch (err) {
+			console.log(err + this.state.password.value);
+		}
 	};
 
 	validate = (
 		key: keyof ValidatorType,
+		stateKey: keyof LoginState,
 		e: React.ChangeEvent<HTMLInputElement>
 	) => {
 		if (RegExp(validators[key].regex).test(e.target.value)) {
 			this.setState({
 				...this.state,
-				...{ [key]: { value: e.target.value, error: false } },
+				...{ [stateKey]: { value: e.target.value, error: false } },
 			});
 		} else {
 			this.setState({
 				...this.state,
 				...{
-					[key]: {
+					[stateKey]: {
 						value: '',
 						error: { pointing: 'below', content: validators[key].message },
 					},
@@ -53,7 +66,7 @@ export class LoginForm extends React.Component<{}, LoginState> {
 							control={Input}
 							error={this.getError(field.key)}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-								this.validate(field.validate, e)
+								this.validate(field.validate, field.key, e)
 							}
 						/>
 					))}
@@ -63,3 +76,5 @@ export class LoginForm extends React.Component<{}, LoginState> {
 		);
 	}
 }
+
+export const LoginFormComposed = compose(withFirebase)(LoginForm);
