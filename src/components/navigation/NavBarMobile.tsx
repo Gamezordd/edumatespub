@@ -12,6 +12,7 @@ export const NavBarMobile: React.FC<SidebarProps> = ({
 	rightItems,
 	visible,
 }) => (
+	
 	<Sidebar.Pushable>
 		<Sidebar
 			as={Menu}
@@ -22,10 +23,11 @@ export const NavBarMobile: React.FC<SidebarProps> = ({
 			visible={visible}
 			width='thin'
 		>
-			{_.map(leftItems, item => (
+			{_.map(leftItems.concat(rightItems), item => (
 				<Menu.Item as={Link} onClick={onPusherClick} {...item} />
 			))}
 		</Sidebar>
+
 		<Sidebar.Pusher
 			dimmed={visible}
 			onClick={onPusherClick}
@@ -33,18 +35,17 @@ export const NavBarMobile: React.FC<SidebarProps> = ({
 		>
 			<Menu fixed='top' inverted color='teal'>
 				<Menu.Item>
-					<Image size='tiny' src={process.env.PUBLIC_URL + '/logo.png'} />
+					<Image size='small' src={process.env.PUBLIC_URL + '/logo.png'} />
 				</Menu.Item>
 				<Menu.Menu position='right'>
 					<Menu.Item onClick={onToggle}>
 						<Icon name='sidebar' />
 					</Menu.Item>
-					{_.map(rightItems, item => (
-						<Menu.Item as={Link} {...item} />
-					))}
 				</Menu.Menu>
 			</Menu>
+
 			{children}
+
 		</Sidebar.Pusher>
 	</Sidebar.Pushable>
 );

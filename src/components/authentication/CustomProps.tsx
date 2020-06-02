@@ -2,7 +2,7 @@ export type CustomInputProps = {
     label: string;              //for Fields AND Buttons
 
     //textfields
-    fieldType?: "input" | "button" | "dropdown"|"calendar";
+    fieldType?: "input" | "button" | "dropdown" |"calendar";
     id:string;
     placeholder?:string;        
     minLength?: number;
