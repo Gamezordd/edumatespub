@@ -2,7 +2,8 @@ import { FormFieldProps } from 'semantic-ui-react';
 import { ValidatorType } from './constants';
 
 export interface FieldType {
-	key: keyof ValidatorType;
+	key: keyof LoginState;
+	validate: keyof ValidatorType;
 	properties: FormFieldProps;
 }
 

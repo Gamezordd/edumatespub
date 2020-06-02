@@ -53,7 +53,7 @@ export class LoginForm extends React.Component<{}, LoginState> {
 							control={Input}
 							error={this.getError(field.key)}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-								this.validate(field.key, e)
+								this.validate(field.validate, e)
 							}
 						/>
 					))}

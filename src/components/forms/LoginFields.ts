@@ -3,6 +3,7 @@ import { FieldType } from './types';
 export const FormFields: FieldType[] = [
 	{
 		key: 'email',
+		validate: 'email',
 		properties: {
 			type: 'text',
 			label: 'E-mail',
@@ -13,6 +14,7 @@ export const FormFields: FieldType[] = [
 	},
 	{
 		key: 'password',
+		validate: 'any',
 		properties: {
 			type: 'password',
 			label: 'Password',
