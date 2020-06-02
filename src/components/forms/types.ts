@@ -2,7 +2,7 @@ import { FormFieldProps } from 'semantic-ui-react';
 import { ValidatorType } from './constants';
 
 export interface FieldType {
-	key: keyof LoginState;
+	key: keyof LoginState | keyof RegisterState;
 	validate: keyof ValidatorType;
 	properties: FormFieldProps;
 }
@@ -20,4 +20,16 @@ export interface FieldState {
 export interface LoginState {
 	email: FieldState;
 	password: FieldState;
+}
+
+export interface RegisterState {
+	//common fields
+	name: string;
+	email: string;
+
+	//student fields
+	GRE?: number;
+
+	//ambassador fields
+	university?: number;
 }
