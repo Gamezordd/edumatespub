@@ -1,9 +1,13 @@
-export enum validators {
-	EMAIL = '/^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i',
-	PASSWORD = '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$',
-}
+export const validators = {
+	email: {
+		regex: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$',
+		message: 'Enter valid email',
+	},
+	//PASSWORD: { regex: '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$', message: '' },
+	password: { regex: '[\\s\\S]*', message: '' },
+};
 
-export enum messages {
-	EMAIL = 'Enter calid email',
-	PASSWORD = 'Must contain at least 1 letter and 1 number. Minimum 8 characters.',
+export interface ValidatorType {
+	email: string;
+	password: string;
 }
