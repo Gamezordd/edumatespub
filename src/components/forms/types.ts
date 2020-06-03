@@ -30,12 +30,13 @@ export interface LoginState {
 
 export interface RegisterState {
 	//common fields
-	name: string;
-	email: string;
-
+	name: FieldState;
+	email: FieldState;
+	password: FieldState;
+	gender: FieldState;
 	//student fields
-	GRE?: number;
+	//GRE?: number;
 
 	//ambassador fields
-	university?: number;
+	//university?: number;
 }

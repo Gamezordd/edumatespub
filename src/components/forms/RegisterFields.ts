@@ -21,8 +21,41 @@ export const CommonFields: RegisterFieldType[] = [
 			iconPosition: 'left',
 		},
 	},
+	{
+		key: 'name',
+		validate: 'any',
+		properties: {
+			type: 'name',
+			label: 'name',
+			icon: 'user',
+			required: true,
+			iconPosition: 'left',
+		},
+	},
+	{
+		key: 'password',
+		validate: 'any',
+		properties: {
+			type: 'password',
+			label: 'password',
+			icon: 'lock',
+			required: true,
+			iconPosition: 'left',
+		},
+	},
+	{
+		key: 'gender',
+		validate: 'any',
+		properties: {
+			type: 'text',
+			label: 'gender',
+			icon: 'users',
+			required: true,
+			iconPosition: 'left',
+		},
+	},
 ];
-
+/*
 export const StudentFields: RegisterFieldType[] = [
 	{
 		key: 'GRE',
@@ -50,3 +83,4 @@ export const AmbassadorFields: RegisterFieldType[] = [
 		},
 	},
 ];
+*/
