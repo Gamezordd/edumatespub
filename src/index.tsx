@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css';
 import { Firebase, FirebaseContext } from './firebase';
 import { Provider } from 'react-redux';
-import { ConfigureStore } from './redux';
+import { ConfigureStore } from './components/redux';
 
 ReactDOM.render(
 	<React.StrictMode>

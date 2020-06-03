@@ -7,8 +7,15 @@ import { FormFields } from './LoginFields';
 import { Firebase } from '../../firebase';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
+import { connect } from 'react-redux';
+import { loginAction } from "../redux";
+import * as Creators from '../redux/ActionCreators'
 
-class LoginForm extends React.Component<{ firebase: Firebase }, LoginState> {
+const mapDispatchToProps = (dispatch:any) =>({
+	login: (payload:any) => dispatch(loginAction(payload))
+})
+
+class LoginForm extends React.Component<{ firebase: Firebase, login: typeof loginAction }, LoginState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -17,13 +24,13 @@ class LoginForm extends React.Component<{ firebase: Firebase }, LoginState> {
 		};
 	}
 
-	handleSubmit = async () => {
+	handleSubmit = async () => {		
 		try {
 			console.log(this.state);
 			const user = await this.props.firebase.doSignInWithEmailAndPassword(
 				this.state.email.value,
 				this.state.password.value
-			);
+			).then(authUser => {this.props.login(authUser)});
 			console.log(user);
 		} catch (err) {
 			console.log(err + this.state.password.value);
@@ -77,4 +84,4 @@ class LoginForm extends React.Component<{ firebase: Firebase }, LoginState> {
 	}
 }
 
-export const LoginFormComposed = compose(withFirebase)(LoginForm);
+export const LoginFormComposed = compose(withFirebase, connect(null,mapDispatchToProps))(LoginForm);
