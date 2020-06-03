@@ -5,14 +5,14 @@ import { Form, Button, FormField, Input } from 'semantic-ui-react';
 import { LoginState } from './types';
 import { FormFields } from './LoginFields';
 import { Firebase } from '../../firebase';
-//import { compose } from 'recompose';
+import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { loginAction } from '../redux';
-import * as Creators from '../redux/ActionCreators';
 
 const mapDispatchToProps = (dispatch: any) => ({
-	login: (payload: any) => dispatch(loginAction(payload)),
+	login: (payload: firebase.auth.UserCredential) =>
+		dispatch(loginAction(payload)),
 });
 
 class LoginForm extends React.Component<
