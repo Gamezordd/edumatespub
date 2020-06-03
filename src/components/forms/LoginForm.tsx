@@ -5,7 +5,7 @@ import { Form, Button, FormField, Input } from 'semantic-ui-react';
 import { LoginState } from './types';
 import { FormFields } from './LoginFields';
 import { Firebase } from '../../firebase';
-//import { compose } from 'recompose';
+import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { loginAction } from '../redux';
