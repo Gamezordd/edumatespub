@@ -1,10 +1,3 @@
-## Importing Login/Registration Form
-Import `RenderForm` from `./components` to add form to your component. You may define your custom "login" and "registration" components and add it to the respective routes in the current `App.tsx` file. Since the form fields rendered and actions handled depend on the route, it should work just fine throughout the app.
-
-If you wish to edit the fields, this may be done through `FormFields.tsx` which currently supports Input fields (semantic-ui), Buttons and Dropdowns. Supported props (ex: field type, button color etc.) maybe viewed at `CustomProps.tsx` in the same folder.
-
-Edit: The registration form now has multiple pages, fields for which can be manipulated using the same `FormFields.tsx` file. The rule is that 1st subarray contains page 1 fields and so on.
-
 ## Store keys for Firebase
 1. Create a copy of `firebaseConfig.example.json`.
 2. Add necessary values to the keys.
