@@ -43,14 +43,17 @@ class LoginForm extends React.Component<
 					) {
 						return;
 					}
-					console.log(authUser);
+					console.log(authUser.user.email);
 					const user = await this.props.firebase.getUser(authUser.user.email);
 					return user;
 				})
 				.then(user => {
-					if (user !== undefined) this.props.login(user.docs[0]);
+					if (user !== undefined) {
+						const payload = user.docs[0].data();
+						payload.uid = user.docs[0].id;
+						this.props.login(payload);
+					}
 				});
-			console.log(user);
 		} catch (err) {
 			console.log(err + this.state.password.value);
 		}

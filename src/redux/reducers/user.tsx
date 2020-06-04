@@ -14,26 +14,16 @@ export const User = (
 		case ActionTypes.EXAMPLE_ACTION:
 			return { ...state };
 		case ActionTypes.LOGIN_ACTION: {
-			const {
-				uid,
-				displayName,
-				phoneNumber,
-				email,
-				photoURL,
-				emailVerified,
-				isAnonymous,
-			} = action.payload.user;
+			const { uid, name, email, profileImage, isAmbassador } = action.payload;
 			return {
 				...state,
 				uid: uid,
 				details: {
-					name: displayName,
-					phone: phoneNumber,
+					name: name,
 					email: email,
 				},
-				photoURL: photoURL,
-				emailVerified: emailVerified,
-				isAnonymous: isAnonymous,
+				photoURL: profileImage,
+				isAmbassador: isAmbassador,
 			};
 		}
 		default:

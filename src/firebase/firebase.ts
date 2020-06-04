@@ -27,7 +27,7 @@ export class Firebase {
 		await this.auth.signInWithEmailAndPassword(email, password);
 
 	getUser = async (email: string) =>
-		await this.db.collection('USERS').where('email', '==', email).get();
+		await this.db.collection('USER').where('email', '==', email).get();
 
 	doSignOut = async () => await this.auth.signOut();
 
