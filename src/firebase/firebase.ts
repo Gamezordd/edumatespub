@@ -20,15 +20,19 @@ export class Firebase {
 		this.storage = app.storage();
 	}
 
-	doCreateUserWithEmailAndPassword = (email: string, password: string) =>
-		this.auth.createUserWithEmailAndPassword(email, password);
+	doCreateUserWithEmailAndPassword = async (email: string, password: string) =>
+		await this.auth.createUserWithEmailAndPassword(email, password);
 
-	doSignInWithEmailAndPassword = (email: string, password: string) =>
-		this.auth.signInWithEmailAndPassword(email, password);
+	doSignInWithEmailAndPassword = async (email: string, password: string) =>
+		await this.auth.signInWithEmailAndPassword(email, password);
 
-	doSignOut = () => this.auth.signOut();
+	getUser = async (email: string) =>
+		await this.db.collection('USERS').where('email', '==', email).get();
 
-	doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
+	doSignOut = async () => await this.auth.signOut();
+
+	doPasswordReset = async (email: string) =>
+		await this.auth.sendPasswordResetEmail(email);
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);
