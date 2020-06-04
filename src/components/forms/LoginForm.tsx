@@ -9,6 +9,7 @@ import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { loginAction } from '../../redux';
+import { auth } from 'firebase';
 
 const mapDispatchToProps = (dispatch: any) => ({
 	login: (payload: any) => dispatch(loginAction(payload)),
@@ -42,11 +43,12 @@ class LoginForm extends React.Component<
 					) {
 						return;
 					}
+					console.log(authUser);
 					const user = await this.props.firebase.getUser(authUser.user.email);
 					return user;
 				})
 				.then(user => {
-					if (user !== undefined) this.props.login(user);
+					if (user !== undefined) this.props.login(user.docs[0]);
 				});
 			console.log(user);
 		} catch (err) {
