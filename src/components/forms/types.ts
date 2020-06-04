@@ -10,7 +10,7 @@ export interface LoginFieldType {
 export interface RegisterFieldType {
 	key: keyof RegisterState;
 	validate: keyof ValidatorType;
-	properties: FormFieldProps;
+	properties: FormFieldProps | any;
 }
 
 export interface FieldError {
@@ -19,8 +19,8 @@ export interface FieldError {
 }
 
 export interface FieldState {
-	value: string;
-	error: FieldError | false;
+	value: string | boolean;
+	error?: FieldError | false;
 }
 
 export interface LoginState {
@@ -34,9 +34,12 @@ export interface RegisterState {
 	email: FieldState;
 	password: FieldState;
 	gender: FieldState;
+	country: FieldState;
+	isAmbassador: FieldState;
+
 	//student fields
-	//GRE?: number;
+	GRE: FieldState;
 
 	//ambassador fields
-	//university?: number;
+	university: FieldState;
 }

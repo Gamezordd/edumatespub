@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useContext } from 'react';
+import React from 'react';
 import { ValidatorType, validators } from './constants';
 import { Form, Button, FormField, Input } from 'semantic-ui-react';
 import { LoginState } from './types';
@@ -8,11 +8,10 @@ import { Firebase } from '../../firebase';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
-import { loginAction } from '../redux';
+import { loginAction } from '../../redux';
 
 const mapDispatchToProps = (dispatch: any) => ({
-	login: (payload: firebase.auth.UserCredential) =>
-		dispatch(loginAction(payload)),
+	login: (payload: any) => dispatch(loginAction(payload)),
 });
 
 class LoginForm extends React.Component<
@@ -30,13 +29,24 @@ class LoginForm extends React.Component<
 	handleSubmit = async () => {
 		try {
 			console.log(this.state);
+
 			const user = await this.props.firebase
 				.doSignInWithEmailAndPassword(
-					this.state.email.value,
-					this.state.password.value
+					this.state.email.value.toString(),
+					this.state.password.value.toString()
 				)
-				.then(authUser => {
-					this.props.login(authUser);
+				.then(async authUser => {
+					if (
+						authUser.user?.email === undefined ||
+						authUser.user.email === null
+					) {
+						return;
+					}
+					const user = await this.props.firebase.getUser(authUser.user.email);
+					return user;
+				})
+				.then(user => {
+					if (user !== undefined) this.props.login(user);
 				});
 			console.log(user);
 		} catch (err) {

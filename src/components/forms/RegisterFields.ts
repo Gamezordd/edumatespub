@@ -1,4 +1,5 @@
 import { RegisterFieldType } from './types';
+import { DropdownItemProps } from 'semantic-ui-react';
 
 /*
 TODO: Make all fields for users. StudentFields and AmbassadorFields are keys inside the data map.
@@ -8,6 +9,17 @@ https://react.semantic-ui.com/elements/icon/
 
 Update type interface in ./types.ts
 */
+
+export const Genders: DropdownItemProps[] = [
+	{ icon: 'man', value: 'male', text: 'Male' },
+	{ icon: 'woman', value: 'female', text: 'Female' },
+	{ icon: 'intersex', value: 'other', text: 'Other' },
+];
+
+export const UserTypes: DropdownItemProps[] = [
+	{ value: 'ambassador', text: 'Ambassador' },
+	{ value: 'student', text: 'Student' },
+];
 
 export const CommonFields: RegisterFieldType[] = [
 	{
@@ -43,26 +55,15 @@ export const CommonFields: RegisterFieldType[] = [
 			iconPosition: 'left',
 		},
 	},
-	{
-		key: 'gender',
-		validate: 'any',
-		properties: {
-			type: 'text',
-			label: 'gender',
-			icon: 'users',
-			required: true,
-			iconPosition: 'left',
-		},
-	},
 ];
-/*
+
 export const StudentFields: RegisterFieldType[] = [
 	{
 		key: 'GRE',
 		validate: 'any',
 		properties: {
 			type: 'text',
-			label: 'E-mail',
+			label: 'GRE',
 			icon: 'pencil square',
 			required: true,
 			iconPosition: 'left',
@@ -76,11 +77,10 @@ export const AmbassadorFields: RegisterFieldType[] = [
 		validate: 'any',
 		properties: {
 			type: 'text',
-			label: 'E-mail',
+			label: 'University',
 			icon: 'building',
 			required: true,
 			iconPosition: 'left',
 		},
 	},
 ];
-*/
