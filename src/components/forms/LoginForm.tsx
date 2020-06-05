@@ -10,7 +10,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { loginAction } from '../../redux';
 import { auth } from 'firebase';
-
+import './LoginForm.css';
 const mapDispatchToProps = (dispatch: any) => ({
 	login: (payload: any) => dispatch(loginAction(payload)),
 });

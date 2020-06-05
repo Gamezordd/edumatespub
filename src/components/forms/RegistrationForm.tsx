@@ -11,6 +11,7 @@ import {
 	Genders,
 	UserTypes,
 } from './RegisterFields';
+import './RegistrationForm.css';
 
 export class RegistrationForm extends React.Component<{}, RegisterState> {
 	constructor(props: any) {
@@ -24,6 +25,8 @@ export class RegistrationForm extends React.Component<{}, RegisterState> {
 			isAmbassador: { value: false },
 			GRE: { value: '', error: false },
 			university: { value: '', error: false },
+			phone: { value: '', error: false },
+			GPA: { value: '', error: false },
 		};
 	}
 
@@ -90,10 +93,11 @@ export class RegistrationForm extends React.Component<{}, RegisterState> {
 						/>
 					))}
 					<Form.Dropdown
-						label='Country'
+						label='Country:'
 						fluid
 						search
 						selection
+						required
 						options={countryOptions}
 						onChange={(event: React.SyntheticEvent<HTMLElement>, { value }) => {
 							if (value !== undefined) {
@@ -102,10 +106,11 @@ export class RegistrationForm extends React.Component<{}, RegisterState> {
 						}}
 					/>
 					<Form.Dropdown
-						label='Gender'
+						label='Gender:'
 						fluid
 						search
 						selection
+						required
 						options={Genders}
 						onChange={(event: React.SyntheticEvent<HTMLElement>, { value }) => {
 							if (value !== undefined) {
@@ -114,10 +119,11 @@ export class RegistrationForm extends React.Component<{}, RegisterState> {
 						}}
 					/>
 					<Form.Dropdown
-						label='Role'
+						label='Role:'
 						fluid
 						search
 						selection
+						required
 						options={UserTypes}
 						onChange={(event: React.SyntheticEvent<HTMLElement>, { value }) => {
 							if (value !== undefined) {

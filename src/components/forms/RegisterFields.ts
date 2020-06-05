@@ -27,8 +27,19 @@ export const CommonFields: RegisterFieldType[] = [
 		validate: 'email',
 		properties: {
 			type: 'text',
-			label: 'E-mail',
+			label: 'E-mail:',
 			icon: 'mail',
+			required: true,
+			iconPosition: 'left',
+		},
+	},
+	{
+		key: 'phone',
+		validate: 'phone',
+		properties: {
+			type: 'text',
+			label: 'Mobile no:',
+			icon: 'phone',
 			required: true,
 			iconPosition: 'left',
 		},
@@ -38,7 +49,7 @@ export const CommonFields: RegisterFieldType[] = [
 		validate: 'any',
 		properties: {
 			type: 'name',
-			label: 'name',
+			label: 'Name:',
 			icon: 'user',
 			required: true,
 			iconPosition: 'left',
@@ -49,7 +60,7 @@ export const CommonFields: RegisterFieldType[] = [
 		validate: 'any',
 		properties: {
 			type: 'password',
-			label: 'password',
+			label: 'Password:',
 			icon: 'lock',
 			required: true,
 			iconPosition: 'left',
@@ -60,11 +71,22 @@ export const CommonFields: RegisterFieldType[] = [
 export const StudentFields: RegisterFieldType[] = [
 	{
 		key: 'GRE',
-		validate: 'any',
+		validate: 'gre',
 		properties: {
 			type: 'text',
-			label: 'GRE',
+			label: 'GRE:',
 			icon: 'pencil square',
+			required: true,
+			iconPosition: 'left',
+		},
+	},
+	{
+		key: 'GPA',
+		validate: 'gpa',
+		properties: {
+			type: 'text',
+			label: 'GPA:',
+			icon: 'university',
 			required: true,
 			iconPosition: 'left',
 		},
@@ -77,7 +99,7 @@ export const AmbassadorFields: RegisterFieldType[] = [
 		validate: 'any',
 		properties: {
 			type: 'text',
-			label: 'University',
+			label: 'University:',
 			icon: 'building',
 			required: true,
 			iconPosition: 'left',

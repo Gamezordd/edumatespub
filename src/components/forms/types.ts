@@ -36,10 +36,11 @@ export interface RegisterState {
 	gender: FieldState;
 	country: FieldState;
 	isAmbassador: FieldState;
+	phone: FieldState;
 
 	//student fields
 	GRE: FieldState;
-
+	GPA: FieldState;
 	//ambassador fields
 	university: FieldState;
 }
