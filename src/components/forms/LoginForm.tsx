@@ -9,8 +9,9 @@ import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { loginAction } from '../../redux';
-import { auth } from 'firebase';
+import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
+
 const mapDispatchToProps = (dispatch: any) => ({
 	login: (payload: any) => dispatch(loginAction(payload)),
 });
@@ -24,6 +25,7 @@ class LoginForm extends React.Component<
 		this.state = {
 			email: { value: '', error: false },
 			password: { value: '', error: false },
+			redirect: { value: false },
 		};
 	}
 
@@ -52,6 +54,7 @@ class LoginForm extends React.Component<
 						const payload = user.docs[0].data();
 						payload.uid = user.docs[0].id;
 						this.props.login(payload);
+						this.setState({ redirect: { value: true } });
 					}
 				});
 		} catch (err) {
@@ -85,6 +88,10 @@ class LoginForm extends React.Component<
 	getError = (key: keyof LoginState) => this.state[key].error;
 
 	render() {
+		if (this.state.redirect.value) {
+			return <Redirect to='/' />;
+		}
+
 		return (
 			<div>
 				<h2>Log in</h2>

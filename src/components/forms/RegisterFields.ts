@@ -46,7 +46,7 @@ export const CommonFields: RegisterFieldType[] = [
 	},
 	{
 		key: 'name',
-		validate: 'any',
+		validate: 'name',
 		properties: {
 			type: 'name',
 			label: 'Name:',
@@ -57,7 +57,7 @@ export const CommonFields: RegisterFieldType[] = [
 	},
 	{
 		key: 'password',
-		validate: 'any',
+		validate: 'password',
 		properties: {
 			type: 'password',
 			label: 'Password:',
@@ -69,17 +69,17 @@ export const CommonFields: RegisterFieldType[] = [
 ];
 
 export const StudentFields: RegisterFieldType[] = [
-	{
-		key: 'GRE',
-		validate: 'gre',
-		properties: {
-			type: 'text',
-			label: 'GRE:',
-			icon: 'pencil square',
-			required: true,
-			iconPosition: 'left',
-		},
-	},
+	// {
+	// 	key: 'GRE',
+	// 	validate: 'gre',
+	// 	properties: {
+	// 		type: 'text',
+	// 		label: 'GRE:',
+	// 		icon: 'pencil square',
+	// 		required: true,
+	// 		iconPosition: 'left',
+	// 	},
+	// },
 	{
 		key: 'GPA',
 		validate: 'gpa',

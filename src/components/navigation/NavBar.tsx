@@ -9,7 +9,7 @@ const NavBarChildren: React.FC = ({ children }) => (
 );
 
 export class NavBar extends Component<
-	{ leftItems: ItemProps[]; rightItems: ItemProps[] },
+	{ leftItems: ItemProps[] | null; rightItems: ItemProps[] | null },
 	MenuProps
 > {
 	state = {

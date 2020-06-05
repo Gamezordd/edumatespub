@@ -26,6 +26,7 @@ export interface FieldState {
 export interface LoginState {
 	email: FieldState;
 	password: FieldState;
+	redirect: FieldState;
 }
 
 export interface RegisterState {
@@ -43,4 +44,6 @@ export interface RegisterState {
 	GPA: FieldState;
 	//ambassador fields
 	university: FieldState;
+
+	redirect: FieldState;
 }

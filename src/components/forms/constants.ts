@@ -4,8 +4,8 @@ export const validators = {
 		message: 'Enter valid email',
 	},
 	password: {
-		regex: '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$',
-		message: 'Enter valid password',
+		regex: '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{6,}$',
+		message: 'Must contain six characters',
 	},
 	phone: { regex: '^[0-9]{8}', message: 'Enter valid phone number' },
 	any: { regex: '[\\s\\S]*', message: '' },
@@ -17,11 +17,16 @@ export const validators = {
 		regex: '^([0]|[0-3].([0-9]{2})|[4].[0])$',
 		message: 'Enter valdi GPA',
 	},
+	name: {
+		regex: "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$",
+		message: 'Invalid Name',
+	},
 };
 
 export interface ValidatorType {
 	email: string;
 	password: string;
+	name: string;
 	any: string;
 	phone: number;
 	gre: number;

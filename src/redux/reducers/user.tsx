@@ -15,6 +15,7 @@ export const User = (
 			return { ...state };
 		case ActionTypes.LOGIN_ACTION: {
 			const { uid, name, email, profileImage, isAmbassador } = action.payload;
+			console.log('Logging in');
 			return {
 				...state,
 				uid: uid,
@@ -22,10 +23,20 @@ export const User = (
 					name: name,
 					email: email,
 				},
+				isLoggedIn: true,
 				photoURL: profileImage,
 				isAmbassador: isAmbassador,
 			};
 		}
+		case ActionTypes.LOGOUT_ACTION:
+			return {
+				...state,
+				uid: '',
+				isLoggedIn: false,
+				photoURL: '',
+				isAmbassador: false,
+				details: {},
+			};
 		default:
 			return state;
 	}

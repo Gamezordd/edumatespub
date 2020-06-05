@@ -12,8 +12,17 @@ import {
 	UserTypes,
 } from './RegisterFields';
 import './RegistrationForm.css';
+import { compose } from 'recompose';
+import { withFirebase } from '../../firebase/withFirebase';
+import { Firebase } from '../../firebase';
+import { Redirect } from 'react-router-dom';
 
-export class RegistrationForm extends React.Component<{}, RegisterState> {
+/*TODO: Add error handling for user creation*/
+
+class RegistrationFormUncomposed extends React.Component<
+	{ firebase: Firebase },
+	RegisterState
+> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -21,17 +30,23 @@ export class RegistrationForm extends React.Component<{}, RegisterState> {
 			password: { value: '', error: false },
 			name: { value: '', error: false },
 			gender: { value: '' },
+			phone: { value: '', error: false },
 			country: { value: '' },
 			isAmbassador: { value: false },
 			GRE: { value: '', error: false },
 			university: { value: '', error: false },
-			phone: { value: '', error: false },
 			GPA: { value: '', error: false },
+			redirect: { value: false },
 		};
 	}
 
-	handleSubmit = () => {
-		console.log('submitted');
+	handleSubmit = async () => {
+		await this.props.firebase.createUserEntry(this.state);
+		await this.props.firebase.doCreateUserWithEmailAndPassword(
+			this.state.email.value.toString(),
+			this.state.password.value.toString()
+		);
+		this.setState({ redirect: { value: true } });
 	};
 
 	genderUpdater = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +89,8 @@ export class RegistrationForm extends React.Component<{}, RegisterState> {
 	getError = (key: keyof RegisterState) => this.state[key].error;
 
 	render() {
+		if (this.state.redirect.value) return <Redirect to='/login' />;
+
 		const VariableFields = this.state.isAmbassador.value
 			? AmbassadorFields
 			: StudentFields;
@@ -147,3 +164,7 @@ export class RegistrationForm extends React.Component<{}, RegisterState> {
 		);
 	}
 }
+
+export const RegistrationForm = compose(withFirebase)(
+	RegistrationFormUncomposed
+);

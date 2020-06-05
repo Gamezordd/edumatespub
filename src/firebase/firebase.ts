@@ -1,6 +1,7 @@
 import config from '../firebaseConfig.json';
 import app from 'firebase/app';
 import React from 'react';
+import { getRoles } from '@testing-library/react';
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/database');
@@ -19,6 +20,33 @@ export class Firebase {
 		this.rtdb = app.database();
 		this.storage = app.storage();
 	}
+
+	createUserEntry = async (payload: any) => {
+		const {
+			GPA,
+			university,
+			name,
+			email,
+			gender,
+			phone,
+			country,
+			isAmbassador,
+		} = payload;
+		const data = payload.isAmbassador.value
+			? { university: university.value }
+			: { gpa: GPA.value };
+		await this.db.collection('USER').add({
+			...{
+				name: name.value,
+				email: email.value,
+				gender: gender.value,
+				phone: phone.value,
+				country: country.value,
+				isAmbassador: isAmbassador.value,
+			},
+			data: data,
+		});
+	};
 
 	doCreateUserWithEmailAndPassword = async (email: string, password: string) =>
 		await this.auth.createUserWithEmailAndPassword(email, password);
