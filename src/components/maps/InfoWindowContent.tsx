@@ -5,10 +5,15 @@ export interface ContentProps{
 }
 
 export class InfoWindowContent extends React.Component<ContentProps>{
+    componentDidMount(){
+        console.log("props: ", this.props.content);
+        
+    }
     render(){
         return(
             <div>
-                {this.props.content.name}
+                {this.props.content.name.Name}
+                {this.props.content.name.Description}
             </div>
         )
     }

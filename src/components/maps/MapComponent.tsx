@@ -37,7 +37,7 @@ class MapComponent extends React.Component<IProvidedProps>{
 				<Map style={{maxWidth:"60vw", maxHeight:"80vh"}} onClick={this.windowCloseHandler} google={this.props.google} zoom={defaultZoom} initialCenter={this.findCenter(coordinates)}>
 					{coordinates && coordinates.map(place => {
 						return(
-							<Marker position={{lat: place.X, lng: place.Y}} name={place.Name} onMouseover={this.onMouseOver} />
+							<Marker position={{lat: place.X, lng: place.Y}} name={place.Details} onMouseover={this.onMouseOver} />
 						)
 					})}
 					<InfoWindow
