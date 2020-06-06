@@ -14,7 +14,14 @@ export const User = (
 		case ActionTypes.EXAMPLE_ACTION:
 			return { ...state };
 		case ActionTypes.LOGIN_ACTION: {
-			const { uid, name, email, profileImage, isAmbassador } = action.payload;
+			const {
+				uid,
+				name,
+				email,
+				profileImage,
+				favouriteUnis,
+				isAmbassador,
+			} = action.payload;
 			console.log('Logging in');
 			return {
 				...state,
@@ -24,6 +31,7 @@ export const User = (
 					email: email,
 				},
 				isLoggedIn: true,
+				favourites: favouriteUnis,
 				photoURL: profileImage,
 				isAmbassador: isAmbassador,
 			};
@@ -35,6 +43,7 @@ export const User = (
 				isLoggedIn: false,
 				photoURL: '',
 				isAmbassador: false,
+				favouriteUnis: [],
 				details: {},
 			};
 		default:

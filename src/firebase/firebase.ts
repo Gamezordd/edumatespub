@@ -59,6 +59,19 @@ export class Firebase {
 
 	doSignOut = async () => await this.auth.signOut();
 
+	getUniversities = async () =>
+		await this.db
+			.collection('university')
+			.get()
+			.then(query => {
+				var data: any[];
+				query.docs.map((doc, i) => {
+					data[i] = doc.data();
+					data[i].id = doc.id;
+					return data;
+				});
+			});
+
 	doPasswordReset = async (email: string) =>
 		await this.auth.sendPasswordResetEmail(email);
 }
