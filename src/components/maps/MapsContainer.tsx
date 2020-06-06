@@ -5,7 +5,7 @@ interface MapsProps {
 }
 
 export const MapsContainer: React.FC<MapsProps> = ({ stuff }) => (
-	<div style={{ paddingTop: '10vh' }}>
+	<div style={{ paddingTop: "20px" }}>
 		<MapComponent />
 	</div>
 );

@@ -1,9 +1,15 @@
-import React,{ReactDOM} from 'react';
-import GoogleMapReact from 'google-map-react';
+import React from 'react';
 import { APIkey, coordinates, defaultZoom } from './constants';
-import Marker from './MarkerComponent';
+import { LoadingContainer, InfoWindowContent } from "./index";
+import { GoogleApiWrapper, IProvidedProps, Map, Marker, InfoWindow} from "google-maps-react";
 
-export default class MapComponent extends React.Component {
+class MapComponent extends React.Component<IProvidedProps>{
+	state:any={
+		isWindowOpen:false,
+		activeMarker:null,
+		selectedPlace:{}
+	}
+
 	findCenter = (places: any) => {
 		var Xav = 0;
 		var Yav = 0;
@@ -15,21 +21,39 @@ export default class MapComponent extends React.Component {
 		});
 		return ({ lat: Xav / count, lng: Yav / count });
 	};
+	
+	onMouseOver = (props:any, marker:any, e:any) => {
+		console.log("props: ", props, "\n marker: ", marker, "\n e: ", e);
+		this.setState({activeMarker: marker, selectedPlace: props, isWindowOpen: true});
+	}
+
+	windowCloseHandler = () =>{
+		this.setState({isWindowOpen: false})
+	}
+
 	render(){
 		return (
-			<div style={{position:"relative"}}>
-			<GoogleMapReact
-				style={{height:"40vh", width:"150px"}}
-				bootstrapURLKeys={{ key: `${APIkey}` }}
-				defaultZoom={defaultZoom}
-				defaultCenter={this.findCenter(coordinates)}
-			>
-				{coordinates.map(place => {
-					return <Marker lat={place.X} lng={place.Y} name={place.Name} />;
-				})}
-			</GoogleMapReact>
+			<div>
+				<Map style={{maxWidth:"60vw", maxHeight:"80vh"}} onClick={this.windowCloseHandler} google={this.props.google} zoom={defaultZoom} initialCenter={this.findCenter(coordinates)}>
+					{coordinates && coordinates.map(place => {
+						return(
+							<Marker position={{lat: place.X, lng: place.Y}} name={place.Name} onMouseover={this.onMouseOver} />
+						)
+					})}
+					<InfoWindow
+					google={this.props.google}
+					marker={this.state.activeMarker}
+					visible={this.state.isWindowOpen}>
+						<InfoWindowContent content={this.state.selectedPlace}/>
+					</InfoWindow>
+				</Map>
 			</div>
 		);
 	}
 }
 
+
+export default GoogleApiWrapper({
+	apiKey: APIkey,
+	LoadingContainer: LoadingContainer
+})(MapComponent)
