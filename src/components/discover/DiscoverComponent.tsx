@@ -1,6 +1,8 @@
 import React from "react";
-import { Search, SearchProps, Modal, Image } from "semantic-ui-react";
+import { Search, SearchProps, Modal, Image, Card } from "semantic-ui-react";
 import _ from 'lodash';
+
+import { DiscoverCard, DiscoverModal } from "./index";
 
 interface DiscoverProps{
     uniList:any
@@ -8,6 +10,7 @@ interface DiscoverProps{
 
 const initialState = { 
     isModalOpen: false, 
+    showCard: false,
     isLoading: false, 
     results: [], 
     value:'',
@@ -28,7 +31,7 @@ export class DiscoverComponent extends React.Component<DiscoverProps>{
 
     ) => {
 
-        this.setState({ isModalOpen: true, selection: result })
+        this.setState({ showCard: true, selection: result })
 
     }
 
@@ -50,6 +53,7 @@ export class DiscoverComponent extends React.Component<DiscoverProps>{
             }
 
             const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
+
             this.setState({
                 isLoading: false,
                 results:  _.filter(uniList, (result) => re.test(result.title)),
@@ -58,10 +62,7 @@ export class DiscoverComponent extends React.Component<DiscoverProps>{
     }
 
     render(){
-        
-        const {isLoading, results, value, selection, isModalOpen} = this.state
-        const {uniList} = this.props
-
+        const {isLoading, results, value, selection, showCard, isModalOpen} = this.state
         return(
             <div>
             <Search
@@ -74,15 +75,8 @@ export class DiscoverComponent extends React.Component<DiscoverProps>{
                     leading:true,
                 })}
                 />
-            <Modal open={isModalOpen} onClose={this.handleModalClose}>
-                <Modal.Header>{selection.title}</Modal.Header>
-                <Modal.Content image>
-                    <Image wrapped size='medium' src={selection.image} />
-                    <Modal.Description>
-                        <p> {selection.description} </p>
-                    </Modal.Description>
-                </Modal.Content>
-            </Modal>
+            <DiscoverCard content={selection} show={showCard}/>
+            {/*<DiscoverModal open={isModalOpen} content={selection} onClose={this.handleModalClose}/>*/}
             </div>
         )
     }

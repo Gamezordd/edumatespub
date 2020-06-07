@@ -8,7 +8,6 @@ import {
 	Marker,
 	InfoWindow,
 } from 'google-maps-react';
-
 class MapComponent extends React.Component<IProvidedProps, any> {
 	constructor(props: any) {
 		super(props);
