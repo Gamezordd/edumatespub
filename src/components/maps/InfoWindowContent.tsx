@@ -1,7 +1,7 @@
 import React from 'react';
 
-export interface ContentProps{
-    content :any
+export interface ContentProps {
+	content: any;
 }
 
 export class InfoWindowContent extends React.Component<ContentProps>{
