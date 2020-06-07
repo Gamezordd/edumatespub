@@ -59,6 +59,25 @@ export class Firebase {
 
 	doSignOut = async () => await this.auth.signOut();
 
+	getPosts = async (after: string | null, faves: string[]) => {
+		if (after === null) {
+			return await this.db
+				.collection('posts')
+				.where('universityId', 'in', faves)
+				.orderBy('createdAt', 'desc')
+				.limit(10)
+				.get();
+		} else {
+			return await this.db
+				.collection('posts')
+				.where('universityId', 'in', faves)
+				.orderBy('createdAt', 'desc')
+				.startAfter(after)
+				.limit(10)
+				.get();
+		}
+	};
+
 	getUniversities = async () =>
 		await this.db
 			.collection('university')
