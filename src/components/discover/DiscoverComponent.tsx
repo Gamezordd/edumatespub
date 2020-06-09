@@ -6,13 +6,13 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { editFavouritesAction } from '../../redux';
 
-import { DiscoverCard, /*DiscoverModal*/ } from './index';
-import { DiscoverProps, initialStateProps } from "./interfaces";
-import { initialState } from "./constants";
+import { DiscoverCard /*DiscoverModal*/ } from './index';
+import { DiscoverProps, initialStateProps } from './interfaces';
+import { initialState } from './constants';
 
 const mapStateToProps = (state: any) => {
 	return {
-		user: state.user
+		user: state.user,
 	};
 };
 
@@ -21,7 +21,10 @@ const mapDispatchToProps = (dispatch: any) => ({
 		dispatch(editFavouritesAction(universityIds, add)),
 });
 
-class DiscoverComponent extends React.Component<DiscoverProps, initialStateProps> {
+class DiscoverComponent extends React.Component<
+	DiscoverProps,
+	initialStateProps
+> {
 	constructor(props: any) {
 		super(props);
 		this.state = initialState;
@@ -47,12 +50,12 @@ class DiscoverComponent extends React.Component<DiscoverProps, initialStateProps
 
 		this.setState({ isLoading: true, value });
 		setTimeout(() => {
-			if(this.state.value){
+			if (this.state.value) {
 				if (this.state.value.length < 1) {
-					return this.setState( initialState );
+					return this.setState(initialState);
 				}
 			}
-			const re = new RegExp( _.escapeRegExp(this.state.value), 'i' );
+			const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
 
 			this.setState({
 				isLoading: false,
@@ -63,8 +66,8 @@ class DiscoverComponent extends React.Component<DiscoverProps, initialStateProps
 
 	handleFavouritesChange = (universityId: string, add?: boolean) => {
 		this.props.editFavourites([universityId], add);
-		this.setState({triggerRerender: !this.state.triggerRerender})
-	}
+		this.setState({ triggerRerender: !this.state.triggerRerender });
+	};
 
 	render() {
 		const {
@@ -80,29 +83,34 @@ class DiscoverComponent extends React.Component<DiscoverProps, initialStateProps
 			<div>
 				<Search
 					fluid
-					loading={ isLoading }
-					results={ results }
-					value={ value }
-					onResultSelect={ this.handleResultSelect }
-					onSearchChange={ _.debounce(this.handlesearchChange, 500, {
+					loading={isLoading}
+					results={results}
+					value={value}
+					onResultSelect={this.handleResultSelect}
+					onSearchChange={_.debounce(this.handlesearchChange, 500, {
 						leading: true,
 					})}
 					onFavouriteBottonClick={this.handleFavouritesChange}
 				/>
 				{showCard ? (
-					<DiscoverCard content={ selection } show={ showCard } favourite={ this.props.user.favourites.indexOf(selection.id) > -1 } />
-				) : (				
-					this.props.uniList.map(( university: any ) => {
+					<DiscoverCard
+						content={selection}
+						show={showCard}
+						favourite={this.props.user.favourites.indexOf(selection.id) > -1}
+					/>
+				) : (
+					this.props.uniList.map((university: any) => {
 						return (
 							<DiscoverCard
-								content={ university }
-								show={ !showCard }
-								favourite={ this.props.user.favourites.indexOf(university.id) > -1 }
+								content={university}
+								show={!showCard}
+								favourite={
+									this.props.user.favourites.indexOf(university.id) > -1
+								}
 								onFavouriteBottonClick={this.handleFavouritesChange}
 							/>
 						);
-					}
-				)
+					})
 				)}
 
 				{/*<DiscoverModal open={isModalOpen} content={selection} onClose={this.handleModalClose}/>*/}

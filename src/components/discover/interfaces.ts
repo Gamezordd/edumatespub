@@ -1,3 +1,5 @@
+import { editFavouritesAction } from "../../redux";
+
 export interface DiscoverProps {
 	uniList: any;
 	user: any;

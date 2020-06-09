@@ -55,6 +55,7 @@ class LoginForm extends React.Component<
 					return user;
 				})
 				.then(async user => {
+					console.log("inside getuniversities");
 					if (user !== undefined) {
 						const payload = user.docs[0].data();
 						payload.uid = user.docs[0].id;
@@ -62,9 +63,12 @@ class LoginForm extends React.Component<
 					}
 
 					const unis = await this.props.firebase.getUniversities();
+					console.log("unis: ", unis);
 					return unis;
 				})
 				.then(async (unis: any) => {
+					console.log("inside editfavourites");
+					
 					this.props.editFavourites(unis, true);
 					this.setState({ redirect: { value: true } });
 				});
