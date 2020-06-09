@@ -8,16 +8,21 @@ import { Firebase } from '../../firebase';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
-import { loginAction } from '../../redux';
+import { loginAction, editFavouritesAction } from '../../redux';
 import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
 
 const mapDispatchToProps = (dispatch: any) => ({
 	login: (payload: any) => dispatch(loginAction(payload)),
+	editFavourites: (universityIds: string[], add?: boolean) => dispatch(editFavouritesAction(universityIds, add))
 });
 
 class LoginForm extends React.Component<
-	{ firebase: Firebase; login: typeof loginAction },
+	{ 
+		firebase: Firebase;
+		login: typeof loginAction;
+		editFavourites: typeof editFavouritesAction;
+	},
 	LoginState
 > {
 	constructor(props: any) {
@@ -33,7 +38,7 @@ class LoginForm extends React.Component<
 		try {
 			console.log(this.state);
 
-			const user = await this.props.firebase
+			await this.props.firebase
 				.doSignInWithEmailAndPassword(
 					this.state.email.value.toString(),
 					this.state.password.value.toString()
@@ -49,14 +54,21 @@ class LoginForm extends React.Component<
 					const user = await this.props.firebase.getUser(authUser.user.email);
 					return user;
 				})
-				.then(user => {
+				.then(async user => {
 					if (user !== undefined) {
 						const payload = user.docs[0].data();
 						payload.uid = user.docs[0].id;
 						this.props.login(payload);
-						this.setState({ redirect: { value: true } });
 					}
+
+					const unis = await this.props.firebase.getUniversities();
+					return unis;
+				})
+				.then(async (unis: any) => {
+					this.props.editFavourites(unis, true);
+					this.setState({ redirect: { value: true } });
 				});
+
 		} catch (err) {
 			console.log(err + this.state.password.value);
 		}

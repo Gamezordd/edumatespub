@@ -4,3 +4,5 @@ export const LOGIN_ACTION = 'LOGIN_ACTION';
 export type LOGIN_ACTION = typeof LOGIN_ACTION;
 export const LOGOUT_ACTION = 'LOGOUT_ACTION';
 export type LOGOUT_ACTION = typeof LOGOUT_ACTION;
+export const EDIT_FAVOURITES = 'EDIT_FAVOURITES';
+export type EDIT_FAVOURITES = typeof EDIT_FAVOURITES;

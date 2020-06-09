@@ -1,7 +1,7 @@
 //External export
-export {DiscoverContainer} from './DiscoverContainer';
+export {DiscoverContainerComposed} from './DiscoverContainer';
 
 //Within discover
-export {DiscoverComponent} from './DiscoverComponent'
+export {DiscoverComponentComposed} from './DiscoverComponent'
 export {DiscoverCard} from './DiscoverCard'
 export {DiscoverModal} from './DiscoverModal'

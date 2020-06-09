@@ -1,5 +1,4 @@
 import * as ActionTypes from './ActionTypes';
-import { type } from 'os';
 
 export const exampleAction = () => ({
 	type: ActionTypes.EXAMPLE_ACTION,
@@ -12,4 +11,11 @@ export const loginAction = (payload: object) => ({
 
 export const logoutAction = () => ({
 	type: ActionTypes.LOGOUT_ACTION,
+});
+
+export const editFavouritesAction = (payload: string[], add?: boolean) => ({
+	//add:true -> add else remove from favouriteUnis
+	type: ActionTypes.EDIT_FAVOURITES,
+	payload: payload,
+	add: add,
 });

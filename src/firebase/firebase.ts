@@ -1,5 +1,5 @@
 import config from '../firebaseConfig.json';
-import app from 'firebase/app';
+import app, { firestore } from 'firebase/app';
 import React from 'react';
 import { getRoles } from '@testing-library/react';
 require('firebase/auth');
@@ -78,8 +78,8 @@ export class Firebase {
 		}
 	};
 
-	getUniversities = async () =>
-		await this.db
+	getUniversities = async () =>{
+		return await this.db
 			.collection('university')
 			.get()
 			.then(query => {
@@ -90,9 +90,33 @@ export class Firebase {
 					return data;
 				});
 			});
+		}
 
 	doPasswordReset = async (email: string) =>
 		await this.auth.sendPasswordResetEmail(email);
+
+	editFavourites = async (
+		uid: string,
+		universityId: string,
+		add?: boolean
+	) => {
+		//add:true -> add else remove from favouriteUnis
+		if (add) {
+			this.db
+				.collection('USER')
+				.doc(uid)
+				.update({
+					favouriteUnis: firestore.FieldValue.arrayUnion(universityId),
+				});
+		} else {
+			this.db
+				.collection('USER')
+				.doc(uid)
+				.update({
+					favouriteUnis: firestore.FieldValue.arrayRemove(universityId),
+				});
+		}
+	};
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);
