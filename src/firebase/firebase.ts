@@ -100,24 +100,31 @@ export class Firebase {
 
 	editFavourites = async (
 		uid: string,
-		universityId: string,
+		universityIds: string[],
 		add?: boolean
 	) => {
 		//add:true -> add else remove from favouriteUnis
 		if (add) {
-			this.db
+			universityIds.map(id => {
+				this.db
 				.collection('USER')
 				.doc(uid)
 				.update({
-					favouriteUnis: firestore.FieldValue.arrayUnion(universityId),
+					favouriteUnis: firestore.FieldValue.arrayUnion(id),
 				});
+				return id
+			})
 		} else {
-			this.db
+			universityIds.map(id => {
+				this.db
 				.collection('USER')
 				.doc(uid)
 				.update({
-					favouriteUnis: firestore.FieldValue.arrayRemove(universityId),
+					favouriteUnis: firestore.FieldValue.arrayRemove(id),
 				});
+				return id
+			})
+			
 		}
 	};
 }

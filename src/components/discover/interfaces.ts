@@ -1,7 +1,10 @@
+import { Firebase } from '../../firebase';
+
 export interface DiscoverProps {
 	uniList: any;
 	user: any;
 	editFavourites: (payload: {ids: string[], add?: boolean}) => void;
+	firebase: Firebase
 }
 
 export interface initialStateProps{

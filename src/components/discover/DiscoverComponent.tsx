@@ -6,6 +6,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { editFavouritesAction } from '../../redux';
 
+
 import { DiscoverCard /*DiscoverModal*/ } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
 import { initialState } from './constants';
@@ -37,7 +38,7 @@ class DiscoverComponent extends React.Component<
 	};
 
 	handleModalClose = () => {
-		//Seperate function because modal may not always need closing
+		//Seperate function because modal may not always be dismissable
 		this.setState({ isModalOpen: false });
 	};
 
@@ -73,11 +74,11 @@ class DiscoverComponent extends React.Component<
 		}, 300);
 	};
 
-	handleFavouritesChange = (universityId: string, add?: boolean) => {
-		var newObj: string[]=[];
-		newObj[0] = universityId
-		this.props.editFavourites({ids: newObj,add: add})
-		this.setState({ triggerRerender: !this.state.triggerRerender });
+	handleFavouritesChange = (universityId: string[], add?: boolean) => {
+		this.props.firebase.editFavourites(this.props.user.uid, universityId, add).then(() =>{
+			this.setState({ triggerRerender: !this.state.triggerRerender });
+			this.props.editFavourites({ids: universityId,add: add})
+		})
 	};
 
 	render() {
