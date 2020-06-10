@@ -1,2 +1,2 @@
 export { ConfigureStore } from './ConfigureStore';
-export { loginAction, logoutAction, fetchUniversitiesAction } from './ActionCreators';
+export { loginAction, logoutAction, fetchUniversitiesAction, editFavouritesAction } from './ActionCreators';

@@ -17,8 +17,8 @@ export const DiscoverCard = (props: ButtonProps) => {
                 <Image wrapped src={image} ui={false}/>
                 <Card.Content>
                     <Card.Header> {title} </Card.Header>
-                    <Card.Description> {description} </Card.Description>
-                    <Card.Meta>{favourite ? <Icon name="star" color="red" onClick={() => onFavouriteButtonClick(id, false)}/> : <Icon name="star" color="grey" onClick={() => onFavouriteButtonClick(id, true)}/> }</Card.Meta>
+                    <Card.Description style={{marginBottom:"5px"}}> {description} </Card.Description>
+                    <Card.Meta>{favourite ? <Icon name="star" color="red" size="big" onClick={() => onFavouriteButtonClick(id, false)}/> : <Icon name="star" color="grey" size="big" onClick={() => onFavouriteButtonClick(id, true)}/> }</Card.Meta>
                 </Card.Content>
             </Card>
         )

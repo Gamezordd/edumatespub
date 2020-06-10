@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
-import { fetchUniversitiesAction } from '../../redux';
+import { editFavouritesAction } from '../../redux';
 
 import { DiscoverCard /*DiscoverModal*/ } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
@@ -17,7 +17,7 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-	editFavourites: (universityIds: string[], add?: boolean) => dispatch(),
+	editFavourites: (payload: object) => dispatch(editFavouritesAction(payload)),
 });
 
 class DiscoverComponent extends React.Component<
@@ -58,7 +58,7 @@ class DiscoverComponent extends React.Component<
 			this.setState({
 				isLoading: false,
 				results: _.filter(uniList.data, result => re.test(result.name)).map(
-					//restruncturing the elements to conform to "Search standards"
+					//restruncturing the elements to conform to "Search" standards
 					element => {
 						return {
 							title: element.name,
@@ -74,8 +74,9 @@ class DiscoverComponent extends React.Component<
 	};
 
 	handleFavouritesChange = (universityId: string, add?: boolean) => {
-		console.log('favourites handles');
-
+		var newObj: string[]=[];
+		newObj[0] = universityId
+		this.props.editFavourites({ids: newObj,add: add})
 		this.setState({ triggerRerender: !this.state.triggerRerender });
 	};
 

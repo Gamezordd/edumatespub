@@ -69,7 +69,6 @@ class LoginForm extends React.Component<
 						this.props.login(payload);
 					}
 					const unis = await this.props.firebase.getUniversities();
-					console.log('initil unis: ', unis);
 					return unis;
 				})
 				.then(async (unis: any) => {
@@ -77,8 +76,6 @@ class LoginForm extends React.Component<
 				})
 				.then(async () => {
 					this.setState({ redirect: { value: true } });
-					console.log("universities in Loginform: ", this.props.universities);
-					
 				});
 		} catch (err) {
 			console.log(err + this.state.password.value);

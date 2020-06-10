@@ -17,3 +17,8 @@ export const fetchUniversitiesAction = (payload: any) => ({
 	type: ActionTypes.FETCH_UNIVERSITIES,
 	payload: payload
 });
+
+export const editFavouritesAction = (payload: any) => ({
+	type: ActionTypes.EDIT_FAVOURITES,
+	payload: payload
+})
