@@ -6,10 +6,10 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { editFavouritesAction } from '../../redux';
 
-
-import { DiscoverCard /*DiscoverModal*/ } from './index';
+import { /*DiscoverModal*/ } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
 import { initialState } from './constants';
+import { CardContainerComponent } from './CardContainerComponent';
 
 const mapStateToProps = (state: any) => {
 	return {
@@ -46,6 +46,8 @@ class DiscoverComponent extends React.Component<
 		e: React.MouseEvent<HTMLElement, MouseEvent>,
 		{ value }: SearchProps
 	) => {
+		console.log("value: ", this.state);
+		
 		const { uniList } = this.props;
 		this.setState({ isLoading: true, value });
 		setTimeout(() => {
@@ -53,6 +55,10 @@ class DiscoverComponent extends React.Component<
 				if (this.state.value.length < 1) {
 					return this.setState(initialState);
 				}
+			} else {
+				console.log("reset");
+				
+				return this.setState(initialState)
 			}
 			const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
 
@@ -75,10 +81,12 @@ class DiscoverComponent extends React.Component<
 	};
 
 	handleFavouritesChange = (universityId: string[], add?: boolean) => {
-		this.props.firebase.editFavourites(this.props.user.uid, universityId, add).then(() =>{
-			this.setState({ triggerRerender: !this.state.triggerRerender });
-			this.props.editFavourites({ids: universityId,add: add})
-		})
+		this.props.firebase
+			.editFavourites(this.props.user.uid, universityId, add)
+			.then(() => {
+				this.setState({ triggerRerender: !this.state.triggerRerender });
+				this.props.editFavourites({ ids: universityId, add: add });
+			});
 	};
 
 	render() {
@@ -104,34 +112,13 @@ class DiscoverComponent extends React.Component<
 					})}
 					onFavouriteBottonClick={this.handleFavouritesChange}
 				/>
-				{showCard ? (
-					<DiscoverCard
-						content={selection}
-						show={showCard}
-						favourite={this.props.user.favouriteUnis.indexOf(selection.id) > -1}
-						onFavouriteButtonClick={this.handleFavouritesChange}
-					/>
-				) : (
-					this.props.uniList.data.map((university: any) => {
-						var isFavourite = false;
-						if (this.props.user.favouriteUnis === []) {
-							isFavourite = false;
-						} else {
-							if (this.props.user.favouriteUnis.indexOf(university.id) > -1) {
-								isFavourite = true;
-							}
-						}
-						return (
-							<DiscoverCard
-								content={university}
-								show={!showCard}
-								favourite={isFavourite}
-								onFavouriteButtonClick={this.handleFavouritesChange}
-							/>
-						);
-					})
-				)}
-
+				<CardContainerComponent
+					data={this.props.uniList.data}
+					selected={showCard}
+					onFavouriteButtonClick={this.handleFavouritesChange}
+					selectedCardData={selection}
+					favouriteUnis={this.props.user.favouriteUnis}
+				/>
 				{/*<DiscoverModal open={isModalOpen} content={selection} onClose={this.handleModalClose}/>*/}
 			</div>
 		);

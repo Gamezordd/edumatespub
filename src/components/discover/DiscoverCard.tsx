@@ -3,7 +3,7 @@ import { Card, Image, Icon } from "semantic-ui-react";
 
 interface ButtonProps{
     content: any;
-    show: boolean;
+    show?: boolean;
     favourite: boolean;
     onFavouriteButtonClick: (universityId: string[], add?: boolean) => void;
 }
