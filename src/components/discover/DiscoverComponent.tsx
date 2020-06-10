@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
-import { editFavouritesAction } from '../../redux';
+import { fetchUniversitiesAction } from '../../redux';
 
 import { DiscoverCard /*DiscoverModal*/ } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
@@ -18,7 +18,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
 	editFavourites: (universityIds: string[], add?: boolean) =>
-		dispatch(editFavouritesAction(universityIds, add)),
+		dispatch(),
 });
 
 class DiscoverComponent extends React.Component<
@@ -65,7 +65,6 @@ class DiscoverComponent extends React.Component<
 	};
 
 	handleFavouritesChange = (universityId: string, add?: boolean) => {
-		this.props.editFavourites([universityId], add);
 		this.setState({ triggerRerender: !this.state.triggerRerender });
 	};
 
@@ -98,8 +97,9 @@ class DiscoverComponent extends React.Component<
 						show={showCard}
 						favourite={this.props.user.favourites.indexOf(selection.id) > -1}
 					/>
-				) : (
-					this.props.uniList.map((university: any) => {
+				) : ( console.log("uniList: ", this.props.uniList)
+				
+					/*this.props.uniList.map((university: any) => {
 						return (
 							<DiscoverCard
 								content={university}
@@ -111,7 +111,7 @@ class DiscoverComponent extends React.Component<
 							/>
 						);
 					})
-				)}
+				*/)}
 
 				{/*<DiscoverModal open={isModalOpen} content={selection} onClose={this.handleModalClose}/>*/}
 			</div>

@@ -1,9 +1,9 @@
-import { editFavouritesAction } from "../../redux";
+import { fetchUniversitiesAction } from "../../redux";
 
 export interface DiscoverProps {
 	uniList: any;
 	user: any;
-	editFavourites: typeof editFavouritesAction;
+	editFavourites: typeof fetchUniversitiesAction;
 }
 
 export interface initialStateProps{

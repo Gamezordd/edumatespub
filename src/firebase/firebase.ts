@@ -83,12 +83,15 @@ export class Firebase {
 			.collection('university')
 			.get()
 			.then(query => {
-				var data: any[];
+				var data: any[] = [];
 				query.docs.map((doc, i) => {
 					data[i] = doc.data();
 					data[i].id = doc.id;
 					return data;
 				});
+				console.log("data: ", data);
+				
+				return data;
 			});
 		}
 

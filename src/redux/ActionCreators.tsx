@@ -13,9 +13,7 @@ export const logoutAction = () => ({
 	type: ActionTypes.LOGOUT_ACTION,
 });
 
-export const editFavouritesAction = (payload: string[], add?: boolean) => ({
-	//add:true -> add else remove from favouriteUnis
-	type: ActionTypes.EDIT_FAVOURITES,
-	payload: payload,
-	add: add,
+export const fetchUniversitiesAction = (payload: any) => ({
+	type: ActionTypes.FETCH_UNIVERSITIES,
+	payload: payload
 });

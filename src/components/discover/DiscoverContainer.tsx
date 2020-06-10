@@ -15,7 +15,7 @@ const mapStateToProps = (state: any) => {
 
 interface DiscoverContainerProps{
     firebase: Firebase,
-    universities: object[];
+    universities: any;
 }
 
 class DiscoverContainer extends React.Component< DiscoverContainerProps >{
@@ -34,5 +34,5 @@ class DiscoverContainer extends React.Component< DiscoverContainerProps >{
 
 export const DiscoverContainerComposed = compose(
     withFirebase,
-    connect(mapStateToProps)
+    connect(mapStateToProps, null)
 )(DiscoverContainer)
