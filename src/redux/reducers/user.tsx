@@ -7,7 +7,7 @@ export const User = (
 		photoURL: '',
 		emailVerified: false,
 		isAnonymous: false,
-		favourites: []
+		favouriteUnis: []
 	},
 	action: any
 ) => {

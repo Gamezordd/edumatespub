@@ -14,6 +14,7 @@ const userLeftItems: ItemProps[] = [
 	{ content: 'Home', key: 'home', to: '/' },
 	{ content: 'Maps', key: 'maps', to: '/maps' },
 	{ content: 'Chat', key: 'chat', to: '/chat' },
+	{ content: 'Discover', key: 'discover', to: '/discover' }
 ];
 
 const userRightItems: ItemProps[] = [

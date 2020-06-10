@@ -17,8 +17,7 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-	editFavourites: (universityIds: string[], add?: boolean) =>
-		dispatch(),
+	editFavourites: (universityIds: string[], add?: boolean) => dispatch(),
 });
 
 class DiscoverComponent extends React.Component<
@@ -47,7 +46,6 @@ class DiscoverComponent extends React.Component<
 		{ value }: SearchProps
 	) => {
 		const { uniList } = this.props;
-
 		this.setState({ isLoading: true, value });
 		setTimeout(() => {
 			if (this.state.value) {
@@ -59,12 +57,25 @@ class DiscoverComponent extends React.Component<
 
 			this.setState({
 				isLoading: false,
-				results: _.filter(uniList, result => re.test(result.title)),
+				results: _.filter(uniList.data, result => re.test(result.name)).map(
+					//restruncturing the elements to conform to "Search standards"
+					element => {
+						return {
+							title: element.name,
+							description: element.description,
+							image: element.image,
+							id: element.id,
+							details: { ...element },
+						};
+					}
+				),
 			});
 		}, 300);
 	};
 
 	handleFavouritesChange = (universityId: string, add?: boolean) => {
+		console.log('favourites handles');
+
 		this.setState({ triggerRerender: !this.state.triggerRerender });
 	};
 
@@ -95,23 +106,29 @@ class DiscoverComponent extends React.Component<
 					<DiscoverCard
 						content={selection}
 						show={showCard}
-						favourite={this.props.user.favourites.indexOf(selection.id) > -1}
+						favourite={this.props.user.favouriteUnis.indexOf(selection.id) > -1}
+						onFavouriteButtonClick={this.handleFavouritesChange}
 					/>
-				) : ( console.log("uniList: ", this.props.uniList)
-				
-					/*this.props.uniList.map((university: any) => {
+				) : (
+					this.props.uniList.data.map((university: any) => {
+						var isFavourite = false;
+						if (this.props.user.favouriteUnis === []) {
+							isFavourite = false;
+						} else {
+							if (this.props.user.favouriteUnis.indexOf(university.id) > -1) {
+								isFavourite = true;
+							}
+						}
 						return (
 							<DiscoverCard
 								content={university}
 								show={!showCard}
-								favourite={
-									this.props.user.favourites.indexOf(university.id) > -1
-								}
-								onFavouriteBottonClick={this.handleFavouritesChange}
+								favourite={isFavourite}
+								onFavouriteButtonClick={this.handleFavouritesChange}
 							/>
 						);
 					})
-				*/)}
+				)}
 
 				{/*<DiscoverModal open={isModalOpen} content={selection} onClose={this.handleModalClose}/>*/}
 			</div>
