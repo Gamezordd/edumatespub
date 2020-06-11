@@ -1,6 +1,7 @@
 import React from 'react';
 import { DiscoverCard } from './DiscoverCard';
 import { CardContainerProps } from './interfaces';
+import { Grid } from 'semantic-ui-react';
 
 export class CardContainerComponent extends React.Component<
 	CardContainerProps
@@ -39,6 +40,11 @@ export class CardContainerComponent extends React.Component<
 			);
 		});
 
-		return <div>{RenderCards}</div>;
+		return(
+			<Grid style={{paddingTop: "10px"}} columns={4} container >
+				{RenderCards}
+			</Grid>
+			
+		) 
 	}
 }

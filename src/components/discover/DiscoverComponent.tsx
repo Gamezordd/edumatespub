@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, SearchProps } from 'semantic-ui-react';
+import { Search, SearchProps, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
@@ -101,17 +101,25 @@ class DiscoverComponent extends React.Component<
 
 		return (
 			<div>
-				<Search
-					fluid
-					loading={isLoading}
-					results={results}
-					value={value}
-					onResultSelect={this.handleResultSelect}
-					onSearchChange={_.debounce(this.handlesearchChange, 500, {
-						leading: true,
-					})}
-					onFavouriteBottonClick={this.handleFavouritesChange}
-				/>
+				<Grid columns={5} container>
+					<Grid.Column/>
+					<Grid.Column/>
+					<Grid.Column>
+						<Search
+							fluid
+							loading={isLoading}
+							results={results}
+							value={value}
+							onResultSelect={this.handleResultSelect}
+							onSearchChange={_.debounce(this.handlesearchChange, 500, {
+								leading: true,
+							})}
+							onFavouriteBottonClick={this.handleFavouritesChange}
+						/>
+					</Grid.Column>
+					<Grid.Column/>
+					<Grid.Column/>
+				</Grid>
 				<CardContainerComponent
 					data={this.props.uniList.data}
 					selected={showCard}
