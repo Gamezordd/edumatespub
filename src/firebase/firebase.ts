@@ -78,7 +78,7 @@ export class Firebase {
 		}
 	};
 
-	getUniversities = async () =>{
+	getUniversities = async () => {
 		return await this.db
 			.collection('university')
 			.get()
@@ -89,11 +89,11 @@ export class Firebase {
 					data[i].id = doc.id;
 					return data;
 				});
-				console.log("data: ", data);
-				
+				console.log('data: ', data);
+
 				return data;
 			});
-		}
+	};
 
 	doPasswordReset = async (email: string) =>
 		await this.auth.sendPasswordResetEmail(email);
@@ -107,24 +107,23 @@ export class Firebase {
 		if (add) {
 			universityIds.map(id => {
 				this.db
-				.collection('USER')
-				.doc(uid)
-				.update({
-					favouriteUnis: firestore.FieldValue.arrayUnion(id),
-				});
-				return id
-			})
+					.collection('USER')
+					.doc(uid)
+					.update({
+						favouriteUnis: firestore.FieldValue.arrayUnion(id),
+					});
+				return id;
+			});
 		} else {
 			universityIds.map(id => {
 				this.db
-				.collection('USER')
-				.doc(uid)
-				.update({
-					favouriteUnis: firestore.FieldValue.arrayRemove(id),
-				});
-				return id
-			})
-			
+					.collection('USER')
+					.doc(uid)
+					.update({
+						favouriteUnis: firestore.FieldValue.arrayRemove(id),
+					});
+				return id;
+			});
 		}
 	};
 }

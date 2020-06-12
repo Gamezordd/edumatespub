@@ -40,11 +40,10 @@ export class CardContainerComponent extends React.Component<
 			);
 		});
 
-		return(
-			<Grid style={{paddingTop: "10px"}} columns={4} container >
+		return (
+			<Grid style={{ paddingTop: '10px' }} columns={4} container>
 				{RenderCards}
 			</Grid>
-			
-		) 
+		);
 	}
 }

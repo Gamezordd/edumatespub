@@ -6,7 +6,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { editFavouritesAction } from '../../redux';
 
-import { /*DiscoverModal*/ } from './index';
+import /*DiscoverModal*/ './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
 import { initialState } from './constants';
 import { CardContainerComponent } from './CardContainerComponent';
@@ -46,8 +46,8 @@ class DiscoverComponent extends React.Component<
 		e: React.MouseEvent<HTMLElement, MouseEvent>,
 		{ value }: SearchProps
 	) => {
-		console.log("value: ", this.state);
-		
+		console.log('value: ', this.state);
+
 		const { uniList } = this.props;
 		this.setState({ isLoading: true, value });
 		setTimeout(() => {
@@ -56,9 +56,9 @@ class DiscoverComponent extends React.Component<
 					return this.setState(initialState);
 				}
 			} else {
-				console.log("reset");
-				
-				return this.setState(initialState)
+				console.log('reset');
+
+				return this.setState(initialState);
 			}
 			const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
 
@@ -102,8 +102,8 @@ class DiscoverComponent extends React.Component<
 		return (
 			<div>
 				<Grid columns={5} container>
-					<Grid.Column/>
-					<Grid.Column/>
+					<Grid.Column />
+					<Grid.Column />
 					<Grid.Column>
 						<Search
 							fluid
@@ -117,8 +117,8 @@ class DiscoverComponent extends React.Component<
 							onFavouriteBottonClick={this.handleFavouritesChange}
 						/>
 					</Grid.Column>
-					<Grid.Column/>
-					<Grid.Column/>
+					<Grid.Column />
+					<Grid.Column />
 				</Grid>
 				<CardContainerComponent
 					data={this.props.uniList.data}
