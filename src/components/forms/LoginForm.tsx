@@ -8,16 +8,29 @@ import { Firebase } from '../../firebase';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
-import { loginAction } from '../../redux';
+import { loginAction, fetchUniversitiesAction } from '../../redux';
 import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
 
 const mapDispatchToProps = (dispatch: any) => ({
 	login: (payload: any) => dispatch(loginAction(payload)),
+	fetchUniversities: (universityIds: string[]) =>
+		dispatch(fetchUniversitiesAction(universityIds)),
 });
 
+const mapStateToProps = (state: any) => {
+	return {
+		universities: state.universities,
+	};
+};
+
 class LoginForm extends React.Component<
-	{ firebase: Firebase; login: typeof loginAction },
+	{
+		firebase: Firebase;
+		login: typeof loginAction;
+		fetchUniversities: typeof fetchUniversitiesAction;
+		universities: any
+	},
 	LoginState
 > {
 	constructor(props: any) {
@@ -35,7 +48,7 @@ class LoginForm extends React.Component<
 		try {
 			console.log(this.state);
 
-			const user = await this.props.firebase
+			await this.props.firebase
 				.doSignInWithEmailAndPassword(
 					this.state.email.value.toString(),
 					this.state.password.value.toString()
@@ -51,13 +64,20 @@ class LoginForm extends React.Component<
 					const user = await this.props.firebase.getUser(authUser.user.email);
 					return user;
 				})
-				.then(user => {
+				.then(async user => {
 					if (user !== undefined) {
 						const payload = user.docs[0].data();
 						payload.uid = user.docs[0].id;
 						this.props.login(payload);
-						this.setState({ redirect: { value: true } });
 					}
+					const unis = await this.props.firebase.getUniversities();
+					return unis;
+				})
+				.then(async (unis: any) => {
+					this.props.fetchUniversities(unis);
+				})
+				.then(async () => {
+					this.setState({ redirect: { value: true } });
 				});
 		} catch (err) {
 			console.log(err);
@@ -126,5 +146,5 @@ class LoginForm extends React.Component<
 
 export const LoginFormComposed = compose(
 	withFirebase,
-	connect(null, mapDispatchToProps)
+	connect(mapStateToProps, mapDispatchToProps)
 )(LoginForm);

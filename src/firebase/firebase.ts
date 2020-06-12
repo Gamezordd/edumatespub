@@ -1,5 +1,5 @@
 import config from '../firebaseConfig.json';
-import app from 'firebase/app';
+import app, { firestore } from 'firebase/app';
 import React from 'react';
 import { getRoles } from '@testing-library/react';
 require('firebase/auth');
@@ -79,21 +79,54 @@ export class Firebase {
 		}
 	};
 
-	getUniversities = async () =>
-		await this.db
+	getUniversities = async () => {
+		return await this.db
 			.collection('university')
 			.get()
 			.then(query => {
-				var data: any[];
+				var data: any[] = [];
 				query.docs.map((doc, i) => {
 					data[i] = doc.data();
 					data[i].id = doc.id;
 					return data;
 				});
+				console.log('data: ', data);
+
+				return data;
 			});
+	};
 
 	doPasswordReset = async (email: string) =>
 		await this.auth.sendPasswordResetEmail(email);
+
+	editFavourites = async (
+		uid: string,
+		universityIds: string[],
+		add?: boolean
+	) => {
+		//add:true -> add else remove from favouriteUnis
+		if (add) {
+			universityIds.map(id => {
+				this.db
+					.collection('USER')
+					.doc(uid)
+					.update({
+						favouriteUnis: firestore.FieldValue.arrayUnion(id),
+					});
+				return id;
+			});
+		} else {
+			universityIds.map(id => {
+				this.db
+					.collection('USER')
+					.doc(uid)
+					.update({
+						favouriteUnis: firestore.FieldValue.arrayRemove(id),
+					});
+				return id;
+			});
+		}
+	};
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);

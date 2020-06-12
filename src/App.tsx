@@ -6,7 +6,7 @@ import {
 	Login,
 	RegistrationForm,
 	LogOut,
-	DiscoverContainer,
+	DiscoverContainerComposed,
 } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -21,7 +21,11 @@ export function App() {
 						<Route exact path={'/register'} component={RegistrationForm} />
 						<Route exact path={'/login'} component={Login} />
 						<Route exact path={'/logout'} component={LogOut} />
-						<Route exact path={'/discover'} component={DiscoverContainer} />
+						<Route
+							exact
+							path='/discover'
+							component={DiscoverContainerComposed}
+						/>
 					</Switch>
 				</NavBar>
 			</Router>
