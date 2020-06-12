@@ -27,6 +27,9 @@ export interface LoginState {
 	email: FieldState;
 	password: FieldState;
 	redirect: FieldState;
+
+	errorMessage: FieldState;
+	showError: FieldState;
 }
 
 export interface RegisterState {
@@ -40,10 +43,14 @@ export interface RegisterState {
 	phone: FieldState;
 
 	//student fields
-	GRE: FieldState;
-	GPA: FieldState;
+	currentInstitute: FieldState;
 	//ambassador fields
-	university: FieldState;
+	code: FieldState;
+	type: FieldState;
+	universityId: FieldState;
 
+	//UI states
 	redirect: FieldState;
+	errorMessage: FieldState;
+	showError: FieldState;
 }

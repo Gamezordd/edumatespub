@@ -69,23 +69,12 @@ export const CommonFields: RegisterFieldType[] = [
 ];
 
 export const StudentFields: RegisterFieldType[] = [
-	// {
-	// 	key: 'GRE',
-	// 	validate: 'gre',
-	// 	properties: {
-	// 		type: 'text',
-	// 		label: 'GRE:',
-	// 		icon: 'pencil square',
-	// 		required: true,
-	// 		iconPosition: 'left',
-	// 	},
-	// },
 	{
-		key: 'GPA',
-		validate: 'gpa',
+		key: 'currentInstitute',
+		validate: 'name',
 		properties: {
 			type: 'text',
-			label: 'GPA:',
+			label: 'Current Institute:',
 			icon: 'university',
 			required: true,
 			iconPosition: 'left',
@@ -95,12 +84,12 @@ export const StudentFields: RegisterFieldType[] = [
 
 export const AmbassadorFields: RegisterFieldType[] = [
 	{
-		key: 'university',
-		validate: 'any',
+		key: 'code',
+		validate: 'code',
 		properties: {
 			type: 'text',
-			label: 'University:',
-			icon: 'building',
+			label: 'Access Code:',
+			icon: 'tag',
 			required: true,
 			iconPosition: 'left',
 		},

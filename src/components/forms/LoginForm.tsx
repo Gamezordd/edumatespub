@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { ValidatorType, validators } from './constants';
-import { Form, Button, FormField, Input } from 'semantic-ui-react';
+import { Form, Button, FormField, Input, Card } from 'semantic-ui-react';
 import { LoginState } from './types';
 import { FormFields } from './LoginFields';
 import { Firebase } from '../../firebase';
@@ -26,6 +26,8 @@ class LoginForm extends React.Component<
 			email: { value: '', error: false },
 			password: { value: '', error: false },
 			redirect: { value: false },
+			errorMessage: { value: '' },
+			showError: { value: false },
 		};
 	}
 
@@ -58,7 +60,11 @@ class LoginForm extends React.Component<
 					}
 				});
 		} catch (err) {
-			console.log(err + this.state.password.value);
+			console.log(err);
+			this.setState({
+				...this.state,
+				...{ showError: { value: true }, errorMessage: { value: err.message } },
+			});
 		}
 	};
 
@@ -108,6 +114,11 @@ class LoginForm extends React.Component<
 					))}
 					<Button content='Submit' onClick={() => this.handleSubmit()} />
 				</Form>
+				{this.state.showError.value && (
+					<Card fluid style={{ padding: '10px' }}>
+						<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
+					</Card>
+				)}
 			</div>
 		);
 	}

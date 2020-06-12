@@ -4,23 +4,20 @@ export const validators = {
 		message: 'Enter valid email',
 	},
 	password: {
-		regex: '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{6,}$',
-		message: 'Must contain six characters',
+		regex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,15}$',
+		message:
+			'Must be at least six characters. One upper and lower case letter each and a number.',
 	},
-	phone: { regex: '^[0-9]{8}', message: 'Enter valid phone number' },
+	phone: {
+		regex: '^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$',
+		message: 'Enter valid phone number',
+	},
 	any: { regex: '[\\s\\S]*', message: '' },
-	gre: {
-		regex: '^([0-9]|[1-8][0-9]|9[0-9]|[12][0-9]{2}|3[0-3][0-9]|340)$',
-		message: 'Enter valid GRE score',
-	},
-	gpa: {
-		regex: '^([0]|[0-3].([0-9]{2})|[4].[0])$',
-		message: 'Enter valdi GPA',
-	},
 	name: {
 		regex: "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$",
 		message: 'Invalid Name',
 	},
+	code: { regex: '^[0-9A-Z\\-]{8,9}$', message: 'Enter valid code format.' },
 };
 
 export interface ValidatorType {
@@ -29,6 +26,5 @@ export interface ValidatorType {
 	name: string;
 	any: string;
 	phone: number;
-	gre: number;
-	gpa: number;
+	code: string;
 }

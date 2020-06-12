@@ -23,8 +23,9 @@ export class Firebase {
 
 	createUserEntry = async (payload: any) => {
 		const {
-			GPA,
-			university,
+			currentInstitute,
+			universityId,
+			type,
 			name,
 			email,
 			gender,
@@ -33,8 +34,8 @@ export class Firebase {
 			isAmbassador,
 		} = payload;
 		const data = payload.isAmbassador.value
-			? { university: university.value }
-			: { gpa: GPA.value };
+			? { universityId: universityId.value, type: type.value }
+			: { currentInstitute: currentInstitute.value };
 		await this.db.collection('USER').add({
 			...{
 				name: name.value,

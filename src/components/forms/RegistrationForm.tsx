@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { ValidatorType, validators } from './constants';
-import { Form, Button, FormField, Input } from 'semantic-ui-react';
+import { Form, Button, FormField, Input, Card } from 'semantic-ui-react';
 import { RegisterState } from './types';
 import { countryOptions } from './countriesData';
 import {
@@ -16,8 +16,9 @@ import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 
-/*TODO: Add error handling for user creation*/
+const validateURL = `https://us-central1-mpfirebaseproject-7ff28.cloudfunctions.net/api/tokens/validate/`;
 
 class RegistrationFormUncomposed extends React.Component<
 	{ firebase: Firebase },
@@ -25,6 +26,7 @@ class RegistrationFormUncomposed extends React.Component<
 > {
 	constructor(props: any) {
 		super(props);
+
 		this.state = {
 			email: { value: '', error: false },
 			password: { value: '', error: false },
@@ -33,20 +35,53 @@ class RegistrationFormUncomposed extends React.Component<
 			phone: { value: '', error: false },
 			country: { value: '' },
 			isAmbassador: { value: false },
-			GRE: { value: '', error: false },
-			university: { value: '', error: false },
-			GPA: { value: '', error: false },
+			code: { value: '', error: false },
+			type: { value: '', error: false },
+			universityId: { value: '', error: false },
+			currentInstitute: { value: '', error: false },
 			redirect: { value: false },
+			errorMessage: { value: '' },
+			showError: { value: false },
 		};
 	}
 
 	handleSubmit = async () => {
-		await this.props.firebase.createUserEntry(this.state);
-		await this.props.firebase.doCreateUserWithEmailAndPassword(
-			this.state.email.value.toString(),
-			this.state.password.value.toString()
-		);
-		this.setState({ redirect: { value: true } });
+		console.log(this.state);
+		try {
+			if (this.state.isAmbassador.value) {
+				const callURL = validateURL + this.state.code.value;
+				const data = await axios.get(callURL);
+				if (data.data.status === true) {
+					this.setState({
+						...this.state,
+						...{
+							type: { value: data.data.type },
+							universityId: { value: data.data.universityId },
+						},
+					});
+				} else {
+					this.setState({
+						...this.state,
+						...{
+							errorMessage: { value: 'Invalid or used access code.' },
+							showError: { value: true },
+						},
+					});
+					return;
+				}
+			}
+			await this.props.firebase.doCreateUserWithEmailAndPassword(
+				this.state.email.value.toString(),
+				this.state.password.value.toString()
+			);
+			await this.props.firebase.createUserEntry(this.state);
+			this.setState({ redirect: { value: true } });
+		} catch (err) {
+			this.setState({
+				...this.state,
+				...{ showError: { value: true }, errorMessage: { value: err.message } },
+			});
+		}
 	};
 
 	genderUpdater = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,11 +112,10 @@ class RegistrationFormUncomposed extends React.Component<
 	};
 
 	syntheticEventHandler = (key: keyof RegisterState, value: string) => {
-		this.setState({ ...this.state, ...{ [key]: value } });
+		this.setState({ ...this.state, ...{ [key]: { value: value } } });
 	};
 
 	handleRole = (value: string) => {
-		console.log(value);
 		const val = value === 'ambassador' ? true : false;
 		this.setState({ ...this.state, ...{ isAmbassador: { value: val } } });
 	};
@@ -89,7 +123,7 @@ class RegistrationFormUncomposed extends React.Component<
 	getError = (key: keyof RegisterState) => this.state[key].error;
 
 	render() {
-		if (this.state.redirect.value) return <Redirect to='/login' />;
+		if (this.state.redirect.value) return <Redirect to='/' />;
 
 		const VariableFields = this.state.isAmbassador.value
 			? AmbassadorFields
@@ -160,6 +194,12 @@ class RegistrationFormUncomposed extends React.Component<
 					))}
 					<Button content='Submit' onClick={() => this.handleSubmit()} />
 				</Form>
+
+				{this.state.showError.value && (
+					<Card fluid style={{ padding: '10px' }}>
+						<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
+					</Card>
+				)}
 			</div>
 		);
 	}
