@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { ValidatorType, validators } from './constants';
-import { Form, Button, FormField, Input, Card } from 'semantic-ui-react';
+import { Form, Button, FormField, Input, Card, Image } from 'semantic-ui-react';
 import { RegisterState } from './types';
 import { countryOptions } from './countriesData';
 import {
@@ -130,9 +130,14 @@ class RegistrationFormUncomposed extends React.Component<
 			: StudentFields;
 
 		return (
-			<div>
-				<h2>Register</h2>
+			<div className='wrapper2'>
 				<Form>
+					<Image
+						size='medium'
+						src={process.env.PUBLIC_URL + '/logo.png'}
+						className='img'
+					/>
+					<h2>Create a new account</h2>
 					{_.map(CommonFields, field => (
 						<FormField
 							{...field.properties}
@@ -145,6 +150,7 @@ class RegistrationFormUncomposed extends React.Component<
 					))}
 					<Form.Dropdown
 						label='Country:'
+						className='drop'
 						fluid
 						search
 						selection
@@ -158,6 +164,7 @@ class RegistrationFormUncomposed extends React.Component<
 					/>
 					<Form.Dropdown
 						label='Gender:'
+						className='drop'
 						fluid
 						search
 						selection
@@ -171,6 +178,7 @@ class RegistrationFormUncomposed extends React.Component<
 					/>
 					<Form.Dropdown
 						label='Role:'
+						className='drop'
 						fluid
 						search
 						selection
@@ -192,14 +200,25 @@ class RegistrationFormUncomposed extends React.Component<
 							}
 						/>
 					))}
-					<Button content='Submit' onClick={() => this.handleSubmit()} />
+					{this.state.showError.value && (
+						<Card fluid style={{ padding: '10px' }}>
+							<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
+						</Card>
+					)}
+					<div className='txt'>
+						By signing up, you accept the Terms of
+						<br /> Service and the Privacy Policy
+					</div>
+					<Button
+						content='Submit'
+						onClick={() => this.handleSubmit()}
+						className='btn'
+						color='orange'
+					/>
+					<div className='txt'>
+						Have an account?<span className='log'>Login.</span>
+					</div>
 				</Form>
-
-				{this.state.showError.value && (
-					<Card fluid style={{ padding: '10px' }}>
-						<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
-					</Card>
-				)}
 			</div>
 		);
 	}

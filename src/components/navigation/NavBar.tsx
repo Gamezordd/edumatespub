@@ -5,7 +5,7 @@ import { NavBarMobile } from './NavBarMobile';
 
 //Add margin above components added after NavBar
 const NavBarChildren: React.FC = ({ children }) => (
-	<Container style={{ marginTop: '5em' }}>{children}</Container>
+	<Container >{children}</Container>
 );
 
 export class NavBar extends Component<

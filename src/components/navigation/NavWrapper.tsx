@@ -39,7 +39,7 @@ const NavBarWrapperUncomposed: React.FC<any> = ({ children, isLoggedIn }) => {
 
 	return (
 		<NavBar leftItems={lItems} rightItems={rItems}>
-			{children}
+			<div className='navChild'>{children}</div>
 		</NavBar>
 	);
 };
