@@ -1,14 +1,32 @@
 import React from 'react';
-import { APIkey, coordinates, defaultZoom } from './constants';
+import { APIkey } from './constants';
 import { LoadingContainer, InfoWindowContent } from './index';
 import {
 	GoogleApiWrapper,
-	IProvidedProps,
 	Map,
 	Marker,
 	InfoWindow,
+	GoogleAPI,
 } from 'google-maps-react';
-class MapComponent extends React.Component<IProvidedProps, any> {
+
+interface MapComponentPropTypes {
+	google: GoogleAPI;
+	places: Array<{
+		lat: number;
+		lng: number;
+		details: { name: string; description: string };
+	}>;
+	zoomProp: number;
+	//height?: string | number;
+	//width?: string | number;
+
+	styleProps?: {
+		maxHeight?: string | number;
+		maxWidth?: string | number;
+	};
+}
+
+class MapComponent extends React.Component<MapComponentPropTypes, any> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -19,18 +37,20 @@ class MapComponent extends React.Component<IProvidedProps, any> {
 	}
 
 	findCenter = (places: any) => {
-		var Xav = 0;
-		var Yav = 0;
+		var LATav = 0;
+		var LNGav = 0;
 		var count = 0;
 		places.map((place: any) => {
-			++count;
-			Xav = Xav + place.X;
-			Yav = Yav + place.Y;
+			LATav = LATav + place.lat;
+			LNGav = LNGav + place.lng;
+			return ++count;
 		});
-		return { lat: Xav / count, lng: Yav / count };
+		console.log("center coordinates: ", { lat: LATav / count, lng: LNGav / count });
+		
+		return { lat: LATav / count, lng: LNGav / count };
 	};
 
-	onMouseOver = (props: any, marker: any, e: any) => {
+	handleClick = (props: any, marker: any, e: any) => {
 		console.log('props: ', props, '\n marker: ', marker, '\n e: ', e);
 		this.setState({
 			activeMarker: marker,
@@ -44,31 +64,49 @@ class MapComponent extends React.Component<IProvidedProps, any> {
 	};
 
 	render() {
+		const { google, zoomProp, places, styleProps } = this.props;
+
+		var styleOptions: {
+			maxHeight: string | number;
+			maxWidth: string | number;
+		} = { maxHeight: '', maxWidth: '' };
+
+		if (styleProps?.maxHeight && styleProps.maxWidth) {
+			styleOptions.maxHeight = styleProps.maxHeight;
+			styleOptions.maxWidth = styleProps.maxWidth;
+		} else {
+			styleOptions.maxHeight = '100%';
+			styleOptions.maxWidth = '100%';
+		}
+
 		return (
 			<div>
 				<Map
-					style={{ maxWidth: '60vw', maxHeight: '80vh' }}
+					style={{
+						maxWidth: styleOptions.maxWidth,
+						maxHeight: styleOptions.maxHeight,
+					}}
 					onClick={this.windowCloseHandler}
-					google={this.props.google}
-					zoom={defaultZoom}
-					initialCenter={this.findCenter(coordinates)}
+					google={google}
+					zoom={zoomProp}
+					initialCenter={this.findCenter(places)}
 					onReady={(mapProps, map) => {
 						this.setState({ map: map as google.maps.Map });
 					}}
 				>
-					{coordinates &&
-						coordinates.map(place => {
+					{places &&
+						places.map(place => {
 							return (
 								<Marker
-									position={{ lat: place.X, lng: place.Y }}
+									position={{ lat: place.lat, lng: place.lng }}
 									key={place.details.name}
-									onMouseover={this.onMouseOver}
+									onClick={this.handleClick}
 								/>
 							);
 						})}
 					{this.state.map && (
 						<InfoWindow
-							google={this.props.google}
+							google={google}
 							marker={this.state.activeMarker}
 							visible={this.state.isWindowOpen}
 							map={this.state.map}

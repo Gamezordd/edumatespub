@@ -13,6 +13,7 @@ export class CardContainerComponent extends React.Component<
 			selectedCardData,
 			favouriteUnis,
 			selected,
+			onCardClick
 		} = this.props;
 		var renderData: object[] = [];
 		if (!selected) {
@@ -36,6 +37,7 @@ export class CardContainerComponent extends React.Component<
 					content={university}
 					favourite={isFavourite}
 					onFavouriteButtonClick={onFavouriteButtonClick}
+					onCardClick={onCardClick}
 				/>
 			);
 		});

@@ -1,24 +1,31 @@
 import React from 'react';
 import { Card, Image, Icon, Grid } from 'semantic-ui-react';
+import { ButtonProps } from './interfaces'
 
-interface ButtonProps {
-	content: any;
-	show?: boolean;
-	favourite: boolean;
-	onFavouriteButtonClick: (universityId: string[], add?: boolean) => void;
-}
 
 export const DiscoverCard = (props: ButtonProps) => {
-	const { image, name, description, id } = props.content;
-	const { show, favourite, onFavouriteButtonClick } = props;
+	const { image, name, description, id, location } = props.content;
+	const { show, favourite, onFavouriteButtonClick, onCardClick } = props;
+	function handleClick() {
+		onCardClick([
+			{
+				lat: location.latitude,
+				lng: location.longitude,
+				details: { name: name, description: description, image: image },
+			},
+		]);
+	}
 	if (show) {
 		return (
 			<Grid.Column>
 				<Card>
-					<Image wrapped src={image} ui={false} />
+					<Image onClick={() => handleClick()} wrapped src={image} ui={false} />
 					<Card.Content>
-						<Card.Header> {name} </Card.Header>
-						<Card.Description style={{ marginBottom: '5px' }}>
+						<Card.Header onClick={() => handleClick()}> {name} </Card.Header>
+						<Card.Description
+							onClick={() => handleClick()}
+							style={{ marginBottom: '5px' }}
+						>
 							{' '}
 							{description}{' '}
 						</Card.Description>

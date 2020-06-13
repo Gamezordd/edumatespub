@@ -6,7 +6,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { editFavouritesAction } from '../../redux';
 
-import /*DiscoverModal*/ './index';
+import { DiscoverModal } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
 import { initialState } from './constants';
 import { CardContainerComponent } from './CardContainerComponent';
@@ -89,6 +89,12 @@ class DiscoverComponent extends React.Component<
 			});
 	};
 
+	handleClick = (place: object[]) => {
+		console.log("place recieved: ", place);
+		this.setState({places: place, isModalOpen: true})
+		
+	}
+
 	render() {
 		const {
 			isLoading,
@@ -96,7 +102,8 @@ class DiscoverComponent extends React.Component<
 			value,
 			selection,
 			showCard,
-			//isModalOpen,
+			isModalOpen,
+			places
 		} = this.state;
 
 		return (
@@ -126,8 +133,9 @@ class DiscoverComponent extends React.Component<
 					onFavouriteButtonClick={this.handleFavouritesChange}
 					selectedCardData={selection}
 					favouriteUnis={this.props.user.favouriteUnis}
+					onCardClick={this.handleClick}
 				/>
-				{/*<DiscoverModal open={isModalOpen} content={selection} onClose={this.handleModalClose}/>*/}
+				<DiscoverModal open={isModalOpen} content={places} onClose={this.handleModalClose}/>
 			</div>
 		);
 	}

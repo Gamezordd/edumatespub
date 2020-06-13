@@ -26,4 +26,5 @@ export const initialState = {
 		image: '',
 		description: '',
 	},
+	places: []
 };
