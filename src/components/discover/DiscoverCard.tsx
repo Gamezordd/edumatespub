@@ -8,6 +8,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 	var { image, name, description, id, location } = props.content;
 	const { show, favourite, onFavouriteButtonClick, onCardClick } = props;
 	const [isLoaded, setLoaded] = useState(false);
+	const [isHovering, setHover] = useState(false);
 	
 	function handleClick() {
 		onCardClick([
@@ -29,8 +30,6 @@ export const DiscoverCard = (props: ButtonProps) => {
 	}
 
 	if (show) {
-		console.log(name, ' ',image);
-		
 		return (
 			<Grid.Column>
 				<Card>
@@ -41,8 +40,9 @@ export const DiscoverCard = (props: ButtonProps) => {
 							onClick={() => handleClick()}
 							style={{ marginBottom: '5px' }}
 						>
-							{' '}
-							{formatDescription(description)}{' '}
+							<div style={{height:"200px", overflowY:"auto"}}>
+								{description}
+							</div>
 						</Card.Description>
 						<Card.Meta>
 							{favourite ? (
