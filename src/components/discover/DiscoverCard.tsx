@@ -40,7 +40,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 							onClick={() => handleClick()}
 							style={{ marginBottom: '5px' }}
 						>
-							<div style={{height:"200px", overflowY:"auto"}}>
+							<div style={{height:"20vh", overflowY:"auto"}}>
 								{description}
 							</div>
 						</Card.Description>
