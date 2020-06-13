@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Image, Icon, Grid } from 'semantic-ui-react';
 import { ButtonProps } from './interfaces'
+import { descriptionLength, uniImagePlaceholder } from "./constants";
 
 
 export const DiscoverCard = (props: ButtonProps) => {
-	const { image, name, description, id, location } = props.content;
+	var { image, name, description, id, location } = props.content;
 	const { show, favourite, onFavouriteButtonClick, onCardClick } = props;
+	const [isLoaded, setLoaded] = useState(false);
+	
 	function handleClick() {
 		onCardClick([
 			{
@@ -15,11 +18,23 @@ export const DiscoverCard = (props: ButtonProps) => {
 			},
 		]);
 	}
+
+	function formatDescription(description: string) {
+		if(description.length > descriptionLength){
+			return(description.substring(0, descriptionLength) + "...")
+		}
+		else{
+			return(description)
+		}
+	}
+
 	if (show) {
+		console.log(name, ' ',image);
+		
 		return (
 			<Grid.Column>
 				<Card>
-					<Image onClick={() => handleClick()} wrapped src={image} ui={false} />
+					<img onClick={() => handleClick()} style={{objectFit:"cover", maxHeight:"254px", maxWidth:"254px"}} src={isLoaded && image!=='' && image !== undefined ? image : uniImagePlaceholder} onLoad={() => setLoaded(true)} alt={name}/>
 					<Card.Content>
 						<Card.Header onClick={() => handleClick()}> {name} </Card.Header>
 						<Card.Description
@@ -27,7 +42,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 							style={{ marginBottom: '5px' }}
 						>
 							{' '}
-							{description}{' '}
+							{formatDescription(description)}{' '}
 						</Card.Description>
 						<Card.Meta>
 							{favourite ? (
