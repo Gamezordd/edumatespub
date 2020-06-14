@@ -132,7 +132,7 @@ class RegistrationFormUncomposed extends React.Component<
 	getError = (key: keyof RegisterState) => this.state[key].error;
 
 	render() {
-		if (this.state.redirect.value) return <Redirect to='/' />;
+		if (this.state.redirect.value) return <Redirect to='/login' />;
 
 		const VariableFields = this.state.isAmbassador.value
 			? AmbassadorFields
