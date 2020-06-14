@@ -14,7 +14,7 @@ const userLeftItems: ItemProps[] = [
 	{ content: 'Home', key: 'home', to: '/' },
 	{ content: 'Maps', key: 'maps', to: '/maps' },
 	{ content: 'Chat', key: 'chat', to: '/chat' },
-	{ content: 'Discover', key: 'discover', to: '/discover' }
+	{ content: 'Discover', key: 'discover', to: '/discover' },
 ];
 
 const userRightItems: ItemProps[] = [
@@ -29,7 +29,7 @@ const rightItems: ItemProps[] = [
 const NavBarWrapperUncomposed: React.FC<any> = ({ children, isLoggedIn }) => {
 	console.log('Login status' + isLoggedIn);
 
-	var lItems: ItemProps[] | null = null,
+	var lItems: ItemProps[] | null = [],
 		rItems: ItemProps[] | null = rightItems;
 
 	if (isLoggedIn) {

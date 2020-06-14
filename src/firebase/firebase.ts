@@ -127,6 +127,8 @@ export class Firebase {
 			});
 		}
 	};
+
+	signOut = async () => await this.auth.signOut();
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);
