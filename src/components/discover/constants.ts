@@ -31,3 +31,11 @@ export const initialState = {
 	},
 	places: []
 };
+
+//cards for various screen sizes
+
+export const cardWidths = [
+	{minWidth: 400, cols: 1},
+	{minWidth: 800, cols: 2},
+	{minWidth: 1200, cols: 4}
+]

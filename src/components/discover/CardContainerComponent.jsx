@@ -1,11 +1,9 @@
 import React from 'react';
 import { DiscoverCard } from './DiscoverCard';
-import { CardContainerProps } from './interfaces';
+import { cardWidths } from './constants'
 import { Grid } from 'semantic-ui-react';
 
-export class CardContainerComponent extends React.Component<
-	CardContainerProps
-> {
+export class CardContainerComponent extends React.Component{
 	render() {
 		const {
 			data,
@@ -15,14 +13,14 @@ export class CardContainerComponent extends React.Component<
 			selected,
 			onCardClick
 		} = this.props;
-		var renderData: object[] = [];
+		var renderData = [];
 		if (!selected) {
 			renderData = data;
 		} else {
 			if (selectedCardData) renderData = [selectedCardData];
 		}
 
-		const RenderCards = renderData.map((university: any) => {
+		const RenderCards = renderData.map((university) => {
 			var isFavourite = false;
 			if (favouriteUnis === []) {
 				isFavourite = false;
@@ -41,10 +39,26 @@ export class CardContainerComponent extends React.Component<
 				/>
 			);
 		});
+		function columns(){
+			var currentWidth = 0;
+			var currentCols = 0;
+			cardWidths.map(data => {
+				if(data.minWidth < window.innerWidth && data.minWidth > currentWidth){
+					console.log("curentWidth:", currentWidth);
+					
+					currentWidth = data.minWidth;
+					currentCols = data.cols;
+				}
+				return null
+			})
+			console.log("currentcols: ", currentCols);
+			
+			return currentCols
+		}
 
 		return (
-			<Grid style={{ paddingTop: '10px' }} columns={4} container>
-				{RenderCards}
+			<Grid centered style={{ paddingTop: '10px' }} columns={columns()} container>
+					{RenderCards}
 			</Grid>
 		);
 	}

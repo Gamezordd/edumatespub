@@ -8,7 +8,7 @@ import { editFavouritesAction } from '../../redux';
 
 import { DiscoverModal } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
-import { initialState } from './constants';
+import { initialState, cardWidths } from './constants';
 import { CardContainerComponent } from './CardContainerComponent';
 
 const mapStateToProps = (state: any) => {
@@ -108,9 +108,8 @@ class DiscoverComponent extends React.Component<
 
 		return (
 			<div>
-				<Grid columns={5} container>
-					<Grid.Column />
-					<Grid.Column />
+				<Grid centered columns={1} container>
+					<div style={{flex: 1, justifyContent: "center"}}>
 					<Grid.Column>
 						<Search
 							fluid
@@ -124,8 +123,7 @@ class DiscoverComponent extends React.Component<
 							onFavouriteBottonClick={this.handleFavouritesChange}
 						/>
 					</Grid.Column>
-					<Grid.Column />
-					<Grid.Column />
+					</div>
 				</Grid>
 				<CardContainerComponent
 					data={this.props.uniList.data}

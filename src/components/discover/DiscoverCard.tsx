@@ -8,7 +8,6 @@ export const DiscoverCard = (props: ButtonProps) => {
 	var { image, name, description, id, location } = props.content;
 	const { show, favourite, onFavouriteButtonClick, onCardClick } = props;
 	const [isLoaded, setLoaded] = useState(false);
-	const [isHovering, setHover] = useState(false);
 	
 	function handleClick() {
 		onCardClick([
@@ -20,19 +19,19 @@ export const DiscoverCard = (props: ButtonProps) => {
 		]);
 	}
 
-	function formatDescription(description: string) {
+	/*function formatDescription(description: string) {
 		if(description.length > descriptionLength){
 			return(description.substring(0, descriptionLength) + "...")
 		}
 		else{
 			return(description)
 		}
-	}
+	}*/
 
 	if (show) {
 		return (
 			<Grid.Column>
-				<Card>
+					<Card centered style={{maxWidth: "254px"}}>
 					<img onClick={() => handleClick()} style={{objectFit:"cover", maxHeight:"254px", maxWidth:"254px"}} src={isLoaded && image!=='' && image !== undefined ? image : uniImagePlaceholder} onLoad={() => setLoaded(true)} alt={name}/>
 					<Card.Content>
 						<Card.Header onClick={() => handleClick()}> {name} </Card.Header>
@@ -40,7 +39,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 							onClick={() => handleClick()}
 							style={{ marginBottom: '5px' }}
 						>
-							<div style={{height:"20vh", overflowY:"auto"}}>
+							<div style={{height:"20vh",maxWidth: "254px" ,overflowY:"auto"}}>
 								{description}
 							</div>
 						</Card.Description>
