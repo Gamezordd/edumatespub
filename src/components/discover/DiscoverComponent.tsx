@@ -8,7 +8,7 @@ import { editFavouritesAction } from '../../redux';
 
 import { DiscoverModal } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
-import { initialState, cardWidths } from './constants';
+import { initialState, searchDescriptionLength } from './constants';
 import { CardContainerComponent } from './CardContainerComponent';
 
 const mapStateToProps = (state: any) => {
@@ -42,6 +42,15 @@ class DiscoverComponent extends React.Component<
 		this.setState({ isModalOpen: false });
 	};
 
+	formatDescription(description: string) {
+		if(description.length > searchDescriptionLength){
+			return(description.substring(0, searchDescriptionLength) + "...")
+		}
+		else{
+			return(description)
+		}
+	}
+
 	handlesearchChange = (
 		e: React.MouseEvent<HTMLElement, MouseEvent>,
 		{ value }: SearchProps
@@ -69,7 +78,7 @@ class DiscoverComponent extends React.Component<
 					element => {
 						return {
 							title: element.name,
-							description: element.description,
+							description: this.formatDescription(element.description),
 							image: element.image,
 							id: element.id,
 							details: { ...element },
@@ -112,7 +121,9 @@ class DiscoverComponent extends React.Component<
 					<div style={{flex: 1, justifyContent: "center"}}>
 					<Grid.Column>
 						<Search
+							size="big"
 							fluid
+							aligned="left"
 							loading={isLoading}
 							results={results}
 							value={value}

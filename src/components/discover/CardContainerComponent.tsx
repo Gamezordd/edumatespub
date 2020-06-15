@@ -12,6 +12,15 @@ export class CardContainerComponent extends React.Component<CardContainerProps, 
 		}
 	}
 
+	componentDidMount(){
+		window.addEventListener('resize', this.handleEnumerateColumns );
+		this.handleEnumerateColumns();
+	}
+
+	componentWillUnmount(){
+		window.removeEventListener('resize', this.handleEnumerateColumns)
+	}
+
 	handleEnumerateColumns = () =>{
 		var diff = window.innerWidth;
 		var currentCols = 0;
@@ -23,15 +32,6 @@ export class CardContainerComponent extends React.Component<CardContainerProps, 
 			return null
 		})
 		this.setState({currentCols: currentCols})
-	}
-
-	componentDidMount(){
-		window.addEventListener('resize', this.handleEnumerateColumns );
-		this.handleEnumerateColumns();
-	}
-
-	componentWillUnmount(){
-		window.removeEventListener('resize', this.handleEnumerateColumns)
 	}
 
 	render() {

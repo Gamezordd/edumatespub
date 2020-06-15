@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Image, Icon, Grid } from 'semantic-ui-react';
 import { ButtonProps } from './interfaces'
 import { descriptionLength, uniImagePlaceholder } from "./constants";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const DiscoverCard = (props: ButtonProps) => {
 	var { image, name, description, id, location } = props.content;
@@ -27,12 +27,31 @@ export const DiscoverCard = (props: ButtonProps) => {
 			return(description)
 		}
 	}*/
+	const notFavourite = (<Icon
+							name='star'
+							color='grey'
+							size='big'
+							onClick={() => onFavouriteButtonClick([id], true)}
+						/>)
+
+	const isfavourite = (<Icon
+							name='star'
+							color='red'
+							size='big'
+							onClick={() => onFavouriteButtonClick([id], false)}
+						/>)
 
 	if (show) {
 		return (
 			<Grid.Column>
 					<Card centered style={{maxWidth: "254px"}}>
-					<img onClick={() => handleClick()} style={{objectFit:"cover", maxHeight:"254px", maxWidth:"254px"}} src={isLoaded && image!=='' && image !== undefined ? image : uniImagePlaceholder} onLoad={() => setLoaded(true)} alt={name}/>
+						<div style={{maxWidth:"254px", height: "254px", position: "relative"}}>
+							<img onClick={() => handleClick()} style={{objectFit:"cover", maxHeight:"254px", width:"254px"}} src={isLoaded && image!=='' && image !== undefined ? image : uniImagePlaceholder} onLoad={() => setLoaded(true)} alt={name}/>
+							{isLoaded ? 
+								<div style={{position:"absolute", bottom:"2%", left:"2%", opacity:"0.8"}}>
+									{favourite ? isfavourite : notFavourite}
+								</div> : null}
+						</div>
 					<Card.Content>
 						<Card.Header onClick={() => handleClick()}> {name} </Card.Header>
 						<Card.Description
@@ -43,23 +62,9 @@ export const DiscoverCard = (props: ButtonProps) => {
 								{description}
 							</div>
 						</Card.Description>
-						<Card.Meta>
-							{favourite ? (
-								<Icon
-									name='star'
-									color='red'
-									size='big'
-									onClick={() => onFavouriteButtonClick([id], false)}
-								/>
-							) : (
-								<Icon
-									name='star'
-									color='grey'
-									size='big'
-									onClick={() => onFavouriteButtonClick([id], true)}
-								/>
-							)}
-						</Card.Meta>
+						{/*<Card.Meta>
+							{favourite ? isfavourite : notFavourite}
+						</Card.Meta>*/}
 					</Card.Content>
 				</Card>
 			</Grid.Column>
