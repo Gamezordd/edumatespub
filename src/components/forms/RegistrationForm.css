@@ -1,28 +1,23 @@
 
-.wrapper2 {
-  background-image: linear-gradient(to bottom,#ff8c00,#fffaf0);
-  text-align: center;
+.wrapper2{
+  margin-left:-9vw;
   width: 100vw;
   height: 200vh;
   display:flex;
   flex-direction: column;
-  justify-content: center;
-  overflow:hidden;
+  background-image: linear-gradient(to bottom,#ff8c00,#fffaf0);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  margin-left: -9vw;
-  
+ overflow-x: scroll;
+ 
 }
 
-
 form{
-  left:25%;
-  width:50%;
-  border:3px solid #f1f1f1;
+  
+  border:3px solid #f3f3f3;
   background-color:  #f1f3f3;
-  padding:50px;
+  padding:5%;
   border-radius: 25px;
   text-align: left;
-  
   
 }
 
@@ -31,16 +26,6 @@ input{
   border-width: 0 0 1px !important;
   border-color: black !important;
 }
-
-.drop{
-  border: 0 !important;
-  outline: 0 !important;
-  border-width: 0 0 1px !important;
-  border-color: black !important;
-}
-
-
-
 
 .img {
   position: relative;
@@ -52,7 +37,7 @@ input{
 .btn{
   position: relative;
   width: 100%;
-  height: 30px;
+  height:30px;
   margin: 10px auto;
   border: 1px solid #e6e6e6;
   padding: 20px 50px;

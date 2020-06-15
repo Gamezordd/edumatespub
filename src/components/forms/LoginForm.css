@@ -1,26 +1,21 @@
 
-
-.wrapper1 {
-  background-image: linear-gradient(to bottom,#ff8c00,#fffaf0);
-  text-align: center;
+.wrapper1{
+  margin-left:-9vw;
   width: 100vw;
   height: 100vh;
   display:flex;
   flex-direction: column;
-  justify-content: center;
-  overflow:hidden;
+  background-image: linear-gradient(to bottom,#ff8c00,#fffaf0);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  margin-left: -9vw;
+  overflow-x: scroll;
+ 
 }
 
-
-
 form{
-  left:25%;
-  width:50%;
-  border:3px solid #f1f1f1;
+ 
+  border:3px solid #f3f3f3;
   background-color:  #f1f3f3;
-  padding:50px;
+  padding:5%;
   border-radius: 25px;
   text-align: left;
   
