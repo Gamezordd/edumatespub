@@ -23,6 +23,7 @@ interface MapComponentPropTypes {
 	styleProps?: {
 		maxHeight?: string | number;
 		maxWidth?: string | number;
+		divHeight? : string;
 	};
 }
 
@@ -69,7 +70,8 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 		var styleOptions: {
 			maxHeight: string | number;
 			maxWidth: string | number;
-		} = { maxHeight: '', maxWidth: '' };
+			divHeight: string | undefined
+		} = { maxHeight: '', maxWidth: '', divHeight: undefined };
 
 		if (styleProps?.maxHeight && styleProps.maxWidth) {
 			styleOptions.maxHeight = styleProps.maxHeight;
@@ -78,9 +80,12 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 			styleOptions.maxHeight = '100%';
 			styleOptions.maxWidth = '100%';
 		}
+		if(styleProps?.divHeight){
+			styleOptions.divHeight = styleProps.divHeight
+		}
 
 		return (
-			<div>
+			<div style={{height: styleOptions.divHeight}}>
 				<Map
 					style={{
 						maxWidth: styleOptions.maxWidth,
@@ -101,6 +106,7 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 									position={{ lat: place.lat, lng: place.lng }}
 									key={place.details.name}
 									onClick={this.handleClick}
+									name={place.details}
 								/>
 							);
 						})}

@@ -121,6 +121,7 @@ class DiscoverComponent extends React.Component<
 					<div style={{flex: 1, justifyContent: "center"}}>
 					<Grid.Column>
 						<Search
+							input={{ fluid: true }}
 							size="big"
 							fluid
 							aligned="left"

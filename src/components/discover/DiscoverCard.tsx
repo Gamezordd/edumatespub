@@ -19,14 +19,14 @@ export const DiscoverCard = (props: ButtonProps) => {
 		]);
 	}
 
-	/*function formatDescription(description: string) {
+	function formatDescription(description: string) {
 		if(description.length > descriptionLength){
 			return(description.substring(0, descriptionLength) + "...")
 		}
 		else{
 			return(description)
 		}
-	}*/
+	}
 	const notFavourite = (<Icon
 							name='star'
 							color='grey'
@@ -58,13 +58,10 @@ export const DiscoverCard = (props: ButtonProps) => {
 							onClick={() => handleClick()}
 							style={{ marginBottom: '5px' }}
 						>
-							<div style={{height:"20vh",maxWidth: "254px" ,overflowY:"auto"}}>
-								{description}
+							<div style={{maxWidth: "254px" ,overflowY:"auto"}}>
+								{formatDescription(description)}
 							</div>
 						</Card.Description>
-						{/*<Card.Meta>
-							{favourite ? isfavourite : notFavourite}
-						</Card.Meta>*/}
 					</Card.Content>
 				</Card>
 			</Grid.Column>

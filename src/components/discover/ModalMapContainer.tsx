@@ -6,7 +6,7 @@ export function ModalMapContainer(props: ModalMapContainerPropTypes){
     const { places, zoomProp } = props
     return(
         <div>
-            <MapComponent places={places} zoomProp={zoomProp} styleProps={{maxHeight:"80%", maxWidth:"60%"}} />
+            <MapComponent places={places} zoomProp={zoomProp} styleProps={{divHeight:"300px"}} />
         </div>
     )
 }
