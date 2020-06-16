@@ -5,20 +5,43 @@ P{
 font-size: 150%;
 }
 
-.banner{
-  background-image: linear-gradient(to bottom, #ff9e16,red);
+.bannertop{
+  background: linear-gradient(to bottom,#f95700ff,#ffcf76);
   color: #fff;
   padding: 20%;
- 
-  
+
 }
+
+.bannerbottom{
+  background: linear-gradient(to bottom,#f95700ff,#ffcf76);
+  color: #fff;
+  padding: 20%;
+
+}
+
+.bannertop:before {
+
+content : '';
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+height:54px;
+background:url('./assets/wave1.png');
+background-size: cover;
+background-repeat: no-repeat;
+
+
+}
+
+
 .Media{
   background-color: whitesmoke;
   
 }
 
 .promo-title{
-  font-size: 6vw;
+  font-size: 4.5vw;
   font-weight: 600%;
   
   color:white;
@@ -32,7 +55,7 @@ font-size: 150%;
 
 .add {
   width:100%;
-  color:wheat;
+  color:black;
   margin:10%;
   font-weight: 200%;
   font-style: oblique;
@@ -46,26 +69,38 @@ Grid {
 }
 
 
-h1{
- color:black;
- text-align: center;
- margin:43%;
-}
+
 .whatwedo {
   background-color: whitesmoke;
 }
 
-h1{
-  content:'';
-
-  
-  margin-left:auto;
-  margin-right:auto;
-  display:block;
-  transform: translateY(63px);
-  text-decoration: underline solid #ff9e16;
-  font-size: 300%;
+.SMtitle {
+  text-align : center;
+  font-size: 200%;
 }
+
+
+.title{
+  color:black;
+  text-align: center;
+  margin:43%;
+ 
+ 
+ 
+
+ }
+
+ .title{
+ content:'';
+ 
+ 
+ margin-left:auto;
+ margin-right:auto;
+ display:block;
+ transform: translateY(63px);
+ text-decoration: underline solid #ff9e16;
+ font-size: 300%;
+ }
 
 h5{
  color: black;
@@ -97,7 +132,7 @@ font-style: normal;
   padding: 8px 25px;
   border: none;
   border-radius: 20px;
-  background-image: linear-gradient(to right,#ff9e16,red);
+  background-image: linear-gradient(to right,#ff9e16,orange);
   height: 50px;
   width:70%;
   align-content: center;
@@ -138,22 +173,24 @@ display: block;
 .Appimage{
   
     margin-left: 40%;
-    width:27vw;
+    width:30vw;
+    margin-bottom: 0;
     
     
-    border-radius: 5%;
-    border: 2px solid rgb(0, 0, 0); 
-  
+    
 }
 
 .playstore{
-  width: 70% ;
-  margin-left: 15%;
+  width: 40% ;
+  margin-left: 59%;
 }
 
-.play :hover img{
-  transform: translateY(-20%);
+.appstore {
+  width:35%;
+  margin-left : 62%;
 }
+
+
 
  .social-icons :hover img{
    transform: translateY(-20%);
@@ -270,7 +307,7 @@ h5 {
     height: 40px;}
 
     .Phone {
-      width:100%;
+      width:65%;
       align-self: center;
       padding-left: 5% ;
       padding-right: 5% ;
@@ -280,11 +317,15 @@ h5 {
 
 
 }
-
+@media screen and (max-width:1200px) {
+  .Phone{
+    width:85%;
+  }
+}
 @media screen and (min-width:799px) {
 
   .Testimonial {
-    font-size: 1.7vw;
+    font-size: 1.5vw;
 
   }
   
@@ -297,6 +338,10 @@ h5 {
     display:none;
   }
 
+  .Phone {
+    width:130%;
+    padding-left:30%;
+  }
   
  
 
