@@ -6,7 +6,7 @@ export function ModalMapContainer(props: ModalMapContainerPropTypes){
     const { places, zoomProp, searchType } = props
     return(
         <div>
-            <PlacesAPIWrapper center={places[0]} searchType={searchType} />
+            <PlacesAPIWrapper center={places[0]} searchType={searchType}/>
         </div>
     )
 }

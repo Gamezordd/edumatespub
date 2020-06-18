@@ -15,6 +15,7 @@ interface MapComponentPropTypes {
 		lat: number;
 		lng: number;
 		details: { name: string; description?: string };
+		centerMap?: boolean;
 	}>;
 	zoomProp: number;
 	//height?: string | number;
@@ -37,16 +38,28 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 		};
 	}
 
-	findCenter = (places: any) => {
+	findCenter = (places: { lat: number; lng: number; details: { name: string; description?: string | undefined; }; centerMap?: boolean }[]) => {
 		var LATav = 0;
 		var LNGav = 0;
 		var count = 0;
+		var center = undefined;
 		places.map((place: any) => {
-			LATav = LATav + place.lat;
-			LNGav = LNGav + place.lng;
-			return ++count;
+			if(place.centerMap){
+				center = place;
+			}
+			else{
+				LATav = LATav + place.lat;
+				LNGav = LNGav + place.lng;
+				return ++count;
+			}
+			return null
 		});
-		return { lat: LATav / count, lng: LNGav / count };
+		if(center){
+			return center
+		}
+		else{
+			return { lat: LATav / count, lng: LNGav / count };
+		}
 	};
 
 	handleClick = (props: any, marker: any, e: any) => {
@@ -105,6 +118,7 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 									key={place.details.name}
 									onClick={this.handleClick}
 									name={place.details}
+									title={place.centerMap ? place.details.name : undefined}
 								/>
 							);
 						})}
