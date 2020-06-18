@@ -9,3 +9,8 @@ export const coordinates = [
 		details: { name: 'Example', description: 'Description' },
 	},
 ];
+
+
+export const PlacesAPIKey = "AIzaSyAkU6z7jNV_DyUCPJhVYKjEzHfNJsYjEPI";
+
+export const PlacesSearchRadius = "1500";

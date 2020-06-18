@@ -19,5 +19,10 @@ export class InfoWindowContent extends React.Component<ContentProps>{
             </div>
         )
         }
+        else{
+            return(
+                <div></div>
+            )
+        }
     }
 }

@@ -1,12 +1,12 @@
 import React from 'react';
-import MapComponent from '../maps/MapComponent';
 import { ModalMapContainerPropTypes } from "./interfaces";
+import { PlacesAPIWrapper } from '../maps';
 
 export function ModalMapContainer(props: ModalMapContainerPropTypes){
-    const { places, zoomProp } = props
+    const { places, zoomProp, searchType } = props
     return(
         <div>
-            <MapComponent places={places} zoomProp={zoomProp} styleProps={{divHeight:"300px"}} />
+            <PlacesAPIWrapper center={places[0]} searchType={searchType} />
         </div>
     )
 }

@@ -98,10 +98,8 @@ class DiscoverComponent extends React.Component<
 			});
 	};
 
-	handleClick = (place: object[]) => {
-		console.log("place recieved: ", place);
+	handleClick = (place: Array<{ lat: number; lng: number; details: { name: string; description: string; image: string; }; }>) => {
 		this.setState({places: place, isModalOpen: true})
-		
 	}
 
 	render() {

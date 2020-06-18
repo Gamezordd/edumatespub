@@ -20,14 +20,14 @@ export interface initialStateProps {
 		description: string;
 		id?: string;
 	};
-	places: object[]
+	places: Array<{lat: number, lng: number, details:{name: string, description: string, image: string}}>
 }
 
 export interface CardContainerProps {
 	selected: boolean;
 	data: object[];
 	onFavouriteButtonClick: (universityId: string[], add?: boolean) => void;
-	onCardClick: (place: object[]) => void;
+	onCardClick: (place: Array<{ lat: number; lng: number; details: { name: string; description: string; image: string; }; }>) => void;
 	selectedCardData?: {};
 	favouriteUnis: string[];
 }
@@ -37,7 +37,7 @@ export interface ButtonProps {
 	show?: boolean;
 	favourite: boolean;
 	onFavouriteButtonClick: (universityId: string[], add?: boolean) => void;
-	onCardClick: (place: object[]) => void;
+	onCardClick: (place: Array<{ lat: number; lng: number; details: { name: string; description: string; image: string; }, centerMap?: boolean }>) => void;
 }
 
 
@@ -45,9 +45,10 @@ export interface ModalMapContainerPropTypes{
     places: Array<{
 		lat: number;
 		lng: number;
-		details: { name: string; description: string };
+		details: { name: string; description?: string };
 	}>;
 	zoomProp: number;
+	searchType: any;
 }
 
 export interface DiscoverContainerProps {

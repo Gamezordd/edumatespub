@@ -1,5 +1,5 @@
 export { NavBarWrapper as NavBar } from './navigation';
-export { MapsContainer } from './maps';
+export { MapsContainer, PlacesAPIKey } from './maps';
 export { LandingContainer } from './landing';
 
 export { LoginForm as Login } from './forms';

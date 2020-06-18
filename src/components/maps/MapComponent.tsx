@@ -14,7 +14,7 @@ interface MapComponentPropTypes {
 	places: Array<{
 		lat: number;
 		lng: number;
-		details: { name: string; description: string };
+		details: { name: string; description?: string };
 	}>;
 	zoomProp: number;
 	//height?: string | number;
@@ -46,13 +46,10 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 			LNGav = LNGav + place.lng;
 			return ++count;
 		});
-		console.log("center coordinates: ", { lat: LATav / count, lng: LNGav / count });
-		
 		return { lat: LATav / count, lng: LNGav / count };
 	};
 
 	handleClick = (props: any, marker: any, e: any) => {
-		console.log('props: ', props, '\n marker: ', marker, '\n e: ', e);
 		this.setState({
 			activeMarker: marker,
 			selectedPlace: props,
@@ -64,6 +61,7 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 		this.setState({ isWindowOpen: false });
 	};
 
+	
 	render() {
 		const { google, zoomProp, places, styleProps } = this.props;
 

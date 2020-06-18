@@ -3,6 +3,15 @@ export const searchDescriptionLength: number = 200;
 
 export const uniImagePlaceholder: string = 'https://firebasestorage.googleapis.com/v0/b/mpfirebaseproject-7ff28.appspot.com/o/University%2FAston.PNG?alt=media&token=8044ddeb-e207-4c3a-aa53-a8e36db6e250'
 //"title", 'description" and "image" will be shown in search results
+
+export const placesFilterOptions = [
+	{
+		key: "restaurants",
+		value: "restaurants",
+		text: "Restaurants"
+	}
+]
+
 export const universities = [
 	{
 		id: 'universityIdHere',
