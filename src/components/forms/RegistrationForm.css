@@ -2,7 +2,7 @@
 .wrapper2{
   margin-left:-9vw;
   width: 100vw;
-  height: 200vh;
+  height: 150vh;
   display:flex;
   flex-direction: column;
   background-image: linear-gradient(to bottom,#ff8c00,#fffaf0);
@@ -14,7 +14,7 @@
 form{
   
   border:3px solid #f3f3f3;
-  background-color:  #f1f3f3;
+  background-color:  white;
   padding:5%;
   border-radius: 25px;
   text-align: left;
@@ -51,4 +51,8 @@ padding:10px 20px;
 .log{
   
   color: blue;
+}
+
+.drop{
+  border: none !important;
 }

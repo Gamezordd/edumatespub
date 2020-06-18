@@ -25,6 +25,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import logo from '../landing/assets/logo2.png';
 
 const validateURL = `https://us-central1-mpfirebaseproject-7ff28.cloudfunctions.net/api/tokens/validate/`;
 
@@ -155,11 +156,7 @@ class RegistrationFormUncomposed extends React.Component<
 				>
 					<Grid.Column style={{ maxWidth: 600 }}>
 						<Form style={{ top: 100 }}>
-							<Image
-								size='medium'
-								src={process.env.PUBLIC_URL + '/logo.png'}
-								className='img'
-							/>
+							<Image size='medium' src={logo} className='img' />
 							<h2>Create a new account</h2>
 							{_.map(CommonFields, field => (
 								<FormField
@@ -172,13 +169,17 @@ class RegistrationFormUncomposed extends React.Component<
 								/>
 							))}
 							<Form.Dropdown
-								label='Country:'
-								className='drop'
+								placeholder='Country:'
 								fluid
 								search
 								selection
 								required
 								options={countryOptions}
+								style={{
+									border: 'none',
+									borderBottom: 'solid',
+									borderBottomWidth: '1px',
+								}}
 								onChange={(
 									event: React.SyntheticEvent<HTMLElement>,
 									{ value }
@@ -189,13 +190,17 @@ class RegistrationFormUncomposed extends React.Component<
 								}}
 							/>
 							<Form.Dropdown
-								label='Gender:'
-								className='drop'
+								placeholder='Gender:'
 								fluid
 								search
 								selection
 								required
 								options={Genders}
+								style={{
+									border: 'none',
+									borderBottom: 'solid',
+									borderBottomWidth: '1px',
+								}}
 								onChange={(
 									event: React.SyntheticEvent<HTMLElement>,
 									{ value }
@@ -206,13 +211,17 @@ class RegistrationFormUncomposed extends React.Component<
 								}}
 							/>
 							<Form.Dropdown
-								label='Role:'
-								className='drop'
+								placeholder='Role:'
 								fluid
 								search
 								selection
 								required
 								options={UserTypes}
+								style={{
+									border: 'none',
+									borderBottom: 'solid',
+									borderBottomWidth: '1px',
+								}}
 								onChange={(
 									event: React.SyntheticEvent<HTMLElement>,
 									{ value }

@@ -5,4 +5,5 @@ export { LandingContainer } from './landing';
 export { LoginForm as Login } from './forms';
 export { LogOut } from './navigation';
 export { RegistrationForm } from './forms';
-export { DiscoverContainerComposed } from './discover'
+export { DiscoverContainerComposed } from './discover';
+export { PasswordForgot } from './forms';

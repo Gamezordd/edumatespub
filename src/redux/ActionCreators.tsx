@@ -15,10 +15,10 @@ export const logoutAction = () => ({
 
 export const fetchUniversitiesAction = (payload: any) => ({
 	type: ActionTypes.FETCH_UNIVERSITIES,
-	payload: payload
+	payload: payload,
 });
 
 export const editFavouritesAction = (payload: any) => ({
 	type: ActionTypes.EDIT_FAVOURITES,
-	payload: payload
-})
+	payload: payload,
+});

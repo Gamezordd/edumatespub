@@ -17,8 +17,9 @@ import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { loginAction, fetchUniversitiesAction } from '../../redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import './LoginForm.css';
+import logo from '../landing/assets/logo2.png';
 
 const mapDispatchToProps = (dispatch: any) => ({
 	login: (payload: any) => dispatch(loginAction(payload)),
@@ -136,11 +137,7 @@ class LoginForm extends React.Component<
 					<Grid.Column style={{ maxWidth: 600 }}>
 						<Form>
 							<div className='header'>
-								<Image
-									size='medium'
-									src={process.env.PUBLIC_URL + '/logo.png'}
-									className='img'
-								/>
+								<Image size='medium' src={logo} className='img' />
 							</div>
 							<h2>Log in</h2>
 							{_.map(FormFields, field => (
@@ -159,7 +156,6 @@ class LoginForm extends React.Component<
 								className='btn'
 								color='orange'
 							/>
-
 							{this.state.showError.value && (
 								<Card fluid style={{ padding: '10px' }}>
 									<p style={{ color: 'red' }}>
@@ -167,6 +163,9 @@ class LoginForm extends React.Component<
 									</p>
 								</Card>
 							)}
+							<Link to={{ pathname: './PasswordForgot' }}>
+								Forgot Password?
+							</Link>{' '}
 						</Form>
 					</Grid.Column>
 				</Grid>
