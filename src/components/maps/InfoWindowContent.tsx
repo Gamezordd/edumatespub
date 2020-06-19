@@ -7,13 +7,22 @@ export interface ContentProps {
 export class InfoWindowContent extends React.Component<ContentProps>{
     
     render(){
-        const {Name, Description} = this.props.content
+        if(this.props.content.name)
+        {
+            const {name, description} = this.props.content.name
+        console.log("infowindowcontent props:", this.props);
         
         return(
             <div>
-                {Name}
-                {Description}
+                <strong>{name}</strong><br/>
+                {description}
             </div>
         )
+        }
+        else{
+            return(
+                <div></div>
+            )
+        }
     }
 }

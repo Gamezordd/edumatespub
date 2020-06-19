@@ -115,8 +115,6 @@ export class Firebase {
 					data[i].id = doc.id;
 					return data;
 				});
-				console.log('data: ', data);
-
 				return data;
 			});
 	};

@@ -6,9 +6,9 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { editFavouritesAction } from '../../redux';
 
-import /*DiscoverModal*/ './index';
+import { DiscoverModal } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
-import { initialState } from './constants';
+import { initialState, searchDescriptionLength } from './constants';
 import { CardContainerComponent } from './CardContainerComponent';
 
 const mapStateToProps = (state: any) => {
@@ -42,6 +42,15 @@ class DiscoverComponent extends React.Component<
 		this.setState({ isModalOpen: false });
 	};
 
+	formatDescription(description: string) {
+		if(description.length > searchDescriptionLength){
+			return(description.substring(0, searchDescriptionLength) + "...")
+		}
+		else{
+			return(description)
+		}
+	}
+
 	handlesearchChange = (
 		e: React.MouseEvent<HTMLElement, MouseEvent>,
 		{ value }: SearchProps
@@ -69,7 +78,7 @@ class DiscoverComponent extends React.Component<
 					element => {
 						return {
 							title: element.name,
-							description: element.description,
+							description: this.formatDescription(element.description),
 							image: element.image,
 							id: element.id,
 							details: { ...element },
@@ -89,6 +98,10 @@ class DiscoverComponent extends React.Component<
 			});
 	};
 
+	handleClick = (place: Array<{ lat: number; lng: number; details: { name: string; description: string; image: string; }; }>) => {
+		this.setState({places: place, isModalOpen: true})
+	}
+
 	render() {
 		const {
 			isLoading,
@@ -96,17 +109,20 @@ class DiscoverComponent extends React.Component<
 			value,
 			selection,
 			showCard,
-			//isModalOpen,
+			isModalOpen,
+			places
 		} = this.state;
 
 		return (
 			<div>
-				<Grid columns={5} container>
-					<Grid.Column />
-					<Grid.Column />
+				<Grid centered columns={1} container>
+					<div style={{flex: 1, justifyContent: "center"}}>
 					<Grid.Column>
 						<Search
+							input={{ fluid: true }}
+							size="big"
 							fluid
+							aligned="left"
 							loading={isLoading}
 							results={results}
 							value={value}
@@ -117,8 +133,7 @@ class DiscoverComponent extends React.Component<
 							onFavouriteBottonClick={this.handleFavouritesChange}
 						/>
 					</Grid.Column>
-					<Grid.Column />
-					<Grid.Column />
+					</div>
 				</Grid>
 				<CardContainerComponent
 					data={this.props.uniList.data}
@@ -126,8 +141,9 @@ class DiscoverComponent extends React.Component<
 					onFavouriteButtonClick={this.handleFavouritesChange}
 					selectedCardData={selection}
 					favouriteUnis={this.props.user.favouriteUnis}
+					onCardClick={this.handleClick}
 				/>
-				{/*<DiscoverModal open={isModalOpen} content={selection} onClose={this.handleModalClose}/>*/}
+				<DiscoverModal open={isModalOpen} content={places} onClose={this.handleModalClose}/>
 			</div>
 		);
 	}

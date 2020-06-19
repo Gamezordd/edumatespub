@@ -48,7 +48,7 @@ export const User = (
 					newFavourites = newFavourites.filter(
 						element => !(favouriteid === element)
 					);
-					stateUpdate = newFavourites;
+					return stateUpdate = newFavourites;
 				});
 			}
 			console.log('stateUpdate: ', stateUpdate);

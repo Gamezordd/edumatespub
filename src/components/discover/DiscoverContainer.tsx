@@ -2,7 +2,7 @@ import React from 'react';
 import { DiscoverComponentComposed } from './index';
 //import {universities} from './constants'
 import { withFirebase } from '../../firebase/withFirebase';
-import { Firebase } from '../../firebase';
+import{ DiscoverContainerProps } from './interfaces';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
@@ -12,12 +12,7 @@ const mapStateToProps = (state: any) => {
 	};
 };
 
-interface DiscoverContainerProps {
-	firebase: Firebase;
-	universities: any;
-}
-
-class DiscoverContainer extends React.Component<DiscoverContainerProps> {
+class DiscoverContainer extends React.Component<DiscoverContainerProps, any> {
 	constructor(props: any) {
 		super(props);
 	}
