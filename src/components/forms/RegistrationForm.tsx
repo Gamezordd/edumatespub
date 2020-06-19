@@ -79,19 +79,15 @@ class RegistrationFormUncomposed extends React.Component<
 					return;
 				}
 			}
-			await this.props.firebase.doCreateUserWithEmailAndPassword(
+			const user = await this.props.firebase.doCreateUserWithEmailAndPassword(
 				this.state.email.value.toString(),
 				this.state.password.value.toString()
 			);
-			await this.props.firebase.createUserEntry(this.state);
-
-			const user = await this.props.firebase.doSignInWithEmailAndPassword(
-				this.state.email.value.toString(),
-				this.state.password.value.toString()
-			);
-
+			await this.props.firebase.createUserEntry({
+				...this.state,
+				...{ uid: user.user?.uid },
+			});
 			await user.user?.sendEmailVerification();
-			await this.props.firebase.signOut();
 
 			this.setState({ redirect: { value: true } });
 		} catch (err) {

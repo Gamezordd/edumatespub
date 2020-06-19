@@ -23,6 +23,7 @@ export class Firebase {
 
 	createUserEntry = async (payload: any) => {
 		const {
+			uid,
 			currentInstitute,
 			universityId,
 			type,
@@ -36,17 +37,20 @@ export class Firebase {
 		const data = payload.isAmbassador.value
 			? { universityId: universityId.value, type: type.value }
 			: { currentInstitute: currentInstitute.value };
-		await this.db.collection('USER').add({
-			...{
-				name: name.value,
-				email: email.value,
-				gender: gender.value,
-				phone: phone.value,
-				country: country.value,
-				isAmbassador: isAmbassador.value,
-			},
-			data: data,
-		});
+		await this.db
+			.collection('USER')
+			.doc(uid)
+			.set({
+				...{
+					name: name.value,
+					email: email.value,
+					gender: gender.value,
+					phone: phone.value,
+					country: country.value,
+					isAmbassador: isAmbassador.value,
+				},
+				data: data,
+			});
 	};
 
 	doCreateUserWithEmailAndPassword = async (email: string, password: string) =>
