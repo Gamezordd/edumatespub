@@ -24,7 +24,7 @@ interface MapComponentPropTypes {
 	styleProps?: {
 		maxHeight?: string | number;
 		maxWidth?: string | number;
-		divHeight? : string;
+		divHeight?: string;
 	};
 }
 
@@ -38,26 +38,31 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 		};
 	}
 
-	findCenter = (places: { lat: number; lng: number; details: { name: string; description?: string | undefined; }; centerMap?: boolean }[]) => {
+	findCenter = (
+		places: {
+			lat: number;
+			lng: number;
+			details: { name: string; description?: string | undefined };
+			centerMap?: boolean;
+		}[]
+	) => {
 		var LATav = 0;
 		var LNGav = 0;
 		var count = 0;
 		var center = undefined;
 		places.map((place: any) => {
-			if(place.centerMap){
+			if (place.centerMap) {
 				center = place;
-			}
-			else{
+			} else {
 				LATav = LATav + place.lat;
 				LNGav = LNGav + place.lng;
 				return ++count;
 			}
-			return null
+			return null;
 		});
-		if(center){
-			return center
-		}
-		else{
+		if (center) {
+			return center;
+		} else {
 			return { lat: LATav / count, lng: LNGav / count };
 		}
 	};
@@ -74,14 +79,13 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 		this.setState({ isWindowOpen: false });
 	};
 
-	
 	render() {
 		const { google, zoomProp, places, styleProps } = this.props;
 
 		var styleOptions: {
 			maxHeight: string | number;
 			maxWidth: string | number;
-			divHeight: string | undefined
+			divHeight: string | undefined;
 		} = { maxHeight: '', maxWidth: '', divHeight: undefined };
 
 		if (styleProps?.maxHeight && styleProps.maxWidth) {
@@ -91,12 +95,12 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 			styleOptions.maxHeight = '100%';
 			styleOptions.maxWidth = '100%';
 		}
-		if(styleProps?.divHeight){
-			styleOptions.divHeight = styleProps.divHeight
+		if (styleProps?.divHeight) {
+			styleOptions.divHeight = styleProps.divHeight;
 		}
 
 		return (
-			<div style={{height: styleOptions.divHeight}}>
+			<div style={{ height: styleOptions.divHeight }}>
 				<Map
 					style={{
 						maxWidth: styleOptions.maxWidth,
@@ -117,7 +121,7 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 									position={{ lat: place.lat, lng: place.lng }}
 									key={place.details.name}
 									onClick={this.handleClick}
-									name={place.details}
+									//name={place.details}
 									title={place.centerMap ? place.details.name : undefined}
 								/>
 							);

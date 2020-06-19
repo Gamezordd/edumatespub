@@ -5,8 +5,9 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { fetchInitialPosts, appendPosts } from '../../redux';
 import InfiniteScrollComponent from 'react-infinite-scroll-component';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid } from 'semantic-ui-react';
 import { Dispatch, AnyAction } from 'redux';
+import { Post } from './Post';
 
 const mapStateToProps = (state: any) => ({
 	posts: state.posts.posts,
@@ -65,43 +66,60 @@ class InfiniteScrollUncomposed extends React.Component<
 	render() {
 		return (
 			<div>
-				<InfiniteScrollComponent
-					dataLength={this.props.posts.length}
-					next={this.append}
-					hasMore={this.state.hasMore}
-					loader='Fetching posts....'
-					endMessage={
-						<p style={{ textAlign: 'center' }}>
-							<b>You are all caught up!</b>
-						</p>
-					}
-					refreshFunction={this.initiate}
-					pullDownToRefresh
-					pullDownToRefreshContent={
-						<h3 style={{ textAlign: 'center' }}>
-							&#8595; Pull down to refresh
-						</h3>
-					}
-					releaseToRefreshContent={
-						<h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
-					}
-				>
-					{this.props.posts.map(post => (
-						<Card style={{ marginTop: '10vh' }}>
-							<h2>{post.title}</h2>
-							<div className='AuthorName'>{post.userId}</div>
-							<div className='CreatedAt'>{post.createdAt.toString()}</div>
-							{post.files === undefined ? (
-								<div></div>
-							) : (
-								<div className='image'>
-									<img src={post.files[0]} alt='post.title' />
-								</div>
-							)}
-							<div className='Content'>{post.content}</div>
-						</Card>
-					))}
-				</InfiniteScrollComponent>
+				<Grid centered>
+					<Grid.Column style={{ padding: '5px' }}>
+						<InfiniteScrollComponent
+							dataLength={this.props.posts.length}
+							next={this.append}
+							hasMore={this.state.hasMore}
+							loader='Fetching posts....'
+							endMessage={
+								<p style={{ textAlign: 'center' }}>
+									<b>You are all caught up!</b>
+								</p>
+							}
+							refreshFunction={this.initiate}
+							pullDownToRefresh
+							pullDownToRefreshContent={
+								<h3 style={{ textAlign: 'center' }}>
+									&#8595; Pull down to refresh
+								</h3>
+							}
+							releaseToRefreshContent={
+								<h3 style={{ textAlign: 'center' }}>
+									&#8593; Release to refresh
+								</h3>
+							}
+						>
+							{this.props.posts.map(post => (
+								<Card
+									style={{
+										marginTop: '10vh',
+										padding: '10px',
+										maxWidth: '80vh',
+									}}
+									centered
+									fluid
+								>
+									<h2>{post.title}</h2>
+									<div className='AuthorName'>{post.userId}</div>
+									<div className='CreatedAt'>
+										{post.createdAt.toDate().toString()}
+									</div>
+									{post.files === undefined ? (
+										<div></div>
+									) : (
+										<div className='image'>
+											<img src={post.files[0]} alt='post.title' />
+										</div>
+									)}
+									<div className='Content'>{post.content}</div>
+								</Card>
+								//<Post post={post} />
+							))}
+						</InfiniteScrollComponent>
+					</Grid.Column>
+				</Grid>
 			</div>
 		);
 	}
