@@ -9,7 +9,7 @@ export const NavBarDesktop: React.FC<MenuProps> = ({
 }) => (
 	<Menu fixed='top' color='teal' inverted>
 		<Menu.Item>
-			<Image size='small' src={process.env.PUBLIC_URL + '/logo.png'} />
+			<Image size='small' src={process.env.PUBLIC_URL + '/logo.png'} to='/' />
 		</Menu.Item>
 		{_.map(leftItems, item => (
 			<Menu.Item as={Link} {...item} />

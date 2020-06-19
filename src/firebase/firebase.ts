@@ -60,22 +60,43 @@ export class Firebase {
 
 	doSignOut = async () => await this.auth.signOut();
 
-	getPosts = async (after: string | null, faves: string[]) => {
+	getPosts = async (after: string | null, faves: string[]): Promise<any[]> => {
 		if (after === null) {
 			return await this.db
 				.collection('posts')
 				.where('universityId', 'in', faves)
 				.orderBy('createdAt', 'desc')
 				.limit(10)
-				.get();
+				.get()
+				.then(query => {
+					var data: any[] = [];
+					query.docs.map((doc, i) => {
+						data[i] = doc.data();
+						data[i].id = doc.id;
+						return data;
+					});
+					console.log('Fetched:', data);
+					return data;
+				});
 		} else {
+			console.log('Getting after:', after);
 			return await this.db
 				.collection('posts')
 				.where('universityId', 'in', faves)
 				.orderBy('createdAt', 'desc')
 				.startAfter(after)
 				.limit(10)
-				.get();
+				.get()
+				.then(query => {
+					var data: any[] = [];
+					query.docs.map((doc, i) => {
+						data[i] = doc.data();
+						data[i].id = doc.id;
+						return data;
+					});
+					console.log('Appended:', data);
+					return data;
+				});
 		}
 	};
 

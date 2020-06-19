@@ -2,13 +2,13 @@ import * as ActionTypes from './ActionTypes';
 
 //interfaces
 
-export interface FetchInitialPosts {
+interface FetchInitialPosts {
 	type: ActionTypes.FETCH_INITIAL_POSTS;
 	posts: any[];
 	lastFetched: string;
 }
 
-export interface AppendPosts {
+interface AppendPosts {
 	type: ActionTypes.APPEND_POSTS;
 	posts: any[];
 	lastFetched: string;

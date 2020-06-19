@@ -14,7 +14,6 @@ export const User = (
 	switch (action.type) {
 		case ActionTypes.EXAMPLE_ACTION:
 			return { ...state };
-
 		case ActionTypes.LOGIN_ACTION: {
 			const {
 				uid,
@@ -24,7 +23,6 @@ export const User = (
 				favouriteUnis,
 				isAmbassador,
 			} = action.payload;
-			console.log('Logging in');
 			return {
 				...state,
 				uid: uid,
@@ -33,7 +31,7 @@ export const User = (
 					email: email,
 				},
 				isLoggedIn: true,
-				favourites: favouriteUnis,
+				favouriteUnis: favouriteUnis,
 				photoURL: profileImage,
 				isAmbassador: isAmbassador,
 			};
@@ -53,8 +51,8 @@ export const User = (
 					stateUpdate = newFavourites;
 				});
 			}
-			console.log("stateUpdate: ", stateUpdate);
-			
+			console.log('stateUpdate: ', stateUpdate);
+
 			return { ...state, favouriteUnis: stateUpdate };
 		}
 

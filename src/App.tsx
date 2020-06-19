@@ -7,6 +7,7 @@ import {
 	RegistrationForm,
 	LogOut,
 	DiscoverContainerComposed,
+	HomeContainer,
 } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ export function App() {
 				<NavBar>
 					<Switch>
 						<Route exact path={'/'} component={LandingContainer} />
+						<Route exact path={'/home'} component={HomeContainer} />
 						<Route exact path={'/maps'} component={MapsContainer} />
 						<Route exact path={'/register'} component={RegistrationForm} />
 						<Route exact path={'/login'} component={Login} />

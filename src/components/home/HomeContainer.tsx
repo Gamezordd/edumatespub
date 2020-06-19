@@ -1,3 +1,8 @@
 import React from 'react';
+import { InfiniteScroll } from './InfiniteScroll';
 
-export const HomeContainer: React.FC<{}> = ({}) => <div>Unimplemented</div>;
+export const HomeContainer: React.FC<{}> = ({}) => (
+	<div>
+		<InfiniteScroll />
+	</div>
+);

@@ -1,12 +1,15 @@
 import { Firebase } from '../../firebase';
-import { FetchInitialPosts, AppendPosts } from '../../redux/ActionCreators';
+import { fetchInitialPosts, appendPosts } from '../../redux';
 
-export interface InfiniteScrollState {}
+export interface InfiniteScrollState {
+	hasMore: boolean;
+}
 
 export interface InfiniteScrollProps {
 	firebase: Firebase;
 	posts: any[];
 	lastFetched: string;
-	fetchInititalPosts: FetchInitialPosts;
-	appendPosts: AppendPosts;
+	favourites: string[];
+	fetch: typeof fetchInitialPosts;
+	append: typeof appendPosts;
 }
