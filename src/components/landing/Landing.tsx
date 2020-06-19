@@ -2,28 +2,34 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import pic from './assets/google-play-badge.png';
 import app from './assets/app.png';
-import talking from './assets/people-talking.png';
-import talking2 from './assets/people-talking2.png';
+import partneruni from './assets/partneruni.png';
+import intouchuni from './assets/intouchuni.png';
+import easenerves from './assets/easenerves.jpg';
+
 import insta from './assets/instagram.png';
 import twitter from './assets/twitter.png';
 import linkedin from './assets/linkedin.png';
 import logo from './assets/logo.png';
 import user from './assets/user.png';
+import applestore from './assets/appstoreicon.jpg'
 
 import chat from './assets/chat.png';
 
 import './Landing.css';
 
+import Tutorial1 from './Tut1';
+import Tutorial2 from './Tut2';
+
 export const LandingPage: React.FC<{}> = ({}) => (
 	<div>
 		<Grid>
-			<Grid.Row centered columns='2' className='banner'>
+			<Grid.Row centered columns='2' className='bannertop'>
 				<Grid.Column width={5}>
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>{' '}
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
+					
 					<Grid.Row>
 						<p className='promo-title'>
 							{' '}
@@ -39,22 +45,25 @@ export const LandingPage: React.FC<{}> = ({}) => (
 							choice ! Keep the conversation going !{' '}
 						</p>{' '}
 					</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='play'>
-						{' '}
-						<img src={pic} className='playstore' />{' '}
-					</Grid.Row>{' '}
-					<Grid.Row className='Hidden'>....</Grid.Row>
+					
+
 				</Grid.Column>
 
 				<Grid.Column width={7}>
 					<Grid.Row className='Hidden'>....</Grid.Row>{' '}
 					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
+				
+					
 					<Grid.Row>
 						<img src={app} className='Appimage' />
+					</Grid.Row>{' '}
+					<Grid.Row className='play'>
+						{' '}
+						<img src={pic} className='playstore' />{' '}
+					</Grid.Row>{' '}
+                    <Grid.Row className='play'>
+						{' '}
+						<img src={applestore} className='appstore' />{' '}
 					</Grid.Row>{' '}
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
@@ -62,21 +71,21 @@ export const LandingPage: React.FC<{}> = ({}) => (
 			</Grid.Row>
 			<Grid.Row>
 				{' '}
-				<h1> What we do </h1>
+				<h1 className="title"> What we do </h1>
 			</Grid.Row>
 			<Grid.Row className='Hidden'>....</Grid.Row>
 			<Grid.Row only='computer'>
 				<Grid.Column width={2}></Grid.Column>
 				<Grid.Column width={4}>
-					<img src={talking} className='whatwedo' />{' '}
+					<img src={intouchuni} className='whatwedo' />{' '}
 				</Grid.Column>
 				<Grid.Column width={4}>
 					{' '}
-					<img src={talking2} className='whatwedo' height='100%' />
+					<img src={easenerves} className='whatwedo' height='100%' />
 				</Grid.Column>
 				<Grid.Column width={4}>
 					{' '}
-					<img src={talking} className='whatwedo' />
+					<img src={partneruni} className='whatwedo' />
 				</Grid.Column>{' '}
 				<Grid.Column width={2}></Grid.Column>
 			</Grid.Row>
@@ -137,7 +146,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 
 					<Grid.Row>
 						{' '}
-						<img src={talking} className='whatwedo' />{' '}
+						<img src={intouchuni} className='whatwedo' />{' '}
 					</Grid.Row>
 
 					<Grid.Row>
@@ -159,7 +168,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 
 					<Grid.Row>
 						{' '}
-						<img src={talking2} className='whatwedo' height='100%' />{' '}
+						<img src={easenerves} className='whatwedo' height='100%' />{' '}
 					</Grid.Row>
 
 					<Grid.Row>
@@ -181,7 +190,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 
 					<Grid.Row>
 						{' '}
-						<img src={talking} className='whatwedo' />{' '}
+						<img src={partneruni} className='whatwedo' />{' '}
 					</Grid.Row>
 
 					<Grid.Row>
@@ -209,15 +218,15 @@ export const LandingPage: React.FC<{}> = ({}) => (
 			<Grid.Row only='tablet'>
 				<Grid.Column width={2}></Grid.Column>
 				<Grid.Column width={4}>
-					<img src={talking} className='whatwedo' />{' '}
+					<img src={intouchuni} className='whatwedo' />{' '}
 				</Grid.Column>
 				<Grid.Column width={4}>
 					{' '}
-					<img src={talking2} className='whatwedo' height='100%' />
+					<img src={easenerves} className='whatwedo' height='100%' />
 				</Grid.Column>
 				<Grid.Column width={4}>
 					{' '}
-					<img src={talking} className='whatwedo' />
+					<img src={partneruni} className='whatwedo' />
 				</Grid.Column>{' '}
 				<Grid.Column width={2}></Grid.Column>
 			</Grid.Row>
@@ -273,7 +282,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 			</Grid.Row>
 			<Grid.Row>
 				{' '}
-				<h1> Why choose us? </h1>
+				<h1 className="title"> Why choose us? </h1>
 			</Grid.Row>
 			<Grid.Row only='computer'>
 				<Grid.Column width={2}></Grid.Column>
@@ -320,6 +329,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 			<Grid.Row only='tablet' columns={2} centered>
 				<Grid.Column width={6}>
 					<Grid.Row className='Hidden'>................</Grid.Row>
+					
 					<Grid.Row className='Hidden'>................</Grid.Row>
 					<ul>
 						<li>
@@ -390,325 +400,89 @@ export const LandingPage: React.FC<{}> = ({}) => (
 			</Grid.Row>
 			<Grid.Row>
 				{' '}
-				<h1> User Reviews </h1>
+				<h1 className="title"> User Reviews </h1>
 			</Grid.Row>
 			<Grid.Row className='Hidden'>................</Grid.Row>
-			<Grid.Row centered columns={1} only='mobile'>
-				<Grid.Column width={12}>
-					<Grid.Row>
-						<p className='Testimonial'>
-							{' '}
-							I love using this app. It has helped me settle into university
-							life get started living in another country.{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row>
-						<img src={user} className='Phonescreenuserimg' width='20%' />
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>Jogn Doe</p>
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>
-							Successfully settled into Aston University{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row className='Hidden'>................</Grid.Row>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row centered columns={1} only='mobile'>
-				<Grid.Column width={12}>
-					<Grid.Row>
-						<p className='Testimonial'>
-							{' '}
-							I love using this app. It has helped me settle into university
-							life get started living in another country.{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row>
-						<img src={user} className='Phonescreenuserimg' width='20%' />
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>Jogn Doe</p>
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>
-							Successfully settled into Aston University{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row className='Hidden'>................</Grid.Row>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row centered columns={1}>
-				<Grid.Column width={12} only='mobile'>
-					<Grid.Row>
-						<p className='Testimonial'>
-							{' '}
-							I love using this app. It has helped me settle into university
-							life get started living in another country.{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row>
-						<img src={user} className='Phonescreenuserimg' width='20%' />
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>Jogn Doe</p>
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>
-							Successfully settled into Aston University{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row className='Hidden'>................</Grid.Row>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row centered columns={1}>
-				<Grid.Column width={12} only='mobile'>
-					<Grid.Row>
-						<p className='Testimonial'>
-							{' '}
-							I love using this app. It has helped me settle into university
-							life get started living in another country.{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row>
-						<img src={user} className='Phonescreenuserimg' width='20%' />
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>Jogn Doe</p>
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>
-							Successfully settled into Aston University{' '}
-						</p>
-					</Grid.Row>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row centered columns={1} only='tablet'>
-				<Grid.Column width={10}>
-					<Grid.Row>
-						<p className='Testimonial'>
-							{' '}
-							I love using this app. It has helped me settle into university
-							life get started living in another country.{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row>
-						<img src={user} className='Phonescreenuserimg' width='20%' />
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>Jogn Doe</p>
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>
-							Successfully settled into Aston University{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row className='Hidden'>................</Grid.Row>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row centered columns={1}>
-				<Grid.Column width={10} only='tablet'>
-					<Grid.Row>
-						<p className='Testimonial'>
-							{' '}
-							I love using this app. It has helped me settle into university
-							life get started living in another country.{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row>
-						<img src={user} className='Phonescreenuserimg' width='20%' />
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>Jogn Doe</p>
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>
-							Successfully settled into Aston University{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row className='Hidden'>................</Grid.Row>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row centered columns={1}>
-				<Grid.Column width={10} only='tablet'>
-					<Grid.Row>
-						<p className='Testimonial'>
-							{' '}
-							I love using this app. It has helped me settle into university
-							life get started living in another country.{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row>
-						<img src={user} className='Phonescreenuserimg' width='20%' />
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>Jogn Doe</p>
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>
-							Successfully settled into Aston University{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row className='Hidden'>................</Grid.Row>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row centered columns={1}>
-				<Grid.Column width={10} only='tablet'>
-					<Grid.Row>
-						<p className='Testimonial'>
-							{' '}
-							I love using this app. It has helped me settle into university
-							life get started living in another country.{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row>
-						<img src={user} className='Phonescreenuserimg' width='20%' />
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>Jogn Doe</p>
-					</Grid.Row>
-					<Grid.Row>
-						<p className='Testimonial'>
-							Successfully settled into Aston University{' '}
-						</p>
-					</Grid.Row>
-					<Grid.Row className='Hidden'>................</Grid.Row>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='computer'>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={5}>
-					{' '}
-					<p className='Testimonial'>
-						{' '}
-						I love using this app. It has helped me settle into university life
-						get started living in another country.{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={5}>
-					{' '}
-					<p className='Testimonial'>
-						{' '}
-						I love using this app. It has helped me settle into university life
-						get started living in another country.{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='computer'>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={2}>
-					{' '}
-					<img src={user} width='55%' />{' '}
-				</Grid.Column>
-				<Grid.Column width={3}>
-					{' '}
-					<p className='Testimonial'>Jogn Doe</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={2}>
-					{' '}
-					<img src={user} width='55%' />{' '}
-				</Grid.Column>
-				<Grid.Column wuidth={3}>
-					{' '}
-					<p className='Testimonial'>Jogn Doe</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='computer'>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={5}>
-					{' '}
-					<p className='Testimonial'>
-						{' '}
-						Successfully settled into Aston University{' '}
-					</p>
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={5}>
-					{' '}
-					<p className='Testimonial'>
-						Successfully settled into Aston University{' '}
-					</p>
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row className='Hidden' only='computer'>
-				....
-			</Grid.Row>
-			<Grid.Row className='Hidden' only='computer'>
-				....
-			</Grid.Row>
-			<Grid.Row only='computer'>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={5}>
-					{' '}
-					<p className='Testimonial'>
-						{' '}
-						I love using this app. It has helped me settle into university life
-						get started living in another country.{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={5}>
-					{' '}
-					<p className='Testimonial'>
-						{' '}
-						I love using this app. It has helped me settle into university life
-						get started living in another country.{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='computer'>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={2}>
-					{' '}
-					<img src={user} width='55%' />{' '}
-				</Grid.Column>
-				<Grid.Column width={3}>
-					{' '}
-					<p className='Testimonial'>Jogn Doe</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={2}>
-					{' '}
-					<img src={user} width='55%' />{' '}
-				</Grid.Column>
-				<Grid.Column wuidth={3}>
-					{' '}
-					<p className='Testimonial'>Jogn Doe</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='computer'>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={5}>
-					{' '}
-					<p className='Testimonial'>
-						{' '}
-						Successfully settled into Aston University{' '}
-					</p>
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={5}>
-					{' '}
-					<p className='Testimonial'>
-						Successfully settled into Aston University{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row className='Hidden' only='computer'>
-				....
-			</Grid.Row>
-			<Grid.Row className='Hidden'>....</Grid.Row>
-			<Grid.Row className='Media'>
+			<Grid.Row centered columns={1} only="mobile" >
+                                  <Grid.Column width={12}>
+
+                             
+        <Tutorial1 name="John1 Doe" uniname="Aston University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
+
+                                </Grid.Column>
+
+                                </Grid.Row>
+                <Grid.Row centered columns={1} only="mobile">
+                                  <Grid.Column width={12}>
+
+        <Tutorial1 name="John2 Doe" uniname="Florida University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
+                  </Grid.Column>
+
+                                </Grid.Row>
+                                <Grid.Row centered columns={1} only="mobile">
+                                  <Grid.Column width={12}>
+
+        <Tutorial1 name="John3 Doe" uniname="Florida University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
+                  </Grid.Column>
+
+                                </Grid.Row> 
+                                <Grid.Row centered columns={1} only="mobile">
+                                  <Grid.Column width={12}>
+
+        <Tutorial1 name="John4 Doe" uniname="Florida University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
+                  </Grid.Column>
+
+                                </Grid.Row>
+
+
+                                <Grid.Row centered columns={1} only="tablet">
+                                  <Grid.Column width={10}>
+
+                                  <Tutorial1 name="John1 Doe" uniname="Aston University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
+                                </Grid.Column>
+
+                                </Grid.Row>
+                <Grid.Row centered columns={1}>
+                                  <Grid.Column width={10} only="tablet">
+
+                                  <Tutorial1 name="John2 Doe" uniname="Florida University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
+
+                                </Grid.Column>
+
+                                </Grid.Row>
+                <Grid.Row centered columns={1}>
+                                  <Grid.Column width={10} only="tablet">
+
+                                  <Tutorial1 name="John3 Doe" uniname="Florida University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
+                                </Grid.Column>
+
+                                </Grid.Row>
+
+                                <Grid.Row centered columns={1}>
+                                  <Grid.Column width={10} only="tablet">
+
+                                  <Tutorial1  name="John4 Doe" uniname="Florida University"  review="I love using this app. It has helped me settle into university life get started living in another country."/>
+                                </Grid.Column>
+
+                                </Grid.Row>
+			
+			
+			<Tutorial2 name1="John1 Doe" uniname1="Aston University" review1="I love using this app. It has helped me settle into university life get started living in another country." 
+              name2="John2 Doe" uniname2="Florida University" review2="I love using this app. It has helped me settle into university life get started living in another country."/>
+<Tutorial2 name1="John3 Doe" uniname1="Florida University" review1="I love using this app. It has helped me settle into university life get started living in another country." 
+              name2="John3 Doe" uniname2="Florida University" review2="I love using this app. It has helped me settle into university life get started living in another country."/>
+
+                                
+              
+          
+            
+              <Grid.Row className="Hidden" only="computer">....</Grid.Row>
+			<Grid.Row className='Media' centered columns={1}> 
+			<Grid.Column>
 				{' '}
-				<h3>Find us on social media</h3>
+				<h3 className="SMtitle">Find us on social media</h3>
+		</Grid.Column>
+
 			</Grid.Row>
 			<Grid.Row className='social-icons'>
 				<Grid.Column width={5}></Grid.Column>
@@ -728,7 +502,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 			</Grid.Row>
 			<Grid.Row className='Media'></Grid.Row>
 			<Grid.Row className='Hidden'>....</Grid.Row>
-			<Grid.Row className='banner'>
+			<Grid.Row className='bannerbottom'>
 				{' '}
 				<Grid.Column></Grid.Column>
 				<Grid.Column width={4}>

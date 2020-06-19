@@ -1,7 +1,15 @@
 import _ from 'lodash';
 import React from 'react';
 import { ValidatorType, validators } from './constants';
-import { Form, Button, FormField, Input, Card, Image } from 'semantic-ui-react';
+import {
+	Form,
+	Button,
+	FormField,
+	Input,
+	Card,
+	Image,
+	Grid,
+} from 'semantic-ui-react';
 import { LoginState } from './types';
 import { FormFields } from './LoginFields';
 import { Firebase } from '../../firebase';
@@ -9,8 +17,9 @@ import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { loginAction, fetchUniversitiesAction } from '../../redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import './LoginForm.css';
+import logo from '../landing/assets/logo2.png';
 
 const mapDispatchToProps = (dispatch: any) => ({
 	login: (payload: any) => dispatch(loginAction(payload)),
@@ -120,38 +129,44 @@ class LoginForm extends React.Component<
 
 		return (
 			<div className='wrapper1'>
-				<Form>
-					<div className='header'>
-						<Image
-							size='medium'
-							src={process.env.PUBLIC_URL + '/logo.png'}
-							className='img'
-						/>
-					</div>
-					<h2>Log in</h2>
-					{_.map(FormFields, field => (
-						<FormField
-							{...field.properties}
-							control={Input}
-							error={this.getError(field.key)}
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-								this.validate(field.validate, field.key, e)
-							}
-						/>
-					))}
-					<Button
-						content='Submit'
-						onClick={() => this.handleSubmit()}
-						className='btn'
-						color='orange'
-					/>
-
-					{this.state.showError.value && (
-						<Card fluid style={{ padding: '10px' }}>
-							<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
-						</Card>
-					)}
-				</Form>
+				<Grid
+					textAlign='center'
+					style={{ height: '100vh' }}
+					verticalAlign='middle'
+				>
+					<Grid.Column style={{ maxWidth: 600 }}>
+						<Form>
+							<div className='header'>
+								<Image size='medium' src={logo} className='img' />
+							</div>
+							<h2>Log in</h2>
+							{_.map(FormFields, field => (
+								<FormField
+									{...field.properties}
+									control={Input}
+									error={this.getError(field.key)}
+									onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+										this.validate(field.validate, field.key, e)
+									}
+								/>
+							))}
+							<Button
+								content='Submit'
+								onClick={() => this.handleSubmit()}
+								className='btn'
+								color='orange'
+							/>
+							{this.state.showError.value && (
+								<Card fluid style={{ padding: '10px' }}>
+									<p style={{ color: 'red' }}>
+										{this.state.errorMessage.value}
+									</p>
+								</Card>
+							)}
+							<Link to={'/forgotPassword'}>Forgot Password?</Link>{' '}
+						</Form>
+					</Grid.Column>
+				</Grid>
 			</div>
 		);
 	}

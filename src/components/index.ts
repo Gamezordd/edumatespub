@@ -7,3 +7,4 @@ export { LogOut } from './navigation';
 export { RegistrationForm } from './forms';
 export { DiscoverContainerComposed } from './discover';
 export { HomeContainer } from './home';
+export { PasswordForgot } from './forms';

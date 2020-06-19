@@ -1,7 +1,15 @@
 import _ from 'lodash';
 import React from 'react';
 import { ValidatorType, validators } from './constants';
-import { Form, Button, FormField, Input, Card, Image } from 'semantic-ui-react';
+import {
+	Form,
+	Button,
+	FormField,
+	Input,
+	Card,
+	Image,
+	Grid,
+} from 'semantic-ui-react';
 import { RegisterState } from './types';
 import { countryOptions } from './countriesData';
 import {
@@ -17,6 +25,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import logo from '../landing/assets/logo2.png';
 
 const validateURL = `https://us-central1-mpfirebaseproject-7ff28.cloudfunctions.net/api/tokens/validate/`;
 
@@ -140,94 +149,121 @@ class RegistrationFormUncomposed extends React.Component<
 
 		return (
 			<div className='wrapper2'>
-				<Form>
-					<Image
-						size='medium'
-						src={process.env.PUBLIC_URL + '/logo.png'}
-						className='img'
-					/>
-					<h2>Create a new account</h2>
-					{_.map(CommonFields, field => (
-						<FormField
-							{...field.properties}
-							control={Input}
-							error={this.getError(field.key)}
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-								this.validate(field.validate, field.key, e)
-							}
-						/>
-					))}
-					<Form.Dropdown
-						label='Country:'
-						className='drop'
-						fluid
-						search
-						selection
-						required
-						options={countryOptions}
-						onChange={(event: React.SyntheticEvent<HTMLElement>, { value }) => {
-							if (value !== undefined) {
-								this.syntheticEventHandler('country', value.toString());
-							}
-						}}
-					/>
-					<Form.Dropdown
-						label='Gender:'
-						className='drop'
-						fluid
-						search
-						selection
-						required
-						options={Genders}
-						onChange={(event: React.SyntheticEvent<HTMLElement>, { value }) => {
-							if (value !== undefined) {
-								this.syntheticEventHandler('gender', value.toString());
-							}
-						}}
-					/>
-					<Form.Dropdown
-						label='Role:'
-						className='drop'
-						fluid
-						search
-						selection
-						required
-						options={UserTypes}
-						onChange={(event: React.SyntheticEvent<HTMLElement>, { value }) => {
-							if (value !== undefined) {
-								this.handleRole(value.toString());
-							}
-						}}
-					/>
-					{_.map(VariableFields, field => (
-						<FormField
-							{...field.properties}
-							control={Input}
-							error={this.getError(field.key)}
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-								this.validate(field.validate, field.key, e)
-							}
-						/>
-					))}
-					{this.state.showError.value && (
-						<Card fluid style={{ padding: '10px' }}>
-							<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
-						</Card>
-					)}
-					<div className='txt'>
-						By signing up, you accept the Terms of
-						<br /> Service and the Privacy Policy
-					</div>
-					<Button
-						content='Submit'
-						onClick={() => this.handleSubmit()}
-						className='btn'
-						color='orange'
-					/>
-					<div className='txt'>
-						Have an account?<span className='log'>Login.</span>
-					</div>
-				</Form>
+				<Grid
+					textAlign='center'
+					style={{ height: '100vh' }}
+					verticalAlign='middle'
+				>
+					<Grid.Column style={{ maxWidth: 600 }}>
+						<Form style={{ top: 100 }}>
+							<Image size='medium' src={logo} className='img' />
+							<h2>Create a new account</h2>
+							{_.map(CommonFields, field => (
+								<FormField
+									{...field.properties}
+									control={Input}
+									error={this.getError(field.key)}
+									onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+										this.validate(field.validate, field.key, e)
+									}
+								/>
+							))}
+							<Form.Dropdown
+								placeholder='Country:'
+								fluid
+								search
+								selection
+								required
+								options={countryOptions}
+								style={{
+									border: 'none',
+									borderBottom: 'solid',
+									borderBottomWidth: '1px',
+								}}
+								onChange={(
+									event: React.SyntheticEvent<HTMLElement>,
+									{ value }
+								) => {
+									if (value !== undefined) {
+										this.syntheticEventHandler('country', value.toString());
+									}
+								}}
+							/>
+							<Form.Dropdown
+								placeholder='Gender:'
+								fluid
+								search
+								selection
+								required
+								options={Genders}
+								style={{
+									border: 'none',
+									borderBottom: 'solid',
+									borderBottomWidth: '1px',
+								}}
+								onChange={(
+									event: React.SyntheticEvent<HTMLElement>,
+									{ value }
+								) => {
+									if (value !== undefined) {
+										this.syntheticEventHandler('gender', value.toString());
+									}
+								}}
+							/>
+							<Form.Dropdown
+								placeholder='Role:'
+								fluid
+								search
+								selection
+								required
+								options={UserTypes}
+								style={{
+									border: 'none',
+									borderBottom: 'solid',
+									borderBottomWidth: '1px',
+								}}
+								onChange={(
+									event: React.SyntheticEvent<HTMLElement>,
+									{ value }
+								) => {
+									if (value !== undefined) {
+										this.handleRole(value.toString());
+									}
+								}}
+							/>
+							{_.map(VariableFields, field => (
+								<FormField
+									{...field.properties}
+									control={Input}
+									error={this.getError(field.key)}
+									onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+										this.validate(field.validate, field.key, e)
+									}
+								/>
+							))}
+							{this.state.showError.value && (
+								<Card fluid style={{ padding: '10px' }}>
+									<p style={{ color: 'red' }}>
+										{this.state.errorMessage.value}
+									</p>
+								</Card>
+							)}
+							<div className='txt'>
+								By signing up, you accept the Terms of
+								<br /> Service and the Privacy Policy
+							</div>
+							<Button
+								content='Submit'
+								onClick={() => this.handleSubmit()}
+								className='btn'
+								color='orange'
+							/>
+							<div className='txt'>
+								Have an account?<span className='log'>Login.</span>
+							</div>
+						</Form>
+					</Grid.Column>
+				</Grid>
 			</div>
 		);
 	}

@@ -17,7 +17,6 @@ export const NavBarMobile: React.FC<SidebarProps> = ({
 			as={Menu}
 			animation='push'
 			icon='labeled'
-			inverted
 			vertical
 			visible={visible}
 			width='thin'
@@ -32,11 +31,11 @@ export const NavBarMobile: React.FC<SidebarProps> = ({
 			onClick={onPusherClick}
 			style={{ minHeight: '100vh' }}
 		>
-			<Menu fixed='top' inverted color='teal'>
+			<Menu fixed='top'>
 				<Menu.Item>
 					<Image
 						size='small'
-						src={process.env.PUBLIC_URL + '/logo.png'}
+						src={process.env.PUBLIC_URL + '/blacklogo.png'}
 						to='/'
 					/>
 				</Menu.Item>
