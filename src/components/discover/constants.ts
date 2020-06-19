@@ -9,7 +9,27 @@ export const placesFilterOptions = [
 		key: "restaurants",
 		value: "restaurants",
 		text: "Restaurants"
-	}
+	},
+	{
+		key: "accomodation",
+		value: "accomodation",
+		text: "Accomodation"
+	},
+	{
+		key: "nightclub",
+		value: "night_club",
+		text: "Night Club"
+	},
+	{
+		key: "tourist_attraction",
+		value: "tourist_attraction",
+		text: "Attractions"
+	},
+	{
+		key: "cafe",
+		value: "cafe",
+		text: "Cafe"
+	},
 ]
 
 export const universities = [
