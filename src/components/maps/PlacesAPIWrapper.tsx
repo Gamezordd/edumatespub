@@ -32,20 +32,21 @@ export class PlacesAPIWrapper extends React.Component<
 		searchType: string
 	) {
 		this.setState({ isLoading: true, prevSearch: searchType });
-		var searchUri = '',
+		var searchUri = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=${PlacesSearchRadius}&`,
 			proxyurl = 'https://cors-anywhere.herokuapp.com/';
 
 		if (searchType === 'accomodation') {
-			searchUri = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=${PlacesSearchRadius}&keyword=${center.details.name}+buildings&key=${PlacesAPIKey}`;
+			searchUri = `${searchUri}keyword=${center.details.name}+buildings&key=${PlacesAPIKey}`;
 		} else {
-			searchUri = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=${PlacesSearchRadius}&type=${searchType}&key=${PlacesAPIKey}`;
+			searchUri = `${searchUri}type=${searchType}&key=${PlacesAPIKey}`;
 		}
+
 		fetch(proxyurl + searchUri)
 			.then(response => {
 				if (response.ok) return response.json();
 			})
 			.then(async data => {
-				let resultArray: any = [{...this.props.center}];
+				let resultArray: any = [{ ...this.props.center }];
 				data.results.map(
 					(element: {
 						name: string;
@@ -56,12 +57,10 @@ export class PlacesAPIWrapper extends React.Component<
 							lat: lat,
 							lng: lng,
 							details: { ...element },
-                        });
-                        return null
+						});
+						return null;
 					}
-                );
-                console.log("resiltarray: ", resultArray);
-                
+				);
 				this.setState({ results: resultArray, isLoading: false });
 			});
 	}
@@ -69,24 +68,17 @@ export class PlacesAPIWrapper extends React.Component<
 	render() {
 		const { searchType, center } = this.props;
 		const { isLoading, results, prevSearch } = this.state;
+
 		if (searchType !== prevSearch) {
 			this.fetchPlaces(center, searchType);
 		}
 
-		if (isLoading && searchType !== 'none') {
+		if (isLoading) {
 			return <LoadingContainer />;
-		} else if (!isLoading && searchType !== 'none') {
-			return (
-				<MapComponent
-					places={results}
-					zoomProp={15}
-					styleProps={{ divHeight: '350px' }}
-				/>
-			);
 		} else {
 			return (
 				<MapComponent
-					places={[center]}
+					places={searchType === 'none' ? [center] : results}
 					zoomProp={15}
 					styleProps={{ divHeight: '350px' }}
 				/>
