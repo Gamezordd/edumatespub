@@ -55,8 +55,6 @@ class DiscoverComponent extends React.Component<
 		e: React.MouseEvent<HTMLElement, MouseEvent>,
 		{ value }: SearchProps
 	) => {
-		console.log('value: ', this.state);
-
 		const { uniList } = this.props;
 		this.setState({ isLoading: true, value });
 		setTimeout(() => {

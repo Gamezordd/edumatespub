@@ -68,8 +68,6 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 	};
 
 	handleClick = (props: any, marker: any, e: any) => {
-		console.log('props: ', props, 'marker', marker);
-
 		this.setState({
 			activeMarker: marker,
 			selectedPlace: props,

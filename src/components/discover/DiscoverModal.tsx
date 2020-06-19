@@ -74,7 +74,6 @@ export const DiscoverModal = (props: IProps) => {
 									fluid
 									options={placesFilterOptions}
 									onChange={(e, d) => handleDropdownChange(e, d)}
-									value={searchValue}
 									/>
 							</Grid.Column>
 						</Grid.Row>
