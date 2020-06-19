@@ -63,8 +63,6 @@ class DiscoverComponent extends React.Component<
 					return this.setState(initialState);
 				}
 			} else {
-				console.log('reset');
-
 				return this.setState(initialState);
 			}
 			const re = new RegExp(_.escapeRegExp(this.state.value), 'i');

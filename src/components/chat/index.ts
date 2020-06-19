@@ -1,0 +1,1 @@
+export {ChatComponentComposed} from './ChatComponent'

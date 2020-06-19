@@ -10,8 +10,6 @@ export class InfoWindowContent extends React.Component<ContentProps>{
         if(this.props.content.name)
         {
             const {name, description} = this.props.content.name
-        console.log("infowindowcontent props:", this.props);
-        
         return(
             <div>
                 <strong>{name}</strong><br/>

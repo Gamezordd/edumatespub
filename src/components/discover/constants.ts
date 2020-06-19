@@ -58,6 +58,7 @@ export const initialState = {
 		title: '',
 		image: '',
 		description: '',
+		details:{}
 	},
 	places: []
 };

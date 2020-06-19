@@ -48,12 +48,21 @@ export class CardContainerComponent extends React.Component<CardContainerProps, 
 
 		var renderData: object[] = [];
 		if (!selected) {
+			console.log("data:", data);
+			
 			renderData = data;
 		} else {
-			if (selectedCardData) renderData = [selectedCardData];
+			if (selectedCardData){
+				const rebuildCardData = {...selectedCardData.details}
+				console.log("rebuild data: ", rebuildCardData);
+				
+				renderData = [rebuildCardData];
+			}
 		}
 
 		const RenderCards = renderData.map((university: any) => {
+			console.log("university: ", university);
+			
 			var isFavourite = false;
 			if (favouriteUnis === []) {
 				isFavourite = false;

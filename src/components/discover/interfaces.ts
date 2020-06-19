@@ -19,6 +19,7 @@ export interface initialStateProps {
 		image: string;
 		description: string;
 		id?: string;
+		details:{}
 	};
 	places: Array<{lat: number, lng: number, details:{name: string, description: string, image: string}}>
 }
@@ -28,7 +29,7 @@ export interface CardContainerProps {
 	data: object[];
 	onFavouriteButtonClick: (universityId: string[], add?: boolean) => void;
 	onCardClick: (place: Array<{ lat: number; lng: number; details: { name: string; description: string; image: string; }; }>) => void;
-	selectedCardData?: {};
+	selectedCardData?: {details: object};
 	favouriteUnis: string[];
 }
 

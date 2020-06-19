@@ -4,6 +4,8 @@ import { ButtonProps } from './interfaces';
 import { descriptionLength, uniImagePlaceholder } from './constants';
 
 export const DiscoverCard = (props: ButtonProps) => {
+	console.log("name: ", props.content.name);
+	
 	var { image, name, description, id, location } = props.content;
 	const { show, favourite, onFavouriteButtonClick, onCardClick } = props;
 	const [isLoaded, setLoaded] = useState(false);
