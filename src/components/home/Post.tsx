@@ -1,11 +1,22 @@
 import React from 'react';
-import { Icon, Card, Image } from 'semantic-ui-react';
-import './Post.css';
+import { Icon, Card, Image, Button } from 'semantic-ui-react';
+import { compose } from 'recompose';
+import { withFirebase } from '../../firebase/withFirebase';
+import { connect } from 'react-redux';
 
-export class Post extends React.Component<any, any> {
+const mapStateToProps = (state: any) => ({
+	liked: state.user.userLikes,
+});
+
+class PostUncomposed extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
+		this.state = { liked: this.props.liked.includes(this.props.post.id) };
 	}
+
+	liker = () => {
+		this.setState({ liked: !this.state.liked });
+	};
 
 	render() {
 		return (
@@ -26,7 +37,11 @@ export class Post extends React.Component<any, any> {
 						<Card.Description>{this.props.post.content}</Card.Description>
 					</Card.Content>
 					<Card.Content extra>
-						<Icon name='like' aria-label={this.props.post.likeCount} />
+						<Icon
+							name='like'
+							color={this.state.liked ? 'orange' : undefined}
+							onClick={() => this.liker()}
+						/>
 						{this.props.post.likeCount}
 					</Card.Content>
 				</Card>
@@ -34,3 +49,8 @@ export class Post extends React.Component<any, any> {
 		);
 	}
 }
+
+export const Post = compose<any, any>(
+	withFirebase,
+	connect(mapStateToProps)
+)(PostUncomposed);

@@ -8,6 +8,7 @@ export const User = (
 		emailVerified: false,
 		isAnonymous: false,
 		favouriteUnis: [],
+		userLikes: [],
 	},
 	action: any
 ) => {
@@ -48,7 +49,7 @@ export const User = (
 					newFavourites = newFavourites.filter(
 						element => !(favouriteid === element)
 					);
-					return stateUpdate = newFavourites;
+					return (stateUpdate = newFavourites);
 				});
 			}
 			console.log('stateUpdate: ', stateUpdate);
@@ -66,6 +67,14 @@ export const User = (
 				favouriteUnis: [],
 				details: {},
 			};
+
+		case ActionTypes.FETCH_LIKES: {
+			console.log('Likes in reducer', action.likes);
+			return {
+				...state,
+				userLikes: action.likes,
+			};
+		}
 
 		default:
 			return state;

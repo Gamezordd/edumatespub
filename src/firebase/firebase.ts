@@ -1,7 +1,6 @@
 import config from '../firebaseConfig.json';
-import app, { firestore } from 'firebase/app';
+import app, { firestore, auth } from 'firebase/app';
 import React from 'react';
-import { getRoles } from '@testing-library/react';
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/database');
@@ -63,6 +62,8 @@ export class Firebase {
 		await this.db.collection('USER').where('email', '==', email).get();
 
 	doSignOut = async () => await this.auth.signOut();
+
+	getVerifyId = async () => await this.auth.currentUser?.getIdToken();
 
 	getPosts = async (after: string | null, faves: string[]): Promise<any[]> => {
 		if (after === null) {

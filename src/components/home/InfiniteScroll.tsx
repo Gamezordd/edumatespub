@@ -81,12 +81,12 @@ class InfiniteScrollUncomposed extends React.Component<
 							refreshFunction={this.initiate}
 							pullDownToRefresh
 							pullDownToRefreshContent={
-								<h3 style={{ textAlign: 'center' }}>
+								<h3 style={{ textAlign: 'center', color: 'rgba(0,0,0,0.2)' }}>
 									&#8595; Pull down to refresh
 								</h3>
 							}
 							releaseToRefreshContent={
-								<h3 style={{ textAlign: 'center' }}>
+								<h3 style={{ textAlign: 'center', color: 'rgba(0,0,0,0.2)' }}>
 									&#8593; Release to refresh
 								</h3>
 							}

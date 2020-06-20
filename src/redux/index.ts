@@ -6,4 +6,5 @@ export {
 	editFavouritesAction,
 	fetchInitialPosts,
 	appendPosts,
+	fetchLikes,
 } from './ActionCreators';

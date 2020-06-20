@@ -16,15 +16,20 @@ import { Firebase } from '../../firebase';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
-import { loginAction, fetchUniversitiesAction } from '../../redux';
+import { loginAction, fetchUniversitiesAction, fetchLikes } from '../../redux';
 import { Redirect, Link } from 'react-router-dom';
 import './LoginForm.css';
 import logo from '../landing/assets/logo2.png';
+import axios from 'axios';
+
+const likesUrl =
+	'https://us-central1-mpfirebaseproject-7ff28.cloudfunctions.net/api/likes';
 
 const mapDispatchToProps = (dispatch: any) => ({
 	login: (payload: any) => dispatch(loginAction(payload)),
 	fetchUniversities: (universityIds: string[]) =>
 		dispatch(fetchUniversitiesAction(universityIds)),
+	fetchLikes: (likes: string[]) => dispatch(fetchLikes(likes)),
 });
 
 const mapStateToProps = (state: any) => {
@@ -39,6 +44,7 @@ class LoginForm extends React.Component<
 		login: typeof loginAction;
 		fetchUniversities: typeof fetchUniversitiesAction;
 		universities: any;
+		fetchLikes: typeof fetchLikes;
 	},
 	LoginState
 > {
@@ -80,10 +86,15 @@ class LoginForm extends React.Component<
 						this.props.login(payload);
 					}
 					const unis = await this.props.firebase.getUniversities();
-					return unis;
+					const likes = await axios.get(likesUrl, {
+						headers: { Authorization: await this.props.firebase.getVerifyId() },
+					});
+					return { unis, likes };
 				})
-				.then(async (unis: any) => {
-					this.props.fetchUniversities(unis);
+				.then(async (details: any) => {
+					console.log('Likes in login:', details.likes.data);
+					this.props.fetchUniversities(details.unis);
+					this.props.fetchLikes(details.likes.data.data);
 				})
 				.then(async () => {
 					this.setState({ redirect: { value: true } });

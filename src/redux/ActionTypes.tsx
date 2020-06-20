@@ -12,3 +12,5 @@ export const FETCH_INITIAL_POSTS = 'FETCH_INITIAL_POSTS';
 export type FETCH_INITIAL_POSTS = typeof FETCH_INITIAL_POSTS;
 export const APPEND_POSTS = 'APPEND_POSTS';
 export type APPEND_POSTS = typeof APPEND_POSTS;
+export const FETCH_LIKES = 'FETCH_LIKES';
+export type FETCH_LIKES = typeof FETCH_LIKES;

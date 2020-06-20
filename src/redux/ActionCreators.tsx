@@ -14,6 +14,11 @@ interface AppendPosts {
 	lastFetched: string;
 }
 
+interface FetchLikes {
+	type: ActionTypes.FETCH_LIKES;
+	likes: string[];
+}
+
 export type PostActions = FetchInitialPosts | AppendPosts;
 
 //actions
@@ -57,4 +62,9 @@ export const appendPosts = (
 	type: ActionTypes.APPEND_POSTS,
 	posts: posts,
 	lastFetched: lastFetched,
+});
+
+export const fetchLikes = (likes: string[]): FetchLikes => ({
+	type: ActionTypes.FETCH_LIKES,
+	likes: likes,
 });
