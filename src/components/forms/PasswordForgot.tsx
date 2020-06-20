@@ -5,7 +5,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
 import { ChangeEvent } from 'react';
 import { Input, Button, Form, Grid, Image } from 'semantic-ui-react';
-import './PasswordForgot.css';
+import './allforms.css';
 import logo from '../landing/assets/logo2.png';
 
 export interface PasswordForgotProps {
@@ -55,38 +55,46 @@ class PasswordForgotUncomposed extends React.Component<
 
 		const isInvalid = email === '';
 		return (
-			<div className='wrapper1'>
-				<Grid
-					textAlign='center'
-					style={{ height: '100vh' }}
-					verticalAlign='middle'
-				>
-					<Grid.Column style={{ maxWidth: 600 }}>
-						<Form onSubmit={this.onSubmit}>
-							<Image size='medium' src={logo} className='img' />
-							<Form.Field>
-								<Input
-									name='email'
-									value={this.state.email}
-									onChange={this.onChange}
-									type='text'
-									placeholder='Email Address'
-								/>
-							</Form.Field>
-							<Button
-								disabled={isInvalid}
-								type='submit'
-								className='btn'
-								color='orange'
-							>
-								Reset My Password
-							</Button>
+			<Grid
+				textAlign='center'
+				style={{ height: '100vh' }}
+				verticalAlign='middle'
+			>
+				<Grid.Column style={{ maxWidth: 600 }}>
+					<Form
+						onSubmit={this.onSubmit}
+						style={{
+							backgroundColor: 'white',
+							border: '3px solid #f3f3f3',
+							borderRadius: '25px',
+							textAlign: 'left',
+							padding: '5%',
+						}}
+					>
+						<Image size='medium' src={logo} centered />
+						<Form.Field>
+							<Input
+								name='email'
+								value={this.state.email}
+								onChange={this.onChange}
+								type='text'
+								placeholder='Email Address'
+							/>
+						</Form.Field>
+						<Button
+							disabled={isInvalid}
+							type='submit'
+							className='btn'
+							color='orange'
+							style={{ width: '100%' }}
+						>
+							Reset My Password
+						</Button>
 
-							{error && <p>{error.message}</p>}
-						</Form>
-					</Grid.Column>
-				</Grid>
-			</div>
+						{error && <p>{error.message}</p>}
+					</Form>
+				</Grid.Column>
+			</Grid>
 		);
 	}
 }
