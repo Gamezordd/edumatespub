@@ -65,7 +65,7 @@ class InfiniteScrollUncomposed extends React.Component<
 
 	render() {
 		return (
-			<div>
+			<div style={{ marginTop: '15vh' }}>
 				<Grid centered>
 					<Grid.Column style={{ padding: '5px' }}>
 						<InfiniteScrollComponent
@@ -92,30 +92,7 @@ class InfiniteScrollUncomposed extends React.Component<
 							}
 						>
 							{this.props.posts.map(post => (
-								<Card
-									style={{
-										marginTop: '10vh',
-										padding: '10px',
-										maxWidth: '80vh',
-									}}
-									centered
-									fluid
-								>
-									<h2>{post.title}</h2>
-									<div className='AuthorName'>{post.userId}</div>
-									<div className='CreatedAt'>
-										{post.createdAt.toDate().toString()}
-									</div>
-									{post.files === undefined ? (
-										<div></div>
-									) : (
-										<div className='image'>
-											<img src={post.files[0]} alt='post.title' />
-										</div>
-									)}
-									<div className='Content'>{post.content}</div>
-								</Card>
-								//<Post post={post} />
+								<Post post={post} />
 							))}
 						</InfiniteScrollComponent>
 					</Grid.Column>

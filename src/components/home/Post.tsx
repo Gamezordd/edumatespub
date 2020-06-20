@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Card } from 'semantic-ui-react';
+import { Icon, Card, Image } from 'semantic-ui-react';
 import './Post.css';
 
 export class Post extends React.Component<any, any> {
@@ -9,57 +9,26 @@ export class Post extends React.Component<any, any> {
 
 	render() {
 		return (
-			<div>
-				<Card fluid centered>
-					<Grid>
-						<Grid.Row centered columns={1} className='Post'>
-							<Grid.Column width={6}>
-								<Grid.Row className='Hidden'>....</Grid.Row>
-
-								<Grid.Row className='Hidden'>....</Grid.Row>
-
-								<Grid.Row className='Hidden'>....</Grid.Row>
-
-								<Grid.Row centered columns={2}>
-									<Grid.Column width='1' className='Postbgpic'>
-										<img src={''} className='Postprofilepic' />
-									</Grid.Column>
-									<Grid.Column width='5' className='Postbginfo'>
-										<Grid.Row className='Hidden'>....</Grid.Row>
-										<Grid.Row className='Postinfo'>
-											{this.props.post.userId}
-										</Grid.Row>
-										<Grid.Row className='Hidden'>....</Grid.Row>
-										<Grid.Row className='Postinfo'>
-											{this.props.post.createdAt.toDate().toString()}
-										</Grid.Row>
-										<Grid.Row className='Hidden'>....</Grid.Row>
-									</Grid.Column>
-								</Grid.Row>
-								<Grid.Row centered columns={1} className='Post'>
-									<Grid.Column width='6' className='Postbg'>
-										<Grid.Row>
-											<p className='Posttext'>{this.props.post.content}</p>
-											{this.props.files && (
-												<img
-													src={this.props.post.files[0]}
-													className='Postimg'
-												/>
-											)}
-										</Grid.Row>
-									</Grid.Column>
-								</Grid.Row>
-
-								<Grid.Row centered columns={1}>
-									<Grid.Column width='6'>
-										<Grid.Row className='postbottom'>
-											{this.props.post.likeCount}
-										</Grid.Row>
-									</Grid.Column>
-								</Grid.Row>
-							</Grid.Column>
-						</Grid.Row>
-					</Grid>
+			<div id={this.props.post.id} style={{ marginTop: '5vh' }}>
+				<Card centered fluid style={{ maxWidth: '60vw' }}>
+					<Card.Content>
+						<Image
+							src={process.env.PUBLIC_URL + '/favicon.ico'}
+							size='mini'
+							floated='left'
+						/>
+						<Card.Header>{this.props.post.userId}</Card.Header>
+						<Card.Meta>
+							{this.props.post.universityId},
+							{this.props.post.createdAt.toDate().toString()}
+						</Card.Meta>
+						{this.props.post.files && <Image src={this.props.post.files[0]} />}
+						<Card.Description>{this.props.post.content}</Card.Description>
+					</Card.Content>
+					<Card.Content extra>
+						<Icon name='like' aria-label={this.props.post.likeCount} />
+						{this.props.post.likeCount}
+					</Card.Content>
 				</Card>
 			</div>
 		);

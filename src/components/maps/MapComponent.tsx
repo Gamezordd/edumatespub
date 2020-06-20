@@ -121,7 +121,7 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 									position={{ lat: place.lat, lng: place.lng }}
 									key={place.details.name}
 									onClick={this.handleClick}
-									//name={place.details}
+									name={place.details}
 									title={place.centerMap ? place.details.name : undefined}
 								/>
 							);
