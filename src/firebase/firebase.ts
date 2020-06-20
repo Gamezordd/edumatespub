@@ -152,8 +152,6 @@ export class Firebase {
 		}
 	};
 
-	signOut = async () => await this.auth.signOut();
-
 	like = async (post: string) =>
 		await this.db
 			.collection('post_likes')
