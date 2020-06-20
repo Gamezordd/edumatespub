@@ -20,7 +20,7 @@ class LogOutUncomposed extends Component<{
 
 	render() {
 		this.props.logout();
-		this.props.firebase.signOut();
+		this.props.firebase.doSignOut();
 		return <Redirect to='/' />;
 	}
 }

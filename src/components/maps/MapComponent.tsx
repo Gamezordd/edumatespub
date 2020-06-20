@@ -36,7 +36,7 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 			activeMarker: null,
 			selectedPlace: {},
 			markerRenderFinished: false,
-			markers: []
+			markers: [],
 		};
 	}
 
@@ -117,23 +117,23 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 		}
 	}
 
-	renderMarkers(places: any){
-		const { markerRenderFinished } = this.state
+	renderMarkers(places: any) {
+		const { markerRenderFinished } = this.state;
 
-		if(places && !markerRenderFinished){
+		if (places && !markerRenderFinished) {
 			const markers = places.map((place: any) => {
 				return this.markerType(place);
-			})
-			return this.setState({markers: markers, markerRenderFinished: true})
-		}		
+			});
+			return this.setState({ markers: markers, markerRenderFinished: true });
+		}
 	}
 
 	render() {
-		const { markerRenderFinished } = this.state
+		const { markerRenderFinished } = this.state;
 		const { google, zoomProp, places, styleProps } = this.props;
 
-		if(!markerRenderFinished){
-			this.renderMarkers(places)
+		if (!markerRenderFinished) {
+			this.renderMarkers(places);
 		}
 
 		var styleOptions: {
@@ -165,7 +165,7 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 					zoom={zoomProp}
 					initialCenter={this.findCenter(places)}
 					onReady={(mapProps, map) => {
-						this.setState({ map: map as google.maps.Map});
+						this.setState({ map: map as google.maps.Map });
 					}}
 				>
 					{this.state.markers}

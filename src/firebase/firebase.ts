@@ -1,7 +1,6 @@
 import config from '../firebaseConfig.json';
-import app, { firestore } from 'firebase/app';
+import app, { firestore, auth } from 'firebase/app';
 import React from 'react';
-import { getRoles } from '@testing-library/react';
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/database');
@@ -63,6 +62,8 @@ export class Firebase {
 		await this.db.collection('USER').where('email', '==', email).get();
 
 	doSignOut = async () => await this.auth.signOut();
+
+	getVerifyId = async () => await this.auth.currentUser?.getIdToken();
 
 	getPosts = async (after: string | null, faves: string[]): Promise<any[]> => {
 		if (after === null) {
@@ -151,7 +152,21 @@ export class Firebase {
 		}
 	};
 
-	signOut = async () => await this.auth.signOut();
+	like = async (post: string) =>
+		await this.db
+			.collection('post_likes')
+			.add({ userId: this.auth.currentUser?.uid, postId: post });
+
+	unlike = async (post: string) =>
+		await this.db
+			.collection('post_likes')
+			.where('userId', '==', this.auth.currentUser?.uid)
+			.where('postId', '==', post)
+			.get()
+			.then(async query => {
+				if (query.docs[0] == undefined) return;
+				await query.docs[0].ref.delete();
+			});
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);

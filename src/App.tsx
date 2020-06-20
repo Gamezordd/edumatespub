@@ -14,7 +14,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export function App() {
 	return (
-		<div className='App'>
+		<div
+			className='App'
+			style={{
+				backgroundImage: 'linear-gradient(to bottom, #ff8c00, #fffaf0)',
+				backgroundAttachment: 'fixed',
+			}}
+		>
 			<Router>
 				<NavBar>
 					<Switch>
