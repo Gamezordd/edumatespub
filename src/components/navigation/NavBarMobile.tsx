@@ -33,11 +33,13 @@ export const NavBarMobile: React.FC<SidebarProps> = ({
 		>
 			<Menu fixed='top'>
 				<Menu.Item>
-					<Image
-						size='small'
-						src={process.env.PUBLIC_URL + '/blacklogo.png'}
-						to='/'
-					/>
+					<Link to='/'>
+						<Image
+							size='small'
+							src={process.env.PUBLIC_URL + '/blacklogo.png'}
+							to='/'
+						/>
+					</Link>
 				</Menu.Item>
 				<Menu.Menu position='right'>
 					<Menu.Item onClick={onToggle}>
