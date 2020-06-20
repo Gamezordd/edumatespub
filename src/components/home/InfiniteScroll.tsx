@@ -67,7 +67,7 @@ class InfiniteScrollUncomposed extends React.Component<
 		return (
 			<div
 				style={{
-					marginTop: '15vh',
+					marginTop: '10vh',
 				}}
 			>
 				<Grid centered>
@@ -78,19 +78,19 @@ class InfiniteScrollUncomposed extends React.Component<
 							hasMore={this.state.hasMore}
 							loader='Fetching posts....'
 							endMessage={
-								<p style={{ textAlign: 'center' }}>
+								<p style={{ textAlign: 'center', color: 'rgba(F,F,F,0.2)' }}>
 									<b>You are all caught up!</b>
 								</p>
 							}
 							refreshFunction={this.initiate}
 							pullDownToRefresh
 							pullDownToRefreshContent={
-								<h3 style={{ textAlign: 'center', color: 'rgba(0,0,0,0.2)' }}>
+								<h3 style={{ textAlign: 'center', color: 'rgba(F,F,F,0.2)' }}>
 									&#8595; Pull down to refresh
 								</h3>
 							}
 							releaseToRefreshContent={
-								<h3 style={{ textAlign: 'center', color: 'rgba(0,0,0,0.2)' }}>
+								<h3 style={{ textAlign: 'center', color: 'rgba(F,F,F,0.2)' }}>
 									&#8593; Release to refresh
 								</h3>
 							}
