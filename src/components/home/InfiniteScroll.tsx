@@ -65,7 +65,11 @@ class InfiniteScrollUncomposed extends React.Component<
 
 	render() {
 		return (
-			<div style={{ marginTop: '15vh' }}>
+			<div
+				style={{
+					marginTop: '15vh',
+				}}
+			>
 				<Grid centered>
 					<Grid.Column style={{ padding: '5px' }}>
 						<InfiniteScrollComponent
