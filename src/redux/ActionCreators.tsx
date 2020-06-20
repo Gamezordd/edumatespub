@@ -19,6 +19,16 @@ interface FetchLikes {
 	likes: string[];
 }
 
+interface AddLike {
+	type: ActionTypes.ADD_LIKE;
+	post: string;
+}
+
+interface RemoveLike {
+	type: ActionTypes.REMOVE_LIKE;
+	post: string;
+}
+
 export type PostActions = FetchInitialPosts | AppendPosts;
 
 //actions
@@ -67,4 +77,14 @@ export const appendPosts = (
 export const fetchLikes = (likes: string[]): FetchLikes => ({
 	type: ActionTypes.FETCH_LIKES,
 	likes: likes,
+});
+
+export const addLike = (post: string): AddLike => ({
+	type: ActionTypes.ADD_LIKE,
+	post: post,
+});
+
+export const removeLike = (post: string): RemoveLike => ({
+	type: ActionTypes.REMOVE_LIKE,
+	post: post,
 });

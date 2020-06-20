@@ -14,3 +14,7 @@ export const APPEND_POSTS = 'APPEND_POSTS';
 export type APPEND_POSTS = typeof APPEND_POSTS;
 export const FETCH_LIKES = 'FETCH_LIKES';
 export type FETCH_LIKES = typeof FETCH_LIKES;
+export const ADD_LIKE = 'ADD_LIKE';
+export type ADD_LIKE = typeof ADD_LIKE;
+export const REMOVE_LIKE = 'REMOVE_LIKE';
+export type REMOVE_LIKE = 'REMOVE_LIKE';

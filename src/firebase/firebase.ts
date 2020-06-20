@@ -153,6 +153,22 @@ export class Firebase {
 	};
 
 	signOut = async () => await this.auth.signOut();
+
+	like = async (post: string) =>
+		await this.db
+			.collection('post_likes')
+			.add({ userId: this.auth.currentUser?.uid, postId: post });
+
+	unlike = async (post: string) =>
+		await this.db
+			.collection('post_likes')
+			.where('userId', '==', this.auth.currentUser?.uid)
+			.where('postId', '==', post)
+			.get()
+			.then(async query => {
+				if (query.docs[0] == undefined) return;
+				await query.docs[0].ref.delete();
+			});
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);
