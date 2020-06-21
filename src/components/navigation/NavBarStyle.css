@@ -5,3 +5,11 @@
 .item::before {
     width: 0 !important;
 }
+
+.menucolorfocus {
+    background-color: orange;
+}
+
+a.item:active{
+    background-color: orange;
+}

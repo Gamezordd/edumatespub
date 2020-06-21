@@ -3,6 +3,7 @@ import { ItemProps } from 'semantic-ui-react';
 import { NavBar } from './NavBar';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import './NavBarStyle.css';
 
 const mapStateToProps = (state: any) => {
 	return {
@@ -11,7 +12,7 @@ const mapStateToProps = (state: any) => {
 };
 
 const userLeftItems: ItemProps[] = [
-	{ content: 'Home', key: 'home', to: '/' },
+	{ content: 'Home', key: 'home', to: '/'},
 	{ content: 'Maps', key: 'maps', to: '/maps' },
 	{ content: 'Chat', key: 'chat', to: '/chat' },
 	{ content: 'Discover', key: 'discover', to: '/discover' },
@@ -23,7 +24,7 @@ const userRightItems: ItemProps[] = [
 
 const rightItems: ItemProps[] = [
 	{ content: 'Register', key: 'register', to: '/register' },
-	{ content: 'Login', key: 'login', to: '/login' },
+	{ content: 'Login', key: 'login', to: '/login'},
 ];
 
 const NavBarWrapperUncomposed: React.FC<any> = ({ children, isLoggedIn }) => {
