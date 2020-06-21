@@ -13,11 +13,7 @@ const mapStateToProps = (state: any) => {
 };
 
 const userLeftItems: ItemProps[] = [
-<<<<<<< HEAD
-	{ content: 'Home', key: 'home', to: '/'},
-=======
 	{ content: 'Home', key: 'home', to: '/home' },
->>>>>>> 558a10bb386d9f2bc5069d0fbbc762d64b52adf8
 	{ content: 'Maps', key: 'maps', to: '/maps' },
 	{ content: 'Chat', key: 'chat', to: '/chat' },
 	{ content: 'Discover', key: 'discover', to: '/discover' },
@@ -29,7 +25,7 @@ const userRightItems: ItemProps[] = [
 
 const rightItems: ItemProps[] = [
 	{ content: 'Register', key: 'register', to: '/register' },
-	{ content: 'Login', key: 'login', to: '/login'},
+	{ content: 'Login', key: 'login', to: '/login' },
 ];
 
 const NavBarWrapperUncomposed: React.FC<any> = ({
