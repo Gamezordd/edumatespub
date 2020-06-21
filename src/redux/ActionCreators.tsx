@@ -1,5 +1,38 @@
 import * as ActionTypes from './ActionTypes';
 
+//interfaces
+
+interface FetchInitialPosts {
+	type: ActionTypes.FETCH_INITIAL_POSTS;
+	posts: any[];
+	lastFetched: string;
+}
+
+interface AppendPosts {
+	type: ActionTypes.APPEND_POSTS;
+	posts: any[];
+	lastFetched: string;
+}
+
+interface FetchLikes {
+	type: ActionTypes.FETCH_LIKES;
+	likes: string[];
+}
+
+interface AddLike {
+	type: ActionTypes.ADD_LIKE;
+	post: string;
+}
+
+interface RemoveLike {
+	type: ActionTypes.REMOVE_LIKE;
+	post: string;
+}
+
+export type PostActions = FetchInitialPosts | AppendPosts;
+
+//actions
+
 export const exampleAction = () => ({
 	type: ActionTypes.EXAMPLE_ACTION,
 });
@@ -15,10 +48,43 @@ export const logoutAction = () => ({
 
 export const fetchUniversitiesAction = (payload: any) => ({
 	type: ActionTypes.FETCH_UNIVERSITIES,
-	payload: payload
+	payload: payload,
 });
 
 export const editFavouritesAction = (payload: any) => ({
 	type: ActionTypes.EDIT_FAVOURITES,
-	payload: payload
-})
+	payload: payload,
+});
+
+export const fetchInitialPosts = (
+	posts: any[],
+	lastFetched: string
+): FetchInitialPosts => ({
+	type: ActionTypes.FETCH_INITIAL_POSTS,
+	posts: posts,
+	lastFetched: lastFetched,
+});
+
+export const appendPosts = (
+	posts: any[],
+	lastFetched: string
+): AppendPosts => ({
+	type: ActionTypes.APPEND_POSTS,
+	posts: posts,
+	lastFetched: lastFetched,
+});
+
+export const fetchLikes = (likes: string[]): FetchLikes => ({
+	type: ActionTypes.FETCH_LIKES,
+	likes: likes,
+});
+
+export const addLike = (post: string): AddLike => ({
+	type: ActionTypes.ADD_LIKE,
+	post: post,
+});
+
+export const removeLike = (post: string): RemoveLike => ({
+	type: ActionTypes.REMOVE_LIKE,
+	post: post,
+});

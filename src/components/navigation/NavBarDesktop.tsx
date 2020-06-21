@@ -8,9 +8,11 @@ export const NavBarDesktop: React.FC<MenuProps> = ({
 	leftItems,
 	rightItems,
 }) => (
-	<Menu fixed='top'   >  
-		<Menu.Item className="navspace"> 
-			<Image size='small' src={process.env.PUBLIC_URL + '/blacklogo.png'} />
+	<Menu fixed='top'>
+		<Menu.Item>
+			<Link to='/'>
+				<Image size='small' src={process.env.PUBLIC_URL + '/blacklogo.png'} />
+			</Link>
 		</Menu.Item>
 		{_.map(leftItems, item => ( 
 			<Menu.Item as={Link} {...item} /> 
@@ -19,7 +21,6 @@ export const NavBarDesktop: React.FC<MenuProps> = ({
 			{_.map(rightItems, item => ( 
 				<Menu.Item as={Link} {...item} /> 
 			))}
-		</Menu.Menu> 
-
+		</Menu.Menu>
 	</Menu>
 );

@@ -7,14 +7,14 @@ export const User = (
 		photoURL: '',
 		emailVerified: false,
 		isAnonymous: false,
-		favouriteUnis: [],
+		favouriteUnis: new Array<string>(),
+		userLikes: new Array<string>(),
 	},
 	action: any
 ) => {
 	switch (action.type) {
 		case ActionTypes.EXAMPLE_ACTION:
 			return { ...state };
-
 		case ActionTypes.LOGIN_ACTION: {
 			const {
 				uid,
@@ -24,7 +24,6 @@ export const User = (
 				favouriteUnis,
 				isAmbassador,
 			} = action.payload;
-			console.log('Logging in');
 			return {
 				...state,
 				uid: uid,
@@ -33,7 +32,7 @@ export const User = (
 					email: email,
 				},
 				isLoggedIn: true,
-				favourites: favouriteUnis,
+				favouriteUnis: favouriteUnis,
 				photoURL: profileImage,
 				isAmbassador: isAmbassador,
 			};
@@ -50,11 +49,11 @@ export const User = (
 					newFavourites = newFavourites.filter(
 						element => !(favouriteid === element)
 					);
-					stateUpdate = newFavourites;
+					return (stateUpdate = newFavourites);
 				});
 			}
-			console.log("stateUpdate: ", stateUpdate);
-			
+			console.log('stateUpdate: ', stateUpdate);
+
 			return { ...state, favouriteUnis: stateUpdate };
 		}
 
@@ -68,6 +67,28 @@ export const User = (
 				favouriteUnis: [],
 				details: {},
 			};
+
+		case ActionTypes.FETCH_LIKES: {
+			return {
+				...state,
+				userLikes: action.likes,
+			};
+		}
+
+		case ActionTypes.ADD_LIKE: {
+			const newLikes = new Set(state.userLikes.concat(action.post));
+			return { ...state, ...{ userLikes: Array.from(newLikes) } };
+		}
+
+		case ActionTypes.REMOVE_LIKE: {
+			const index = state.userLikes.indexOf(action.post);
+			const newLikes =
+				index === -1 ? state.userLikes : state.userLikes.splice(index, 1);
+			return {
+				...state,
+				...{ userLikes: newLikes },
+			};
+		}
 
 		default:
 			return state;

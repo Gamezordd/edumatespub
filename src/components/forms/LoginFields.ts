@@ -6,10 +6,11 @@ export const FormFields: LoginFieldType[] = [
 		validate: 'email',
 		properties: {
 			type: 'text',
-			label: 'E-mail',
+
 			icon: 'mail',
 			required: true,
 			iconPosition: 'left',
+			placeholder: 'Email ID',
 		},
 	},
 	{
@@ -17,10 +18,11 @@ export const FormFields: LoginFieldType[] = [
 		validate: 'any',
 		properties: {
 			type: 'password',
-			label: 'Password',
+
 			icon: 'lock',
 			iconPosition: 'left',
 			required: true,
+			placeholder: 'Password',
 		},
 	},
 ];
