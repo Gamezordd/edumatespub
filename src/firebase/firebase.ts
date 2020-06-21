@@ -1,6 +1,7 @@
 import config from '../firebaseConfig.json';
 import app, { firestore } from 'firebase/app';
 import React from 'react';
+import { toInteger } from 'lodash';
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/database');
@@ -150,10 +151,17 @@ export class Firebase {
 		}
 	};
 
-	addChatEventListener = async (uid: string) => {
-		
-
-
+	async sendChat(message: string, fromUid: string, toUid: string){
+		const messagesListRef = this.rtdb.ref('Chats/');
+		messagesListRef.push().set({
+			message: message,
+			receiver: toUid,
+			sender: fromUid,
+			timestamp: toInteger((new Date().getTime()) / 1000)
+		}).then(async id => {
+			console.log("sent: ", await id);
+			
+		})
 	}
 
 	signOut = async () => await this.auth.signOut();

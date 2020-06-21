@@ -32,7 +32,6 @@ const NavBarWrapperUncomposed: React.FC<any> = ({
 	isLoggedIn,
 	user,
 }) => {
-	console.log('Login status' + isLoggedIn);
 	console.log(user);
 
 	var lItems: ItemProps[] | null = [],

@@ -8,7 +8,7 @@ export const Chat = (
 ) => {
 	switch (action.type) {
 		case ActionTypes.ADD_CHATS:{
-			return {messages: state.messages.concat(action.payload)}
+			return {messages: action.payload}
 		}
 		default:{
 			return state

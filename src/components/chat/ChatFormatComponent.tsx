@@ -4,6 +4,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { Firebase } from '../../firebase';
 import { addChatsAction } from '../../redux';
+import { Button } from 'semantic-ui-react';
 interface IState {
 	newMessage: boolean;
 	chats: object[];
@@ -11,6 +12,7 @@ interface IState {
 		data: { message: string; sender: string; receiver: string };
 		messageId: string;
 	}>;
+	fetchMessages: boolean;
 }
 
 interface IProps {
@@ -40,19 +42,35 @@ class ChatComponent extends React.Component<IProps, IState> {
 	componentDidMount() {
 		const rtdbMessageRef = this.props.firebase.rtdb.ref('Chats/');
 
-		rtdbMessageRef.on('value', (snapshot: any) => {
+		/*rtdbMessageRef.on('value', (snapshot: any) => {
 			this.setState({ newMessage: true });
 			const data: any = snapshot.val();
 			let payload: any = [];
 			Object.keys(data).forEach(key => {
 				if (
-					data[key]['receiver'] === 'BhqKSeHJuFTJ8UJoOvJoh8EzdV52' ||
-					data[key]['sender'] === 'BhqKSeHJuFTJ8UJoOvJoh8EzdV52'
+					data[key]['receiver'] === this.props.user.uid ||
+					data[key]['sender'] === this.props.user.uid
 				) {
 					payload = payload.concat({ data: data[key], messageId: key });
 				}
 			});
+			console.log("payload", payload);
+			
 			this.setState({ rawMessages: payload });
+		});*/
+
+		var payload: any = [];
+		rtdbMessageRef.on('child_added', snapshot => {
+			if (
+				snapshot.val().sender === this.props.user.uid ||
+				snapshot.val().receiver === this.props.user.uid
+			) {
+				payload = payload.concat({
+					data: snapshot.val(),
+					messageId: snapshot.key,
+				});
+				this.setState({ rawMessages: payload, newMessage: true });
+			}
 		});
 	}
 
@@ -65,18 +83,19 @@ class ChatComponent extends React.Component<IProps, IState> {
 			}>(),
 			newMessage: false,
 			rawMessages: [],
+			fetchMessages: true,
 		};
 	}
 	updateMessages() {
-		const { chats, rawMessages } = this.state;
-		var newChats: any = chats;
+		const { rawMessages } = this.state;
+		var newChats: any = [];
 		rawMessages.map((message, index) => {
 			const receiverIndex = newChats.findIndex(
 				(element: any) => element.uid === message.data.receiver
 			);
 
 			if (receiverIndex < 0) {
-				if (message.data.receiver === 'BhqKSeHJuFTJ8UJoOvJoh8EzdV52') {
+				if (message.data.receiver === this.props.user.uid) {
 					const senderIndex = newChats.findIndex(
 						(element: any) => element.uid === message.data.sender
 					);
@@ -87,7 +106,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 								{
 									message: message.data.message,
 									sent:
-										message.data.sender === 'BhqKSeHJuFTJ8UJoOvJoh8EzdV52'
+										message.data.sender === this.props.user.uid
 											? true
 											: false,
 									messageId: message.messageId,
@@ -100,7 +119,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 							messages: newChats[senderIndex]['messages'].concat({
 								message: message.data.message,
 								sent:
-									message.data.sender === 'BhqKSeHJuFTJ8UJoOvJoh8EzdV52'
+									message.data.sender === this.props.user.uid
 										? true
 										: false,
 								messageId: message.messageId,
@@ -114,7 +133,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 							{
 								message: message.data.message,
 								sent:
-									message.data.sender === 'BhqKSeHJuFTJ8UJoOvJoh8EzdV52'
+									message.data.sender === this.props.user.uid
 										? true
 										: false,
 								messageId: message.messageId,
@@ -128,7 +147,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 					messages: newChats[receiverIndex]['messages'].concat({
 						message: message.data.message,
 						sent:
-							message.data.sender === 'BhqKSeHJuFTJ8UJoOvJoh8EzdV52'
+							message.data.sender === this.props.user.uid
 								? true
 								: false,
 						messageId: message.messageId,
@@ -136,17 +155,36 @@ class ChatComponent extends React.Component<IProps, IState> {
 				};
 			}
 		});
-		console.log('newChats: ', newChats);
-		this.props.addChats(newChats)
+		this.props.addChats(newChats);
 		this.setState({ newMessage: false, chats: newChats });
 	}
+
+	sendMessage(message: string, toUid: string) {
+		this.props.firebase.sendChat(
+			message,
+			this.props.user.uid,
+			toUid
+		);
+	}
+
 	render() {
 		const { newMessage, rawMessages } = this.state;
 		if (newMessage && rawMessages.length !== 0) {
 			this.updateMessages();
 		}
 
-		return null;
+		return (
+			<div style={{ padding: '200px' }}>
+				<Button
+					primary
+					onClick={() =>
+						this.sendMessage('testmessage2', 'jHRSN183heYYQL2UquuIV0dS0Xg1')
+					}
+				>
+					Send
+				</Button>
+			</div>
+		);
 	}
 }
 
