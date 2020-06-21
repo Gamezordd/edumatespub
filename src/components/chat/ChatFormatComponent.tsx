@@ -13,6 +13,7 @@ interface IState {
 		messageId: string;
 	}>;
 	fetchMessages: boolean;
+	limitCount: number
 }
 
 interface IProps {
@@ -38,11 +39,13 @@ const mapDispatchToProps = (dispatch: any) => ({
 	addChats: (payload: object[]) => dispatch(addChatsAction(payload)),
 });
 
+//this.props.user.uid
 class ChatComponent extends React.Component<IProps, IState> {
 	componentDidMount() {
-		const rtdbMessageRef = this.props.firebase.rtdb.ref('Chats/');
+		const {limitCount} = this.state
+ 		const rtdbMessageRef = this.props.firebase.rtdb.ref('Chats/');
 		var payload: any = [];
-		rtdbMessageRef.on('child_added', snapshot => {
+		rtdbMessageRef.limitToLast(limitCount).on('child_added', snapshot => {
 			if (
 				snapshot.val().sender === this.props.user.uid ||
 				snapshot.val().receiver === this.props.user.uid
@@ -54,6 +57,10 @@ class ChatComponent extends React.Component<IProps, IState> {
 				this.setState({ rawMessages: payload, newMessage: true });
 			}
 		});
+		rtdbMessageRef.limitToLast(limitCount).on('child_removed', child=>{
+			console.log("removed: ", child.val());
+			this.setState({rawMessages: [child.val()].concat(this.state.rawMessages)})
+		})
 	}
 
 	constructor(props: IProps) {
@@ -66,8 +73,10 @@ class ChatComponent extends React.Component<IProps, IState> {
 			newMessage: false,
 			rawMessages: [],
 			fetchMessages: true,
+			limitCount: 100
 		};
 	}
+
 	updateMessages() {
 		const { rawMessages } = this.state;
 		var newChats: any = [];
@@ -133,7 +142,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 			}
 		});
 		const chronoChats = this.orderChronologically(newChats)
-		//console.log('chats: ', chronoChats);
+		console.log('chats: ', chronoChats);
 		this.props.addChats(chronoChats);
 		this.setState({ newMessage: false, chats: chronoChats});
 	}
