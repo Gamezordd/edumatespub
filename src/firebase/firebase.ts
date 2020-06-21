@@ -47,6 +47,7 @@ export class Firebase {
 					phone: phone.value,
 					country: country.value,
 					isAmbassador: isAmbassador.value,
+					favouriteUnis: [],
 				},
 				data: data,
 			});

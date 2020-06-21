@@ -7,4 +7,5 @@ export {
 	fetchInitialPosts,
 	appendPosts,
 	fetchLikes,
+	clearPosts,
 } from './ActionCreators';

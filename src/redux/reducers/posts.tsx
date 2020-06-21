@@ -18,6 +18,9 @@ export const Posts = (
 				lastFetched: action.lastFetched,
 			};
 		}
+		case ActionTypes.CLEAR_POSTS: {
+			return { posts: [], lastFetched: null };
+		}
 		default: {
 			return state;
 		}

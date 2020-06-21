@@ -18,3 +18,5 @@ export const ADD_LIKE = 'ADD_LIKE';
 export type ADD_LIKE = typeof ADD_LIKE;
 export const REMOVE_LIKE = 'REMOVE_LIKE';
 export type REMOVE_LIKE = 'REMOVE_LIKE';
+export const CLEAR_POSTS = 'CLEAR_POSTS';
+export type CLEAR_POSTS = typeof CLEAR_POSTS;

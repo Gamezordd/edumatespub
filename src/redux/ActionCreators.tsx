@@ -29,7 +29,11 @@ interface RemoveLike {
 	post: string;
 }
 
-export type PostActions = FetchInitialPosts | AppendPosts;
+interface ClearPosts {
+	type: ActionTypes.CLEAR_POSTS;
+}
+
+export type PostActions = FetchInitialPosts | AppendPosts | ClearPosts;
 
 //actions
 
@@ -87,4 +91,8 @@ export const addLike = (post: string): AddLike => ({
 export const removeLike = (post: string): RemoveLike => ({
 	type: ActionTypes.REMOVE_LIKE,
 	post: post,
+});
+
+export const clearPosts = (): ClearPosts => ({
+	type: ActionTypes.CLEAR_POSTS,
 });
