@@ -41,24 +41,6 @@ const mapDispatchToProps = (dispatch: any) => ({
 class ChatComponent extends React.Component<IProps, IState> {
 	componentDidMount() {
 		const rtdbMessageRef = this.props.firebase.rtdb.ref('Chats/');
-
-		/*rtdbMessageRef.on('value', (snapshot: any) => {
-			this.setState({ newMessage: true });
-			const data: any = snapshot.val();
-			let payload: any = [];
-			Object.keys(data).forEach(key => {
-				if (
-					data[key]['receiver'] === this.props.user.uid ||
-					data[key]['sender'] === this.props.user.uid
-				) {
-					payload = payload.concat({ data: data[key], messageId: key });
-				}
-			});
-			console.log("payload", payload);
-			
-			this.setState({ rawMessages: payload });
-		});*/
-
 		var payload: any = [];
 		rtdbMessageRef.on('child_added', snapshot => {
 			if (
@@ -156,6 +138,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 			}
 		});
 		this.props.addChats(newChats);
+		console.log("chats: ", newChats)
 		this.setState({ newMessage: false, chats: newChats });
 	}
 
