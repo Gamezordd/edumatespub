@@ -18,7 +18,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { loginAction, fetchUniversitiesAction, fetchLikes } from '../../redux';
 import { Redirect, Link } from 'react-router-dom';
-import './LoginForm.css';
+import './allforms.css';
 import logo from '../landing/assets/logo2.png';
 import axios from 'axios';
 
@@ -139,46 +139,49 @@ class LoginForm extends React.Component<
 		}
 
 		return (
-			<div className='wrapper1'>
-				<Grid
-					textAlign='center'
-					style={{ height: '100vh' }}
-					verticalAlign='middle'
-				>
-					<Grid.Column style={{ maxWidth: 600 }}>
-						<Form>
-							<div className='header'>
-								<Image size='medium' src={logo} className='img' />
-							</div>
-							<h2>Log in</h2>
-							{_.map(FormFields, field => (
-								<FormField
-									{...field.properties}
-									control={Input}
-									error={this.getError(field.key)}
-									onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-										this.validate(field.validate, field.key, e)
-									}
-								/>
-							))}
-							<Button
-								content='Submit'
-								onClick={() => this.handleSubmit()}
-								className='btn'
-								color='orange'
+			<Grid
+				textAlign='center'
+				style={{ height: '100vh' }}
+				verticalAlign='middle'
+			>
+				<Grid.Column style={{ maxWidth: 600 }}>
+					<Form
+						style={{
+							backgroundColor: 'white',
+							border: '3px solid #f3f3f3',
+							borderRadius: '25px',
+							textAlign: 'left',
+							padding: '5%',
+						}}
+					>
+						<Image size='medium' src={logo} centered />
+						<h2>Log in</h2>
+						{_.map(FormFields, field => (
+							<FormField
+								{...field.properties}
+								control={Input}
+								error={this.getError(field.key)}
+								onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+									this.validate(field.validate, field.key, e)
+								}
 							/>
-							{this.state.showError.value && (
-								<Card fluid style={{ padding: '10px' }}>
-									<p style={{ color: 'red' }}>
-										{this.state.errorMessage.value}
-									</p>
-								</Card>
-							)}
-							<Link to={'/forgotPassword'}>Forgot Password?</Link>{' '}
-						</Form>
-					</Grid.Column>
-				</Grid>
-			</div>
+						))}
+						<Button
+							content='Submit'
+							onClick={() => this.handleSubmit()}
+							className='btn'
+							color='orange'
+							style={{ width: '100%' }}
+						/>
+						{this.state.showError.value && (
+							<Card fluid style={{ padding: '10px' }}>
+								<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
+							</Card>
+						)}
+						<Link to={'/forgotPassword'}>Forgot Password?</Link>{' '}
+					</Form>
+				</Grid.Column>
+			</Grid>
 		);
 	}
 }
