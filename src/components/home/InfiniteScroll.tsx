@@ -8,11 +8,13 @@ import InfiniteScrollComponent from 'react-infinite-scroll-component';
 import { Card, Grid } from 'semantic-ui-react';
 import { Dispatch, AnyAction } from 'redux';
 import { Post } from './Post';
+import { Redirect } from 'react-router-dom';
 
 const mapStateToProps = (state: any) => ({
 	posts: state.posts.posts,
 	lastFetched: state.posts.lastFetched,
 	favourites: state.user.favouriteUnis,
+	isLoggedIn: state.user.isLoggedIn,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
@@ -64,6 +66,8 @@ class InfiniteScrollUncomposed extends React.Component<
 	};
 
 	render() {
+		if (!this.props.isLoggedIn) return <Redirect to='/login' />;
+
 		return (
 			<div
 				style={{

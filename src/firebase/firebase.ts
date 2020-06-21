@@ -123,6 +123,10 @@ export class Firebase {
 	doPasswordReset = async (email: string) =>
 		await this.auth.sendPasswordResetEmail(email);
 
+	getProfileImageUrl = async (uid: string) => {
+		return this.storage.ref(`profileImages/${uid}.jpg`);
+	};
+
 	editFavourites = async (
 		uid: string,
 		universityIds: string[],

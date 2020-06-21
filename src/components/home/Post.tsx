@@ -69,6 +69,10 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 
 	render() {
 		const { post } = this.props;
+		const date = new Intl.DateTimeFormat(
+			post.createdAt.toDate(),
+			dateOptions
+		).format(post.createdAt);
 		return (
 			<div id={post.id} style={{ marginTop: '5vh', padding: '5px' }}>
 				<Card centered fluid style={{ maxWidth: '720px' }}>
@@ -80,11 +84,7 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 						/>
 						<Card.Header style={{ fontSize: '1em' }}>{post.userId}</Card.Header>
 						<Card.Meta style={{ fontSize: '1em' }}>
-							{post.universityId},
-							{new Intl.DateTimeFormat(
-								post.createdAt.toDate(),
-								dateOptions
-							).toString()}
+							{post.universityId}, {date}
 						</Card.Meta>
 					</Card.Content>
 					<Card.Content>

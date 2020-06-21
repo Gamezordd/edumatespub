@@ -13,6 +13,7 @@ export interface InfiniteScrollProps {
 	favourites: string[];
 	fetch: typeof fetchInitialPosts;
 	append: typeof appendPosts;
+	isLoggedIn: boolean;
 }
 
 export interface PostState {

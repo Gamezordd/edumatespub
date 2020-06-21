@@ -1,14 +1,15 @@
 import React from 'react';
 import { DiscoverComponentComposed } from './index';
-//import {universities} from './constants'
 import { withFirebase } from '../../firebase/withFirebase';
-import{ DiscoverContainerProps } from './interfaces';
+import { DiscoverContainerProps } from './interfaces';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 const mapStateToProps = (state: any) => {
 	return {
 		universities: state.universities,
+		isLoggedIn: state.user.isLoggedIn,
 	};
 };
 
@@ -18,6 +19,8 @@ class DiscoverContainer extends React.Component<DiscoverContainerProps, any> {
 	}
 
 	render() {
+		if (!this.props.isLoggedIn) return <Redirect to='/login' />;
+
 		return (
 			<div style={{ paddingTop: '100px' }}>
 				<DiscoverComponentComposed uniList={this.props.universities} />
