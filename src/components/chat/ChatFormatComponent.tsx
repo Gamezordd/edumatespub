@@ -9,7 +9,7 @@ interface IState {
 	newMessage: boolean;
 	chats: object[];
 	rawMessages: Array<{
-		data: { message: string; sender: string; receiver: string };
+		data: { message: string; sender: string; receiver: string, timestamp: number };
 		messageId: string;
 	}>;
 	fetchMessages: boolean;
@@ -21,7 +21,7 @@ interface IProps {
 	addChats: typeof addChatsAction;
 	chat: {
 		messages: Array<{
-			data: { message: string; sender: string; receiver: string };
+			data: { message: string; sender: string; receiver: string, timestamp: number };
 			messageId: string;
 		}>;
 	};
@@ -88,10 +88,9 @@ class ChatComponent extends React.Component<IProps, IState> {
 								{
 									message: message.data.message,
 									sent:
-										message.data.sender === this.props.user.uid
-											? true
-											: false,
+										message.data.sender === this.props.user.uid ? true : false,
 									messageId: message.messageId,
+									timestamp: message.data.timestamp
 								},
 							],
 						});
@@ -101,10 +100,9 @@ class ChatComponent extends React.Component<IProps, IState> {
 							messages: newChats[senderIndex]['messages'].concat({
 								message: message.data.message,
 								sent:
-									message.data.sender === this.props.user.uid
-										? true
-										: false,
+									message.data.sender === this.props.user.uid ? true : false,
 								messageId: message.messageId,
+								timestamp: message.data.timestamp
 							}),
 						};
 					}
@@ -115,10 +113,9 @@ class ChatComponent extends React.Component<IProps, IState> {
 							{
 								message: message.data.message,
 								sent:
-									message.data.sender === this.props.user.uid
-										? true
-										: false,
+									message.data.sender === this.props.user.uid ? true : false,
 								messageId: message.messageId,
+								timestamp: message.data.timestamp
 							},
 						],
 					});
@@ -128,26 +125,43 @@ class ChatComponent extends React.Component<IProps, IState> {
 					uid: message.data.receiver,
 					messages: newChats[receiverIndex]['messages'].concat({
 						message: message.data.message,
-						sent:
-							message.data.sender === this.props.user.uid
-								? true
-								: false,
+						sent: message.data.sender === this.props.user.uid ? true : false,
 						messageId: message.messageId,
+						timestamp: message.data.timestamp
 					}),
 				};
 			}
 		});
-		this.props.addChats(newChats);
-		console.log("chats: ", newChats)
-		this.setState({ newMessage: false, chats: newChats });
+		const chronoChats = this.orderChronologically(newChats)
+		//console.log('chats: ', chronoChats);
+		this.props.addChats(chronoChats);
+		this.setState({ newMessage: false, chats: chronoChats});
+	}
+
+	orderChronologically(chats: any) {
+		var mapChats = chats
+		mapChats.map(
+			(chat: {
+				messages: [{ message: string; timestamp: number }];
+			}) => {
+				for(let i = 0; i <= chat.messages.length; i++){
+					for(let j = 0; j <= chat.messages.length; j++){
+
+						if(chat.messages[j] && chat.messages[j+1] && chat.messages[j].timestamp < chat.messages[j+1].timestamp){
+							const temp = chat.messages[j];
+							chat.messages[j] = chat.messages[j+1];
+							chat.messages[j+1] = temp;
+						}
+					}
+				}
+			}
+		);
+
+		return mapChats
 	}
 
 	sendMessage(message: string, toUid: string) {
-		this.props.firebase.sendChat(
-			message,
-			this.props.user.uid,
-			toUid
-		);
+		this.props.firebase.sendChat(message, this.props.user.uid, toUid);
 	}
 
 	render() {
