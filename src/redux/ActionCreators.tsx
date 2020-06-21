@@ -58,3 +58,8 @@ export const appendPosts = (
 	posts: posts,
 	lastFetched: lastFetched,
 });
+
+export const addChatsAction = (messages: object[]) => ({
+	type: ActionTypes.ADD_CHATS,
+	payload: messages
+})

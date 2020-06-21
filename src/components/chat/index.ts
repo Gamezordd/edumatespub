@@ -1,1 +1,1 @@
-export {ChatComponentComposed} from './ChatComponent'
+export {ChatComponentComposed} from './ChatFormatComponent'

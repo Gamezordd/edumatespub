@@ -23,6 +23,8 @@ export const User = (
 				favouriteUnis,
 				isAmbassador,
 			} = action.payload;
+			console.log("uid: ", uid);
+			
 			return {
 				...state,
 				uid: uid,

@@ -12,3 +12,5 @@ export const FETCH_INITIAL_POSTS = 'FETCH_INITIAL_POSTS';
 export type FETCH_INITIAL_POSTS = typeof FETCH_INITIAL_POSTS;
 export const APPEND_POSTS = 'APPEND_POSTS';
 export type APPEND_POSTS = typeof APPEND_POSTS;
+export const ADD_CHATS = 'ADD_CHATS';
+export type ADD_CHATS = typeof ADD_CHATS;

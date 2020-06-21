@@ -86,12 +86,17 @@ class DiscoverComponent extends React.Component<
 	};
 
 	handleFavouritesChange = (universityId: string[], add?: boolean) => {
-		this.props.firebase
-			.editFavourites(this.props.user.uid, universityId, add)
-			.then(() => {
-				this.setState({ triggerRerender: !this.state.triggerRerender });
-				this.props.editFavourites({ ids: universityId, add: add });
-			});
+		if(this.props.user.favouriteUnis.length >= 10 && add){
+			alert("You may only select upto 10 universities");
+		}
+		else{
+			this.props.firebase
+				.editFavourites(this.props.user.uid, universityId, add)
+				.then(() => {
+					this.setState({ triggerRerender: !this.state.triggerRerender });
+					this.props.editFavourites({ ids: universityId, add: add });
+				});
+		}
 	};
 
 	handleClick = (place: Array<{ lat: number; lng: number; details: { name: string; description: string; image: string; }; }>) => {
