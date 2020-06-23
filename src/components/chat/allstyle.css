@@ -1,0 +1,32 @@
+.bubbleright{
+   position:relative;
+   float: left;
+   clear: both;
+   max-width: 20em;
+   background-color: orange;
+    padding: 1.125em 1.5em;
+    color:white;
+	font-size: 1.25em;
+  border-radius:1rem  1rem 1rem 0;
+  border: 1px solid orange;
+  margin:0.5em;
+  
+}
+
+.bubbleleft{
+  position:relative;
+  clear: both;
+  float: right;
+  max-width: 20em;
+  background-color: grey;
+  padding: 1.125em 1.5em;
+ color:white;
+ font-size: 1.25em;
+ border-radius: 1rem 1rem 0 1rem ;
+ border: 1px solid grey;
+ margin:0.5em;
+ 
+}
+
+
+

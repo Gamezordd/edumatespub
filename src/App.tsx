@@ -9,7 +9,8 @@ import {
 	DiscoverContainerComposed,
 	HomeContainer,
 	PasswordForgot,
-	ChatComponentComposed
+	ChatComponentComposed,
+	ChatBox,
 } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -31,7 +32,7 @@ export function App() {
 							path='/discover'
 							component={DiscoverContainerComposed}
 						/>
-						<Route exact path={'/chat'} component={ChatComponentComposed}/>
+						<Route exact path={'/chat'} component={ChatBox} />
 					</Switch>
 				</NavBar>
 			</Router>

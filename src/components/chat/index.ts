@@ -1,1 +1,2 @@
-export {ChatComponentComposed} from './ChatFormatComponent'
+export { ChatComponentComposed } from './ChatFormatComponent';
+export { ChatBox } from './ChatBox';

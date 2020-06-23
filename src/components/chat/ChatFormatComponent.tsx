@@ -9,11 +9,16 @@ interface IState {
 	newMessage: boolean;
 	chats: object[];
 	rawMessages: Array<{
-		data: { message: string; sender: string; receiver: string, timestamp: number };
+		data: {
+			message: string;
+			sender: string;
+			receiver: string;
+			timestamp: number;
+		};
 		messageId: string;
 	}>;
 	fetchMessages: boolean;
-	limitCount: number
+	limitCount: number;
 }
 
 interface IProps {
@@ -22,7 +27,12 @@ interface IProps {
 	addChats: typeof addChatsAction;
 	chat: {
 		messages: Array<{
-			data: { message: string; sender: string; receiver: string, timestamp: number };
+			data: {
+				message: string;
+				sender: string;
+				receiver: string;
+				timestamp: number;
+			};
 			messageId: string;
 		}>;
 	};
@@ -42,8 +52,8 @@ const mapDispatchToProps = (dispatch: any) => ({
 //this.props.user.uid
 class ChatComponent extends React.Component<IProps, IState> {
 	componentDidMount() {
-		const {limitCount} = this.state
- 		const rtdbMessageRef = this.props.firebase.rtdb.ref('Chats/');
+		const { limitCount } = this.state;
+		const rtdbMessageRef = this.props.firebase.rtdb.ref('Chats/');
 		var payload: any = [];
 		rtdbMessageRef.limitToLast(limitCount).on('child_added', snapshot => {
 			if (
@@ -57,10 +67,12 @@ class ChatComponent extends React.Component<IProps, IState> {
 				this.setState({ rawMessages: payload, newMessage: true });
 			}
 		});
-		rtdbMessageRef.limitToLast(limitCount).on('child_removed', child=>{
-			console.log("removed: ", child.val());
-			this.setState({rawMessages: [child.val()].concat(this.state.rawMessages)})
-		})
+		rtdbMessageRef.limitToLast(limitCount).on('child_removed', child => {
+			console.log('removed: ', child.val());
+			this.setState({
+				rawMessages: [child.val()].concat(this.state.rawMessages),
+			});
+		});
 	}
 
 	constructor(props: IProps) {
@@ -73,7 +85,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 			newMessage: false,
 			rawMessages: [],
 			fetchMessages: true,
-			limitCount: 100
+			limitCount: 100,
 		};
 	}
 
@@ -99,7 +111,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 									sent:
 										message.data.sender === this.props.user.uid ? true : false,
 									messageId: message.messageId,
-									timestamp: message.data.timestamp
+									timestamp: message.data.timestamp,
 								},
 							],
 						});
@@ -111,7 +123,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 								sent:
 									message.data.sender === this.props.user.uid ? true : false,
 								messageId: message.messageId,
-								timestamp: message.data.timestamp
+								timestamp: message.data.timestamp,
 							}),
 						};
 					}
@@ -124,7 +136,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 								sent:
 									message.data.sender === this.props.user.uid ? true : false,
 								messageId: message.messageId,
-								timestamp: message.data.timestamp
+								timestamp: message.data.timestamp,
 							},
 						],
 					});
@@ -136,37 +148,38 @@ class ChatComponent extends React.Component<IProps, IState> {
 						message: message.data.message,
 						sent: message.data.sender === this.props.user.uid ? true : false,
 						messageId: message.messageId,
-						timestamp: message.data.timestamp
+						timestamp: message.data.timestamp,
 					}),
 				};
 			}
 		});
-		const chronoChats = this.orderChronologically(newChats)
+		const chronoChats = this.orderChronologically(newChats);
 		console.log('chats: ', chronoChats);
 		this.props.addChats(chronoChats);
-		this.setState({ newMessage: false, chats: chronoChats});
+		this.setState({ newMessage: false, chats: chronoChats });
 	}
 
 	orderChronologically(chats: any) {
-		var mapChats = chats
+		var mapChats = chats;
 		mapChats.map(
-			(chat: {
-				messages: [{ message: string; timestamp: number }];
-			}) => {
-				for(let i = 0; i <= chat.messages.length; i++){
-					for(let j = 0; j <= chat.messages.length; j++){
-
-						if(chat.messages[j] && chat.messages[j+1] && chat.messages[j].timestamp < chat.messages[j+1].timestamp){
+			(chat: { messages: [{ message: string; timestamp: number }] }) => {
+				for (let i = 0; i <= chat.messages.length; i++) {
+					for (let j = 0; j <= chat.messages.length; j++) {
+						if (
+							chat.messages[j] &&
+							chat.messages[j + 1] &&
+							chat.messages[j].timestamp < chat.messages[j + 1].timestamp
+						) {
 							const temp = chat.messages[j];
-							chat.messages[j] = chat.messages[j+1];
-							chat.messages[j+1] = temp;
+							chat.messages[j] = chat.messages[j + 1];
+							chat.messages[j + 1] = temp;
 						}
 					}
 				}
 			}
 		);
 
-		return mapChats
+		return mapChats;
 	}
 
 	sendMessage(message: string, toUid: string) {
