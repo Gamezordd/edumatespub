@@ -3,15 +3,21 @@ import { compose } from 'recompose';
 import { InfiniteScrollProps, InfiniteScrollState } from './types';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
-import { fetchInitialPosts, appendPosts } from '../../redux';
+import { fetchInitialPosts, appendPosts, storeScroll } from '../../redux';
 import InfiniteScrollComponent from 'react-infinite-scroll-component';
-import { Card } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { Dispatch, AnyAction } from 'redux';
+import { Post } from './Post';
+import { Redirect } from 'react-router-dom';
+import { CreatePost } from './CreatePost';
 
 const mapStateToProps = (state: any) => ({
 	posts: state.posts.posts,
 	lastFetched: state.posts.lastFetched,
+	scroll: state.posts.yScroll,
 	favourites: state.user.favouriteUnis,
+	isLoggedIn: state.user.isLoggedIn,
+	isAmbassador: state.user.isAmbassador,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
@@ -19,6 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
 		dispatch(fetchInitialPosts(posts, lastFetched)),
 	append: (posts: any[], lastFetched: string) =>
 		dispatch(appendPosts(posts, lastFetched)),
+	saveScroll: (scroll: number) => dispatch(storeScroll(scroll)),
 });
 
 class InfiniteScrollUncomposed extends React.Component<
@@ -28,11 +35,13 @@ class InfiniteScrollUncomposed extends React.Component<
 	constructor(props: InfiniteScrollProps) {
 		super(props);
 		console.log('In cont', this.props.favourites);
-		this.state = { hasMore: true };
+		this.state = { hasMore: true, scroll: 0 };
 		if (this.props.lastFetched === null) {
 			this.initiate();
 		}
 	}
+
+	infiScrollRef = React.createRef<InfiniteScrollComponent>();
 
 	initiate = async () => {
 		const posts = await this.getPosts();
@@ -62,46 +71,57 @@ class InfiniteScrollUncomposed extends React.Component<
 		return posts;
 	};
 
+	componentDidMount() {
+		window.scrollTo(0, this.props.scroll);
+	}
+
+	componentWillUnmount() {
+		this.props.saveScroll(window.pageYOffset);
+	}
+
 	render() {
+		if (!this.props.isLoggedIn) return <Redirect to='/login' />;
+		console.log(this.props.scroll);
 		return (
-			<div>
-				<InfiniteScrollComponent
-					dataLength={this.props.posts.length}
-					next={this.append}
-					hasMore={this.state.hasMore}
-					loader='Fetching posts....'
-					endMessage={
-						<p style={{ textAlign: 'center' }}>
-							<b>You are all caught up!</b>
-						</p>
-					}
-					refreshFunction={this.initiate}
-					pullDownToRefresh
-					pullDownToRefreshContent={
-						<h3 style={{ textAlign: 'center' }}>
-							&#8595; Pull down to refresh
-						</h3>
-					}
-					releaseToRefreshContent={
-						<h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
-					}
-				>
-					{this.props.posts.map(post => (
-						<Card style={{ marginTop: '10vh' }}>
-							<h2>{post.title}</h2>
-							<div className='AuthorName'>{post.userId}</div>
-							<div className='CreatedAt'>{post.createdAt.toString()}</div>
-							{post.files === undefined ? (
-								<div></div>
-							) : (
-								<div className='image'>
-									<img src={post.files[0]} alt='post.title' />
-								</div>
-							)}
-							<div className='Content'>{post.content}</div>
-						</Card>
-					))}
-				</InfiniteScrollComponent>
+			<div
+				style={{
+					marginTop: '10vh',
+				}}
+			>
+				<Grid centered>
+					<Grid.Column style={{ padding: '5px' }}>
+						{this.props.isAmbassador && <CreatePost />}
+						<InfiniteScrollComponent
+							ref={this.infiScrollRef}
+							dataLength={this.props.posts.length}
+							next={this.append}
+							hasMore={this.state.hasMore}
+							loader='Fetching posts....'
+							endMessage={
+								<p style={{ textAlign: 'center', color: 'rgba(F,F,F,0.2)' }}>
+									<b>You are all caught up!</b>
+								</p>
+							}
+							refreshFunction={this.initiate}
+							pullDownToRefresh
+							pullDownToRefreshContent={
+								<h3 style={{ textAlign: 'center', color: 'rgba(F,F,F,0.2)' }}>
+									&#8595; Pull down to refresh
+								</h3>
+							}
+							releaseToRefreshContent={
+								<h3 style={{ textAlign: 'center', color: 'rgba(F,F,F,0.2)' }}>
+									&#8593; Release to refresh
+								</h3>
+							}
+							initialScrollY={this.props.scroll}
+						>
+							{this.props.posts.map(post => (
+								<Post post={post} />
+							))}
+						</InfiniteScrollComponent>
+					</Grid.Column>
+				</Grid>
 			</div>
 		);
 	}

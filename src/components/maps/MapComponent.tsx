@@ -35,6 +35,8 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 			isWindowOpen: false,
 			activeMarker: null,
 			selectedPlace: {},
+			markerRenderFinished: false,
+			markers: [],
 		};
 	}
 
@@ -115,8 +117,24 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 		}
 	}
 
+	renderMarkers(places: any) {
+		const { markerRenderFinished } = this.state;
+
+		if (places && !markerRenderFinished) {
+			const markers = places.map((place: any) => {
+				return this.markerType(place);
+			});
+			return this.setState({ markers: markers, markerRenderFinished: true });
+		}
+	}
+
 	render() {
+		const { markerRenderFinished } = this.state;
 		const { google, zoomProp, places, styleProps } = this.props;
+
+		if (!markerRenderFinished) {
+			this.renderMarkers(places);
+		}
 
 		var styleOptions: {
 			maxHeight: string | number;
@@ -150,10 +168,7 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 						this.setState({ map: map as google.maps.Map });
 					}}
 				>
-					{places &&
-						places.map(place => {
-							return this.markerType(place);
-						})}
+					{this.state.markers}
 					{this.state.map && (
 						<InfoWindow
 							google={google}

@@ -3,6 +3,7 @@ import { ItemProps } from 'semantic-ui-react';
 import { NavBar } from './NavBar';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import './NavBarStyle.css';
 
 const mapStateToProps = (state: any) => {
 	return {
@@ -13,7 +14,6 @@ const mapStateToProps = (state: any) => {
 
 const userLeftItems: ItemProps[] = [
 	{ content: 'Home', key: 'home', to: '/home' },
-	{ content: 'Maps', key: 'maps', to: '/maps' },
 	{ content: 'Chat', key: 'chat', to: '/chat' },
 	{ content: 'Discover', key: 'discover', to: '/discover' },
 ];

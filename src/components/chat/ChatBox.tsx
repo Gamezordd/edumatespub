@@ -1,41 +1,37 @@
 import React from 'react';
-import {
-	Grid,
-	Segment,
-	Card,
-	Header,
-	Feed,
-	Input,
-	Divider,
-} from 'semantic-ui-react';
-import user from '../landing/assets/user.png';
-import './allstyle.css';
-import { ChatList } from './ChatList';
-import { ActualChat } from './ActualChat';
+import { compose } from 'recompose';
+import { withFirebase } from '../../firebase/withFirebase';
+import { Firebase } from '../../firebase';
+import { Grid, Segment } from 'semantic-ui-react';
 
-export interface ChatBoxProps {}
+export interface ChatBoxProps {
+	firebase: Firebase;
+}
 
 export interface ChatBoxState {}
 
-export class ChatBox extends React.Component<ChatBoxProps, ChatBoxState> {
-	//state = { :  }
+export class ChatBoxUncomposed extends React.Component<
+	ChatBoxProps,
+	ChatBoxState
+> {
+	constructor(props: any) {
+		super(props);
+	}
 
-	writetocon = () => {
-		console.log('Chat was pressed');
-	};
-	formatDescription = (description: string) => {
-		if (description.length > 100) {
-			return description.substring(0, 25) + '...';
-		} else {
-			return description;
-		}
-	};
 	render() {
 		return (
-			<Grid>
-				<ChatList />
-				<ActualChat />
-			</Grid>
+			<div>
+				<Segment vertical>
+					<Grid celled>
+						<Grid.Row>
+							<Grid.Column width={5}></Grid.Column>
+							<Grid.Column width={11}></Grid.Column>
+						</Grid.Row>
+					</Grid>
+				</Segment>
+			</div>
 		);
 	}
 }
+
+export const ChatBox = compose(withFirebase)(ChatBoxUncomposed);

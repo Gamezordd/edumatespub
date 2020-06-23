@@ -19,17 +19,27 @@ export interface initialStateProps {
 		image: string;
 		description: string;
 		id?: string;
-		details:{}
+		details: {};
 	};
-	places: Array<{lat: number, lng: number, details:{name: string, description: string, image: string}}>
+	places: Array<{
+		lat: number;
+		lng: number;
+		details: { name: string; description: string; image: string };
+	}>;
 }
 
 export interface CardContainerProps {
 	selected: boolean;
 	data: object[];
 	onFavouriteButtonClick: (universityId: string[], add?: boolean) => void;
-	onCardClick: (place: Array<{ lat: number; lng: number; details: { name: string; description: string; image: string; }; }>) => void;
-	selectedCardData?: {details: object};
+	onCardClick: (
+		place: Array<{
+			lat: number;
+			lng: number;
+			details: { name: string; description: string; image: string };
+		}>
+	) => void;
+	selectedCardData?: any;
 	favouriteUnis: string[];
 }
 
@@ -38,12 +48,18 @@ export interface ButtonProps {
 	show?: boolean;
 	favourite: boolean;
 	onFavouriteButtonClick: (universityId: string[], add?: boolean) => void;
-	onCardClick: (place: Array<{ lat: number; lng: number; details: { name: string; description: string; image: string; }, centerMap?: boolean }>) => void;
+	onCardClick: (
+		place: Array<{
+			lat: number;
+			lng: number;
+			details: { name: string; description: string; image: string };
+			centerMap?: boolean;
+		}>
+	) => void;
 }
 
-
-export interface ModalMapContainerPropTypes{
-    places: Array<{
+export interface ModalMapContainerPropTypes {
+	places: Array<{
 		lat: number;
 		lng: number;
 		details: { name: string; description?: string };
@@ -55,4 +71,5 @@ export interface ModalMapContainerPropTypes{
 export interface DiscoverContainerProps {
 	firebase: Firebase;
 	universities: any;
+	isLoggedIn: boolean;
 }

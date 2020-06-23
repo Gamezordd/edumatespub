@@ -9,6 +9,7 @@ import {
 	Card,
 	Image,
 	Grid,
+	Transition,
 } from 'semantic-ui-react';
 import { RegisterState } from './types';
 import { countryOptions } from './countriesData';
@@ -19,13 +20,14 @@ import {
 	Genders,
 	UserTypes,
 } from './RegisterFields';
-import './RegistrationForm.css';
+import './allforms.css';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../landing/assets/logo2.png';
+import { Link } from 'react-router-dom';
 
 const validateURL = `https://us-central1-mpfirebaseproject-7ff28.cloudfunctions.net/api/tokens/validate/`;
 
@@ -51,7 +53,10 @@ class RegistrationFormUncomposed extends React.Component<
 			redirect: { value: false },
 			errorMessage: { value: '' },
 			showError: { value: false },
+			animationDone: { value: false },
 		};
+
+		this.makeVisible();
 	}
 
 	handleSubmit = async () => {
@@ -136,6 +141,13 @@ class RegistrationFormUncomposed extends React.Component<
 
 	getError = (key: keyof RegisterState) => this.state[key].error;
 
+	makeVisible = () => {
+		setTimeout(
+			() => this.setState({ ...this.state, animationDone: { value: true } }),
+			10
+		);
+	};
+
 	render() {
 		if (this.state.redirect.value) return <Redirect to='/login' />;
 
@@ -144,15 +156,26 @@ class RegistrationFormUncomposed extends React.Component<
 			: StudentFields;
 
 		return (
-			<div className='wrapper2'>
-				<Grid
-					textAlign='center'
-					style={{ height: '100vh' }}
-					verticalAlign='middle'
-				>
-					<Grid.Column style={{ maxWidth: 600 }}>
-						<Form style={{ top: 100 }}>
-							<Image size='medium' src={logo} className='img' />
+			<Grid
+				textAlign='center'
+				style={{ height: '160vh' }}
+				verticalAlign='middle'
+			>
+				<Grid.Column style={{ maxWidth: 600 }}>
+					<Transition
+						animation='slide down'
+						visible={this.state.animationDone.value ? true : false}
+					>
+						<Form
+							style={{
+								backgroundColor: 'white',
+								border: '3px solid #f3f3f3',
+								borderRadius: '25px',
+								textAlign: 'left',
+								padding: '5%',
+							}}
+						>
+							<Image size='medium' src={logo} centered />
 							<h2>Create a new account</h2>
 							{_.map(CommonFields, field => (
 								<FormField
@@ -244,7 +267,7 @@ class RegistrationFormUncomposed extends React.Component<
 									</p>
 								</Card>
 							)}
-							<div className='txt'>
+							<div style={{ textAlign: 'center' }}>
 								By signing up, you accept the Terms of
 								<br /> Service and the Privacy Policy
 							</div>
@@ -253,14 +276,15 @@ class RegistrationFormUncomposed extends React.Component<
 								onClick={() => this.handleSubmit()}
 								className='btn'
 								color='orange'
+								style={{ width: '100%' }}
 							/>
-							<div className='txt'>
-								Have an account?<span className='log'>Login.</span>
+							<div style={{ textAlign: 'center' }}>
+								Have an account?<Link to={'/login'}>Login</Link>{' '}
 							</div>
 						</Form>
-					</Grid.Column>
-				</Grid>
-			</div>
+					</Transition>
+				</Grid.Column>
+			</Grid>
 		);
 	}
 }

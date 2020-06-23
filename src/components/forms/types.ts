@@ -1,5 +1,6 @@
 import { FormFieldProps } from 'semantic-ui-react';
 import { ValidatorType } from './constants';
+import { Firebase } from '../../firebase';
 
 export interface LoginFieldType {
 	key: keyof LoginState;
@@ -30,6 +31,8 @@ export interface LoginState {
 
 	errorMessage: FieldState;
 	showError: FieldState;
+
+	animationDone: FieldState;
 }
 
 export interface RegisterState {
@@ -53,4 +56,17 @@ export interface RegisterState {
 	redirect: FieldState;
 	errorMessage: FieldState;
 	showError: FieldState;
+
+	animationDone: FieldState;
+}
+
+export interface PasswordForgotProps {
+	firebase: Firebase;
+}
+
+export interface PasswordForgotState {
+	email: string;
+	error: any;
+
+	animationDone: boolean;
 }

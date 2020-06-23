@@ -1,5 +1,5 @@
 import config from '../firebaseConfig.json';
-import app, { firestore } from 'firebase/app';
+import app, { firestore, auth } from 'firebase/app';
 import React from 'react';
 import { toInteger } from 'lodash';
 require('firebase/auth');
@@ -48,6 +48,7 @@ export class Firebase {
 					phone: phone.value,
 					country: country.value,
 					isAmbassador: isAmbassador.value,
+					favouriteUnis: isAmbassador.value ? [universityId.value] : [],
 				},
 				data: data,
 			});
@@ -63,6 +64,8 @@ export class Firebase {
 		await this.db.collection('USER').where('email', '==', email).get();
 
 	doSignOut = async () => await this.auth.signOut();
+
+	getVerifyId = async () => await this.auth.currentUser?.getIdToken();
 
 	getPosts = async (after: string | null, faves: string[]): Promise<any[]> => {
 		if (after === null) {
@@ -122,6 +125,10 @@ export class Firebase {
 	doPasswordReset = async (email: string) =>
 		await this.auth.sendPasswordResetEmail(email);
 
+	getProfileImageUrl = async (uid: string) => {
+		return this.storage.ref(`profileImages/${uid}.jpg`);
+	};
+
 	editFavourites = async (
 		uid: string,
 		universityIds: string[],
@@ -151,20 +158,49 @@ export class Firebase {
 		}
 	};
 
-	async sendChat(message: string, fromUid: string, toUid: string){
+	async sendChat(message: string, fromUid: string, toUid: string) {
 		const messagesListRef = this.rtdb.ref('Chats/');
-		messagesListRef.push().set({
-			message: message,
-			receiver: toUid,
-			sender: fromUid,
-			timestamp: toInteger((new Date().getTime()) / 1000)
-		}).then(async id => {
-			console.log("sent: ", await id);
-			
-		})
+		messagesListRef
+			.push()
+			.set({
+				message: message,
+				receiver: toUid,
+				sender: fromUid,
+				timestamp: toInteger(new Date().getTime() / 1000),
+			})
+			.then(async id => {
+				console.log('sent: ', await id);
+			});
 	}
 
 	signOut = async () => await this.auth.signOut();
+
+	like = async (post: string) =>
+		await this.db
+			.collection('post_likes')
+			.add({ userId: this.auth.currentUser?.uid, postId: post });
+
+	unlike = async (post: string) =>
+		await this.db
+			.collection('post_likes')
+			.where('userId', '==', this.auth.currentUser?.uid)
+			.where('postId', '==', post)
+			.get()
+			.then(async query => {
+				if (query.docs[0] == undefined) return;
+				await query.docs[0].ref.delete();
+			});
+
+	createPost = async (post: any) => {
+		await this.db.collection('posts').add({
+			...post,
+			...{ createdAt: firestore.FieldValue.serverTimestamp() },
+		});
+	};
+
+	deletePostImage = async (filename: string) => {
+		this.storage.ref(`postImages/${filename}`).delete();
+	};
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);

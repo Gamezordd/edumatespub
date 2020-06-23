@@ -14,7 +14,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 				lat: location.latitude,
 				lng: location.longitude,
 				details: { name: name, description: description, image: image },
-				centerMap: true
+				centerMap: true,
 			},
 		]);
 	}
@@ -86,7 +86,10 @@ export const DiscoverCard = (props: ButtonProps) => {
 							</div>
 						</Card.Description>
 						<Card.Meta>
-							<Button basic color="grey" size="tiny"> Chat </Button>
+							<Button basic color='grey' size='tiny'>
+								{' '}
+								Chat{' '}
+							</Button>
 						</Card.Meta>
 					</Card.Content>
 				</Card>

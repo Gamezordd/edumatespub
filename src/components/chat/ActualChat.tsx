@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-	Grid,
-	Segment,
-	Card,
-	Header,
-	Feed,
-	Input,
-	Divider,
-	Image,
-	Icon,
-	Button,
-} from 'semantic-ui-react';
-import user from '../landing/assets/user.png';
+import { Card, Input, Icon } from 'semantic-ui-react';
 import './allstyle.css';
 
 export interface ActualChatProps {}

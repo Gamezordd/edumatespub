@@ -43,11 +43,10 @@ class DiscoverComponent extends React.Component<
 	};
 
 	formatDescription(description: string) {
-		if(description.length > searchDescriptionLength){
-			return(description.substring(0, searchDescriptionLength) + "...")
-		}
-		else{
-			return(description)
+		if (description.length > searchDescriptionLength) {
+			return description.substring(0, searchDescriptionLength) + '...';
+		} else {
+			return description;
 		}
 	}
 
@@ -86,10 +85,9 @@ class DiscoverComponent extends React.Component<
 	};
 
 	handleFavouritesChange = (universityId: string[], add?: boolean) => {
-		if(this.props.user.favouriteUnis.length >= 10 && add){
-			alert("You may only select upto 10 universities");
-		}
-		else{
+		if (this.props.user.favouriteUnis.length >= 10 && add) {
+			alert('You may only select upto 10 universities');
+		} else {
 			this.props.firebase
 				.editFavourites(this.props.user.uid, universityId, add)
 				.then(() => {
@@ -99,9 +97,15 @@ class DiscoverComponent extends React.Component<
 		}
 	};
 
-	handleClick = (place: Array<{ lat: number; lng: number; details: { name: string; description: string; image: string; }; }>) => {
-		this.setState({places: place, isModalOpen: true})
-	}
+	handleClick = (
+		place: Array<{
+			lat: number;
+			lng: number;
+			details: { name: string; description: string; image: string };
+		}>
+	) => {
+		this.setState({ places: place, isModalOpen: true });
+	};
 
 	render() {
 		const {
@@ -111,29 +115,29 @@ class DiscoverComponent extends React.Component<
 			selection,
 			showCard,
 			isModalOpen,
-			places
+			places,
 		} = this.state;
 
 		return (
 			<div>
 				<Grid centered columns={1} container>
-					<div style={{flex: 1, justifyContent: "center"}}>
-					<Grid.Column>
-						<Search
-							input={{ fluid: true }}
-							size="big"
-							fluid
-							aligned="left"
-							loading={isLoading}
-							results={results}
-							value={value}
-							onResultSelect={this.handleResultSelect}
-							onSearchChange={_.debounce(this.handlesearchChange, 500, {
-								leading: true,
-							})}
-							onFavouriteBottonClick={this.handleFavouritesChange}
-						/>
-					</Grid.Column>
+					<div style={{ flex: 1, justifyContent: 'center' }}>
+						<Grid.Column>
+							<Search
+								input={{ fluid: true }}
+								size='big'
+								fluid
+								aligned='left'
+								loading={isLoading}
+								results={results}
+								value={value}
+								onResultSelect={this.handleResultSelect}
+								onSearchChange={_.debounce(this.handlesearchChange, 500, {
+									leading: true,
+								})}
+								onFavouriteBottonClick={this.handleFavouritesChange}
+							/>
+						</Grid.Column>
 					</div>
 				</Grid>
 				<CardContainerComponent
@@ -144,7 +148,11 @@ class DiscoverComponent extends React.Component<
 					favouriteUnis={this.props.user.favouriteUnis}
 					onCardClick={this.handleClick}
 				/>
-				<DiscoverModal open={isModalOpen} content={places} onClose={this.handleModalClose}/>
+				<DiscoverModal
+					open={isModalOpen}
+					content={places}
+					onClose={this.handleModalClose}
+				/>
 			</div>
 		);
 	}

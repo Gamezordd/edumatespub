@@ -5,25 +5,21 @@ import app from './assets/app.png';
 import partneruni from './assets/partneruni.png';
 import intouchuni from './assets/intouchuni.png';
 import easenerves from './assets/easenerves.jpg';
-
 import insta from './assets/instagram.png';
 import twitter from './assets/twitter.png';
 import linkedin from './assets/linkedin.png';
 import logo from './assets/logo.png';
 import user from './assets/user.png';
 import applestore from './assets/appstoreicon.jpg'
-
 import chat from './assets/chat.png';
-
-import './Landing.css';
-
+import './Landing.css'; 
 import Tutorial1 from './Tut1';
 import Tutorial2 from './Tut2';
 
 export const LandingPage: React.FC<{}> = ({}) => (
 	<div>
 		<Grid>
-			<Grid.Row centered columns='2' className='bannertop'>
+				<Grid.Row centered columns='2' className='bannertop'>
 				<Grid.Column width={5}>
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>{' '}
@@ -69,6 +65,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					<Grid.Row className='Hidden'>....</Grid.Row>
 				</Grid.Column>
 			</Grid.Row>
+			
 			<Grid.Row>
 				{' '}
 				<h1 className="title"> What we do </h1>
@@ -133,7 +130,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 				<Grid.Column></Grid.Column>
 				<Grid.Column width={5}></Grid.Column>{' '}
 				<Grid.Column width={5}>
-					<button type='button' className='btn-primary'>
+					<button type='button' className='btn-primary' > 
 						<p className='Button'> All Services </p>{' '}
 					</button>{' '}
 				</Grid.Column>
@@ -291,32 +288,29 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					<Grid.Row className='Hidden'>................</Grid.Row>
 					<ul>
 						<li>
-							<p className='list'> Chat with ambassadors</p>
+							<p className='list'> Discover unlimited universities</p>
 						</li>
 						<li>
-							<p className='list'> Bookmark Universities</p>
+							<p className='list'> Create a wishlist of unlimited univeristies</p>
 						</li>
 						<li>
-							<p className='list'> Accomodation Information</p>{' '}
+							<p className='list'> Interact with the university representatives via chat feature</p>{' '}
 						</li>
 						<li>
-							<p className='list'> Mark your favourites</p>
+							<p className='list'> Stay up to date with your wishlisted universities</p>
 						</li>
 
 						<li>
 							{' '}
-							<p className='list'>Never miss out on university deadlines </p>
+							<p className='list'>We support you to make an educated decision and help you choose your one choice !</p>
 						</li>
-						<li>
-							<p className='list'> We are experts </p>
-						</li>
+					
 					</ul>
 				</Grid.Column>
 				<Grid.Column width={6}>
 					{' '}
 					<Grid.Row className='Hidden'>................</Grid.Row>{' '}
-					<Grid.Row className='Hidden'>................</Grid.Row>{' '}
-					<Grid.Row className='Hidden'>................</Grid.Row>{' '}
+				
 					<Grid.Row>
 						<img src={chat} className='Phone' />
 					</Grid.Row>
@@ -332,33 +326,30 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					
 					<Grid.Row className='Hidden'>................</Grid.Row>
 					<ul>
-						<li>
-							<p className='list'> Chat with ambassadors</p>
+					<li>
+							<p className='list'> Discover unlimited universities</p>
 						</li>
 						<li>
-							<p className='list'> Bookmark Universities</p>
+							<p className='list'> Create a wishlist of unlimited univeristies</p>
 						</li>
 						<li>
-							<p className='list'> Accomodation Information</p>{' '}
+							<p className='list'> Interact with the university representatives via chat feature</p>{' '}
 						</li>
 						<li>
-							<p className='list'> Mark your favourites</p>
+							<p className='list'> Stay up to date with your wishlisted universities</p>
 						</li>
 
 						<li>
 							{' '}
-							<p className='list'>Never miss out on university deadlines </p>
+							<p className='list'>We support you to make an educated decision and help you choose your one choice !</p>
 						</li>
-						<li>
-							<p className='list'> We are experts </p>
-						</li>
+						
 					</ul>
 				</Grid.Column>
 				<Grid.Column width={6}>
 					{' '}
 					<Grid.Row className='Hidden'>................</Grid.Row>{' '}
-					<Grid.Row className='Hidden'>................</Grid.Row>{' '}
-					<Grid.Row className='Hidden'>................</Grid.Row>{' '}
+				
 					<Grid.Row centered>
 						<img src={chat} className='Phone' />
 					</Grid.Row>
@@ -376,25 +367,24 @@ export const LandingPage: React.FC<{}> = ({}) => (
 				{' '}
 				<Grid.Column width={10}>
 					<ul>
-						<li>
-							<p className='list'> Chat with ambassadors</p>
+					<li>
+							<p className='list'> Discover unlimited universities</p>
 						</li>
 						<li>
-							<p className='list'> Bookmark Universities</p>
+							<p className='list'> Create a wishlist of unlimited univeristies</p>
 						</li>
 						<li>
-							<p className='list'> Accomodation Information</p>{' '}
+							<p className='list'> Interact with the university representatives via chat feature</p>{' '}
 						</li>
 						<li>
-							<p className='list'> Mark your favourites</p>
+							<p className='list'> Stay up to date with your wishlisted universities</p>
 						</li>
+
 						<li>
 							{' '}
-							<p className='list'>Never miss out on university deadlines </p>
+							<p className='list'>We support you to make an educated decision and help you choose your one choice !</p>
 						</li>
-						<li>
-							<p className='list'> We are experts </p>
-						</li>
+					
 					</ul>
 				</Grid.Column>
 			</Grid.Row>
@@ -505,7 +495,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 			<Grid.Row className='bannerbottom'>
 				{' '}
 				<Grid.Column></Grid.Column>
-				<Grid.Column width={4}>
+				<Grid.Column width={6}>
 					<Grid.Row className='Hidden'>
 						......................................................................................................................
 						..........................................................................................................
@@ -514,22 +504,24 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row>
-						<h5>CONTACT US</h5>{' '}
+						<h5 className="contact">CONTACT US : </h5>{' '}
 					</Grid.Row>{' '}
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row>
-						<p className='Endthing'> An Address </p>
+						<p className='Endthing'> Jeevan Shri, Old Jalna, Jalna, Maharashtra, 431203 </p>
 					</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row>
-						<p className='Endthing'> 99999999999 </p>
+						<p className='Endthing'> +91 8552003436 / 9989008038 </p>
 					</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row>
-						<p className='Endthing'> xyz@gmail.com </p>
+						<p className='Endthing'> contact@edumates.co </p>
+						<Grid.Row className='Hidden'>....</Grid.Row>
+						<Grid.Row className='Hidden'>....</Grid.Row>
 					</Grid.Row>
 				</Grid.Column>{' '}
-				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={1}></Grid.Column>
 				<Grid.Column width={8}>
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>

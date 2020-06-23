@@ -6,5 +6,8 @@ export {
 	editFavouritesAction,
 	fetchInitialPosts,
 	appendPosts,
-	addChatsAction
+	addChatsAction,
+	fetchLikes,
+	clearPosts,
+	storeScroll,
 } from './ActionCreators';

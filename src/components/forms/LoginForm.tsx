@@ -9,6 +9,7 @@ import {
 	Card,
 	Image,
 	Grid,
+	Transition,
 } from 'semantic-ui-react';
 import { LoginState } from './types';
 import { FormFields } from './LoginFields';
@@ -16,15 +17,20 @@ import { Firebase } from '../../firebase';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
-import { loginAction, fetchUniversitiesAction } from '../../redux';
+import { loginAction, fetchUniversitiesAction, fetchLikes } from '../../redux';
 import { Redirect, Link } from 'react-router-dom';
-import './LoginForm.css';
+import './allforms.css';
 import logo from '../landing/assets/logo2.png';
+import axios from 'axios';
+
+const likesUrl =
+	'https://us-central1-mpfirebaseproject-7ff28.cloudfunctions.net/api/likes';
 
 const mapDispatchToProps = (dispatch: any) => ({
 	login: (payload: any) => dispatch(loginAction(payload)),
 	fetchUniversities: (universityIds: string[]) =>
 		dispatch(fetchUniversitiesAction(universityIds)),
+	fetchLikes: (likes: string[]) => dispatch(fetchLikes(likes)),
 });
 
 const mapStateToProps = (state: any) => {
@@ -39,6 +45,7 @@ class LoginForm extends React.Component<
 		login: typeof loginAction;
 		fetchUniversities: typeof fetchUniversitiesAction;
 		universities: any;
+		fetchLikes: typeof fetchLikes;
 	},
 	LoginState
 > {
@@ -50,7 +57,10 @@ class LoginForm extends React.Component<
 			redirect: { value: false },
 			errorMessage: { value: '' },
 			showError: { value: false },
+			animationDone: { value: false },
 		};
+
+		this.makeVisible();
 	}
 
 	handleSubmit = async () => {
@@ -80,10 +90,15 @@ class LoginForm extends React.Component<
 						this.props.login(payload);
 					}
 					const unis = await this.props.firebase.getUniversities();
-					return unis;
+					const likes = await axios.get(likesUrl, {
+						headers: { Authorization: await this.props.firebase.getVerifyId() },
+					});
+					return { unis, likes };
 				})
-				.then(async (unis: any) => {
-					this.props.fetchUniversities(unis);
+				.then(async (details: any) => {
+					console.log('Likes in login:', details.likes.data);
+					this.props.fetchUniversities(details.unis);
+					this.props.fetchLikes(details.likes.data.data);
 				})
 				.then(async () => {
 					this.setState({ redirect: { value: true } });
@@ -122,23 +137,39 @@ class LoginForm extends React.Component<
 
 	getError = (key: keyof LoginState) => this.state[key].error;
 
+	makeVisible = () => {
+		setTimeout(
+			() => this.setState({ ...this.state, animationDone: { value: true } }),
+			10
+		);
+	};
+
 	render() {
 		if (this.state.redirect.value) {
 			return <Redirect to='/home' />;
 		}
 
 		return (
-			<div className='wrapper1'>
-				<Grid
-					textAlign='center'
-					style={{ height: '100vh' }}
-					verticalAlign='middle'
-				>
-					<Grid.Column style={{ maxWidth: 600 }}>
-						<Form>
-							<div className='header'>
-								<Image size='medium' src={logo} className='img' />
-							</div>
+			<Grid
+				textAlign='center'
+				style={{ height: '100vh' }}
+				verticalAlign='middle'
+			>
+				<Grid.Column style={{ maxWidth: 600 }}>
+					<Transition
+						animation='slide down'
+						visible={this.state.animationDone.value ? true : false}
+					>
+						<Form
+							style={{
+								backgroundColor: 'white',
+								border: '3px solid #f3f3f3',
+								borderRadius: '25px',
+								textAlign: 'left',
+								padding: '5%',
+							}}
+						>
+							<Image size='medium' src={logo} centered />
 							<h2>Log in</h2>
 							{_.map(FormFields, field => (
 								<FormField
@@ -155,6 +186,7 @@ class LoginForm extends React.Component<
 								onClick={() => this.handleSubmit()}
 								className='btn'
 								color='orange'
+								style={{ width: '100%' }}
 							/>
 							{this.state.showError.value && (
 								<Card fluid style={{ padding: '10px' }}>
@@ -165,9 +197,9 @@ class LoginForm extends React.Component<
 							)}
 							<Link to={'/forgotPassword'}>Forgot Password?</Link>{' '}
 						</Form>
-					</Grid.Column>
-				</Grid>
-			</div>
+					</Transition>
+				</Grid.Column>
+			</Grid>
 		);
 	}
 }

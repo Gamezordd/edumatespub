@@ -14,7 +14,35 @@ interface AppendPosts {
 	lastFetched: string;
 }
 
-export type PostActions = FetchInitialPosts | AppendPosts;
+interface FetchLikes {
+	type: ActionTypes.FETCH_LIKES;
+	likes: string[];
+}
+
+interface AddLike {
+	type: ActionTypes.ADD_LIKE;
+	post: string;
+}
+
+interface RemoveLike {
+	type: ActionTypes.REMOVE_LIKE;
+	post: string;
+}
+
+interface ClearPosts {
+	type: ActionTypes.CLEAR_POSTS;
+}
+
+interface StoreScroll {
+	type: ActionTypes.STORE_SCROLL;
+	scroll: number;
+}
+
+export type PostActions =
+	| FetchInitialPosts
+	| AppendPosts
+	| ClearPosts
+	| StoreScroll;
 
 //actions
 
@@ -61,5 +89,28 @@ export const appendPosts = (
 
 export const addChatsAction = (messages: object[]) => ({
 	type: ActionTypes.ADD_CHATS,
-	payload: messages
-})
+	payload: messages,
+});
+export const fetchLikes = (likes: string[]): FetchLikes => ({
+	type: ActionTypes.FETCH_LIKES,
+	likes: likes,
+});
+
+export const addLike = (post: string): AddLike => ({
+	type: ActionTypes.ADD_LIKE,
+	post: post,
+});
+
+export const removeLike = (post: string): RemoveLike => ({
+	type: ActionTypes.REMOVE_LIKE,
+	post: post,
+});
+
+export const clearPosts = (): ClearPosts => ({
+	type: ActionTypes.CLEAR_POSTS,
+});
+
+export const storeScroll = (scroll: number): StoreScroll => ({
+	type: ActionTypes.STORE_SCROLL,
+	scroll: scroll,
+});
