@@ -172,6 +172,17 @@ export class Firebase {
 				if (query.docs[0] == undefined) return;
 				await query.docs[0].ref.delete();
 			});
+
+	createPost = async (post: any) => {
+		await this.db.collection('posts').add({
+			...post,
+			...{ createdAt: firestore.FieldValue.serverTimestamp() },
+		});
+	};
+
+	deletePostImage = async (filename: string) => {
+		this.storage.ref(`postImages/${filename}`).delete();
+	};
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);

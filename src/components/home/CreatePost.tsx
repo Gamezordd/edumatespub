@@ -10,21 +10,40 @@ import {
 	Transition,
 	Progress,
 	Image,
+	Icon,
+	TextAreaProps,
 } from 'semantic-ui-react';
 import { Firebase } from '../../firebase';
+import { connect } from 'react-redux';
 
-class CreatePostUncomposed extends React.Component<any, any> {
+const mapStateToProps = (state: any) => ({
+	user: state.user,
+});
+
+const initialState = {
+	hasFile: false,
+	title: '',
+	content: '',
+	file: null,
+	progress: 0,
+	isUploading: false,
+	fileUrl: null,
+	success: false,
+	error: false,
+};
+
+const successStyle = { color: 'green' };
+const errorStyle = { color: 'red' };
+
+interface CreatePostProps {
+	firebase: Firebase;
+	user: any;
+}
+
+class CreatePostUncomposed extends React.Component<CreatePostProps, any> {
 	constructor(props: any) {
 		super(props);
-		this.state = {
-			hasFile: false,
-			title: '',
-			conttent: '',
-			file: null,
-			progress: 0,
-			isUploading: false,
-			fileUrl: null,
-		};
+		this.state = initialState;
 
 		this.fileInputRef = React.createRef();
 	}
@@ -35,7 +54,24 @@ class CreatePostUncomposed extends React.Component<any, any> {
 		this.setState({ hasFile: !this.state.hasFile });
 	};
 
-	makePost = () => {};
+	makePost = async () => {
+		const { content, title, fileUrl, hasFile } = this.state;
+		const { user, firebase } = this.props;
+		try {
+			await firebase.createPost({
+				content: content,
+				title: title,
+				files: hasFile ? [fileUrl] : [],
+				userId: user.uid,
+				userName: user.details.name,
+				likeCount: 0,
+			});
+			this.setState({ ...initialState, ...{ success: true } });
+		} catch (err) {
+			console.log(`Error whil create post:${err}`);
+			this.setState({ ...this.state, ...{ error: true } });
+		}
+	};
 
 	fileChange = () => {
 		if (!this.fileInputRef.current)
@@ -49,14 +85,16 @@ class CreatePostUncomposed extends React.Component<any, any> {
 	handleUpload = () => {
 		if (this.state.file === null) return;
 		const { file } = this.state;
-		const firebase: Firebase = this.props.firebase;
-		const storage = firebase.storage;
+		const storage = this.props.firebase.storage;
 
 		const filename = `${file.name}-${Math.random() * 1000}`;
 
 		const uploadAction = storage.ref(`postImages/${filename}`).put(file);
 
-		this.setState({ ...this.state, ...{ isUploading: true } });
+		this.setState({
+			...this.state,
+			...{ isUploading: true, filename: filename },
+		});
 
 		uploadAction.on(
 			'state_changed',
@@ -86,8 +124,24 @@ class CreatePostUncomposed extends React.Component<any, any> {
 		);
 	};
 
+	isInvalidPost = (): boolean =>
+		this.state.content === '' || this.state.title === '';
+
+	handleContent = (data: TextAreaProps) => {
+		this.setState({ ...this.state, ...{ content: data.value } });
+	};
+
+	handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ ...this.state, ...{ title: e.target.value } });
+		console.log(this.state);
+	};
+
 	deleteFile = () => {
-		this.setState({ ...this.state, ...{ file: null, fileUrl: null } });
+		this.props.firebase.deletePostImage(this.state.filename);
+		this.setState({
+			...this.state,
+			...{ file: null, fileUrl: null, filename: '' },
+		});
 	};
 
 	render() {
@@ -101,16 +155,42 @@ class CreatePostUncomposed extends React.Component<any, any> {
 						padding: '5px',
 						maxWidth: '720px',
 						marginTop: '5vh',
-						justifyContent: 'space-between',
 					}}
 					centered
 					fluid
 				>
+					{(this.state.success || this.state.error) && (
+						<Card.Content
+							extra
+							style={this.state.error ? errorStyle : successStyle}
+						>
+							<Icon name={this.state.error ? 'ban' : 'thumbs up outline'} />
+							{this.state.error
+								? 'Something went wrong. Please try again.'
+								: 'Successfully posted!'}
+						</Card.Content>
+					)}
 					<Card.Content>
-						<Input placeholder='What is on your mind?' fluid />
+						<Card.Header>Share with us!</Card.Header>
+						<Input
+							placeholder='What is on your mind?'
+							fluid
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+								this.handleTitle(e);
+							}}
+						/>
 					</Card.Content>
 					<Card.Content>
-						<TextArea placeholder='Tell us more!' style={{ width: '100%' }} />
+						<TextArea
+							placeholder='Tell us more!'
+							style={{ width: '100%' }}
+							onChange={(
+								e: React.SyntheticEvent<HTMLTextAreaElement>,
+								data: TextAreaProps
+							) => {
+								this.handleContent(data);
+							}}
+						/>
 					</Card.Content>
 					<Card.Content>
 						<Checkbox toggle onChange={() => this.toggle()} label='Add Image' />
@@ -156,11 +236,9 @@ class CreatePostUncomposed extends React.Component<any, any> {
 						</Card.Content>
 					)}
 					{this.state.fileUrl && (
-						<Transition animation='fade down'>
-							<Card.Content>
-								<Image src={this.state.fileUrl} />
-							</Card.Content>
-						</Transition>
+						<Card.Content>
+							<Image src={this.state.fileUrl} />
+						</Card.Content>
 					)}
 					<input
 						ref={this.fileInputRef}
@@ -175,7 +253,7 @@ class CreatePostUncomposed extends React.Component<any, any> {
 						onClick={() => this.makePost()}
 						style={{ width: '25%', marginLeft: '75%' }}
 						color='orange'
-						disabled={this.state.isUploading}
+						disabled={this.state.isUploading || this.isInvalidPost()}
 					/>
 				</Card>
 			</div>
@@ -183,4 +261,7 @@ class CreatePostUncomposed extends React.Component<any, any> {
 	}
 }
 
-export const CreatePost = compose(withFirebase)(CreatePostUncomposed);
+export const CreatePost = compose(
+	withFirebase,
+	connect(mapStateToProps)
+)(CreatePostUncomposed);
