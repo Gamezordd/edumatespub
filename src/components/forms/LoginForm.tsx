@@ -9,6 +9,7 @@ import {
 	Card,
 	Image,
 	Grid,
+	Transition,
 } from 'semantic-ui-react';
 import { LoginState } from './types';
 import { FormFields } from './LoginFields';
@@ -56,7 +57,10 @@ class LoginForm extends React.Component<
 			redirect: { value: false },
 			errorMessage: { value: '' },
 			showError: { value: false },
+			animationDone: { value: false },
 		};
+
+		this.makeVisible();
 	}
 
 	handleSubmit = async () => {
@@ -133,6 +137,13 @@ class LoginForm extends React.Component<
 
 	getError = (key: keyof LoginState) => this.state[key].error;
 
+	makeVisible = () => {
+		setTimeout(
+			() => this.setState({ ...this.state, animationDone: { value: true } }),
+			10
+		);
+	};
+
 	render() {
 		if (this.state.redirect.value) {
 			return <Redirect to='/home' />;
@@ -145,41 +156,48 @@ class LoginForm extends React.Component<
 				verticalAlign='middle'
 			>
 				<Grid.Column style={{ maxWidth: 600 }}>
-					<Form
-						style={{
-							backgroundColor: 'white',
-							border: '3px solid #f3f3f3',
-							borderRadius: '25px',
-							textAlign: 'left',
-							padding: '5%',
-						}}
+					<Transition
+						animation='zoom'
+						visible={this.state.animationDone.value ? true : false}
 					>
-						<Image size='medium' src={logo} centered />
-						<h2>Log in</h2>
-						{_.map(FormFields, field => (
-							<FormField
-								{...field.properties}
-								control={Input}
-								error={this.getError(field.key)}
-								onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-									this.validate(field.validate, field.key, e)
-								}
+						<Form
+							style={{
+								backgroundColor: 'white',
+								border: '3px solid #f3f3f3',
+								borderRadius: '25px',
+								textAlign: 'left',
+								padding: '5%',
+							}}
+						>
+							<Image size='medium' src={logo} centered />
+							<h2>Log in</h2>
+							{_.map(FormFields, field => (
+								<FormField
+									{...field.properties}
+									control={Input}
+									error={this.getError(field.key)}
+									onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+										this.validate(field.validate, field.key, e)
+									}
+								/>
+							))}
+							<Button
+								content='Submit'
+								onClick={() => this.handleSubmit()}
+								className='btn'
+								color='orange'
+								style={{ width: '100%' }}
 							/>
-						))}
-						<Button
-							content='Submit'
-							onClick={() => this.handleSubmit()}
-							className='btn'
-							color='orange'
-							style={{ width: '100%' }}
-						/>
-						{this.state.showError.value && (
-							<Card fluid style={{ padding: '10px' }}>
-								<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
-							</Card>
-						)}
-						<Link to={'/forgotPassword'}>Forgot Password?</Link>{' '}
-					</Form>
+							{this.state.showError.value && (
+								<Card fluid style={{ padding: '10px' }}>
+									<p style={{ color: 'red' }}>
+										{this.state.errorMessage.value}
+									</p>
+								</Card>
+							)}
+							<Link to={'/forgotPassword'}>Forgot Password?</Link>{' '}
+						</Form>
+					</Transition>
 				</Grid.Column>
 			</Grid>
 		);

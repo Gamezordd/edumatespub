@@ -9,6 +9,7 @@ import { Card, Grid } from 'semantic-ui-react';
 import { Dispatch, AnyAction } from 'redux';
 import { Post } from './Post';
 import { Redirect } from 'react-router-dom';
+import { CreatePost } from './CreatePost';
 
 const mapStateToProps = (state: any) => ({
 	posts: state.posts.posts,
@@ -76,6 +77,7 @@ class InfiniteScrollUncomposed extends React.Component<
 			>
 				<Grid centered>
 					<Grid.Column style={{ padding: '5px' }}>
+						<CreatePost />
 						<InfiniteScrollComponent
 							dataLength={this.props.posts.length}
 							next={this.append}
