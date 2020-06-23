@@ -326,26 +326,24 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					
 					<Grid.Row className='Hidden'>................</Grid.Row>
 					<ul>
-						<li>
-							<p className='list'> Chat with ambassadors</p>
+					<li>
+							<p className='list'> Discover unlimited universities</p>
 						</li>
 						<li>
-							<p className='list'> Bookmark Universities</p>
+							<p className='list'> Create a wishlist of unlimited univeristies</p>
 						</li>
 						<li>
-							<p className='list'> Accomodation Information</p>{' '}
+							<p className='list'> Interact with the university representatives via chat feature</p>{' '}
 						</li>
 						<li>
-							<p className='list'> Mark your favourites</p>
+							<p className='list'> Stay up to date with your wishlisted universities</p>
 						</li>
 
 						<li>
 							{' '}
-							<p className='list'>Never miss out on university deadlines </p>
+							<p className='list'>We support you to make an educated decision and help you choose your one choice !</p>
 						</li>
-						<li>
-							<p className='list'> We are experts </p>
-						</li>
+						
 					</ul>
 				</Grid.Column>
 				<Grid.Column width={6}>
@@ -369,25 +367,24 @@ export const LandingPage: React.FC<{}> = ({}) => (
 				{' '}
 				<Grid.Column width={10}>
 					<ul>
-						<li>
-							<p className='list'> Chat with ambassadors</p>
+					<li>
+							<p className='list'> Discover unlimited universities</p>
 						</li>
 						<li>
-							<p className='list'> Bookmark Universities</p>
+							<p className='list'> Create a wishlist of unlimited univeristies</p>
 						</li>
 						<li>
-							<p className='list'> Accomodation Information</p>{' '}
+							<p className='list'> Interact with the university representatives via chat feature</p>{' '}
 						</li>
 						<li>
-							<p className='list'> Mark your favourites</p>
+							<p className='list'> Stay up to date with your wishlisted universities</p>
 						</li>
+
 						<li>
 							{' '}
-							<p className='list'>Never miss out on university deadlines </p>
+							<p className='list'>We support you to make an educated decision and help you choose your one choice !</p>
 						</li>
-						<li>
-							<p className='list'> We are experts </p>
-						</li>
+					
 					</ul>
 				</Grid.Column>
 			</Grid.Row>

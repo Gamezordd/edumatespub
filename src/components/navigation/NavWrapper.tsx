@@ -13,11 +13,7 @@ const mapStateToProps = (state: any) => {
 };
 
 const userLeftItems: ItemProps[] = [
-<<<<<<< HEAD
-	{ content: 'Home', key: 'home', to: '/'},
-=======
-	{ content: 'Home', key: 'home', to: '/home' },
->>>>>>> 558a10bb386d9f2bc5069d0fbbc762d64b52adf8
+	{ content: 'Home', key: 'home', to: '/' },
 	{ content: 'Maps', key: 'maps', to: '/maps' },
 	{ content: 'Chat', key: 'chat', to: '/chat' },
 	{ content: 'Discover', key: 'discover', to: '/discover' },
