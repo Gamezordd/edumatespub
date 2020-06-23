@@ -15,6 +15,7 @@ import {
 } from 'semantic-ui-react';
 import { Firebase } from '../../firebase';
 import { connect } from 'react-redux';
+import { CreatePostState } from './types';
 
 const mapStateToProps = (state: any) => ({
 	user: state.user,
@@ -30,6 +31,7 @@ const initialState = {
 	fileUrl: null,
 	success: false,
 	error: false,
+	filename: '',
 };
 
 const successStyle = { color: 'green' };
@@ -40,7 +42,10 @@ interface CreatePostProps {
 	user: any;
 }
 
-class CreatePostUncomposed extends React.Component<CreatePostProps, any> {
+class CreatePostUncomposed extends React.Component<
+	CreatePostProps,
+	CreatePostState
+> {
 	constructor(props: any) {
 		super(props);
 		this.state = initialState;
@@ -128,7 +133,8 @@ class CreatePostUncomposed extends React.Component<CreatePostProps, any> {
 		this.state.content === '' || this.state.title === '';
 
 	handleContent = (data: TextAreaProps) => {
-		this.setState({ ...this.state, ...{ content: data.value } });
+		if (!data.value) return;
+		this.setState({ ...this.state, ...{ content: data.value?.toString() } });
 	};
 
 	handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {

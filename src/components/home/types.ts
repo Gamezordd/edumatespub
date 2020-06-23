@@ -14,10 +14,12 @@ export interface InfiniteScrollProps {
 	fetch: typeof fetchInitialPosts;
 	append: typeof appendPosts;
 	isLoggedIn: boolean;
+	isAmbassador: boolean;
 }
 
 export interface PostState {
 	liked: boolean;
+	animationDone: boolean;
 }
 
 export interface PostProps {
@@ -26,4 +28,17 @@ export interface PostProps {
 	likeLocal: typeof addLike;
 	unlikeLocal: typeof removeLike;
 	firebase: Firebase;
+}
+
+export interface CreatePostState {
+	hasFile: boolean;
+	title: string;
+	content: string;
+	file: File | null;
+	progress: number;
+	isUploading: boolean;
+	fileUrl: string | null;
+	success: boolean;
+	error: boolean;
+	filename: string;
 }

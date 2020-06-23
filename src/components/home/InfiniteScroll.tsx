@@ -16,6 +16,7 @@ const mapStateToProps = (state: any) => ({
 	lastFetched: state.posts.lastFetched,
 	favourites: state.user.favouriteUnis,
 	isLoggedIn: state.user.isLoggedIn,
+	isAmbassador: state.user.isAmbassador,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
@@ -77,7 +78,7 @@ class InfiniteScrollUncomposed extends React.Component<
 			>
 				<Grid centered>
 					<Grid.Column style={{ padding: '5px' }}>
-						<CreatePost />
+						{this.props.isAmbassador && <CreatePost />}
 						<InfiniteScrollComponent
 							dataLength={this.props.posts.length}
 							next={this.append}

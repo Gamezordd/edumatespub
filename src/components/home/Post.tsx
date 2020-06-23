@@ -1,5 +1,12 @@
 import React from 'react';
-import { Icon, Card, Image, Button, CardHeader } from 'semantic-ui-react';
+import {
+	Icon,
+	Card,
+	Image,
+	Button,
+	CardHeader,
+	Transition,
+} from 'semantic-ui-react';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
@@ -30,7 +37,11 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 	constructor(props: any) {
 		super(props);
 		console.log(this.props.liked);
-		this.state = { liked: this.props.liked.includes(this.props.post.id) };
+		this.state = {
+			liked: this.props.liked.includes(this.props.post.id),
+			animationDone: false,
+		};
+		this.makeVisible();
 	}
 
 	toggler = () => {
@@ -67,6 +78,10 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 		this.setState({ liked: false });
 	};
 
+	makeVisible = () => {
+		setTimeout(() => this.setState({ ...this.state, animationDone: true }), 10);
+	};
+
 	render() {
 		const { post } = this.props;
 		const date = new Intl.DateTimeFormat(
@@ -75,32 +90,36 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 		).format(post.createdAt);
 		return (
 			<div id={post.id} style={{ marginTop: '5vh', padding: '5px' }}>
-				<Card centered fluid style={{ maxWidth: '720px' }}>
-					<Card.Content>
-						<Image
-							src={process.env.PUBLIC_URL + '/favicon.ico'}
-							size='mini'
-							floated='left'
-						/>
-						<Card.Header style={{ fontSize: '1em' }}>{post.userId}</Card.Header>
-						<Card.Meta style={{ fontSize: '1em' }}>
-							{post.universityId}, {date}
-						</Card.Meta>
-					</Card.Content>
-					<Card.Content>
-						<Card.Header>{post.title}</Card.Header>
-						{post.files && <Image src={this.props.post.files[0]} />}
-						<Card.Description>{post.content}</Card.Description>
-					</Card.Content>
-					<Card.Content extra>
-						<Icon
-							name='like'
-							color={this.state.liked ? 'orange' : undefined}
-							onClick={() => this.toggler()}
-						/>
-						{post.likeCount}
-					</Card.Content>
-				</Card>
+				<Transition animation='fly right' visible={this.state.animationDone}>
+					<Card centered fluid style={{ maxWidth: '720px' }}>
+						<Card.Content>
+							<Image
+								src={process.env.PUBLIC_URL + '/favicon.ico'}
+								size='mini'
+								floated='left'
+							/>
+							<Card.Header style={{ fontSize: '1em' }}>
+								{post.userId}
+							</Card.Header>
+							<Card.Meta style={{ fontSize: '1em' }}>
+								{post.universityId}, {date}
+							</Card.Meta>
+						</Card.Content>
+						<Card.Content>
+							<Card.Header>{post.title}</Card.Header>
+							{post.files && <Image src={this.props.post.files[0]} />}
+							<Card.Description>{post.content}</Card.Description>
+						</Card.Content>
+						<Card.Content extra>
+							<Icon
+								name='like'
+								color={this.state.liked ? 'orange' : undefined}
+								onClick={() => this.toggler()}
+							/>
+							{post.likeCount}
+						</Card.Content>
+					</Card>
+				</Transition>
 			</div>
 		);
 	}
