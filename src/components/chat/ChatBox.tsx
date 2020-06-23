@@ -1,37 +1,30 @@
 import React from 'react';
-import { compose } from 'recompose';
-import { withFirebase } from '../../firebase/withFirebase';
-import { Firebase } from '../../firebase';
-import { Grid, Segment } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
+import './allstyle.css';
+import { ChatList } from './ChatList';
+import { ActualChat } from './ActualChat';
 
-export interface ChatBoxProps {
-	firebase: Firebase;
-}
+export interface ChatBoxProps {}
 
 export interface ChatBoxState {}
 
-export class ChatBoxUncomposed extends React.Component<
-	ChatBoxProps,
-	ChatBoxState
-> {
-	constructor(props: any) {
-		super(props);
-	}
-
+export class ChatBox extends React.Component<ChatBoxProps, ChatBoxState> {
+	writetocon = () => {
+		console.log('Chat was pressed');
+	};
+	formatDescription = (description: string) => {
+		if (description.length > 100) {
+			return description.substring(0, 25) + '...';
+		} else {
+			return description;
+		}
+	};
 	render() {
 		return (
-			<div>
-				<Segment vertical>
-					<Grid celled>
-						<Grid.Row>
-							<Grid.Column width={5}></Grid.Column>
-							<Grid.Column width={11}></Grid.Column>
-						</Grid.Row>
-					</Grid>
-				</Segment>
-			</div>
+			<Grid>
+				<ChatList />
+				<ActualChat />
+			</Grid>
 		);
 	}
 }
-
-export const ChatBox = compose(withFirebase)(ChatBoxUncomposed);
