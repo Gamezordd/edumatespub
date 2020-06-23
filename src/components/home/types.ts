@@ -1,18 +1,21 @@
 import { Firebase } from '../../firebase';
 import { fetchInitialPosts, appendPosts } from '../../redux';
-import { addLike, removeLike } from '../../redux/ActionCreators';
+import { addLike, removeLike, storeScroll } from '../../redux/ActionCreators';
 
 export interface InfiniteScrollState {
 	hasMore: boolean;
+	scroll: number;
 }
 
 export interface InfiniteScrollProps {
 	firebase: Firebase;
 	posts: any[];
 	lastFetched: string;
+	scroll: number;
 	favourites: string[];
 	fetch: typeof fetchInitialPosts;
 	append: typeof appendPosts;
+	saveScroll: typeof storeScroll;
 	isLoggedIn: boolean;
 	isAmbassador: boolean;
 }

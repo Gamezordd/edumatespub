@@ -3,9 +3,9 @@ import { compose } from 'recompose';
 import { InfiniteScrollProps, InfiniteScrollState } from './types';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
-import { fetchInitialPosts, appendPosts } from '../../redux';
+import { fetchInitialPosts, appendPosts, storeScroll } from '../../redux';
 import InfiniteScrollComponent from 'react-infinite-scroll-component';
-import { Card, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { Dispatch, AnyAction } from 'redux';
 import { Post } from './Post';
 import { Redirect } from 'react-router-dom';
@@ -14,6 +14,7 @@ import { CreatePost } from './CreatePost';
 const mapStateToProps = (state: any) => ({
 	posts: state.posts.posts,
 	lastFetched: state.posts.lastFetched,
+	scroll: state.posts.yScroll,
 	favourites: state.user.favouriteUnis,
 	isLoggedIn: state.user.isLoggedIn,
 	isAmbassador: state.user.isAmbassador,
@@ -24,6 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
 		dispatch(fetchInitialPosts(posts, lastFetched)),
 	append: (posts: any[], lastFetched: string) =>
 		dispatch(appendPosts(posts, lastFetched)),
+	saveScroll: (scroll: number) => dispatch(storeScroll(scroll)),
 });
 
 class InfiniteScrollUncomposed extends React.Component<
@@ -33,11 +35,13 @@ class InfiniteScrollUncomposed extends React.Component<
 	constructor(props: InfiniteScrollProps) {
 		super(props);
 		console.log('In cont', this.props.favourites);
-		this.state = { hasMore: true };
+		this.state = { hasMore: true, scroll: 0 };
 		if (this.props.lastFetched === null) {
 			this.initiate();
 		}
 	}
+
+	infiScrollRef = React.createRef<InfiniteScrollComponent>();
 
 	initiate = async () => {
 		const posts = await this.getPosts();
@@ -67,9 +71,17 @@ class InfiniteScrollUncomposed extends React.Component<
 		return posts;
 	};
 
+	componentDidMount() {
+		window.scrollTo(0, this.props.scroll);
+	}
+
+	componentWillUnmount() {
+		this.props.saveScroll(window.pageYOffset);
+	}
+
 	render() {
 		if (!this.props.isLoggedIn) return <Redirect to='/login' />;
-
+		console.log(this.props.scroll);
 		return (
 			<div
 				style={{
@@ -80,6 +92,7 @@ class InfiniteScrollUncomposed extends React.Component<
 					<Grid.Column style={{ padding: '5px' }}>
 						{this.props.isAmbassador && <CreatePost />}
 						<InfiniteScrollComponent
+							ref={this.infiScrollRef}
 							dataLength={this.props.posts.length}
 							next={this.append}
 							hasMore={this.state.hasMore}
@@ -101,6 +114,7 @@ class InfiniteScrollUncomposed extends React.Component<
 									&#8593; Release to refresh
 								</h3>
 							}
+							initialScrollY={this.props.scroll}
 						>
 							{this.props.posts.map(post => (
 								<Post post={post} />

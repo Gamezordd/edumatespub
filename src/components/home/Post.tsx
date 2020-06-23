@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-	Icon,
-	Card,
-	Image,
-	Button,
-	CardHeader,
-	Transition,
-} from 'semantic-ui-react';
+import { Icon, Card, Image, Transition } from 'semantic-ui-react';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';

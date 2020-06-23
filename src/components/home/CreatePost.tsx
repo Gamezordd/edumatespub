@@ -73,6 +73,7 @@ class CreatePostUncomposed extends React.Component<
 				userId: user.uid,
 				userName: user.details.name,
 				likeCount: 0,
+				universityId: user.data.universityId,
 			});
 			this.setState({
 				...initialState,

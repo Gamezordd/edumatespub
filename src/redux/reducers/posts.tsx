@@ -2,9 +2,10 @@ import * as ActionTypes from '../ActionTypes';
 import { PostActions } from '../ActionCreators';
 
 export const Posts = (
-	state: { posts: any[]; lastFetched: string | null } = {
+	state: { posts: any[]; lastFetched: string | null; yScroll: number } = {
 		posts: [],
 		lastFetched: null,
+		yScroll: 0,
 	},
 	action: PostActions
 ) => {
@@ -19,7 +20,10 @@ export const Posts = (
 			};
 		}
 		case ActionTypes.CLEAR_POSTS: {
-			return { posts: [], lastFetched: null };
+			return { posts: [], lastFetched: null, yScroll: 0 };
+		}
+		case ActionTypes.STORE_SCROLL: {
+			return { ...state, yScroll: action.scroll };
 		}
 		default: {
 			return state;

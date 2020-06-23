@@ -23,6 +23,7 @@ export const User = (
 				profileImage,
 				favouriteUnis,
 				isAmbassador,
+				data,
 			} = action.payload;
 			return {
 				...state,
@@ -30,6 +31,7 @@ export const User = (
 				details: {
 					name: name,
 					email: email,
+					universityId: isAmbassador ? data.universityId : '',
 				},
 				isLoggedIn: true,
 				favouriteUnis: favouriteUnis,

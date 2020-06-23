@@ -33,7 +33,16 @@ interface ClearPosts {
 	type: ActionTypes.CLEAR_POSTS;
 }
 
-export type PostActions = FetchInitialPosts | AppendPosts | ClearPosts;
+interface StoreScroll {
+	type: ActionTypes.STORE_SCROLL;
+	scroll: number;
+}
+
+export type PostActions =
+	| FetchInitialPosts
+	| AppendPosts
+	| ClearPosts
+	| StoreScroll;
 
 //actions
 
@@ -95,4 +104,9 @@ export const removeLike = (post: string): RemoveLike => ({
 
 export const clearPosts = (): ClearPosts => ({
 	type: ActionTypes.CLEAR_POSTS,
+});
+
+export const storeScroll = (scroll: number): StoreScroll => ({
+	type: ActionTypes.STORE_SCROLL,
+	scroll: scroll,
 });

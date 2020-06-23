@@ -18,6 +18,10 @@ class DiscoverContainer extends React.Component<DiscoverContainerProps, any> {
 		super(props);
 	}
 
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
+
 	render() {
 		if (!this.props.isLoggedIn) return <Redirect to='/login' />;
 

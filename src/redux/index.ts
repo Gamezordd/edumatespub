@@ -8,4 +8,5 @@ export {
 	appendPosts,
 	fetchLikes,
 	clearPosts,
+	storeScroll,
 } from './ActionCreators';
