@@ -32,6 +32,7 @@ const initialState = {
 	success: false,
 	error: false,
 	filename: '',
+	animationDone: false,
 };
 
 const successStyle = { color: 'green' };
@@ -51,6 +52,8 @@ class CreatePostUncomposed extends React.Component<
 		this.state = initialState;
 
 		this.fileInputRef = React.createRef();
+
+		this.makeVisible();
 	}
 
 	private fileInputRef: React.RefObject<HTMLInputElement>;
@@ -71,7 +74,10 @@ class CreatePostUncomposed extends React.Component<
 				userName: user.details.name,
 				likeCount: 0,
 			});
-			this.setState({ ...initialState, ...{ success: true } });
+			this.setState({
+				...initialState,
+				...{ success: true, animationDone: true },
+			});
 		} catch (err) {
 			console.log(`Error whil create post:${err}`);
 			this.setState({ ...this.state, ...{ error: true } });
@@ -150,118 +156,130 @@ class CreatePostUncomposed extends React.Component<
 		});
 	};
 
+	makeVisible = () => {
+		setTimeout(() => this.setState({ ...this.state, animationDone: true }), 10);
+	};
+
 	render() {
 		return (
 			<div
 				className='createPostComponent'
 				style={{ padding: '5px', fontSize: '1em' }}
 			>
-				<Card
-					style={{
-						padding: '5px',
-						maxWidth: '720px',
-						marginTop: '5vh',
-					}}
-					centered
-					fluid
-				>
-					{(this.state.success || this.state.error) && (
-						<Card.Content
-							extra
-							style={this.state.error ? errorStyle : successStyle}
-						>
-							<Icon name={this.state.error ? 'ban' : 'thumbs up outline'} />
-							{this.state.error
-								? 'Something went wrong. Please try again.'
-								: 'Successfully posted!'}
-						</Card.Content>
-					)}
-					<Card.Content>
-						<Card.Header>Share with us!</Card.Header>
-						<Input
-							placeholder='What is on your mind?'
-							fluid
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-								this.handleTitle(e);
-							}}
-						/>
-					</Card.Content>
-					<Card.Content>
-						<TextArea
-							placeholder='Tell us more!'
-							style={{ width: '100%' }}
-							onChange={(
-								e: React.SyntheticEvent<HTMLTextAreaElement>,
-								data: TextAreaProps
-							) => {
-								this.handleContent(data);
-							}}
-						/>
-					</Card.Content>
-					<Card.Content>
-						<Checkbox toggle onChange={() => this.toggle()} label='Add Image' />
-					</Card.Content>
-					<Transition visible={this.state.hasFile} animation='swing down'>
+				<Transition animation='fade right' visible={this.state.animationDone}>
+					<Card
+						style={{
+							padding: '5px',
+							maxWidth: '720px',
+							marginTop: '5vh',
+						}}
+						centered
+						fluid
+					>
+						{(this.state.success || this.state.error) && (
+							<Card.Content
+								extra
+								style={this.state.error ? errorStyle : successStyle}
+							>
+								<Icon name={this.state.error ? 'ban' : 'thumbs up outline'} />
+								{this.state.error
+									? 'Something went wrong. Please try again.'
+									: 'Successfully posted!'}
+							</Card.Content>
+						)}
 						<Card.Content>
-							<Button
-								as='label'
-								content={this.state.file ? this.state.file.name : 'Choose File'}
-								htmlFor='file'
-								labelPosition='left'
-								icon='file'
-								disabled={this.state.isUploading}
+							<Card.Header>Share with us!</Card.Header>
+							<Input
+								placeholder='What is on your mind?'
+								fluid
+								onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+									this.handleTitle(e);
+								}}
 							/>
-							{this.state.file && (
+						</Card.Content>
+						<Card.Content>
+							<TextArea
+								placeholder='Tell us more!'
+								style={{ width: '100%' }}
+								onChange={(
+									e: React.SyntheticEvent<HTMLTextAreaElement>,
+									data: TextAreaProps
+								) => {
+									this.handleContent(data);
+								}}
+							/>
+						</Card.Content>
+						<Card.Content>
+							<Checkbox
+								toggle
+								onChange={() => this.toggle()}
+								label='Add Image'
+							/>
+						</Card.Content>
+						<Transition visible={this.state.hasFile} animation='swing down'>
+							<Card.Content>
 								<Button
-									content='Upload'
-									disabled={this.state.isUploading}
-									onClick={() => this.handleUpload()}
-									icon='upload'
+									as='label'
+									content={
+										this.state.file ? this.state.file.name : 'Choose File'
+									}
+									htmlFor='file'
 									labelPosition='left'
-								/>
-							)}
-							{this.state.file && (
-								<Button
-									icon='trash'
-									floated='right'
-									color='red'
-									onClick={() => this.deleteFile()}
+									icon='file'
 									disabled={this.state.isUploading}
 								/>
-							)}
-						</Card.Content>
-					</Transition>
-					{this.state.isUploading && (
-						<Card.Content>
-							<Progress
-								active
-								autoSuccess
-								total={1}
-								value={this.state.progress}
-							/>
-						</Card.Content>
-					)}
-					{this.state.fileUrl && (
-						<Card.Content>
-							<Image src={this.state.fileUrl} />
-						</Card.Content>
-					)}
-					<input
-						ref={this.fileInputRef}
-						type='file'
-						id='file'
-						hidden
-						onChange={this.fileChange}
-						accept='image/*'
-					/>
-					<Button
-						content='Share'
-						onClick={() => this.makePost()}
-						style={{ width: '25%', marginLeft: '75%' }}
-						color='orange'
-						disabled={this.state.isUploading || this.isInvalidPost()}
-					/>
-				</Card>
+								{this.state.file && (
+									<Button
+										content='Upload'
+										disabled={this.state.isUploading}
+										onClick={() => this.handleUpload()}
+										icon='upload'
+										labelPosition='left'
+									/>
+								)}
+								{this.state.file && (
+									<Button
+										icon='trash'
+										floated='right'
+										color='red'
+										onClick={() => this.deleteFile()}
+										disabled={this.state.isUploading}
+									/>
+								)}
+							</Card.Content>
+						</Transition>
+						{this.state.isUploading && (
+							<Card.Content>
+								<Progress
+									active
+									autoSuccess
+									total={1}
+									value={this.state.progress}
+								/>
+							</Card.Content>
+						)}
+						{this.state.fileUrl && (
+							<Card.Content>
+								<Image src={this.state.fileUrl} />
+							</Card.Content>
+						)}
+						<input
+							ref={this.fileInputRef}
+							type='file'
+							id='file'
+							hidden
+							onChange={this.fileChange}
+							accept='image/*'
+						/>
+						<Button
+							content='Share'
+							onClick={() => this.makePost()}
+							style={{ width: '25%', marginLeft: '75%' }}
+							color='orange'
+							disabled={this.state.isUploading || this.isInvalidPost()}
+						/>
+					</Card>
+				</Transition>
 			</div>
 		);
 	}

@@ -9,6 +9,7 @@ import {
 	Card,
 	Image,
 	Grid,
+	Transition,
 } from 'semantic-ui-react';
 import { RegisterState } from './types';
 import { countryOptions } from './countriesData';
@@ -52,7 +53,10 @@ class RegistrationFormUncomposed extends React.Component<
 			redirect: { value: false },
 			errorMessage: { value: '' },
 			showError: { value: false },
+			animationDone: { value: false },
 		};
+
+		this.makeVisible();
 	}
 
 	handleSubmit = async () => {
@@ -137,6 +141,13 @@ class RegistrationFormUncomposed extends React.Component<
 
 	getError = (key: keyof RegisterState) => this.state[key].error;
 
+	makeVisible = () => {
+		setTimeout(
+			() => this.setState({ ...this.state, animationDone: { value: true } }),
+			10
+		);
+	};
+
 	render() {
 		if (this.state.redirect.value) return <Redirect to='/login' />;
 
@@ -151,120 +162,127 @@ class RegistrationFormUncomposed extends React.Component<
 				verticalAlign='middle'
 			>
 				<Grid.Column style={{ maxWidth: 600 }}>
-					<Form
-						style={{
-							backgroundColor: 'white',
-							border: '3px solid #f3f3f3',
-							borderRadius: '25px',
-							textAlign: 'left',
-							padding: '5%',
-						}}
+					<Transition
+						animation='slide down'
+						visible={this.state.animationDone.value ? true : false}
 					>
-						<Image size='medium' src={logo} centered />
-						<h2>Create a new account</h2>
-						{_.map(CommonFields, field => (
-							<FormField
-								{...field.properties}
-								control={Input}
-								error={this.getError(field.key)}
-								onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-									this.validate(field.validate, field.key, e)
-								}
+						<Form
+							style={{
+								backgroundColor: 'white',
+								border: '3px solid #f3f3f3',
+								borderRadius: '25px',
+								textAlign: 'left',
+								padding: '5%',
+							}}
+						>
+							<Image size='medium' src={logo} centered />
+							<h2>Create a new account</h2>
+							{_.map(CommonFields, field => (
+								<FormField
+									{...field.properties}
+									control={Input}
+									error={this.getError(field.key)}
+									onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+										this.validate(field.validate, field.key, e)
+									}
+								/>
+							))}
+							<Form.Dropdown
+								placeholder='Country:'
+								fluid
+								search
+								selection
+								required
+								options={countryOptions}
+								style={{
+									border: 'none',
+									borderBottom: 'solid',
+									borderBottomWidth: '1px',
+								}}
+								onChange={(
+									event: React.SyntheticEvent<HTMLElement>,
+									{ value }
+								) => {
+									if (value !== undefined) {
+										this.syntheticEventHandler('country', value.toString());
+									}
+								}}
 							/>
-						))}
-						<Form.Dropdown
-							placeholder='Country:'
-							fluid
-							search
-							selection
-							required
-							options={countryOptions}
-							style={{
-								border: 'none',
-								borderBottom: 'solid',
-								borderBottomWidth: '1px',
-							}}
-							onChange={(
-								event: React.SyntheticEvent<HTMLElement>,
-								{ value }
-							) => {
-								if (value !== undefined) {
-									this.syntheticEventHandler('country', value.toString());
-								}
-							}}
-						/>
-						<Form.Dropdown
-							placeholder='Gender:'
-							fluid
-							search
-							selection
-							required
-							options={Genders}
-							style={{
-								border: 'none',
-								borderBottom: 'solid',
-								borderBottomWidth: '1px',
-							}}
-							onChange={(
-								event: React.SyntheticEvent<HTMLElement>,
-								{ value }
-							) => {
-								if (value !== undefined) {
-									this.syntheticEventHandler('gender', value.toString());
-								}
-							}}
-						/>
-						<Form.Dropdown
-							placeholder='Role:'
-							fluid
-							search
-							selection
-							required
-							options={UserTypes}
-							style={{
-								border: 'none',
-								borderBottom: 'solid',
-								borderBottomWidth: '1px',
-							}}
-							onChange={(
-								event: React.SyntheticEvent<HTMLElement>,
-								{ value }
-							) => {
-								if (value !== undefined) {
-									this.handleRole(value.toString());
-								}
-							}}
-						/>
-						{_.map(VariableFields, field => (
-							<FormField
-								{...field.properties}
-								control={Input}
-								error={this.getError(field.key)}
-								onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-									this.validate(field.validate, field.key, e)
-								}
+							<Form.Dropdown
+								placeholder='Gender:'
+								fluid
+								search
+								selection
+								required
+								options={Genders}
+								style={{
+									border: 'none',
+									borderBottom: 'solid',
+									borderBottomWidth: '1px',
+								}}
+								onChange={(
+									event: React.SyntheticEvent<HTMLElement>,
+									{ value }
+								) => {
+									if (value !== undefined) {
+										this.syntheticEventHandler('gender', value.toString());
+									}
+								}}
 							/>
-						))}
-						{this.state.showError.value && (
-							<Card fluid style={{ padding: '10px' }}>
-								<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
-							</Card>
-						)}
-						<div style={{ textAlign: 'center' }}>
-							By signing up, you accept the Terms of
-							<br /> Service and the Privacy Policy
-						</div>
-						<Button
-							content='Submit'
-							onClick={() => this.handleSubmit()}
-							className='btn'
-							color='orange'
-							style={{ width: '100%' }}
-						/>
-						<div style={{ textAlign: 'center' }}>
-							Have an account?<Link to={'/login'}>Login</Link>{' '}
-						</div>
-					</Form>
+							<Form.Dropdown
+								placeholder='Role:'
+								fluid
+								search
+								selection
+								required
+								options={UserTypes}
+								style={{
+									border: 'none',
+									borderBottom: 'solid',
+									borderBottomWidth: '1px',
+								}}
+								onChange={(
+									event: React.SyntheticEvent<HTMLElement>,
+									{ value }
+								) => {
+									if (value !== undefined) {
+										this.handleRole(value.toString());
+									}
+								}}
+							/>
+							{_.map(VariableFields, field => (
+								<FormField
+									{...field.properties}
+									control={Input}
+									error={this.getError(field.key)}
+									onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+										this.validate(field.validate, field.key, e)
+									}
+								/>
+							))}
+							{this.state.showError.value && (
+								<Card fluid style={{ padding: '10px' }}>
+									<p style={{ color: 'red' }}>
+										{this.state.errorMessage.value}
+									</p>
+								</Card>
+							)}
+							<div style={{ textAlign: 'center' }}>
+								By signing up, you accept the Terms of
+								<br /> Service and the Privacy Policy
+							</div>
+							<Button
+								content='Submit'
+								onClick={() => this.handleSubmit()}
+								className='btn'
+								color='orange'
+								style={{ width: '100%' }}
+							/>
+							<div style={{ textAlign: 'center' }}>
+								Have an account?<Link to={'/login'}>Login</Link>{' '}
+							</div>
+						</Form>
+					</Transition>
 				</Grid.Column>
 			</Grid>
 		);

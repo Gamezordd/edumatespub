@@ -157,7 +157,7 @@ class LoginForm extends React.Component<
 			>
 				<Grid.Column style={{ maxWidth: 600 }}>
 					<Transition
-						animation='zoom'
+						animation='slide down'
 						visible={this.state.animationDone.value ? true : false}
 					>
 						<Form

@@ -4,18 +4,18 @@ import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
 import { ChangeEvent } from 'react';
-import { Input, Button, Form, Grid, Image } from 'semantic-ui-react';
+import {
+	Input,
+	Button,
+	Form,
+	Grid,
+	Image,
+	Transition,
+} from 'semantic-ui-react';
 import './allforms.css';
 import logo from '../landing/assets/logo2.png';
+import { PasswordForgotProps, PasswordForgotState } from './types';
 
-export interface PasswordForgotProps {
-	firebase: Firebase;
-}
-
-export interface PasswordForgotState {
-	email: string;
-	error: any;
-}
 const INITIAL_STATE = {
 	email: '',
 	error: null,
@@ -29,8 +29,11 @@ class PasswordForgotUncomposed extends React.Component<
 		super(props);
 		this.state = {
 			email: '',
-			error: ' ',
+			error: '',
+			animationDone: false,
 		};
+
+		this.makeVisible();
 	}
 
 	onSubmit = (event: any) => {
@@ -50,6 +53,10 @@ class PasswordForgotUncomposed extends React.Component<
 		this.setState({ email: event.target.value });
 	};
 
+	makeVisible = () => {
+		setTimeout(() => this.setState({ ...this.state, animationDone: true }), 10);
+	};
+
 	render() {
 		const { email, error } = this.state;
 
@@ -61,38 +68,40 @@ class PasswordForgotUncomposed extends React.Component<
 				verticalAlign='middle'
 			>
 				<Grid.Column style={{ maxWidth: 600 }}>
-					<Form
-						onSubmit={this.onSubmit}
-						style={{
-							backgroundColor: 'white',
-							border: '3px solid #f3f3f3',
-							borderRadius: '25px',
-							textAlign: 'left',
-							padding: '5%',
-						}}
-					>
-						<Image size='medium' src={logo} centered />
-						<Form.Field>
-							<Input
-								name='email'
-								value={this.state.email}
-								onChange={this.onChange}
-								type='text'
-								placeholder='Email Address'
-							/>
-						</Form.Field>
-						<Button
-							disabled={isInvalid}
-							type='submit'
-							className='btn'
-							color='orange'
-							style={{ width: '100%' }}
+					<Transition animation='zoom' visible={this.state.animationDone}>
+						<Form
+							onSubmit={this.onSubmit}
+							style={{
+								backgroundColor: 'white',
+								border: '3px solid #f3f3f3',
+								borderRadius: '25px',
+								textAlign: 'left',
+								padding: '5%',
+							}}
 						>
-							Reset My Password
-						</Button>
+							<Image size='medium' src={logo} centered />
+							<Form.Field>
+								<Input
+									name='email'
+									value={this.state.email}
+									onChange={this.onChange}
+									type='text'
+									placeholder='Email Address'
+								/>
+							</Form.Field>
+							<Button
+								disabled={isInvalid}
+								type='submit'
+								className='btn'
+								color='orange'
+								style={{ width: '100%' }}
+							>
+								Reset My Password
+							</Button>
 
-						{error && <p>{error.message}</p>}
-					</Form>
+							{error && <p>{error.message}</p>}
+						</Form>
+					</Transition>
 				</Grid.Column>
 			</Grid>
 		);

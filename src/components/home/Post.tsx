@@ -90,7 +90,7 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 		).format(post.createdAt);
 		return (
 			<div id={post.id} style={{ marginTop: '5vh', padding: '5px' }}>
-				<Transition animation='fly right' visible={this.state.animationDone}>
+				<Transition animation='fade right' visible={this.state.animationDone}>
 					<Card centered fluid style={{ maxWidth: '720px' }}>
 						<Card.Content>
 							<Image

@@ -41,4 +41,5 @@ export interface CreatePostState {
 	success: boolean;
 	error: boolean;
 	filename: string;
+	animationDone: boolean;
 }
