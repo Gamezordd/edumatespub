@@ -20,9 +20,7 @@ export class ChatBox extends React.Component<ChatBoxProps, ChatBoxState> {
 			selectedUser: undefined,
 		};
 	}
-	writetocon = () => {
-		console.log('Chat was pressed');
-	};
+
 	formatDescription = (description: string) => {
 		if (description.length > 100) {
 			return description.substring(0, 25) + '...';

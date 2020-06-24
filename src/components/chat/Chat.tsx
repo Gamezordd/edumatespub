@@ -48,9 +48,9 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 
 	renderMessages(uid: string) {
 		const messagesArr = this.props.messages[uid][0].map((message: any) => {
-			if (!message.sent) {
+			if (message.sent) {
 				return <div className='bubbleleft'>{message.message}</div>;
-			} else if (message.sent) {
+			} else if (!message.sent) {
 				return <div className='bubbleright'>{message.message}</div>;
 			} else {
 				return <div>bad message</div>;
