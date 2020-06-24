@@ -64,7 +64,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 					data: snapshot.val(),
 					messageId: snapshot.key,
 				});
-				this.setState({ rawMessages: payload, newMessage: true});
+				this.setState({ rawMessages: payload, newMessage: true });
 			}
 		});
 		rtdbMessageRef.limitToLast(limitCount).on('child_removed', child => {
@@ -188,9 +188,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 			this.updateMessages();
 		}
 
-		return (
-			<ChatBox chats={this.state.chats} selfUid={this.props.user.uid}/>
-		);
+		return <ChatBox chats={this.state.chats} selfUid={this.props.user.uid} />;
 	}
 }
 

@@ -6,13 +6,13 @@ import { Firebase } from '../../firebase';
 import { LoadingContainer } from '../maps';
 
 interface ChatListEntryProps {
-	id: string,
+	id: string;
 	firebase: Firebase;
-	clickHandler: (user: any) => void
+	clickHandler: (user: any) => void;
 }
 
 interface ChatListEntryState {
-	user: firebase.firestore.DocumentData | undefined
+	user: firebase.firestore.DocumentData | undefined;
 }
 
 class ChatListEntryUncomposed extends React.Component<
@@ -20,16 +20,16 @@ class ChatListEntryUncomposed extends React.Component<
 	ChatListEntryState
 > {
 	//state = { :  }
-	constructor(props: ChatListEntryProps){
+	constructor(props: ChatListEntryProps) {
 		super(props);
-		this.state={
-			user: undefined
-		}
+		this.state = {
+			user: undefined,
+		};
 	}
-	componentDidMount(){
-		this.props.firebase.fetchUser(this.props.id).then(user =>{
-			this.setState({user: user})
-		})
+	componentDidMount() {
+		this.props.firebase.fetchUser(this.props.id).then(user => {
+			this.setState({ user: user });
+		});
 	}
 
 	writetocon = () => {
@@ -43,21 +43,25 @@ class ChatListEntryUncomposed extends React.Component<
 		}
 	};
 	render() {
-		const { user } = this.state
-		if(user){
+		const { user } = this.state;
+		if (user) {
 			return (
-				<Feed.Event onClick={() => this.props.clickHandler({...user, uid: this.props.id})}>
-					<Feed.Label image={user.profileImage === 'default' ? null : user.profileImage } style={{paddingLeft: "5px"}}/>
+				<Feed.Event
+					onClick={() =>
+						this.props.clickHandler({ ...user, uid: this.props.id })
+					}
+				>
+					<Feed.Label
+						image={user.profileImage === 'default' ? null : user.profileImage}
+						style={{ paddingLeft: '5px' }}
+					/>
 					<Feed.Content>
 						<Feed.User>{user.name}</Feed.User>
 					</Feed.Content>
 				</Feed.Event>
 			);
-		}
-		else{
-			return(
-				<LoadingContainer/>
-			)
+		} else {
+			return <LoadingContainer />;
 		}
 	}
 }

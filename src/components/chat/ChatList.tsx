@@ -11,36 +11,42 @@ export interface ChatListProps {
 export interface ChatListState {}
 
 export class ChatList extends React.Component<ChatListProps, ChatListState> {
-	render(){
-		return(
+	render() {
+		return (
 			<Segment
 				style={{
 					marginTop: '20vh',
 					height: '70vh',
 					width: '30vw',
-					overflow: 'auto'
-				}}>
-					<Grid>
-						<Grid.Row style={{paddingLeft: "10px"}}><h2>All Chats</h2></Grid.Row>
-						<Divider style={{margin:0}}/>
-						<Grid.Row>
-							<Grid.Column>
-								<Input icon='search' style={{ width: '100%' }}/>
-								<Feed>
+					overflow: 'auto',
+				}}
+			>
+				<Grid>
+					<Grid.Row style={{ paddingLeft: '10px' }}>
+						<h2>All Chats</h2>
+					</Grid.Row>
+					<Divider style={{ margin: 0 }} />
+					<Grid.Row>
+						<Grid.Column>
+							<Input icon='search' style={{ width: '100%' }} />
+							<Feed>
 								{this.props.contacts.map((uid: string) => {
-									return(
+									return (
 										<div>
-										<ChatListEntry id={uid} clickHandler={this.props.selectUser}/>
-										<Divider/>
+											<ChatListEntry
+												id={uid}
+												clickHandler={this.props.selectUser}
+											/>
+											<Divider />
 										</div>
 									);
 								})}
-								</Feed>
-							</Grid.Column>
-						</Grid.Row>
-					</Grid>
+							</Feed>
+						</Grid.Column>
+					</Grid.Row>
+				</Grid>
 			</Segment>
-		)
+		);
 	}
 	/*render() {
 		return (
