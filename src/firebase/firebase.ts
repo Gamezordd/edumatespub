@@ -1,11 +1,19 @@
 import config from '../firebaseConfig.json';
-import app, { firestore, auth } from 'firebase/app';
+import app, { firestore, database } from 'firebase/app';
 import React from 'react';
 import { toInteger } from 'lodash';
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/database');
 require('firebase/storage');
+
+interface MessageRequest {
+	name: string;
+	content: string;
+	reciever: string;
+	recieverName: string;
+	chatId: string;
+}
 
 export class Firebase {
 	auth: app.auth.Auth;
@@ -175,6 +183,8 @@ export class Firebase {
 
 	signOut = async () => await this.auth.signOut();
 
+	//posts
+
 	like = async (post: string) =>
 		await this.db
 			.collection('post_likes')
@@ -200,6 +210,80 @@ export class Firebase {
 
 	deletePostImage = async (filename: string) => {
 		this.storage.ref(`postImages/${filename}`).delete();
+	};
+
+	//chats
+
+	//Get entries for ChatList
+	getUserChats = async () => {
+		return await this.rtdb
+			.ref(`userChats/${this.auth.currentUser?.uid}`)
+			.once('value')
+			.then(snapshot => {
+				var data: Array<any> = [];
+				snapshot.forEach(child => {
+					if (!child.exists()) return;
+					data.push({ userId: child.key, ...child.val() });
+				});
+				return data;
+			});
+	};
+
+	//Ref for listener in ChatList
+	getUserChatsRef = () => {
+		return this.rtdb.ref(`userChats/${this.auth.currentUser?.uid}`);
+	};
+
+	//get messages for chat
+	getChat = async (chatId: string) => {
+		return await this.rtdb
+			.ref(`chats/${chatId}`)
+			.orderByChild('timestamp')
+			.once('value')
+			.then(snapshot => {
+				var data: Array<any> = [];
+				snapshot.forEach(child => {
+					data.push(child.val());
+				});
+				return data;
+			});
+	};
+
+	//Ref for listener in Chat
+	getChatRef = (chatId: string) => {
+		return this.rtdb.ref(`chats/${chatId}`);
+	};
+
+	//send message. Payload defined in MessageRequest interface.
+	sendMessage = async (messageRequest: MessageRequest) => {
+		const { name, content, reciever, recieverName, chatId } = messageRequest;
+
+		const key = (await this.rtdb.ref('chats/').push()).key;
+
+		const newUserChatData = {
+			chat: chatId,
+			lastActive: database.ServerValue.TIMESTAMP,
+			latest: content,
+		};
+
+		var updates: any = {};
+		updates[`userChats/${this.auth.currentUser?.uid}/${reciever}`] = {
+			...newUserChatData,
+			name: recieverName,
+		};
+
+		updates[`userChats/${reciever}/${this.auth.currentUser?.uid}`] = {
+			...newUserChatData,
+			name: name,
+		};
+
+		updates[`chats/${chatId}/${key}`] = {
+			content: content,
+			sender: this.auth.currentUser?.uid,
+			timestamp: database.ServerValue.TIMESTAMP,
+		};
+
+		await this.rtdb.ref().update(updates);
 	};
 }
 

@@ -34,7 +34,6 @@ class InfiniteScrollUncomposed extends React.Component<
 > {
 	constructor(props: InfiniteScrollProps) {
 		super(props);
-		console.log('In cont', this.props.favourites);
 		this.state = { hasMore: true, scroll: 0 };
 		if (this.props.lastFetched === null) {
 			this.initiate();
@@ -81,7 +80,6 @@ class InfiniteScrollUncomposed extends React.Component<
 
 	render() {
 		if (!this.props.isLoggedIn) return <Redirect to='/login' />;
-		console.log(this.props.scroll);
 		return (
 			<div
 				style={{

@@ -2,14 +2,11 @@ import React from 'react';
 import { Card, Input, Icon } from 'semantic-ui-react';
 import './allstyle.css';
 
-export interface ActualChatProps {}
+interface ChatProps {}
 
-export interface ActualChatState {}
+interface ChatState {}
 
-export class ActualChat extends React.Component<
-	ActualChatProps,
-	ActualChatState
-> {
+export class Chat extends React.Component<ChatProps, ChatState> {
 	// state = { :  }
 	render() {
 		return (

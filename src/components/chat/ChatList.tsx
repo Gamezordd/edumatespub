@@ -1,22 +1,12 @@
 import React from 'react';
-import {
-	Grid,
-	Segment,
-	Card,
-	Header,
-	Feed,
-	Input,
-	Divider,
-} from 'semantic-ui-react';
-import user from '../landing/assets/user.png';
+import { Card, Feed, Input, Divider } from 'semantic-ui-react';
 import './allstyle.css';
-import { EachChat } from './EachChat';
+import { ChatListEntry } from './ChatListEntry';
 export interface ChatListProps {}
 
 export interface ChatListState {}
 
 export class ChatList extends React.Component<ChatListProps, ChatListState> {
-	//state = { :  }
 	render() {
 		return (
 			<Card
@@ -36,17 +26,17 @@ export class ChatList extends React.Component<ChatListProps, ChatListState> {
 				</Card.Content>
 				<Divider />
 				<Feed style={{ padding: '2%' }}>
-					<EachChat />
+					<ChatListEntry />
 					<Divider />
-					<EachChat />
+					<ChatListEntry />
 					<Divider />
-					<EachChat />
+					<ChatListEntry />
 					<Divider />
-					<EachChat />
+					<ChatListEntry />
 					<Divider />
-					<EachChat />
+					<ChatListEntry />
 					<Divider />
-					<EachChat />
+					<ChatListEntry />
 				</Feed>
 			</Card>
 		);

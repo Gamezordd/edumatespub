@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import './allstyle.css';
 import { ChatList } from './ChatList';
-import { ActualChat } from './ActualChat';
+import { Chat } from './Chat';
 
 export interface ChatBoxProps {}
 
@@ -23,7 +23,7 @@ export class ChatBox extends React.Component<ChatBoxProps, ChatBoxState> {
 		return (
 			<Grid>
 				<ChatList />
-				<ActualChat />
+				<Chat />
 			</Grid>
 		);
 	}

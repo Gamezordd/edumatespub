@@ -1,21 +1,16 @@
 import React from 'react';
-import {
-	Grid,
-	Segment,
-	Card,
-	Header,
-	Feed,
-	Input,
-	Divider,
-} from 'semantic-ui-react';
+import { Feed } from 'semantic-ui-react';
 import user from '../landing/assets/user.png';
 import './allstyle.css';
 
-export interface EachChatProps {}
+interface ChatListEntryProps {}
 
-export interface EachChatState {}
+interface ChatListEntryState {}
 
-export class EachChat extends React.Component<EachChatProps, EachChatState> {
+export class ChatListEntry extends React.Component<
+	ChatListEntryProps,
+	ChatListEntryState
+> {
 	//state = { :  }
 	writetocon = () => {
 		console.log('Chat was pressed');
