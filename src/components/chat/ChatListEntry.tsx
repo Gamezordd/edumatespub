@@ -1,17 +1,37 @@
 import React from 'react';
 import { Feed } from 'semantic-ui-react';
-import user from '../landing/assets/user.png';
 import './allstyle.css';
+import { withFirebase } from '../../firebase/withFirebase';
+import { Firebase } from '../../firebase';
+import { LoadingContainer } from '../maps';
 
-interface ChatListEntryProps {}
+interface ChatListEntryProps {
+	id: string,
+	firebase: Firebase;
+	clickHandler: (user: any) => void
+}
 
-interface ChatListEntryState {}
+interface ChatListEntryState {
+	user: firebase.firestore.DocumentData | undefined
+}
 
-export class ChatListEntry extends React.Component<
+class ChatListEntryUncomposed extends React.Component<
 	ChatListEntryProps,
 	ChatListEntryState
 > {
 	//state = { :  }
+	constructor(props: ChatListEntryProps){
+		super(props);
+		this.state={
+			user: undefined
+		}
+	}
+	componentDidMount(){
+		this.props.firebase.fetchUser(this.props.id).then(user =>{
+			this.setState({user: user})
+		})
+	}
+
 	writetocon = () => {
 		console.log('Chat was pressed');
 	};
@@ -23,17 +43,23 @@ export class ChatListEntry extends React.Component<
 		}
 	};
 	render() {
-		return (
-			<Feed.Event onClick={this.writetocon}>
-				<Feed.Label image={user} />
-				<Feed.Content>
-					<Feed.User>Tanya</Feed.User>
-					<Feed.Summary>
-						{this.formatDescription('Hi there')}
-						<Feed.Date style={{ float: 'right' }}>just now</Feed.Date>
-					</Feed.Summary>
-				</Feed.Content>
-			</Feed.Event>
-		);
+		const { user } = this.state
+		if(user){
+			return (
+				<Feed.Event onClick={() => this.props.clickHandler({...user, uid: this.props.id})}>
+					<Feed.Label image={user.profileImage === 'default' ? null : user.profileImage } style={{paddingLeft: "5px"}}/>
+					<Feed.Content>
+						<Feed.User>{user.name}</Feed.User>
+					</Feed.Content>
+				</Feed.Event>
+			);
+		}
+		else{
+			return(
+				<LoadingContainer/>
+			)
+		}
 	}
 }
+
+export const ChatListEntry = withFirebase(ChatListEntryUncomposed);

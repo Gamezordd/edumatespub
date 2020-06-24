@@ -285,6 +285,12 @@ export class Firebase {
 
 		await this.rtdb.ref().update(updates);
 	};
+
+	fetchUser = async (uid: string) => {
+		return this.db.collection('USER').doc(uid).get().then(user => {
+			return user.data();
+		})
+	}
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);

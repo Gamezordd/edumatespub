@@ -38,7 +38,7 @@ export function App() {
 							path='/discover'
 							component={DiscoverContainerComposed}
 						/>
-						<Route exact path={'/chat'} component={ChatBox} />
+						<Route exact path={'/chat'} component={ChatComponentComposed} />
 					</Switch>
 				</NavBar>
 			</Router>

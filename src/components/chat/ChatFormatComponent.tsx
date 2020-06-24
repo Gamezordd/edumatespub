@@ -4,7 +4,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { Firebase } from '../../firebase';
 import { addChatsAction } from '../../redux';
-import { Button } from 'semantic-ui-react';
+import { ChatBox } from './ChatBox';
 interface IState {
 	newMessage: boolean;
 	chats: object[];
@@ -64,7 +64,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 					data: snapshot.val(),
 					messageId: snapshot.key,
 				});
-				this.setState({ rawMessages: payload, newMessage: true });
+				this.setState({ rawMessages: payload, newMessage: true});
 			}
 		});
 		rtdbMessageRef.limitToLast(limitCount).on('child_removed', child => {
@@ -154,7 +154,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 			}
 		});
 		const chronoChats = this.orderChronologically(newChats);
-		console.log('chats: ', chronoChats);
+		//console.log('chats: ', chronoChats, "uid: ", this.props.user.uid);
 		this.props.addChats(chronoChats);
 		this.setState({ newMessage: false, chats: chronoChats });
 	}
@@ -182,10 +182,6 @@ class ChatComponent extends React.Component<IProps, IState> {
 		return mapChats;
 	}
 
-	sendMessage(message: string, toUid: string) {
-		this.props.firebase.sendChat(message, this.props.user.uid, toUid);
-	}
-
 	render() {
 		const { newMessage, rawMessages } = this.state;
 		if (newMessage && rawMessages.length !== 0) {
@@ -193,16 +189,7 @@ class ChatComponent extends React.Component<IProps, IState> {
 		}
 
 		return (
-			<div style={{ padding: '200px' }}>
-				<Button
-					primary
-					onClick={() =>
-						this.sendMessage('testmessage2', 'jHRSN183heYYQL2UquuIV0dS0Xg1')
-					}
-				>
-					Send
-				</Button>
-			</div>
+			<ChatBox chats={this.state.chats} selfUid={this.props.user.uid}/>
 		);
 	}
 }
