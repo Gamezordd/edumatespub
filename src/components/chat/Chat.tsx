@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Dimmer, Loader, Input } from 'semantic-ui-react';
+import { Card, Icon, Dimmer, Loader, Input, Button } from 'semantic-ui-react';
 import './allstyle.css';
 import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
@@ -7,22 +7,25 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { ChatMessage } from './ChatMessage';
 import _ from 'lodash';
-import { relative } from 'path';
+import { Redirect } from 'react-router-dom';
 
 interface ChatProps {
 	selectedChat: any;
 	firebase: Firebase;
 	name: string;
+	isLoggedIn: boolean;
 }
 
 interface ChatState {
 	newMessage: string;
 	messages: any[];
 	isLoading: boolean;
+	currentID: string | undefined;
 }
 
 const mapStateToProps = (state: any) => ({
 	name: state.user.details.name,
+	isLoggedIn: state.user.isLoggedIn,
 });
 
 class ChatComponent extends React.Component<ChatProps, ChatState> {
@@ -33,13 +36,13 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 			newMessage: '',
 			messages: [],
 			isLoading: false,
+			currentID: undefined,
 		};
 	}
 
 	chatEndRef = React.createRef<HTMLDivElement>();
 
 	inititate = async () => {
-		console.log('Initiating,', this.props.selectedChat);
 		if (this.props.selectedChat === undefined) return;
 		this.setState({ ...this.state, ...{ isLoading: true } });
 		await this.props.firebase
@@ -82,10 +85,13 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 	componentDidUpdate() {
 		if (this.state.isLoading === true) return;
 		const { selectedChat } = this.props;
-		console.log('Update triggered', this.state.messages);
-		console.log();
-		if (this.state.messages.length === 0 && selectedChat !== undefined) {
+		if (
+			selectedChat !== undefined &&
+			(this.state.messages.length === 0 ||
+				this.state.currentID != selectedChat.userId)
+		) {
 			this.inititate();
+			this.setState({ currentID: selectedChat.userId });
 		}
 		this.scrollToBottom();
 	}
@@ -99,32 +105,37 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 					this.state.newMessage != '' &&
 					this.props.selectedChat
 				) {
-					this.props.firebase.sendMessage({
-						content: this.state.newMessage,
-						name: this.props.name,
-						chatId: this.props.selectedChat.chat,
-						recieverName: this.props.selectedChat.name,
-						reciever: this.props.selectedChat.userId,
-					});
-					this.setState({ newMessage: '' });
+					this.sendMessage();
 				}
 			});
 		this.scrollToBottom();
 	}
+
+	sendMessage = () => {
+		this.props.firebase.sendMessage({
+			content: this.state.newMessage,
+			name: this.props.name,
+			chatId: this.props.selectedChat.chat,
+			recieverName: this.props.selectedChat.name,
+			reciever: this.props.selectedChat.userId,
+		});
+		this.setState({ newMessage: '' });
+	};
 
 	handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		this.setState({ newMessage: event.target.value });
 	};
 
 	render() {
-		const { selectedChat } = this.props;
-		console.log('Selected', selectedChat);
+		const { selectedChat, isLoggedIn } = this.props;
 		const { isLoading } = this.state;
 		const defaultView = (
 			<div>
 				<h3>Please Select a user</h3>
 			</div>
 		);
+
+		if (!isLoggedIn) return <Redirect to='/login' />;
 
 		return (
 			<Card
@@ -136,6 +147,9 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 				}}
 				centered
 			>
+				<Dimmer active={isLoading} inverted>
+					<Loader content='Fetching messages!' inverted />
+				</Dimmer>
 				<Card.Content style={{ maxHeight: '10vh' }}>
 					<Card.Header style={{ padding: 0 }}>
 						{selectedChat ? selectedChat.name : null}{' '}
@@ -162,13 +176,19 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 				<Card.Content style={{ maxHeight: '10vh' }}>
 					<Input
 						id='newMessage'
-						style={{ width: '85%' }}
+						style={{ width: '80%' }}
 						onChange={this.handleOnChange}
 						placeholder='Message'
 						value={this.state.newMessage ? this.state.newMessage : ''}
 					/>
-					<Icon name='send' />
-					<Icon name='thumbs up' />
+					<Button
+						icon='send'
+						labelPosition='left'
+						content='Send'
+						onClick={e => {
+							this.sendMessage();
+						}}
+					/>
 				</Card.Content>
 			</Card>
 		);

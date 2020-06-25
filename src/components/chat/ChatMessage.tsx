@@ -6,7 +6,6 @@ export const ChatMessage: React.FC<{
 	recieved: boolean;
 	id: string;
 }> = ({ content, recieved, id }) => {
-	console.log(recieved);
 	return (
 		<div id={id} className={recieved ? 'bubbleleft' : 'bubbleright'}>
 			{content}
