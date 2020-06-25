@@ -1,16 +1,41 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { Feed, Input, Divider, Segment, Grid } from 'semantic-ui-react';
 import './allstyle.css';
 import { ChatListEntry } from './ChatListEntry';
+import { Firebase } from '../../firebase';
+import { compose } from 'redux';
+import { withFirebase } from '../../firebase/withFirebase';
+import _ from 'lodash';
 
-export interface ChatListProps {
-	contacts: string[];
-	selectUser: (uid: string) => void;
+interface ChatListProps {
+	firebase: Firebase;
+	selectChat: (chat: any) => void;
 }
 
-export interface ChatListState {}
+interface ChatListState {
+	chats: any[];
+}
 
-export class ChatList extends React.Component<ChatListProps, ChatListState> {
+class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
+	constructor(props: ChatListProps) {
+		super(props);
+		this.state = { chats: [] };
+	}
+
+	async componentDidMount() {
+		this.props.firebase.getUserChatsRef().on('child_added', snapshot => {
+			this.setState({
+				chats: [...this.state.chats],
+				...[{ userId: snapshot.key, ...snapshot.val() }],
+			});
+		});
+
+		const chats = await this.props.firebase.getUserChats();
+		this.setState({
+			chats: _.union(chats, this.state.chats),
+		});
+	}
+
 	render() {
 		return (
 			<Segment
@@ -30,15 +55,16 @@ export class ChatList extends React.Component<ChatListProps, ChatListState> {
 						<Grid.Column>
 							<Input icon='search' style={{ width: '100%' }} />
 							<Feed>
-								{this.props.contacts.map((uid: string) => {
+								{this.state.chats.map((chat: any) => {
 									return (
-										<div>
+										<Feed>
 											<ChatListEntry
-												id={uid}
-												clickHandler={this.props.selectUser}
+												id={chat.userId}
+												chatDetails={chat}
+												clickHandler={this.props.selectChat}
 											/>
 											<Divider />
-										</div>
+										</Feed>
 									);
 								})}
 							</Feed>
@@ -48,36 +74,6 @@ export class ChatList extends React.Component<ChatListProps, ChatListState> {
 			</Segment>
 		);
 	}
-	/*render() {
-		return (
-			<Card
-				style={{
-					marginTop: '20vh',
-					maxHeight: '70vh',
-					width: '30vw',
-					overflow: 'auto',
-				}}
-				centered
-			>
-				<Card.Content>
-					<Card.Header>ALL CHATS</Card.Header>
-				</Card.Content>
-				<Card.Content>
-					<Input icon='search' style={{ width: '100%' }}></Input>
-				</Card.Content>
-				<Divider />
-				<Feed style={{ padding: '2%' }}>
-					{this.props.contacts.map((uid: string) => {
-						return(
-							<div>
-							<ChatListEntry id={uid} />
-							<Divider/>
-							</div>
-						);
-					})}
-				</Feed>
-				</Card>
-		);
-
-	}*/
 }
+
+export const ChatList = compose(withFirebase)(ChatListUncomposed);

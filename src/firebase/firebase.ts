@@ -134,7 +134,12 @@ export class Firebase {
 		await this.auth.sendPasswordResetEmail(email);
 
 	getProfileImageUrl = async (uid: string) => {
-		return this.storage.ref(`profileImages/${uid}.jpg`);
+		return this.storage
+			.ref(`profileImages/${uid}.jpg`)
+			.getDownloadURL()
+			.catch(err => {
+				return '';
+			});
 	};
 
 	editFavourites = async (
@@ -238,13 +243,13 @@ export class Firebase {
 	getChat = async (chatId: string) => {
 		return await this.rtdb
 			.ref(`chats/${chatId}`)
-			.orderByChild('timestamp')
 			.once('value')
 			.then(snapshot => {
 				var data: Array<any> = [];
 				snapshot.forEach(child => {
-					data.push(child.val());
+					data.push({ ...{ id: child.key }, ...child.val() });
 				});
+				console.log('Fetched chat', data);
 				return data;
 			});
 	};
@@ -287,10 +292,14 @@ export class Firebase {
 	};
 
 	fetchUser = async (uid: string) => {
-		return this.db.collection('USER').doc(uid).get().then(user => {
-			return user.data();
-		})
-	}
+		return this.db
+			.collection('USER')
+			.doc(uid)
+			.get()
+			.then(user => {
+				return user.data();
+			});
+	};
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);

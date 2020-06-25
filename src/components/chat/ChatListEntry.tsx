@@ -5,36 +5,42 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
 import { LoadingContainer } from '../maps';
 
+const dateOptions = {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+	hour: 'numeric',
+	minute: 'numeric',
+	second: 'numeric',
+	hour12: false,
+};
+
 interface ChatListEntryProps {
-	id: string;
+	chatDetails: any;
 	firebase: Firebase;
 	clickHandler: (user: any) => void;
 }
 
 interface ChatListEntryState {
-	user: firebase.firestore.DocumentData | undefined;
+	imageUrl: string;
 }
 
 class ChatListEntryUncomposed extends React.Component<
 	ChatListEntryProps,
 	ChatListEntryState
 > {
-	//state = { :  }
 	constructor(props: ChatListEntryProps) {
 		super(props);
 		this.state = {
-			user: undefined,
+			imageUrl: '',
 		};
 	}
 	componentDidMount() {
-		this.props.firebase.fetchUser(this.props.id).then(user => {
-			this.setState({ user: user });
+		this.props.firebase.getProfileImageUrl(this.props.chatDetails).then(url => {
+			this.setState({ imageUrl: url });
 		});
 	}
 
-	writetocon = () => {
-		console.log('Chat was pressed');
-	};
 	formatDescription = (description: string) => {
 		if (description.length > 100) {
 			return description.substring(0, 25) + '...';
@@ -43,20 +49,23 @@ class ChatListEntryUncomposed extends React.Component<
 		}
 	};
 	render() {
-		const { user } = this.state;
-		if (user) {
+		const { chatDetails } = this.props;
+		const date = new Intl.DateTimeFormat('en-us', dateOptions).format(
+			chatDetails.createdAt
+		);
+		if (chatDetails) {
 			return (
-				<Feed.Event
-					onClick={() =>
-						this.props.clickHandler({ ...user, uid: this.props.id })
-					}
-				>
+				<Feed.Event onClick={() => this.props.clickHandler(chatDetails)}>
 					<Feed.Label
-						image={user.profileImage === 'default' ? null : user.profileImage}
+						image={this.state.imageUrl === '' ? null : this.state.imageUrl}
 						style={{ paddingLeft: '5px' }}
 					/>
 					<Feed.Content>
-						<Feed.User>{user.name}</Feed.User>
+						<Feed.Summary>{chatDetails.name}</Feed.Summary>
+						<Feed.Date>{date}</Feed.Date>
+						<Feed.Extra>
+							{this.formatDescription(chatDetails.latest)}
+						</Feed.Extra>
 					</Feed.Content>
 				</Feed.Event>
 			);

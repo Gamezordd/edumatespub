@@ -25,8 +25,8 @@ export const User = (
 				isAmbassador,
 				data,
 			} = action.payload;
-			console.log("uid: ", uid);
-			
+			console.log('uid: ', uid);
+
 			return {
 				...state,
 				uid: uid,
