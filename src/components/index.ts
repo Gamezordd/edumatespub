@@ -8,4 +8,4 @@ export { DiscoverContainerComposed } from './discover';
 export { HomeContainer } from './home';
 export { PasswordForgot } from './forms';
 export { ChatBox } from './chat';
-export {favouritesComponent} from './favourites'
+export {FavouritesComponent} from './favourites'
