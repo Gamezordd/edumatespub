@@ -24,16 +24,15 @@ class DiscoverContainer extends React.Component<DiscoverContainerProps, any> {
 
 	render() {
 		if (!this.props.isLoggedIn) return <Redirect to='/login' />;
-
 		return (
 			<div style={{ paddingTop: '100px' }}>
-				<DiscoverComponentComposed uniList={this.props.universities} />
+				<DiscoverComponentComposed uniList={this.props.universities} onlyFavourites={this.props.onlyFavourites} />
 			</div>
 		);
 	}
 }
 
-export const DiscoverContainerComposed = compose(
+export const DiscoverContainerComposed: React.ComponentClass<DiscoverContainerProps, any> = compose<any, any>(
 	withFirebase,
 	connect(mapStateToProps, null)
 )(DiscoverContainer);

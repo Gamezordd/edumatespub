@@ -118,25 +118,29 @@ class DiscoverComponent extends React.Component<
 			places,
 		} = this.state;
 
+		const SearchBar = (
+			<Search
+				input={{ fluid: true }}
+				size='big'
+				fluid
+				aligned='left'
+				loading={isLoading}
+				results={results}
+				value={value}
+				onResultSelect={this.handleResultSelect}
+				onSearchChange={_.debounce(this.handlesearchChange, 500, {
+					leading: true,
+				})}
+				onFavouriteBottonClick={this.handleFavouritesChange}
+			/>
+		)
+
 		return (
 			<div>
 				<Grid centered columns={1} container>
 					<div style={{ flex: 1, justifyContent: 'center' }}>
 						<Grid.Column>
-							<Search
-								input={{ fluid: true }}
-								size='big'
-								fluid
-								aligned='left'
-								loading={isLoading}
-								results={results}
-								value={value}
-								onResultSelect={this.handleResultSelect}
-								onSearchChange={_.debounce(this.handlesearchChange, 500, {
-									leading: true,
-								})}
-								onFavouriteBottonClick={this.handleFavouritesChange}
-							/>
+							{this.props.onlyFavourites? null : SearchBar}
 						</Grid.Column>
 					</div>
 				</Grid>
@@ -147,6 +151,7 @@ class DiscoverComponent extends React.Component<
 					selectedCardData={selection}
 					favouriteUnis={this.props.user.favouriteUnis}
 					onCardClick={this.handleClick}
+					onlyFavourites={this.props.onlyFavourites}
 				/>
 				<DiscoverModal
 					open={isModalOpen}

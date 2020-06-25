@@ -1,0 +1,1 @@
+export {favouritesComponent} from './favouritesComponent'

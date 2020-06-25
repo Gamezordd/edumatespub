@@ -10,6 +10,7 @@ import {
 	HomeContainer,
 	PasswordForgot,
 	ChatBox,
+	favouritesComponent,
 } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -38,6 +39,7 @@ export function App() {
 							component={DiscoverContainerComposed}
 						/>
 						<Route exact path={'/chat'} component={ChatBox} />
+						<Route exact path={'/favourites'} component={favouritesComponent} />
 					</Switch>
 				</NavBar>
 			</Router>

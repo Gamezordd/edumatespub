@@ -5,6 +5,7 @@ export interface DiscoverProps {
 	user: any;
 	editFavourites: (payload: { ids: string[]; add?: boolean }) => void;
 	firebase: Firebase;
+	onlyFavourites?: boolean
 }
 
 export interface initialStateProps {
@@ -41,6 +42,7 @@ export interface CardContainerProps {
 	) => void;
 	selectedCardData?: any;
 	favouriteUnis: string[];
+	onlyFavourites?: boolean;
 }
 
 export interface ButtonProps {
@@ -56,6 +58,7 @@ export interface ButtonProps {
 			centerMap?: boolean;
 		}>
 	) => void;
+	onlyFavourites?: boolean;
 }
 
 export interface ModalMapContainerPropTypes {
@@ -69,7 +72,8 @@ export interface ModalMapContainerPropTypes {
 }
 
 export interface DiscoverContainerProps {
-	firebase: Firebase;
-	universities: any;
-	isLoggedIn: boolean;
+	firebase?: Firebase;
+	universities?: any;
+	isLoggedIn?: boolean;
+	onlyFavourites?: boolean;
 }
