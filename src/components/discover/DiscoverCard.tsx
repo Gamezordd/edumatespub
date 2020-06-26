@@ -97,8 +97,6 @@ export const DiscoverCard = (props: ButtonProps) => {
 	)
 
 	if (show) {
-		console.log("onlyfavourites: ", onlyFavourites);
-		
 		if(onlyFavourites && favourite){
 			return (
 				<React.Fragment>

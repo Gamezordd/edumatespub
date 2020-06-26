@@ -9,3 +9,4 @@ export { HomeContainer } from './home';
 export { PasswordForgot } from './forms';
 export { ChatBox } from './chat';
 export {FavouritesComponent} from './favourites'
+export {  SettingsFormComposed } from './settings'

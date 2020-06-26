@@ -8,9 +8,6 @@ export const FavouritesComponent = (props: any) =>{
     return(
         <React.Fragment>
             <DiscoverContainerComposed onlyFavourites={true} />
-            <div>
-                <Button onClick={() => setOpen(!isModalOpen)}>Show in Modal</Button>
-            </div>
             <Modal open={isModalOpen} onClose={() => setOpen(!isModalOpen)}>
                 <Modal.Header>
                     Favourite Universities

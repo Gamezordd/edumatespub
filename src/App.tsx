@@ -11,6 +11,7 @@ import {
 	PasswordForgot,
 	ChatBox,
 	FavouritesComponent,
+	SettingsFormComposed
 } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -40,6 +41,7 @@ export function App() {
 						/>
 						<Route exact path={'/chat'} component={ChatBox} />
 						<Route exact path={'/favourites'} component={FavouritesComponent} />
+						<Route exact path={'/settings'} component={SettingsFormComposed} />
 					</Switch>
 				</NavBar>
 			</Router>

@@ -1,0 +1,1 @@
+export {SettingsFormComposed} from './SettingsForm'
