@@ -51,6 +51,7 @@ export interface RegisterState {
 	code: FieldState;
 	type: FieldState;
 	universityId: FieldState;
+	university: FieldState;
 
 	//UI states
 	redirect: FieldState;

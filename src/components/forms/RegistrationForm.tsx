@@ -54,6 +54,7 @@ class RegistrationFormUncomposed extends React.Component<
 			errorMessage: { value: '' },
 			showError: { value: false },
 			animationDone: { value: false },
+			university: { value: '' },
 		};
 
 		this.makeVisible();
@@ -71,6 +72,7 @@ class RegistrationFormUncomposed extends React.Component<
 						...{
 							type: { value: data.data.type },
 							universityId: { value: data.data.universityId },
+							university: { value: data.data.university },
 						},
 					});
 				} else {
