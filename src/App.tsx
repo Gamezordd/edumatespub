@@ -16,10 +16,10 @@ export function App() {
 	return (
 		<div
 			className='App'
-			style={{
+			/* style={{
 				backgroundImage: 'linear-gradient(to bottom, #ff8c00, #fffaf0)',
 				backgroundAttachment: 'fixed',
-			}}
+			}} */
 		>
 			<Router>
 				<NavBar>
