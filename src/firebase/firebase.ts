@@ -1,7 +1,7 @@
 import config from '../firebaseConfig.json';
 import app, { firestore, database } from 'firebase/app';
 import React from 'react';
-import { toInteger } from 'lodash';
+import { toInteger, merge } from 'lodash';
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/database');
@@ -300,6 +300,10 @@ export class Firebase {
 				return user.data();
 			});
 	};
+
+	updateUser = async (uid: string, fields: object) => {
+		return this.db.collection('USER').doc(uid).set({...fields}, {merge: true})
+	}
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);
