@@ -73,7 +73,7 @@ class CreatePostUncomposed extends React.Component<
 				userId: user.uid,
 				userName: user.details.name,
 				likeCount: 0,
-				universityId: user.data.universityId,
+				universityId: user.details.universityId,
 			});
 			this.setState({
 				...initialState,
@@ -176,6 +176,7 @@ class CreatePostUncomposed extends React.Component<
 						}}
 						centered
 						fluid
+						raised
 					>
 						{(this.state.success || this.state.error) && (
 							<Card.Content

@@ -62,8 +62,9 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 			.on('child_added', snapshot => {
 				//Conditional throws last child fetched twice
 				if (
+					this.state.messages.length > 0 &&
 					snapshot.key ===
-					this.state.messages[this.state.messages.length - 1].id
+						this.state.messages[this.state.messages.length - 1].id
 				)
 					return;
 				this.setState({
