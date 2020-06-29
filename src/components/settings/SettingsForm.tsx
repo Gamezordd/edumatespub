@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom';
 import { LoadingContainer } from '../maps';
 import { Dropdown, Button, Modal, Grid } from 'semantic-ui-react';
 import ReactCrop from 'react-image-crop';
-import { PhotoModalComposed } from './PhotoModal';
+import { PhotoModalComposed } from './PhotoCropModal';
 
 interface IProps {
     firebase: Firebase;
@@ -84,7 +84,7 @@ class SettingsForm extends React.Component<IProps, IState>{
                     <div style={{paddingTop: "100px"}}>
                         <label htmlFor="number">Number: </label>
                         <input id="number" type="tel" maxLength={14} onChange={(e) => this.handleChange(e)} value={this.state.fields.phone}/>
-                        <PhotoModalComposed buttonText="Change Picture" uid={this.props.user.uid}/>
+                        <PhotoModalComposed buttonText="Change Picture" uid={this.props.user.uid} storageLocation="profileImages"/>
                     </div>
                     
                 </React.Fragment>

@@ -4,9 +4,7 @@ import { withFirebase } from '../../firebase/withFirebase'
 import { connect } from 'react-redux'
 import { Modal, Grid, Button, Icon, Progress } from 'semantic-ui-react'
 import { LoadingContainer } from '../maps'
-import { readFile } from 'fs'
 import Cropper from "react-easy-crop";
-import { Area } from 'react-easy-crop/types'
 import getCroppedImg from './cropImage'
 import { Firebase } from '../../firebase'
 import { noPicturePlaceholder } from './constants'
@@ -14,6 +12,7 @@ import { noPicturePlaceholder } from './constants'
 interface IProps{
     buttonText: string
     uid?: string;
+    storageLocation: string;
     firebase: Firebase;
 }
 
@@ -59,7 +58,7 @@ class PhotoModal extends React.Component<IProps, IState>{
         this.state = initialState
     }
 
-    renderImage(uid: string){
+    renderFirstImage(uid: string){
         if(!this.state.currentImage){
             this.props.firebase.getProfileImageUrl(uid).then(async url => {
                 console.log("url: ", url);
@@ -72,12 +71,12 @@ class PhotoModal extends React.Component<IProps, IState>{
             })
         }
         
-        const loader = (<React.Fragment><LoadingContainer/><img style={{visibility: "hidden"}} src={this.state.currentImage} onLoad={() => {this.setState({imageLoading: false})}}/></React.Fragment>)
-        const image = (<img src={this.state.currentImage} alt="current Image"/>)
+        const loader = (<React.Fragment><LoadingContainer/><img style={{visibility: "hidden"}} alt="loadingPicture" src={this.state.currentImage} onLoad={() => {this.setState({imageLoading: false})}}/></React.Fragment>)
+        const image = (<img src={this.state.currentImage} alt="currentPicture"/>)
         const profileImage = (<React.Fragment>{!this.state.imageLoading && this.state.currentImage ? image : loader}</React.Fragment>)
         return(
             <React.Fragment>
-                {this.state.uploadedImage ? <img style={{display: "flex", justifyContent: "center", alignItems:"center"}} src={this.state.uploadedImage} /> : profileImage}
+                {this.state.uploadedImage ? <img alt="uploadedPicture" style={{display: "flex", justifyContent: "center", alignItems:"center"}} src={this.state.uploadedImage} /> : profileImage}
             </React.Fragment>
         )
     }
@@ -112,7 +111,7 @@ class PhotoModal extends React.Component<IProps, IState>{
                 <Grid.Row centered columns={1}>
                     <Grid.Column width={8}>
                         {uid ? 
-                            this.renderImage(uid) : 
+                            this.renderFirstImage(uid) : 
                             "No image found"
                         }
                     </Grid.Column>
@@ -190,7 +189,7 @@ class PhotoModal extends React.Component<IProps, IState>{
         if (!uid) return null
         console.log("uid: ", uid);
         const storage = this.props.firebase.storage;
-        const uploadAction = storage.ref(`profileImages/${uid}.jpg`).putString(this.state.croppedImage, "data_url");
+        const uploadAction = storage.ref(`${this.props.storageLocation}/${uid}.jpg`).putString(this.state.croppedImage, "data_url");
         this.setState({
             isUploading : true
         })
