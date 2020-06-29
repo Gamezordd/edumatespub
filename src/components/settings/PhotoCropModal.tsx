@@ -84,16 +84,16 @@ class PhotoModal extends React.Component<IProps, IState> {
 		);
 		const image = <img src={this.state.currentImage} alt='currentPicture' />;
 		const profileImage = (
-			<React.Fragment>
+			<div style={{display:"flex", justifyContent: "center", alignItems:"center"}}>
 				{!this.state.imageLoading && this.state.currentImage ? image : loader}
-			</React.Fragment>
+			</div>
 		);
 		return (
 			<React.Fragment>
 				{this.state.uploadedImage ? (
 					<img
 						alt='uploadedPicture'
-						style={{ position: 'relative' }}
+						style={{ display:"flex", alignItems: "center", justifyContent: "center" }}
 						src={this.state.uploadedImage}
 					/>
 				) : (
