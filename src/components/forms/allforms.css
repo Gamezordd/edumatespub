@@ -4,3 +4,56 @@ input{
     border-width: 0 0 1px !important;
     border-color: black !important;
   }
+
+
+.playstore{
+  width: 40% ;
+margin-left:0%;
+
+}
+
+.appstore {
+  width:41%;
+  margin-left:0%;
+ 
+}
+
+
+.sliderimage {
+  width:60%;
+}
+
+
+.background {
+  
+  background-image: linear-gradient(to bottom, #ff8c00, #fffaf0);
+ 
+}
+
+
+
+
+@media screen and (max-width:799px) {
+  .playstore{
+    width: 27% ;
+  margin-left:0%;
+  margin-right:2%;
+  
+  }
+  
+  .appstore {
+    width:28%;
+    margin-left:0%;
+   
+  }
+
+
+
+
+}
+
+
+
+
+
+
