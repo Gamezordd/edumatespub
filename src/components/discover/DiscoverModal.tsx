@@ -7,6 +7,7 @@ import {
 	Button,
 	Dropdown,
 	DropdownProps,
+	Tab,
 } from 'semantic-ui-react';
 import { ModalMapContainer } from './ModalMapContainer';
 import { placesFilterOptions } from './constants';
@@ -71,6 +72,40 @@ export const DiscoverModal = (props: IProps) => {
 		onClose();
 	};
 
+	const mapWithFilters = (
+		<React.Fragment>
+			<Grid.Row columns='16'>
+				<Grid.Column width='16'>
+					<Dropdown
+						placeholder='Filter'
+						selection
+						fluid
+						options={placesFilterOptions}
+						onChange={(e, d) => handleDropdownChange(e, d)}
+					/>
+				</Grid.Column>
+			</Grid.Row>
+			<Grid.Row verticalAlign='middle' columns='16' centered>
+				<Grid.Column width='16'>
+					<div style={{ position: 'relative', marginTop:"10px"}}>
+						<ModalMapContainer
+							places={content}
+							zoomProp={8}
+							searchType={searchValue}
+						/>
+					</div>
+				</Grid.Column>
+				<Grid.Column />
+			</Grid.Row>
+		</React.Fragment>
+	)
+
+	const panes = [
+		{ menuItem: 'Nearby', render: () => <Tab.Pane> {mapWithFilters} </Tab.Pane> },
+		{ menuItem: "Let's Talk", render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
+		{ menuItem: 'FAQ', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+	  ]
+
 	return (
 		<div style={{ position: 'absolute' }}>
 			<Modal open={open} onClose={handleClose}>
@@ -81,29 +116,9 @@ export const DiscoverModal = (props: IProps) => {
 				<Modal.Content scrolling>
 					<Grid columns='16'>
 						{innerWidth > 600 ? desktopRow : mobileRow}
-						<Grid.Row columns='16'>
-							<Grid.Column width='16'>
-								<Dropdown
-									placeholder='Filter'
-									selection
-									fluid
-									options={placesFilterOptions}
-									onChange={(e, d) => handleDropdownChange(e, d)}
-								/>
-							</Grid.Column>
-						</Grid.Row>
-						<Grid.Row verticalAlign='middle' columns='16' centered>
-							<Grid.Column width='16'>
-								<div style={{ position: 'relative' }}>
-									<ModalMapContainer
-										places={content}
-										zoomProp={8}
-										searchType={searchValue}
-									/>
-								</div>
-							</Grid.Column>
-							<Grid.Column />
-						</Grid.Row>
+						<Grid.Column width="16">
+							<Tab panes={panes} />
+						</Grid.Column>
 					</Grid>
 				</Modal.Content>
 				<Modal.Actions>

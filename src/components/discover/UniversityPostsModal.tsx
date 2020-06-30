@@ -88,7 +88,7 @@ class UniversityPostsModalBasic extends React.Component<IProps, IState> {
 	renderPosts() {
 		console.log('length: ', this.state.posts.length);
 
-		if (this.state.posts.length === 0) {
+		if (this.state.posts.length === 0 && !this.state.isLoading) {
 			console.log('empty');
 
 			return <EmptyContainer />;
