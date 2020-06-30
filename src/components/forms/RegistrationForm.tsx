@@ -50,18 +50,18 @@ class RegistrationFormUncomposed extends React.Component<
 			type: { value: '', error: false },
 			universityId: { value: '', error: false },
 			currentInstitute: { value: '', error: false },
+			university: { value: '' },
+			course: { value: '' },
 			redirect: { value: false },
 			errorMessage: { value: '' },
 			showError: { value: false },
 			animationDone: { value: false },
-			university: { value: '' },
 		};
 
 		this.makeVisible();
 	}
 
 	handleSubmit = async () => {
-		console.log(this.state);
 		try {
 			if (this.state.isAmbassador.value) {
 				const callURL = validateURL + this.state.code.value;
@@ -175,8 +175,6 @@ class RegistrationFormUncomposed extends React.Component<
 								borderRadius: '25px',
 								textAlign: 'left',
 								padding: '5%',
-								boxShadow:
-									'0 0 0 1px #d4d4d5,0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.15)',
 							}}
 						>
 							<Image size='medium' src={logo} centered />

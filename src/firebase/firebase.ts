@@ -42,12 +42,14 @@ export class Firebase {
 			phone,
 			country,
 			isAmbassador,
+			course,
 		} = payload;
 		const data = payload.isAmbassador.value
 			? {
 					universityId: universityId.value,
 					type: type.value,
 					university: university.value,
+					course: course.value,
 			  }
 			: { currentInstitute: currentInstitute.value };
 		await this.db
@@ -175,21 +177,6 @@ export class Firebase {
 			});
 		}
 	};
-
-	async sendChat(message: string, fromUid: string, toUid: string) {
-		const messagesListRef = this.rtdb.ref('Chats/');
-		messagesListRef
-			.push()
-			.set({
-				message: message,
-				receiver: toUid,
-				sender: fromUid,
-				timestamp: toInteger(new Date().getTime() / 1000),
-			})
-			.then(async id => {
-				console.log('sent: ', await id);
-			});
-	}
 
 	signOut = async () => await this.auth.signOut();
 
