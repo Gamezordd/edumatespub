@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, Icon, Grid, Button } from 'semantic-ui-react';
 import { ButtonProps } from './interfaces';
 import { descriptionLength, uniImagePlaceholder } from './constants';
+import { UniversityPostsModal } from './UniversityPostsModal';
 
 export const DiscoverCard = (props: ButtonProps) => {
 	var { image, name, description, id, location } = props.content;
@@ -85,10 +86,11 @@ export const DiscoverCard = (props: ButtonProps) => {
 					</div>
 				</Card.Description>
 				<Card.Meta>
-					<Button basic color='grey' size='tiny'>
+					<Button floated="left" basic color='grey' size='tiny'>
 						{' '}
 						Chat{' '}
 					</Button>
+					<UniversityPostsModal buttonText="Posts" universityId={id} buttonFloated="left" />
 				</Card.Meta>
 			</Card.Content>
 		</Card>
@@ -97,8 +99,6 @@ export const DiscoverCard = (props: ButtonProps) => {
 	)
 
 	if (show) {
-		console.log("onlyfavourites: ", onlyFavourites);
-		
 		if(onlyFavourites && favourite){
 			return (
 				<React.Fragment>
