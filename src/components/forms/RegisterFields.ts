@@ -20,6 +20,12 @@ export const UserTypes: DropdownItemProps[] = [
 	{ value: 'ambassador', text: 'Ambassador' },
 	{ value: 'student', text: 'Student' },
 ];
+export const Years: DropdownItemProps[] = [
+	{ value: 'none', text: 'No experience' },
+	{ value: '0-3years', text: '0-3 years' },
+	{ value: '3-10years', text: '3-10 years' },
+	{ value: '10+years', text: '10+ years' },
+];
 
 export const CommonFields: RegisterFieldType[] = [
 	{

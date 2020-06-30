@@ -9,6 +9,7 @@ import {
 	Card,
 	Image,
 	Grid,
+	Radio,
 } from 'semantic-ui-react';
 import { RegisterState } from './types';
 import { countryOptions } from './countriesData';
@@ -18,6 +19,7 @@ import {
 	StudentFields,
 	Genders,
 	UserTypes,
+	Years,
 } from './RegisterFields';
 import './allforms.css';
 import { compose } from 'recompose';
@@ -52,11 +54,20 @@ class RegistrationFormUncomposed extends React.Component<
 			redirect: { value: false },
 			errorMessage: { value: '' },
 			showError: { value: false },
+			didSubmit: { value: true },
+			degreeType: { value: '' },
+			previousInstitute: { value: '' },
+			course: { value: '' },
+			workExperience: { value: '' },
+			years: { value: '' },
+			industry: { value: '' },
+			jobTitle: { value: '' },
 		};
 	}
 
 	handleSubmit = async () => {
 		console.log(this.state);
+
 		try {
 			if (this.state.isAmbassador.value) {
 				const callURL = validateURL + this.state.code.value;
@@ -161,109 +172,300 @@ class RegistrationFormUncomposed extends React.Component<
 						}}
 					>
 						<Image size='medium' src={logo} centered />
-						<h2>Create a new account</h2>
-						{_.map(CommonFields, field => (
-							<FormField
-								{...field.properties}
-								control={Input}
-								error={this.getError(field.key)}
-								onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-									this.validate(field.validate, field.key, e)
-								}
-							/>
-						))}
-						<Form.Dropdown
-							placeholder='Country:'
-							fluid
-							search
-							selection
-							required
-							options={countryOptions}
-							style={{
-								border: 'none',
-								borderBottom: 'solid',
-								borderBottomWidth: '1px',
-							}}
-							onChange={(
-								event: React.SyntheticEvent<HTMLElement>,
-								{ value }
-							) => {
-								if (value !== undefined) {
-									this.syntheticEventHandler('country', value.toString());
-								}
-							}}
-						/>
-						<Form.Dropdown
-							placeholder='Gender:'
-							fluid
-							search
-							selection
-							required
-							options={Genders}
-							style={{
-								border: 'none',
-								borderBottom: 'solid',
-								borderBottomWidth: '1px',
-							}}
-							onChange={(
-								event: React.SyntheticEvent<HTMLElement>,
-								{ value }
-							) => {
-								if (value !== undefined) {
-									this.syntheticEventHandler('gender', value.toString());
-								}
-							}}
-						/>
-						<Form.Dropdown
-							placeholder='Role:'
-							fluid
-							search
-							selection
-							required
-							options={UserTypes}
-							style={{
-								border: 'none',
-								borderBottom: 'solid',
-								borderBottomWidth: '1px',
-							}}
-							onChange={(
-								event: React.SyntheticEvent<HTMLElement>,
-								{ value }
-							) => {
-								if (value !== undefined) {
-									this.handleRole(value.toString());
-								}
-							}}
-						/>
-						{_.map(VariableFields, field => (
-							<FormField
-								{...field.properties}
-								control={Input}
-								error={this.getError(field.key)}
-								onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-									this.validate(field.validate, field.key, e)
-								}
-							/>
-						))}
-						{this.state.showError.value && (
-							<Card fluid style={{ padding: '10px' }}>
-								<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
-							</Card>
+						{this.state.didSubmit.value == true ? (
+							<div>
+								<h2>Create a new account</h2>
+								{_.map(CommonFields, field => (
+									<FormField
+										{...field.properties}
+										control={Input}
+										error={this.getError(field.key)}
+										onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+											this.validate(field.validate, field.key, e)
+										}
+									/>
+								))}
+								<Form.Dropdown
+									placeholder='Country:'
+									fluid
+									search
+									selection
+									required
+									options={countryOptions}
+									style={{
+										border: 'none',
+										borderBottom: 'solid',
+										borderBottomWidth: '1px',
+									}}
+									onChange={(
+										event: React.SyntheticEvent<HTMLElement>,
+										{ value }
+									) => {
+										if (value !== undefined) {
+											this.syntheticEventHandler('country', value.toString());
+										}
+									}}
+								/>
+								<Form.Dropdown
+									placeholder='Gender:'
+									fluid
+									search
+									selection
+									required
+									options={Genders}
+									style={{
+										border: 'none',
+										borderBottom: 'solid',
+										borderBottomWidth: '1px',
+									}}
+									onChange={(
+										event: React.SyntheticEvent<HTMLElement>,
+										{ value }
+									) => {
+										if (value !== undefined) {
+											this.syntheticEventHandler('gender', value.toString());
+										}
+									}}
+								/>
+								<Form.Dropdown
+									placeholder='Role:'
+									fluid
+									search
+									selection
+									required
+									options={UserTypes}
+									style={{
+										border: 'none',
+										borderBottom: 'solid',
+										borderBottomWidth: '1px',
+									}}
+									onChange={(
+										event: React.SyntheticEvent<HTMLElement>,
+										{ value }
+									) => {
+										if (value !== undefined) {
+											this.handleRole(value.toString());
+										}
+									}}
+								/>
+								{_.map(VariableFields, field => (
+									<FormField
+										{...field.properties}
+										control={Input}
+										error={this.getError(field.key)}
+										onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+											this.validate(field.validate, field.key, e)
+										}
+									/>
+								))}
+								{this.state.showError.value && (
+									<Card fluid style={{ padding: '10px' }}>
+										<p style={{ color: 'red' }}>
+											{this.state.errorMessage.value}
+										</p>
+									</Card>
+								)}
+								<Button
+									content='Next'
+									onClick={() => this.setState({ didSubmit: { value: false } })}
+									color='orange'
+									style={{ width: '100%' }}
+								>
+									Next
+								</Button>
+								<div style={{ textAlign: 'center' }}>
+									By signing up, you accept the Terms of
+									<br /> Service and the Privacy Policy
+								</div>
+
+								<div style={{ textAlign: 'center' }}>
+									Have an account?<Link to={'/login'}>Login</Link>{' '}
+								</div>
+							</div>
+						) : (
+							<div>
+								<Form.Field>
+									Type of Degree:
+									<Form.Field>
+										<Radio
+											label='Undergraduate'
+											name='degreegroup'
+											value='undergraduate'
+											checked={this.state.degreeType.value === 'undergraduate'}
+											onChange={() =>
+												this.setState({
+													degreeType: { value: 'undergraduate' },
+												})
+											}
+										/>
+									</Form.Field>
+									<Form.Field>
+										<Radio
+											label='Postgraduate'
+											name='degreegroup'
+											value='postgraduate'
+											checked={this.state.degreeType.value === 'postgraduate'}
+											onChange={() =>
+												this.setState({ degreeType: { value: 'postgraduate' } })
+											}
+										/>
+									</Form.Field>
+									<Form.Field>
+										<Radio
+											label='PhD'
+											name='degreegroup'
+											value='phd'
+											checked={this.state.degreeType.value === 'phd'}
+											onChange={() =>
+												this.setState({ degreeType: { value: 'phd' } })
+											}
+										/>
+									</Form.Field>
+								</Form.Field>
+								{this.state.degreeType.value == 'undergraduate' ? (
+									<Form.Field>
+										<Form.Field>
+											<Input
+												placeholder='Previous Institute'
+												name='previousInstitute'
+												icon='university'
+												iconPosition='left'
+												required
+												onChange={(
+													event: React.SyntheticEvent<HTMLElement>,
+													{ value }
+												) => {
+													if (value !== undefined) {
+														this.syntheticEventHandler(
+															'previousInstitute',
+															value.toString()
+														);
+													}
+												}}
+											/>
+										</Form.Field>
+										<Form.Field>
+											<Input
+												placeholder='Course'
+												name='course'
+												icon='graduation'
+												iconPosition='left'
+												required
+												onChange={(
+													event: React.SyntheticEvent<HTMLElement>,
+													{ value }
+												) => {
+													if (value !== undefined) {
+														this.syntheticEventHandler(
+															'course',
+															value.toString()
+														);
+													}
+												}}
+											></Input>
+										</Form.Field>
+									</Form.Field>
+								) : null}
+								{this.state.degreeType.value == 'postgraduate' ||
+								this.state.degreeType.value == 'phd' ? (
+									<Form.Field>
+										<Form.Field>
+											<Input
+												placeholder='Work Experience'
+												name='workExperience'
+												icon='envelope open'
+												iconPosition='left'
+												required
+												onChange={(
+													event: React.SyntheticEvent<HTMLElement>,
+													{ value }
+												) => {
+													if (value !== undefined) {
+														this.syntheticEventHandler(
+															'workExperience',
+															value.toString()
+														);
+													}
+												}}
+											></Input>
+										</Form.Field>
+										<Form.Field>
+											<Form.Dropdown
+												placeholder='Years of Experience:'
+												fluid
+												search
+												selection
+												required
+												options={Years}
+												style={{
+													border: 'none',
+													borderBottom: 'solid',
+													borderBottomWidth: '1px',
+												}}
+												onChange={(
+													event: React.SyntheticEvent<HTMLElement>,
+													{ value }
+												) => {
+													if (value !== undefined) {
+														this.syntheticEventHandler(
+															'years',
+															value.toString()
+														);
+													}
+												}}
+											/>
+										</Form.Field>
+										<Form.Field>
+											<Input
+												placeholder='Industry Worked In'
+												name='industry'
+												icon='industry'
+												iconPosition='left'
+												required
+												onChange={(
+													event: React.SyntheticEvent<HTMLElement>,
+													{ value }
+												) => {
+													if (value !== undefined) {
+														this.syntheticEventHandler(
+															'industry',
+															value.toString()
+														);
+													}
+												}}
+											></Input>
+										</Form.Field>
+										<Form.Field>
+											<Input
+												placeholder='Job Title'
+												name='jobTitle'
+												icon='vcard'
+												iconPosition='left'
+												required
+												onChange={(
+													event: React.SyntheticEvent<HTMLElement>,
+													{ value }
+												) => {
+													if (value !== undefined) {
+														this.syntheticEventHandler(
+															'jobTitle',
+															value.toString()
+														);
+													}
+												}}
+											></Input>
+										</Form.Field>
+									</Form.Field>
+								) : null}
+								<Button
+									content='Submit'
+									onClick={() => this.handleSubmit()}
+									className='btn'
+									color='orange'
+									style={{ width: '100%' }}
+								/>
+							</div>
 						)}
-						<div style={{ textAlign: 'center' }}>
-							By signing up, you accept the Terms of
-							<br /> Service and the Privacy Policy
-						</div>
-						<Button
-							content='Submit'
-							onClick={() => this.handleSubmit()}
-							className='btn'
-							color='orange'
-							style={{ width: '100%' }}
-						/>
-						<div style={{ textAlign: 'center' }}>
-							Have an account?<Link to={'/login'}>Login</Link>{' '}
-						</div>
 					</Form>
 				</Grid.Column>
 			</Grid>
