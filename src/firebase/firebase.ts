@@ -299,6 +299,11 @@ export class Firebase {
 			.doc(uid)
 			.set({ ...fields }, { merge: true });
 	};
+
+	setProfileImage = async (url: string) => {
+		this.rtdb.ref(`USER/${this.auth.currentUser?.uid}/image`).set(url);
+	};
+
 	fetchUserFromRtdb = async (uid: string) => {
 		const data: any = {};
 		await this.rtdb.ref(`USER/${uid}`).once('value', snapshot => {

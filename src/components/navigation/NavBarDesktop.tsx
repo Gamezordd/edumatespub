@@ -7,7 +7,6 @@ import './NavBarStyle.css';
 export const NavBarDesktop: React.FC<MenuProps> = ({
 	leftItems,
 	rightItems,
-	location,
 }) => (
 	<Menu fixed='top' pointing>
 		<Menu.Item>
