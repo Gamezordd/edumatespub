@@ -7,7 +7,6 @@ import { Button, Modal, Grid } from 'semantic-ui-react';
 import { Post } from '../home/Post';
 import { LoadingContainer } from '../maps';
 import _ from 'lodash';
-import { timeStamp } from 'console';
 import { EmptyContainer } from './EmptyContainer';
 interface IProps {
 	buttonFloated: 'left' | 'right' | undefined;
@@ -55,7 +54,8 @@ class UniversityPostsModalBasic extends React.Component<IProps, IState> {
 	async fetchPosts() {
 		if (this.state.hasMore) {
 			this.setState({ isLoading: true });
-			if (!this.props.firebase) return console.error('no firebase instance found');
+			if (!this.props.firebase)
+				return console.error('no firebase instance found');
 			const posts = await this.props.firebase.getPosts(this.state.lastFetched, [
 				this.props.universityId,
 			]);
@@ -66,8 +66,9 @@ class UniversityPostsModalBasic extends React.Component<IProps, IState> {
 					: null,
 			});
 			this.handleListener(true);
+			this.setState({ isLoading: false });
 			if (posts.length < 10) {
-				this.setState({ hasMore: false, isLoading: false });
+				this.setState({ hasMore: false });
 			}
 		}
 	}
@@ -82,18 +83,28 @@ class UniversityPostsModalBasic extends React.Component<IProps, IState> {
 		} else {
 			return document.removeEventListener('scroll', e => this.handleScroll(e));
 		}
-    }
-    
-    renderPosts(){
-        if(this.state.posts.length === 0){
-            return <EmptyContainer/>
-        }
-        else{
-            return this.state.posts.map(post => {
-                return <Post post={post} />;
-            })
-        }
-    }
+	}
+
+	renderPosts() {
+		console.log('length: ', this.state.posts.length);
+
+		if (this.state.posts.length === 0) {
+			console.log('empty');
+
+			return <EmptyContainer />;
+		} else {
+			return (
+				<div style={{ display: 'flex', flexDirection: 'column' }}>
+					{this.state.posts.map(post => {
+						return <Post post={post} />;
+					})}
+					{this.state.isLoading && this.state.hasMore ? (
+						<LoadingContainer />
+					) : null}
+				</div>
+			);
+		}
+	}
 
 	render() {
 		return (
@@ -126,11 +137,13 @@ class UniversityPostsModalBasic extends React.Component<IProps, IState> {
 					<Modal.Content scrolling id='modalol'>
 						<Grid centered>
 							<Grid.Column width={16}>
-								{this.state.isLoading ? (
-									<LoadingContainer />
-								) : (
-									this.renderPosts()
-								)}
+								<div style={{ overflowX: 'hidden' }}>
+									{this.state.isLoading && !this.state.hasMore ? (
+										<LoadingContainer />
+									) : (
+										this.renderPosts()
+									)}
+								</div>
 							</Grid.Column>
 						</Grid>
 					</Modal.Content>
