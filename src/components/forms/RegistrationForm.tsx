@@ -50,6 +50,8 @@ class RegistrationFormUncomposed extends React.Component<
 			type: { value: '', error: false },
 			universityId: { value: '', error: false },
 			currentInstitute: { value: '', error: false },
+			university: { value: '' },
+			course: { value: '' },
 			redirect: { value: false },
 			errorMessage: { value: '' },
 			showError: { value: false },
@@ -60,7 +62,6 @@ class RegistrationFormUncomposed extends React.Component<
 	}
 
 	handleSubmit = async () => {
-		console.log(this.state);
 		try {
 			if (this.state.isAmbassador.value) {
 				const callURL = validateURL + this.state.code.value;
@@ -71,6 +72,7 @@ class RegistrationFormUncomposed extends React.Component<
 						...{
 							type: { value: data.data.type },
 							universityId: { value: data.data.universityId },
+							university: { value: data.data.university },
 						},
 					});
 				} else {

@@ -11,6 +11,7 @@ import {
 	PasswordForgot,
 	ChatBox,
 	FavouritesComponent,
+	SettingsFormComposed,
 } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -18,10 +19,10 @@ export function App() {
 	return (
 		<div
 			className='App'
-			style={{
+			/* style={{
 				backgroundImage: 'linear-gradient(to bottom, #ff8c00, #fffaf0)',
 				backgroundAttachment: 'fixed',
-			}}
+			}} */
 		>
 			<Router>
 				<NavBar>
@@ -40,6 +41,7 @@ export function App() {
 						/>
 						<Route exact path={'/chat'} component={ChatBox} />
 						<Route exact path={'/favourites'} component={FavouritesComponent} />
+						<Route exact path={'/settings'} component={SettingsFormComposed} />
 					</Switch>
 				</NavBar>
 			</Router>

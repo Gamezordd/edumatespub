@@ -76,6 +76,7 @@ export class CardContainerComponent extends React.Component<
 					onFavouriteButtonClick={onFavouriteButtonClick}
 					onCardClick={onCardClick}
 					onlyFavourites={this.props.onlyFavourites}
+					setChat={this.props.setChat}
 				/>
 			);
 		});

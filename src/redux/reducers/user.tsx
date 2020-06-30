@@ -9,6 +9,7 @@ export const User = (
 		isAnonymous: false,
 		favouriteUnis: new Array<string>(),
 		userLikes: new Array<string>(),
+		isLoggedIn: false
 	},
 	action: any
 ) => {

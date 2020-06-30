@@ -1,5 +1,5 @@
 import React, { Children } from 'react';
-import { Feed, Input, Divider, Segment, Grid } from 'semantic-ui-react';
+import { Feed, Input, Divider, Segment, Grid, Card } from 'semantic-ui-react';
 import './allstyle.css';
 import { ChatListEntry } from './ChatListEntry';
 import { Firebase } from '../../firebase';
@@ -38,16 +38,16 @@ class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
 
 	render() {
 		return (
-			<Segment
+			<Card
 				style={{
 					marginTop: '20vh',
 					height: '70vh',
-					width: '30vw',
+					width: '30%',
 					overflow: 'auto',
 				}}
 			>
 				<Grid>
-					<Grid.Row style={{ paddingLeft: '10px' }}>
+					<Grid.Row style={{ paddingLeft: '10vh' }}>
 						<h2>All Chats</h2>
 					</Grid.Row>
 					<Divider style={{ margin: 0 }} />
@@ -71,7 +71,7 @@ class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
-			</Segment>
+			</Card>
 		);
 	}
 }

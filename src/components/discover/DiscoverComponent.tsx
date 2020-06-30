@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, SearchProps, Grid } from 'semantic-ui-react';
+import { Search, SearchProps, Grid, Modal } from 'semantic-ui-react';
 import _ from 'lodash';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
@@ -10,6 +10,7 @@ import { DiscoverModal } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
 import { initialState, searchDescriptionLength } from './constants';
 import { CardContainerComponent } from './CardContainerComponent';
+import { ChatModal } from './ChatModal';
 
 const mapStateToProps = (state: any) => {
 	return {
@@ -49,6 +50,10 @@ class DiscoverComponent extends React.Component<
 			return description;
 		}
 	}
+
+	setChat = (id: string) => {
+		this.setState({ showChat: id });
+	};
 
 	handlesearchChange = (
 		e: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -133,14 +138,14 @@ class DiscoverComponent extends React.Component<
 				})}
 				onFavouriteBottonClick={this.handleFavouritesChange}
 			/>
-		)
+		);
 
 		return (
 			<div>
 				<Grid centered columns={1} container>
 					<div style={{ flex: 1, justifyContent: 'center' }}>
 						<Grid.Column>
-							{this.props.onlyFavourites? null : SearchBar}
+							{this.props.onlyFavourites ? null : SearchBar}
 						</Grid.Column>
 					</div>
 				</Grid>
@@ -152,12 +157,19 @@ class DiscoverComponent extends React.Component<
 					favouriteUnis={this.props.user.favouriteUnis}
 					onCardClick={this.handleClick}
 					onlyFavourites={this.props.onlyFavourites}
+					setChat={this.setChat}
 				/>
 				<DiscoverModal
 					open={isModalOpen}
 					content={places}
 					onClose={this.handleModalClose}
 				/>
+				<Modal
+					open={this.state.showChat !== null}
+					onClose={() => this.setState({ showChat: null })}
+				>
+					<ChatModal universityId={this.state.showChat} />
+				</Modal>
 			</div>
 		);
 	}

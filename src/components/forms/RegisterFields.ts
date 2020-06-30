@@ -3,10 +3,8 @@ import { DropdownItemProps } from 'semantic-ui-react';
 
 /*
 TODO: Make all fields for users. StudentFields and AmbassadorFields are keys inside the data map.
-
 Refer to this link for icon values:
 https://react.semantic-ui.com/elements/icon/
-
 Update type interface in ./types.ts
 */
 
@@ -17,7 +15,7 @@ export const Genders: DropdownItemProps[] = [
 ];
 
 export const UserTypes: DropdownItemProps[] = [
-	{ value: 'ambassador', text: 'Ambassador' },
+	{ value: 'ambassador', text: 'Representative' },
 	{ value: 'student', text: 'Student' },
 ];
 
@@ -38,7 +36,7 @@ export const CommonFields: RegisterFieldType[] = [
 		validate: 'phone',
 		properties: {
 			type: 'text',
-			placeholder: 'Mobile no',
+			placeholder: 'Mobile Number',
 			icon: 'phone',
 			required: true,
 			iconPosition: 'left',
@@ -60,7 +58,7 @@ export const CommonFields: RegisterFieldType[] = [
 		validate: 'password',
 		properties: {
 			type: 'password',
-			placeholder: 'Password:',
+			placeholder: 'Password',
 			icon: 'lock',
 			required: true,
 			iconPosition: 'left',
@@ -74,7 +72,7 @@ export const StudentFields: RegisterFieldType[] = [
 		validate: 'name',
 		properties: {
 			type: 'text',
-			placeholder: 'Current Institute:',
+			placeholder: 'Current Institute',
 			icon: 'university',
 			required: true,
 			iconPosition: 'left',
@@ -88,8 +86,19 @@ export const AmbassadorFields: RegisterFieldType[] = [
 		validate: 'code',
 		properties: {
 			type: 'text',
-			placeholder: 'Access Code:',
+			placeholder: 'Access Code',
 			icon: 'tag',
+			required: true,
+			iconPosition: 'left',
+		},
+	},
+	{
+		key: 'course',
+		validate: 'any',
+		properties: {
+			type: 'text',
+			placeholder: 'Course',
+			icon: 'book',
 			required: true,
 			iconPosition: 'left',
 		},

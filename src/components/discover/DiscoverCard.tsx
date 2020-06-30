@@ -6,7 +6,14 @@ import { UniversityPostsModal } from './UniversityPostsModal';
 
 export const DiscoverCard = (props: ButtonProps) => {
 	var { image, name, description, id, location } = props.content;
-	const { show, favourite, onFavouriteButtonClick, onCardClick, onlyFavourites } = props;
+	const {
+		show,
+		favourite,
+		onFavouriteButtonClick,
+		onCardClick,
+		onlyFavourites,
+		setChat,
+	} = props;
 	const [isLoaded, setLoaded] = useState(false);
 
 	function handleClick() {
@@ -47,76 +54,74 @@ export const DiscoverCard = (props: ButtonProps) => {
 
 	const card = (
 		<Grid.Column>
-		<Card centered style={{ maxWidth: '254px' }}>
-			<div
-				style={{ maxWidth: '254px', height: '254px', position: 'relative' }}
-			>
-				<img
-					onClick={() => handleClick()}
-					style={{ objectFit: 'cover', maxHeight: '254px', width: '254px' }}
-					src={
-						isLoaded && image !== '' && image !== undefined
-							? image
-							: uniImagePlaceholder
-					}
-					onLoad={() => setLoaded(true)}
-					alt={name}
-				/>
-				{isLoaded ? (
-					<div
-						style={{
-							position: 'absolute',
-							bottom: '2%',
-							left: '2%',
-							opacity: '0.8',
-						}}
-					>
-						{favourite ? isfavourite : notFavourite}
-					</div>
-				) : null}
-			</div>
-			<Card.Content>
-				<Card.Header onClick={() => handleClick()}> {name} </Card.Header>
-				<Card.Description
-					onClick={() => handleClick()}
-					style={{ marginBottom: '5px' }}
+			<Card centered style={{ maxWidth: '254px' }}>
+				<div
+					style={{ maxWidth: '254px', height: '254px', position: 'relative' }}
 				>
-					<div style={{ maxWidth: '254px', overflowY: 'auto' }}>
-						{formatDescription(description)}
-					</div>
-				</Card.Description>
-				<Card.Meta>
-					<Button floated="left" basic color='grey' size='tiny'>
-						{' '}
-						Chat{' '}
-					</Button>
-					<UniversityPostsModal buttonText="Posts" universityId={id} buttonFloated="left" />
-				</Card.Meta>
-			</Card.Content>
-		</Card>
-	</Grid.Column>
-
-	)
+					<img
+						onClick={() => handleClick()}
+						style={{ objectFit: 'cover', maxHeight: '254px', width: '254px' }}
+						src={
+							isLoaded && image !== '' && image !== undefined
+								? image
+								: uniImagePlaceholder
+						}
+						onLoad={() => setLoaded(true)}
+						alt={name}
+					/>
+					{isLoaded ? (
+						<div
+							style={{
+								position: 'absolute',
+								bottom: '2%',
+								left: '2%',
+								opacity: '0.8',
+							}}
+						>
+							{favourite ? isfavourite : notFavourite}
+						</div>
+					) : null}
+				</div>
+				<Card.Content>
+					<Card.Header onClick={() => handleClick()}> {name} </Card.Header>
+					<Card.Description
+						onClick={() => handleClick()}
+						style={{ marginBottom: '5px' }}
+					>
+						<div style={{ maxWidth: '254px', overflowY: 'auto' }}>
+							{formatDescription(description)}
+						</div>
+					</Card.Description>
+					<Card.Meta>
+						<Button
+							basic
+							floated='left'
+							color='grey'
+							size='tiny'
+							onClick={() => setChat(id)}
+						>
+							{' '}
+							Chat{' '}
+						</Button>
+						<UniversityPostsModal
+							buttonText='Posts'
+							universityId={id}
+							buttonFloated='left'
+						/>
+					</Card.Meta>
+				</Card.Content>
+			</Card>
+		</Grid.Column>
+	);
 
 	if (show) {
-		if(onlyFavourites && favourite){
-			return (
-				<React.Fragment>
-					{card}
-				</React.Fragment>
-			);
-		}
-		else if(!onlyFavourites || onlyFavourites === undefined) {
-			return (
-				<React.Fragment>
-					{card}
-				</React.Fragment>
-			);
-		}
-		else{		//only for the compiler
-			return(
-				null
-			)
+		if (onlyFavourites && favourite) {
+			return <React.Fragment>{card}</React.Fragment>;
+		} else if (!onlyFavourites || onlyFavourites === undefined) {
+			return <React.Fragment>{card}</React.Fragment>;
+		} else {
+			//only for the compiler
+			return null;
 		}
 	} else {
 		return null;
