@@ -5,7 +5,7 @@ export interface DiscoverProps {
 	user: any;
 	editFavourites: (payload: { ids: string[]; add?: boolean }) => void;
 	firebase: Firebase;
-	onlyFavourites?: boolean
+	onlyFavourites?: boolean;
 }
 
 export interface initialStateProps {
@@ -15,6 +15,7 @@ export interface initialStateProps {
 	isLoading: boolean;
 	results: object[];
 	value: string | undefined;
+	showChat: string | null;
 	selection: {
 		title: string;
 		image: string;
@@ -40,6 +41,7 @@ export interface CardContainerProps {
 			details: { name: string; description: string; image: string };
 		}>
 	) => void;
+	setChat: (id: string) => void;
 	selectedCardData?: any;
 	favouriteUnis: string[];
 	onlyFavourites?: boolean;
@@ -59,6 +61,7 @@ export interface ButtonProps {
 		}>
 	) => void;
 	onlyFavourites?: boolean;
+	setChat: (id: string) => void;
 }
 
 export interface ModalMapContainerPropTypes {

@@ -65,6 +65,7 @@ export const initialState = {
 	isLoading: false,
 	results: [],
 	value: '',
+	showChat: null,
 	selection: {
 		title: '',
 		image: '',

@@ -13,15 +13,15 @@ const mapStateToProps = (state: any) => {
 };
 
 const userLeftItems: ItemProps[] = [
-	{ content: 'Home', key: 'home', to: '/home' },
-	{ content: 'Chat', key: 'chat', to: '/chat' },
-	{ content: 'Discover', key: 'discover', to: '/discover' },
-	{ content: 'Favourites', key: 'favourites', to: '/Favourites' },
-	{ content: 'Settings', key: 'settings', to: '/settings' }
+	{ content: 'Home', key: 'home', to: '/home', icon: 'home' },
+	{ content: 'Chat', key: 'chat', to: '/chat', icon: 'chat' },
+	{ content: 'Discover', key: 'discover', to: '/discover', icon: 'find' },
+	{ content: 'Favourites', key: 'favourites', to: '/favourites', icon: 'star' },
 ];
 
 const userRightItems: ItemProps[] = [
-	{ content: 'Log out', key: 'logout', to: '/logout' },
+	{ content: 'Settings', key: 'settings', to: '/settings', icon: 'setting' },
+	{ content: 'Log out', key: 'logout', to: '/logout', icon: 'log out' },
 ];
 
 const rightItems: ItemProps[] = [

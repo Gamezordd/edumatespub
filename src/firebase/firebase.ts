@@ -34,6 +34,7 @@ export class Firebase {
 			uid,
 			currentInstitute,
 			universityId,
+			university,
 			type,
 			name,
 			email,
@@ -43,7 +44,11 @@ export class Firebase {
 			isAmbassador,
 		} = payload;
 		const data = payload.isAmbassador.value
-			? { universityId: universityId.value, type: type.value }
+			? {
+					universityId: universityId.value,
+					type: type.value,
+					university: university.value,
+			  }
 			: { currentInstitute: currentInstitute.value };
 		await this.db
 			.collection('USER')
@@ -302,8 +307,80 @@ export class Firebase {
 	};
 
 	updateUser = async (uid: string, fields: object) => {
-		return this.db.collection('USER').doc(uid).set({...fields}, {merge: true})
-	}
+		return this.db
+			.collection('USER')
+			.doc(uid)
+			.set({ ...fields }, { merge: true });
+	};
+	fetchUserFromRtdb = async (uid: string) => {
+		const data: any = {};
+		await this.rtdb.ref(`USER/${uid}`).once('value', snapshot => {
+			snapshot.forEach(child => {
+				if (child.key === null) return;
+				data[child.key] = child.val();
+			});
+		});
+		return data;
+	};
+
+	getExperts = async () => {
+		const data: any[] = [];
+		const experts: any[] = [];
+		await this.rtdb.ref('experts').once('value', snapshot => {
+			snapshot.forEach(child => {
+				if (child.key === null) return;
+				experts.push({ id: child.key });
+			});
+		});
+		experts.forEach(async expert => {
+			data.push({ ...expert, ...(await this.fetchUserFromRtdb(expert.id)) });
+		});
+		console.log(data);
+		return data;
+	};
+
+	getAmbassadors = async (id: string) => {
+		const data: any[] = [];
+		const ambassadors: any[] = [];
+		await this.rtdb.ref(`ambassadors/${id}`).once('value', snapshot => {
+			snapshot.forEach(child => {
+				if (child.key === null) return;
+				ambassadors.push({ id: child.key, type: child.val() });
+			});
+		});
+		ambassadors.forEach(async amb => {
+			data.push({ ...amb, ...(await this.fetchUserFromRtdb(amb.id)) });
+		});
+		console.log(data);
+		return data;
+	};
+
+	getChatRoom = async (target: { name: string; id: string }) => {
+		const data: any[] = [];
+		await this.rtdb
+			.ref(`userChats/${this.auth.currentUser?.uid}/${target.id}`)
+			.once('value', async snapshot => {
+				if (snapshot.exists()) {
+					console.log('Getting');
+					data.push({ userId: snapshot.key, ...snapshot.val() });
+				} else {
+					console.log('Setting');
+					const key = (await this.rtdb.ref('chats').push()).key;
+					const userChat = {
+						chat: key,
+						lastActive: database.ServerValue.TIMESTAMP,
+						latest: '',
+						name: target.name,
+					};
+					await this.rtdb
+						.ref(`userChats/${this.auth.currentUser?.uid}/${target.id}`)
+						.set(userChat);
+					data.push({ ...userChat, userId: target.id });
+				}
+			});
+		console.log('In firebase', data);
+		return data[0];
+	};
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);

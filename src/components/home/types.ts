@@ -23,6 +23,9 @@ export interface InfiniteScrollProps {
 export interface PostState {
 	liked: boolean;
 	animationDone: boolean;
+	name: string;
+	profileImage: string;
+	university: string;
 }
 
 export interface PostProps {
@@ -31,6 +34,7 @@ export interface PostProps {
 	likeLocal: typeof addLike;
 	unlikeLocal: typeof removeLike;
 	firebase: Firebase;
+	universityId: string;
 }
 
 export interface CreatePostState {
