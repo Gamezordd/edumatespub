@@ -20,6 +20,7 @@ interface ChatState {
 	newMessage: string;
 	messages: any[];
 	isLoading: boolean;
+	firstLoadDone: boolean;
 	currentID: string | undefined;
 }
 
@@ -31,11 +32,12 @@ const mapStateToProps = (state: any) => ({
 class ChatComponent extends React.Component<ChatProps, ChatState> {
 	constructor(props: ChatProps) {
 		super(props);
-		console.log('In contructor:', this.props);
+		console.log('In constructor:', this.props);
 		this.state = {
 			newMessage: '',
 			messages: [],
 			isLoading: false,
+			firstLoadDone: false,
 			currentID: undefined,
 		};
 	}
@@ -51,7 +53,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 				console.log('data', messages);
 				this.setState({
 					...this.state,
-					...{ messages: messages, isLoading: false },
+					...{ messages: messages, isLoading: false, firstLoadDone: true },
 				});
 				console.log('onInititate', this.state.messages);
 			});
@@ -84,9 +86,12 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 	};
 
 	componentDidUpdate() {
+		if (this.state.currentID !== this.props.selectedChat.userId)
+			this.setState({ firstLoadDone: false });
 		if (this.state.isLoading === true) return;
 		const { selectedChat } = this.props;
 		if (
+			!this.state.firstLoadDone &&
 			selectedChat !== undefined &&
 			(this.state.messages.length === 0 ||
 				this.state.currentID != selectedChat.userId)
@@ -143,7 +148,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 				style={{
 					marginTop: '20vh',
 					maxHeight: '70vh',
-					width: '50vw',
+					width: '60%',
 					overflow: 'auto',
 				}}
 				centered
@@ -174,23 +179,26 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 						<input hidden />
 					</div>
 				</Card.Content>
-				<Card.Content style={{ maxHeight: '10vh' }}>
-					<Input
-						id='newMessage'
-						style={{ width: '80%' }}
-						onChange={this.handleOnChange}
-						placeholder='Message'
-						value={this.state.newMessage ? this.state.newMessage : ''}
-					/>
-					<Button
-						icon='send'
-						labelPosition='left'
-						content='Send'
-						onClick={e => {
-							this.sendMessage();
-						}}
-					/>
-				</Card.Content>
+				{this.props.selectedChat && (
+					<Card.Content style={{ maxHeight: '10vh' }}>
+						<Input
+							id='newMessage'
+							style={{ width: '75%' }}
+							onChange={this.handleOnChange}
+							placeholder='Message'
+							value={this.state.newMessage ? this.state.newMessage : ''}
+						/>
+						<Button
+							icon='send'
+							labelPosition='left'
+							content='Send'
+							onClick={e => {
+								this.sendMessage();
+							}}
+							style={{ width: '20%' }}
+						/>
+					</Card.Content>
+				)}
 			</Card>
 		);
 	}

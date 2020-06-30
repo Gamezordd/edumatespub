@@ -348,6 +348,33 @@ export class Firebase {
 		console.log(data);
 		return data;
 	};
+
+	getChatRoom = async (target: { name: string; id: string }) => {
+		const data: any[] = [];
+		await this.rtdb
+			.ref(`userChats/${this.auth.currentUser?.uid}/${target.id}`)
+			.once('value', async snapshot => {
+				if (snapshot.exists()) {
+					console.log('Getting');
+					data.push({ userId: snapshot.key, ...snapshot.val() });
+				} else {
+					console.log('Setting');
+					const key = (await this.rtdb.ref('chats').push()).key;
+					const userChat = {
+						chat: key,
+						lastActive: database.ServerValue.TIMESTAMP,
+						latest: '',
+						name: target.name,
+					};
+					await this.rtdb
+						.ref(`userChats/${this.auth.currentUser?.uid}/${target.id}`)
+						.set(userChat);
+					data.push({ ...userChat, userId: target.id });
+				}
+			});
+		console.log('In firebase', data);
+		return data[0];
+	};
 }
 
 export const FirebaseContext = React.createContext<Firebase | null>(null);

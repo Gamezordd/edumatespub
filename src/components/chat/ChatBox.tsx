@@ -1,20 +1,31 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, GridColumn } from 'semantic-ui-react';
 import './allstyle.css';
 import { ChatList } from './ChatList';
 import { Chat } from './Chat';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
 
-export interface ChatBoxProps {}
+const mapStateToProps = (state: any) => ({
+	currentChat: state.chat.current,
+});
+
+export interface ChatBoxProps {
+	currentChat: any;
+}
 
 export interface ChatBoxState {
 	selectedChat: any | undefined;
 }
 
-export class ChatBox extends React.Component<ChatBoxProps, ChatBoxState> {
+export class ChatBoxUncomposed extends React.Component<
+	ChatBoxProps,
+	ChatBoxState
+> {
 	constructor(props: ChatBoxProps) {
 		super(props);
 		this.state = {
-			selectedChat: undefined,
+			selectedChat: this.props.currentChat,
 		};
 	}
 
@@ -34,9 +45,15 @@ export class ChatBox extends React.Component<ChatBoxProps, ChatBoxState> {
 	render() {
 		return (
 			<Grid>
-				<ChatList selectChat={this.handleChatSelect} />
-				<Chat selectedChat={this.state.selectedChat} />
+				<Grid.Row>
+					<ChatList selectChat={this.handleChatSelect} />
+					<Chat selectedChat={this.state.selectedChat} />
+				</Grid.Row>
 			</Grid>
 		);
 	}
 }
+
+export const ChatBox = compose<ChatBoxProps, any>(connect(mapStateToProps))(
+	ChatBoxUncomposed
+);

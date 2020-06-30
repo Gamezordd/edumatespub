@@ -1,17 +1,19 @@
 import * as ActionTypes from '../ActionTypes';
+import { ChatActions } from '../ActionCreators';
 
 export const Chat = (
 	state = {
-		messages: Array<any>(),
+		current: undefined,
 	},
-	action: any
+	action: ChatActions
 ) => {
 	switch (action.type) {
-		case ActionTypes.ADD_CHATS:{
-			return {messages: action.payload}
+		case ActionTypes.SET_CHAT: {
+			console.log('Setting', action.selectedChat);
+			return { ...state, ...{ current: action.selectedChat } };
 		}
-		default:{
-			return state
+		default: {
+			return state;
 		}
 	}
 };
