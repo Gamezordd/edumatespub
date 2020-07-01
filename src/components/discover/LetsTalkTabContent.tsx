@@ -27,13 +27,13 @@ export class LetsTalkTabContent extends React.Component<IProps, IState>{
         this.getWidth();
     }
     getWidth(){
-        console.log("getwidth");
-        
 		if(document.getElementById('ytdiv')){
             const elementWidth = document.getElementById('ytdiv')?.offsetWidth.toString();
-            this.props.loading(false)
             this.setState({elementWidth: elementWidth, isLoading: false})
 		}
+    }
+    handleReady(){
+        this.props.loading(false);
     }
     render(){
         const domainName = (/^.*\//.exec(this.props.videoURL))
@@ -43,7 +43,7 @@ export class LetsTalkTabContent extends React.Component<IProps, IState>{
         }
         if(this.state.isLoading){
             this.props.loading(true);
-            return <div id="ytdiv" style={{height:"70%"}}><LoadingContainer/></div>
+            return <div id="ytdiv"><LoadingContainer/></div>
         }
         else if(this.state.elementWidth && domainName){
             return(
@@ -54,7 +54,7 @@ export class LetsTalkTabContent extends React.Component<IProps, IState>{
                             opts={{
                                 width: this.state.elementWidth
                             }}
-                            
+                            onReady={() => this.handleReady()}
                             />
                     </Grid.Column>
                 </Grid.Row>

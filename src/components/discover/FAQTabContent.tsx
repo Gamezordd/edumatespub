@@ -9,7 +9,7 @@ export const FAQTabContent = (props: IProps) =>{
     return(
         <Grid.Row>
             <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                <Button>Visit University FAQ</Button>
+                <Button onClick={() => window.open(props.link, '_blank')}>Visit University FAQ</Button>
             </div>
         </Grid.Row>
     )

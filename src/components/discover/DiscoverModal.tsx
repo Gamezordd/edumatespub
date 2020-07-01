@@ -88,13 +88,26 @@ export const DiscoverModal = (props: IProps) => {
 			return setTabLoading(false);
 		}
 	}
+	
+	function populatePanes(){ 		//Prerender the Tabbed view
+		let currentPanes=[
+			{ menuItem: 'Nearby', render: () => <Tab.Pane> <NearbyTabContent placesOptions={placesFilterOptions} dropdownHandler={handleDropdownChange} placesProps={content} searchValueProps={searchValue} /> </Tab.Pane> },
+		]
+		const letsTalkPane = { menuItem: "Let's Talk", render: () => <Tab.Pane loading={tabLoading}><LetsTalkTabContent loading={handleTabLoading} videoURL={content[0].details.videoURL}/></Tab.Pane> }
+		const FAQPane = { menuItem: 'FAQ', render: () => <Tab.Pane><FAQTabContent link={content[0].details.FAQLink}/></Tab.Pane> }
+		const DepartmentsPane = { menuItem: 'Departments', render: () => <Tab.Pane> <DepartmentsTabContent departments={content[0].details.department} /> </Tab.Pane> }
 
-	const panes = [
-		{ menuItem: 'Nearby', render: () => <Tab.Pane> <NearbyTabContent placesOptions={placesFilterOptions} dropdownHandler={handleDropdownChange} placesProps={content} searchValueProps={searchValue} /> </Tab.Pane> },
-		{ menuItem: "Let's Talk", render: () => <Tab.Pane loading={tabLoading}><LetsTalkTabContent loading={handleTabLoading} videoURL={content[0].details.videoURL}/></Tab.Pane> },
-		{ menuItem: 'FAQ', render: () => <Tab.Pane><FAQTabContent link={props.content[0].details.FAQLink}/></Tab.Pane> },
-		{ menuItem: 'Departments', render: () => <Tab.Pane> <DepartmentsTabContent departments={props.content[0].details.department} /> </Tab.Pane> },
-	  ]
+		if(content[0].details.videoURL){
+			currentPanes = currentPanes.concat(letsTalkPane);
+		}
+		if(content[0].details.FAQLink){
+			currentPanes = currentPanes.concat(FAQPane);
+		}
+		if(content[0].details.department){
+			currentPanes = currentPanes.concat(DepartmentsPane);
+		}
+		return currentPanes
+	}
 
 	return (
 		<div style={{ position: 'absolute' }}>
@@ -107,7 +120,7 @@ export const DiscoverModal = (props: IProps) => {
 					<Grid columns='16'>
 						{innerWidth > 600 ? desktopRow : mobileRow}
 						<Grid.Column width="16">
-							<Tab panes={panes} />
+							{open ? <Tab panes={populatePanes()} /> : null}
 						</Grid.Column>
 					</Grid>
 				</Modal.Content>

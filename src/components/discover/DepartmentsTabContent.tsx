@@ -11,7 +11,7 @@ export const DepartmentsTabContent = (props: IProps) =>{
             <Grid.Column>
                 {props.departments.map(dep => {
                     return (
-                        <Button style={{margin: "5px"}}> {dep.name} </Button>
+                        <Button style={{margin: "5px"}} onClick={() => window.open(dep.link, '_blank')}> {dep.name} </Button>
                     )
                 })}
             </Grid.Column>
