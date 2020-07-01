@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import {
 	Modal,
 	Image,
 	Icon,
 	Grid,
 	Button,
-	Dropdown,
 	DropdownProps,
 	Tab,
 } from 'semantic-ui-react';
-import { ModalMapContainer } from './ModalMapContainer';
 import { placesFilterOptions } from './constants';
-
+import { NearbyTabContent } from './NearbyTabContent';
+import { LetsTalkTabContent } from './LetsTalkTabContent';
+import { DepartmentsTabContent } from './DepartmentsTabContent';
+import { FAQTabContent } from './FAQTabContent';
 interface IProps {
 	open: boolean;
 	content: Array<{
 		lat: number;
 		lng: number;
-		details: { name: string; description: string; image: string };
+		details: { name: string; description: string; image: string, videoURL: string, department: [{name: string, link: string}], FAQLink: string };
 	}>;
 	onClose: () => void;
 }
@@ -26,6 +27,7 @@ export const DiscoverModal = (props: IProps) => {
 	const { open, content, onClose } = props;
 	const { innerWidth } = window;
 	const [searchValue, setSearch] = useState('none');
+	const [tabLoading, setTabLoading] = useState(false)
 
 	function handleDropdownChange(
 		e: React.SyntheticEvent<HTMLElement, Event>,
@@ -68,42 +70,30 @@ export const DiscoverModal = (props: IProps) => {
 	);
 
 	const handleClose = () => {
+		console.log(content);
+		
 		setSearch('none');
 		onClose();
 	};
 
-	const mapWithFilters = (
-		<React.Fragment>
-			<Grid.Row columns='16'>
-				<Grid.Column width='16'>
-					<Dropdown
-						placeholder='Filter'
-						selection
-						fluid
-						options={placesFilterOptions}
-						onChange={(e, d) => handleDropdownChange(e, d)}
-					/>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row verticalAlign='middle' columns='16' centered>
-				<Grid.Column width='16'>
-					<div style={{ position: 'relative', marginTop:"10px"}}>
-						<ModalMapContainer
-							places={content}
-							zoomProp={8}
-							searchType={searchValue}
-						/>
-					</div>
-				</Grid.Column>
-				<Grid.Column />
-			</Grid.Row>
-		</React.Fragment>
-	)
+	function handleTabLoading(loading: boolean){
+		if(loading){
+			console.log("loading");
+			
+			return setTabLoading(true);
+		}
+		else{ 
+			console.log("done loading");
+			
+			return setTabLoading(false);
+		}
+	}
 
 	const panes = [
-		{ menuItem: 'Nearby', render: () => <Tab.Pane> {mapWithFilters} </Tab.Pane> },
-		{ menuItem: "Let's Talk", render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-		{ menuItem: 'FAQ', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+		{ menuItem: 'Nearby', render: () => <Tab.Pane> <NearbyTabContent placesOptions={placesFilterOptions} dropdownHandler={handleDropdownChange} placesProps={content} searchValueProps={searchValue} /> </Tab.Pane> },
+		{ menuItem: "Let's Talk", render: () => <Tab.Pane loading={tabLoading}><LetsTalkTabContent loading={handleTabLoading} videoURL={content[0].details.videoURL}/></Tab.Pane> },
+		{ menuItem: 'FAQ', render: () => <Tab.Pane><FAQTabContent link={props.content[0].details.FAQLink}/></Tab.Pane> },
+		{ menuItem: 'Departments', render: () => <Tab.Pane> <DepartmentsTabContent departments={props.content[0].details.department} /> </Tab.Pane> },
 	  ]
 
 	return (

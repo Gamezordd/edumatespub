@@ -3,9 +3,10 @@ import { Card, Icon, Grid, Button } from 'semantic-ui-react';
 import { ButtonProps } from './interfaces';
 import { descriptionLength, uniImagePlaceholder } from './constants';
 import { UniversityPostsModal } from './UniversityPostsModal';
+import { stringify } from 'querystring';
 
 export const DiscoverCard = (props: ButtonProps) => {
-	var { image, name, description, id, location } = props.content;
+	var { image, name, description, id, location, video, department } = props.content;
 	const {
 		show,
 		favourite,
@@ -17,11 +18,13 @@ export const DiscoverCard = (props: ButtonProps) => {
 	const [isLoaded, setLoaded] = useState(false);
 
 	function handleClick() {
+		console.log("content: ", props.content);
+		
 		onCardClick([
 			{
 				lat: location.latitude,
 				lng: location.longitude,
-				details: { name: name, description: description, image: image },
+				details: { name: name, description: description, image: image, videoURL: video, department: department, FAQLink: props.content["FAQ Link"] },
 				centerMap: true,
 			},
 		]);

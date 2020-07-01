@@ -106,7 +106,7 @@ class DiscoverComponent extends React.Component<
 		place: Array<{
 			lat: number;
 			lng: number;
-			details: { name: string; description: string; image: string };
+			details: { name: string; description: string; image: string, videoURL: string, department: [{name: string, link: string}], FAQLink: string };
 		}>
 	) => {
 		this.setState({ places: place, isModalOpen: true });
