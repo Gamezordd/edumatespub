@@ -86,23 +86,12 @@ class UniversityPostsModalBasic extends React.Component<IProps, IState> {
 	}
 
 	renderPosts() {
-		console.log('length: ', this.state.posts.length);
-
-		if (this.state.posts.length === 0 && !this.state.isLoading) {
-			console.log('empty');
-
+		if (this.state.posts.length === 0 && !this.state.isLoading)
 			return <EmptyContainer />;
-		} else {
-			return (
-				<div style={{ display: 'flex', flexDirection: 'column' }}>
-					{this.state.posts.map(post => {
-						return <Post post={post} />;
-					})}
-					{this.state.isLoading && this.state.hasMore ? (
-						<LoadingContainer />
-					) : null}
-				</div>
-			);
+		else if (this.state.posts.length > 0) {
+			return this.state.posts.map(post => {
+				return <Post post={post} />;
+			});
 		}
 	}
 
@@ -137,12 +126,15 @@ class UniversityPostsModalBasic extends React.Component<IProps, IState> {
 					<Modal.Content scrolling id='modalol'>
 						<Grid centered>
 							<Grid.Column width={16}>
-								<div style={{ overflowX: 'hidden' }}>
-									{this.state.isLoading && !this.state.hasMore ? (
-										<LoadingContainer />
-									) : (
-										this.renderPosts()
-									)}
+								<div
+									style={{
+										overflowX: 'hidden',
+										display: 'flex',
+										flexDirection: 'column',
+									}}
+								>
+									{this.state.isModalOpen ? this.renderPosts() : null}
+									{this.state.isLoading ? <LoadingContainer /> : null}
 								</div>
 							</Grid.Column>
 						</Grid>
