@@ -41,18 +41,20 @@ export interface RegisterState {
 	country: FieldState;
 	isAmbassador: FieldState;
 	phone: FieldState;
-	didSubmit: FieldState;
+
 	//student fields
 	currentInstitute: FieldState;
+
 	//undergraduate
 	degreeType: FieldState;
 	course: FieldState;
-	previousInstitute: FieldState;
+
 	//higher than undergrad
 	workExperience: FieldState;
 	years: FieldState;
 	industry: FieldState;
 	jobTitle: FieldState;
+
 	//ambassador fields
 	code: FieldState;
 	type: FieldState;
@@ -62,4 +64,5 @@ export interface RegisterState {
 	redirect: FieldState;
 	errorMessage: FieldState;
 	showError: FieldState;
+	didNext: FieldState;
 }

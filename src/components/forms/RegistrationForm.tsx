@@ -10,6 +10,7 @@ import {
 	Image,
 	Grid,
 	Radio,
+	Icon,
 } from 'semantic-ui-react';
 import { RegisterState } from './types';
 import { countryOptions } from './countriesData';
@@ -54,9 +55,8 @@ class RegistrationFormUncomposed extends React.Component<
 			redirect: { value: false },
 			errorMessage: { value: '' },
 			showError: { value: false },
-			didSubmit: { value: true },
+			didNext: { value: false },
 			degreeType: { value: '' },
-			previousInstitute: { value: '' },
 			course: { value: '' },
 			workExperience: { value: '' },
 			years: { value: '' },
@@ -105,7 +105,11 @@ class RegistrationFormUncomposed extends React.Component<
 		} catch (err) {
 			this.setState({
 				...this.state,
-				...{ showError: { value: true }, errorMessage: { value: err.message } },
+				...{
+					showError: { value: true },
+					errorMessage: { value: err.message },
+					didNext: { value: false },
+				},
 			});
 		}
 	};
@@ -171,8 +175,17 @@ class RegistrationFormUncomposed extends React.Component<
 							padding: '5%',
 						}}
 					>
+						{this.state.didNext.value && (
+							<Button
+								icon='arrow left'
+								circular
+								floated='left'
+								onClick={() => this.setState({ didNext: { value: false } })}
+								secondary
+							/>
+						)}
 						<Image size='medium' src={logo} centered />
-						{this.state.didSubmit.value == true ? (
+						{!this.state.didNext.value ? (
 							<div>
 								<h2>Create a new account</h2>
 								{_.map(CommonFields, field => (
@@ -258,21 +271,12 @@ class RegistrationFormUncomposed extends React.Component<
 										}
 									/>
 								))}
-								{this.state.showError.value && (
-									<Card fluid style={{ padding: '10px' }}>
-										<p style={{ color: 'red' }}>
-											{this.state.errorMessage.value}
-										</p>
-									</Card>
-								)}
 								<Button
 									content='Next'
-									onClick={() => this.setState({ didSubmit: { value: false } })}
+									onClick={() => this.setState({ didNext: { value: true } })}
 									color='orange'
 									style={{ width: '100%' }}
-								>
-									Next
-								</Button>
+								/>
 								<div style={{ textAlign: 'center' }}>
 									By signing up, you accept the Terms of
 									<br /> Service and the Privacy Policy
@@ -322,28 +326,8 @@ class RegistrationFormUncomposed extends React.Component<
 										/>
 									</Form.Field>
 								</Form.Field>
-								{this.state.degreeType.value == 'undergraduate' ? (
+								{this.state.degreeType.value == 'undergraduate' && (
 									<Form.Field>
-										<Form.Field>
-											<Input
-												placeholder='Previous Institute'
-												name='previousInstitute'
-												icon='university'
-												iconPosition='left'
-												required
-												onChange={(
-													event: React.SyntheticEvent<HTMLElement>,
-													{ value }
-												) => {
-													if (value !== undefined) {
-														this.syntheticEventHandler(
-															'previousInstitute',
-															value.toString()
-														);
-													}
-												}}
-											/>
-										</Form.Field>
 										<Form.Field>
 											<Input
 												placeholder='Course'
@@ -365,98 +349,98 @@ class RegistrationFormUncomposed extends React.Component<
 											></Input>
 										</Form.Field>
 									</Form.Field>
-								) : null}
+								)}
 								{this.state.degreeType.value == 'postgraduate' ||
-								this.state.degreeType.value == 'phd' ? (
-									<Form.Field>
+									(this.state.degreeType.value == 'phd' && (
 										<Form.Field>
-											<Input
-												placeholder='Work Experience'
-												name='workExperience'
-												icon='envelope open'
-												iconPosition='left'
-												required
-												onChange={(
-													event: React.SyntheticEvent<HTMLElement>,
-													{ value }
-												) => {
-													if (value !== undefined) {
-														this.syntheticEventHandler(
-															'workExperience',
-															value.toString()
-														);
-													}
-												}}
-											></Input>
+											<Form.Field>
+												<Input
+													placeholder='Work Experience'
+													name='workExperience'
+													icon='envelope open'
+													iconPosition='left'
+													required
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'workExperience',
+																value.toString()
+															);
+														}
+													}}
+												></Input>
+											</Form.Field>
+											<Form.Field>
+												<Form.Dropdown
+													placeholder='Years of Experience:'
+													fluid
+													search
+													selection
+													required
+													options={Years}
+													style={{
+														border: 'none',
+														borderBottom: 'solid',
+														borderBottomWidth: '1px',
+													}}
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'years',
+																value.toString()
+															);
+														}
+													}}
+												/>
+											</Form.Field>
+											<Form.Field>
+												<Input
+													placeholder='Industry Worked In'
+													name='industry'
+													icon='industry'
+													iconPosition='left'
+													required
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'industry',
+																value.toString()
+															);
+														}
+													}}
+												></Input>
+											</Form.Field>
+											<Form.Field>
+												<Input
+													placeholder='Job Title'
+													name='jobTitle'
+													icon='vcard'
+													iconPosition='left'
+													required
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'jobTitle',
+																value.toString()
+															);
+														}
+													}}
+												></Input>
+											</Form.Field>
 										</Form.Field>
-										<Form.Field>
-											<Form.Dropdown
-												placeholder='Years of Experience:'
-												fluid
-												search
-												selection
-												required
-												options={Years}
-												style={{
-													border: 'none',
-													borderBottom: 'solid',
-													borderBottomWidth: '1px',
-												}}
-												onChange={(
-													event: React.SyntheticEvent<HTMLElement>,
-													{ value }
-												) => {
-													if (value !== undefined) {
-														this.syntheticEventHandler(
-															'years',
-															value.toString()
-														);
-													}
-												}}
-											/>
-										</Form.Field>
-										<Form.Field>
-											<Input
-												placeholder='Industry Worked In'
-												name='industry'
-												icon='industry'
-												iconPosition='left'
-												required
-												onChange={(
-													event: React.SyntheticEvent<HTMLElement>,
-													{ value }
-												) => {
-													if (value !== undefined) {
-														this.syntheticEventHandler(
-															'industry',
-															value.toString()
-														);
-													}
-												}}
-											></Input>
-										</Form.Field>
-										<Form.Field>
-											<Input
-												placeholder='Job Title'
-												name='jobTitle'
-												icon='vcard'
-												iconPosition='left'
-												required
-												onChange={(
-													event: React.SyntheticEvent<HTMLElement>,
-													{ value }
-												) => {
-													if (value !== undefined) {
-														this.syntheticEventHandler(
-															'jobTitle',
-															value.toString()
-														);
-													}
-												}}
-											></Input>
-										</Form.Field>
-									</Form.Field>
-								) : null}
+									))}
 								<Button
 									content='Submit'
 									onClick={() => this.handleSubmit()}
@@ -465,6 +449,11 @@ class RegistrationFormUncomposed extends React.Component<
 									style={{ width: '100%' }}
 								/>
 							</div>
+						)}
+						{this.state.showError.value && (
+							<Card fluid style={{ padding: '10px' }}>
+								<p style={{ color: 'red' }}>{this.state.errorMessage.value}</p>
+							</Card>
 						)}
 					</Form>
 				</Grid.Column>
