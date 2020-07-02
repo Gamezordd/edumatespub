@@ -89,14 +89,22 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 	render() {
 		const { post } = this.props;
 		const { name, profileImage, university } = this.state;
-		const unformatted = new Date(post.createdAt);
+		const unformatted = new Date(post.createdAt.toDate());
 		const date = new Intl.DateTimeFormat('en-us', dateOptions).format(
 			unformatted
 		);
 		return (
 			<div id={post.id} style={{ marginTop: '5vh', padding: '5px' }}>
 				<Transition animation='slide up' visible={this.state.animationDone}>
-					<Card centered fluid style={{ maxWidth: '720px' }} raised>
+					<Card
+						centered
+						fluid
+						style={{
+							maxWidth: '720px',
+							boxShadow: '0 2px 4px 5px rgba(255,208,0,0.40)',
+						}}
+						raised
+					>
 						<Card.Content>
 							<Image
 								src={profileImage ? profileImage : user}

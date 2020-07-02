@@ -62,7 +62,7 @@ class ChatListEntryUncomposed extends React.Component<
 			return (
 				<Feed.Event
 					onClick={() => this.props.clickHandler(chatDetails)}
-					style={{ paddingLeft: '5px' }}
+					style={{ paddingLeft: '2vw' }}
 				>
 					<Image
 						src={this.state.imageUrl ? this.state.imageUrl : user}

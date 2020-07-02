@@ -12,6 +12,7 @@ import {
 	Transition,
 	Radio,
 	TextArea,
+	Icon,
 } from 'semantic-ui-react';
 import { RegisterState } from './types';
 import { countryOptions } from './countriesData';
@@ -498,7 +499,6 @@ class RegistrationFormUncomposed extends React.Component<
 												))}
 										</div>
 									)}
-									}
 									<Button
 										content='Submit'
 										onClick={() => this.handleSubmit()}

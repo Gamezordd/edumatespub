@@ -173,6 +173,7 @@ class CreatePostUncomposed extends React.Component<
 							padding: '5px',
 							maxWidth: '720px',
 							marginTop: '5vh',
+							boxShadow: '0 2px 4px 5px rgba(255,208,0,0.40)',
 						}}
 						centered
 						fluid
