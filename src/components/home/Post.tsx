@@ -29,10 +29,12 @@ const mapDispatchToProps = (dispatch: any) => ({
 class PostUncomposed extends React.Component<PostProps, PostState> {
 	constructor(props: any) {
 		super(props);
-		console.log(this.props.liked);
 		this.state = {
 			liked: this.props.liked.includes(this.props.post.id),
 			animationDone: false,
+			name: '',
+			university: '',
+			profileImage: '',
 		};
 		this.makeVisible();
 	}
@@ -58,44 +60,56 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 	);
 
 	like = async () => {
-		console.log('Storing like');
 		this.props.likeLocal(this.props.post.id);
 		await this.props.firebase.like(this.props.post.id);
 		this.setState({ liked: true });
 	};
 
 	unlike = async () => {
-		console.log('Deleting like');
 		this.props.unlikeLocal(this.props.post.id);
 		await this.props.firebase.unlike(this.props.post.id);
 		this.setState({ liked: false });
 	};
 
-	makeVisible = () => {
+	makeVisible = async () => {
+		await this.props.firebase
+			.fetchUserFromRtdb(this.props.post.userId)
+			.then(data => {
+				this.setState({
+					name: data.name,
+					profileImage: data.image,
+					university: data.university,
+				});
+			});
+
 		setTimeout(() => this.setState({ ...this.state, animationDone: true }), 10);
 	};
 
 	render() {
 		const { post } = this.props;
-		const date = new Intl.DateTimeFormat(
-			post.createdAt.toDate(),
-			dateOptions
-		).format(post.createdAt);
+		const { name, profileImage, university } = this.state;
+		const date = new Intl.DateTimeFormat('en-us', dateOptions).format(
+			post.createdAt
+		);
 		return (
 			<div id={post.id} style={{ marginTop: '5vh', padding: '5px' }}>
 				<Transition animation='slide up' visible={this.state.animationDone}>
-					<Card centered fluid style={{ maxWidth: '720px' }}>
+					<Card centered fluid style={{ maxWidth: '720px' }} raised>
 						<Card.Content>
 							<Image
-								src={process.env.PUBLIC_URL + '/favicon.ico'}
+								src={profileImage}
 								size='mini'
 								floated='left'
+								style={{
+									objectFit: 'cover',
+									borderRadius: '50%',
+									height: '6vh',
+									width: '6vh',
+								}}
 							/>
-							<Card.Header style={{ fontSize: '1em' }}>
-								{post.userId}
-							</Card.Header>
+							<Card.Header style={{ fontSize: '1em' }}>{name}</Card.Header>
 							<Card.Meta style={{ fontSize: '1em' }}>
-								{post.universityId}, {date}
+								{university}, {date}
 							</Card.Meta>
 						</Card.Content>
 						<Card.Content>

@@ -2,9 +2,17 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import pic from './assets/google-play-badge.png';
 import app from './assets/app.png';
-import partneruni from './assets/partneruni.png';
-import intouchuni from './assets/intouchuni.png';
-import easenerves from './assets/easenerves.jpg';
+
+
+
+import personal from './assets/Ethnic friendship-rafiki.svg';
+import informeddecision from './assets/Onboarding-amico.svg';
+import easyprocess from './assets/Select-amico.svg';
+import infosource from './assets/Setup Analytics-pana.svg'
+
+
+
+
 import insta from './assets/instagram.png';
 import twitter from './assets/twitter.png';
 import linkedin from './assets/linkedin.png';
@@ -29,16 +37,14 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					<Grid.Row>
 						<p className='promo-title'>
 							{' '}
-							CONNECTING YOU TO YOUR DREAM UNIVERSITY{' '}
+							<b>eduMates</b> -Helping you make #yourOnechoice {' '}
 						</p>
 					</Grid.Row>{' '}
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row>
 						{' '}
 						<p className='add'>
-							Take your first step towards your dream university with us. We do
-							all the hardwork and get you in touch with the university of your
-							choice ! Keep the conversation going !{' '}
+							A one stop platform to interact and engage with current students at your dream univerisities. Build your ideal life and make an educated decision. {' '}
 						</p>{' '}
 					</Grid.Row>
 					
@@ -68,74 +74,109 @@ export const LandingPage: React.FC<{}> = ({}) => (
 			
 			<Grid.Row>
 				{' '}
-				<h1 className="title"> What we do </h1>
+				<h1 className="title"> The New Approach </h1>
 			</Grid.Row>
 			<Grid.Row className='Hidden'>....</Grid.Row>
 			<Grid.Row only='computer'>
 				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={4}>
-					<img src={intouchuni} className='whatwedo' />{' '}
-				</Grid.Column>
-				<Grid.Column width={4}>
-					{' '}
-					<img src={easenerves} className='whatwedo' height='100%' />
-				</Grid.Column>
-				<Grid.Column width={4}>
-					{' '}
-					<img src={partneruni} className='whatwedo' />
-				</Grid.Column>{' '}
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='computer'>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={4}>
-					{' '}
-					<h4> Get in touch with your new university </h4>
-				</Grid.Column>
-				<Grid.Column width={4}>
-					{' '}
-					<h4> We help you ease those nerves. </h4>
-				</Grid.Column>
-				<Grid.Column width={4}>
-					{' '}
-					<h4> We've partnered with over 2000 universities </h4>
-				</Grid.Column>{' '}
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='computer'>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={4}>
-					<p className='descwedo'>
-						{' '}
-						With our easy to use app, get chatting with your new university
-						ambassador. Ease those nerves{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={4}>
-					<p className='descwedo'>
-						{' '}
-						Your university ambassador will be able to help calm your questions.{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={4}>
-					<p className='descwedo'>
-						{' '}
-						We have the most extensive network of university ambassador -
-						student communication.{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='computer'>
-				<Grid.Column></Grid.Column>
-				<Grid.Column width={5}></Grid.Column>{' '}
 				<Grid.Column width={5}>
-					<button type='button' className='btn-primary' > 
-						<p className='Button'> All Services </p>{' '}
-					</button>{' '}
+					<img src={easyprocess} className='whatwedo' />{' '}
 				</Grid.Column>
-				<Grid.Column width={5}></Grid.Column> <Grid.Column></Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<img src={personal} className='whatwedo' height='100%' />
+				</Grid.Column>
+				
+				<Grid.Column width={2}></Grid.Column>
 			</Grid.Row>
+			<Grid.Row only='computer'>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<h4> Ease of on-boarding process </h4>
+				</Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<h4> Personal Relationship </h4>
+				</Grid.Column>
+				
+				<Grid.Column width={2}></Grid.Column>
+			</Grid.Row>
+			<Grid.Row only='computer'>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					<p className='descwedo'>
+						{' '}
+						At eduMates, with a simple 3 step tutorial, you can have access to the official representatives of your dream universities! 
+Sign up now to 
+experience the revolutionised way of decision making. Make #yourOnechoice today!{' '}
+					</p>{' '}
+				</Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					<p className='descwedo'>
+						{' '}
+						There’s nothing more comforting to know that your university cares about you and is doing its best to ensure you have the best student experience. Our aim is to make you feel valued and cared for by connecting you to students 
+of the universities so that you can experience the life in the university through their lens!{' '}
+					</p>{' '}
+				</Grid.Column>
+			
+				<Grid.Column width={2}></Grid.Column>
+			</Grid.Row>
+
+			<Grid.Row only='computer'>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					<img src={informeddecision} className='whatwedo' />{' '}
+				</Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<img src={infosource} className='whatwedo' height='100%' />
+				</Grid.Column>
+				
+				<Grid.Column width={2}></Grid.Column>
+			</Grid.Row>
+			<Grid.Row only='computer'>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<h4> From luck to an informed decision</h4>
+				</Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<h4> Authentic sources of information </h4>
+				</Grid.Column>
+				
+				<Grid.Column width={2}></Grid.Column>
+			</Grid.Row>
+			<Grid.Row only='computer'>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					<p className='descwedo'>
+						{' '}
+						University can prove to be a turning part in the lives of many. No longer do you need to rely on 'luck' to achieve your 
+							dreams. We help you paint your ideal life and bring you a step closer in making that a reality!{' '}
+					</p>{' '}
+				</Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					<p className='descwedo'>
+						{' '}
+						Decision making is a key skill wether in life or business. We help influence your decision by connecting you to the authorities in the industry. Providing official 
+							sources solve your queries and making you feel a valued student at the institution.{' '}
+					</p>{' '}
+				</Grid.Column>
+			
+				<Grid.Column width={2}></Grid.Column>
+			</Grid.Row>
+
+            
+
+			
 			<Grid.Row centered columns={1} only='mobile'>
 				<Grid.Column width={14}>
 					<Grid.Row className='Hidden'>........</Grid.Row>
@@ -143,20 +184,22 @@ export const LandingPage: React.FC<{}> = ({}) => (
 
 					<Grid.Row>
 						{' '}
-						<img src={intouchuni} className='whatwedo' />{' '}
+						<img src={easyprocess} className='whatwedo' />{' '}
 					</Grid.Row>
 
 					<Grid.Row>
 						{' '}
-						<h4> Get in touch with your new university </h4>{' '}
+						<h4> Ease of on-boarding process </h4>{' '}
 					</Grid.Row>
 
 					<Grid.Row>
 						{' '}
 						<p className='descwedo'>
 							{' '}
-							With our easy to use app, get chatting with your new university
-							ambassador. Ease those nerves{' '}
+							
+At eduMates, with a simple 3 step tutorial, you can have access to the official representatives of your dream universities! 
+ Sign up now to 
+experience the revolutionised way of decision making.Make #yourOnechoice today!{' '}
 						</p>{' '}
 					</Grid.Row>
 
@@ -165,20 +208,22 @@ export const LandingPage: React.FC<{}> = ({}) => (
 
 					<Grid.Row>
 						{' '}
-						<img src={easenerves} className='whatwedo' height='100%' />{' '}
+						<img src={informeddecision} className='whatwedo' height='100%' />{' '}
 					</Grid.Row>
 
 					<Grid.Row>
 						{' '}
-						<h4> We help you ease those nerves. </h4>{' '}
+						<h4> From luck to an informed decision</h4>{' '}
 					</Grid.Row>
 
 					<Grid.Row>
 						{' '}
 						<p className='descwedo'>
 							{' '}
-							Your university ambassador will be able to help calm your
-							questions.{' '}
+							University can prove to be a turning part in the lives of many. No longer do you need to rely on 'luck' to achieve your 
+							dreams. We help you paint your ideal life and bring you a step closer in making that a reality!
+
+{' '}
 						</p>{' '}
 					</Grid.Row>
 
@@ -187,96 +232,154 @@ export const LandingPage: React.FC<{}> = ({}) => (
 
 					<Grid.Row>
 						{' '}
-						<img src={partneruni} className='whatwedo' />{' '}
+						<img src={personal} className='whatwedo' />{' '}
 					</Grid.Row>
 
 					<Grid.Row>
 						{' '}
-						<h4> We've partnered with over 2000 universities </h4>{' '}
+						<h4> Personal Relationship </h4>{' '}
 					</Grid.Row>
 
 					<Grid.Row>
 						{' '}
 						<p className='descwedo'>
 							{' '}
-							We have the most extensive network of university ambassador -
-							student communication.{' '}
+							There’s nothing more comforting to know that your university cares about you and is doing its best to ensure you have the best student experience. Our aim is to make you feel valued and cared for by connecting you to students 
+of the universities so that you can experience the life in the university through their lens!     {' '}
 						</p>{' '}
 					</Grid.Row>
+                   
+					<Grid.Row className='Hidden'>........</Grid.Row>
+					<Grid.Row className='Hidden'>........</Grid.Row>
+
+					<Grid.Row>
+						{' '}
+						<img src={infosource} className='whatwedo' />{' '}
+					</Grid.Row>
+
+					<Grid.Row>
+						{' '}
+						<h4> Authentic sources of information </h4>{' '}
+					</Grid.Row>
+
+					<Grid.Row>
+						{' '}
+						<p className='descwedo'>
+							{' '}
+							Decision making is a key skill wether in life or business. We help influence your decision by connecting you to the authorities in the industry. Providing official 
+							sources solve your queries and making you feel a valued student at the institution.{' '}
+						</p>{' '}
+					</Grid.Row>
+
+
+
 				</Grid.Column>{' '}
 			</Grid.Row>
-			<Grid.Row only='mobile' columns={1} centered>
-				<Grid.Column width={6}>
-					<button type='button' className='btn-primary'>
-						<p className='Button'> All Services </p>{' '}
-					</button>{' '}
-				</Grid.Column>
-			</Grid.Row>
+
+			
+
 			<Grid.Row only='tablet'>
 				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={4}>
-					<img src={intouchuni} className='whatwedo' />{' '}
-				</Grid.Column>
-				<Grid.Column width={4}>
-					{' '}
-					<img src={easenerves} className='whatwedo' height='100%' />
-				</Grid.Column>
-				<Grid.Column width={4}>
-					{' '}
-					<img src={partneruni} className='whatwedo' />
-				</Grid.Column>{' '}
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='tablet'>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={4}>
-					{' '}
-					<h4> Get in touch with your new university </h4>
-				</Grid.Column>
-				<Grid.Column width={4}>
-					{' '}
-					<h4> We help you ease those nerves. </h4>
-				</Grid.Column>
-				<Grid.Column width={4}>
-					{' '}
-					<h4> We've partnered with over 2000 universities </h4>
-				</Grid.Column>{' '}
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='tablet'>
-				<Grid.Column width={2}></Grid.Column>
-				<Grid.Column width={4}>
-					<p className='descwedo'>
-						{' '}
-						With our easy to use app, get chatting with your new university
-						ambassador. Ease those nerves{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={4}>
-					<p className='descwedo'>
-						{' '}
-						Your university ambassador will be able to help calm your questions.{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={4}>
-					<p className='descwedo'>
-						{' '}
-						We have the most extensive network of university ambassador -
-						student communication.{' '}
-					</p>{' '}
-				</Grid.Column>
-				<Grid.Column width={2}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row only='tablet'>
-				<Grid.Column></Grid.Column>
-				<Grid.Column width={5}></Grid.Column>{' '}
 				<Grid.Column width={5}>
-					<button type='button' className='btn-primary'>
-						<p className='Button'> All Services </p>{' '}
-					</button>{' '}
+					<img src={easyprocess} className='whatwedo' />{' '}
 				</Grid.Column>
-				<Grid.Column width={5}></Grid.Column> <Grid.Column></Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<img src={personal} className='whatwedo' height='100%' />
+				</Grid.Column>
+				
+				<Grid.Column width={2}></Grid.Column>
 			</Grid.Row>
+			<Grid.Row only='tablet'>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<h4> Ease of on-boarding process </h4>
+				</Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<h4> Personal Relationship </h4>
+				</Grid.Column>
+				
+				<Grid.Column width={2}></Grid.Column>
+			</Grid.Row>
+			<Grid.Row only='tablet'>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					<p className='descwedo'>
+						{' '}
+						At eduMates, with a simple 3 step tutorial, you can have access to the official representatives of your dream universities! 
+Sign up now to 
+experience the revolutionised way of decision making. Make #yourOnechoice today!{' '}
+					</p>{' '}
+				</Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					<p className='descwedo'>
+						{' '}
+						There’s nothing more comforting to know that your university cares about you and is doing its best to ensure you have the best student experience. Our aim is to make you feel valued and cared for by connecting you to students 
+of the universities so that you can experience the life in the university through their lens!{' '}
+					</p>{' '}
+				</Grid.Column>
+			
+				<Grid.Column width={2}></Grid.Column>
+			</Grid.Row>
+
+			<Grid.Row only='tablet'>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					<img src={informeddecision} className='whatwedo' />{' '}
+				</Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<img src={infosource} className='whatwedo' height='100%' />
+				</Grid.Column>
+				
+				<Grid.Column width={2}></Grid.Column>
+			</Grid.Row>
+			<Grid.Row only='tablet'>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<h4> From luck to an informed decision</h4>
+				</Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					{' '}
+					<h4> Authentic sources of information </h4>
+				</Grid.Column>
+				
+				<Grid.Column width={2}></Grid.Column>
+			</Grid.Row>
+			<Grid.Row only='tablet'>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					<p className='descwedo'>
+						{' '}
+						University can prove to be a turning part in the lives of many. No longer do you need to rely on 'luck' to achieve your 
+							dreams. We help you paint your ideal life and bring you a step closer in making that a reality!{' '}
+					</p>{' '}
+				</Grid.Column>
+				<Grid.Column width={2}></Grid.Column>
+				<Grid.Column width={5}>
+					<p className='descwedo'>
+						{' '}
+						Decision making is a key skill wether in life or business. We help influence your decision by connecting you to the authorities in the industry. Providing official 
+							sources solve your queries and making you feel a valued student at the institution.{' '}
+					</p>{' '}
+				</Grid.Column>
+			
+				<Grid.Column width={2}></Grid.Column>
+			</Grid.Row>
+
+            
+
+			
+			
+
 			<Grid.Row>
 				{' '}
 				<h1 className="title"> Why choose us? </h1>
@@ -294,7 +397,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 							<p className='list'> Create a wishlist of unlimited univeristies</p>
 						</li>
 						<li>
-							<p className='list'> Interact with the university representatives via chat feature</p>{' '}
+							<p className='list'> Interact with the current students and edumates experts using the chat feature</p>{' '}
 						</li>
 						<li>
 							<p className='list'> Stay up to date with your wishlisted universities</p>
@@ -333,7 +436,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 							<p className='list'> Create a wishlist of unlimited univeristies</p>
 						</li>
 						<li>
-							<p className='list'> Interact with the university representatives via chat feature</p>{' '}
+							<p className='list'> Interact with the current students and edumates experts using the chat feature</p>{' '}
 						</li>
 						<li>
 							<p className='list'> Stay up to date with your wishlisted universities</p>
@@ -374,7 +477,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 							<p className='list'> Create a wishlist of unlimited univeristies</p>
 						</li>
 						<li>
-							<p className='list'> Interact with the university representatives via chat feature</p>{' '}
+							<p className='list'> Interact with the current students and edumates experts using the chat feature</p>{' '}
 						</li>
 						<li>
 							<p className='list'> Stay up to date with your wishlisted universities</p>
@@ -388,85 +491,9 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					</ul>
 				</Grid.Column>
 			</Grid.Row>
-			<Grid.Row>
-				{' '}
-				<h1 className="title"> User Reviews </h1>
-			</Grid.Row>
-			<Grid.Row className='Hidden'>................</Grid.Row>
-			<Grid.Row centered columns={1} only="mobile" >
-                                  <Grid.Column width={12}>
-
-                             
-        <Tutorial1 name="John1 Doe" uniname="Aston University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
-
-                                </Grid.Column>
-
-                                </Grid.Row>
-                <Grid.Row centered columns={1} only="mobile">
-                                  <Grid.Column width={12}>
-
-        <Tutorial1 name="John2 Doe" uniname="Florida University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
-                  </Grid.Column>
-
-                                </Grid.Row>
-                                <Grid.Row centered columns={1} only="mobile">
-                                  <Grid.Column width={12}>
-
-        <Tutorial1 name="John3 Doe" uniname="Florida University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
-                  </Grid.Column>
-
-                                </Grid.Row> 
-                                <Grid.Row centered columns={1} only="mobile">
-                                  <Grid.Column width={12}>
-
-        <Tutorial1 name="John4 Doe" uniname="Florida University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
-                  </Grid.Column>
-
-                                </Grid.Row>
-
-
-                                <Grid.Row centered columns={1} only="tablet">
-                                  <Grid.Column width={10}>
-
-                                  <Tutorial1 name="John1 Doe" uniname="Aston University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
-                                </Grid.Column>
-
-                                </Grid.Row>
-                <Grid.Row centered columns={1}>
-                                  <Grid.Column width={10} only="tablet">
-
-                                  <Tutorial1 name="John2 Doe" uniname="Florida University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
-
-                                </Grid.Column>
-
-                                </Grid.Row>
-                <Grid.Row centered columns={1}>
-                                  <Grid.Column width={10} only="tablet">
-
-                                  <Tutorial1 name="John3 Doe" uniname="Florida University" review="I love using this app. It has helped me settle into university life get started living in another country."/>
-                                </Grid.Column>
-
-                                </Grid.Row>
-
-                                <Grid.Row centered columns={1}>
-                                  <Grid.Column width={10} only="tablet">
-
-                                  <Tutorial1  name="John4 Doe" uniname="Florida University"  review="I love using this app. It has helped me settle into university life get started living in another country."/>
-                                </Grid.Column>
-
-                                </Grid.Row>
 			
-			
-			<Tutorial2 name1="John1 Doe" uniname1="Aston University" review1="I love using this app. It has helped me settle into university life get started living in another country." 
-              name2="John2 Doe" uniname2="Florida University" review2="I love using this app. It has helped me settle into university life get started living in another country."/>
-<Tutorial2 name1="John3 Doe" uniname1="Florida University" review1="I love using this app. It has helped me settle into university life get started living in another country." 
-              name2="John3 Doe" uniname2="Florida University" review2="I love using this app. It has helped me settle into university life get started living in another country."/>
 
-                                
-              
-          
-            
-              <Grid.Row className="Hidden" only="computer">....</Grid.Row>
+		
 			<Grid.Row className='Media' centered columns={1}> 
 			<Grid.Column>
 				{' '}
@@ -492,58 +519,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 			</Grid.Row>
 			<Grid.Row className='Media'></Grid.Row>
 			<Grid.Row className='Hidden'>....</Grid.Row>
-			<Grid.Row className='bannerbottom'>
-				{' '}
-				<Grid.Column></Grid.Column>
-				<Grid.Column width={6}>
-					<Grid.Row className='Hidden'>
-						......................................................................................................................
-						..........................................................................................................
-						..................................................{' '}
-					</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row>
-						<h5 className="contact">CONTACT US : </h5>{' '}
-					</Grid.Row>{' '}
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row>
-						<p className='Endthing'> Jeevan Shri, Old Jalna, Jalna, Maharashtra, 431203 </p>
-					</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row>
-						<p className='Endthing'> +91 8552003436 / 9989008038 </p>
-					</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row>
-						<p className='Endthing'> contact@edumates.co </p>
-						<Grid.Row className='Hidden'>....</Grid.Row>
-						<Grid.Row className='Hidden'>....</Grid.Row>
-					</Grid.Row>
-				</Grid.Column>{' '}
-				<Grid.Column width={1}></Grid.Column>
-				<Grid.Column width={8}>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row>
-						<img src={logo} className='logo' />{' '}
-					</Grid.Row>{' '}
-					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row>
-						{' '}
-						<p className='Endthing'>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur
-							aut illo similique corrupti hic delectus quis repellendus,
-							nesciunt sequi quae autem quia? Amet ducimus perspiciatis incidunt
-							necessitatibus ullam quisquam commodi!
-						</p>{' '}
-					</Grid.Row>
-				</Grid.Column>{' '}
-				<Grid.Column></Grid.Column>
-			</Grid.Row>
+			
 		</Grid>
 	</div>
 );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, SearchProps, Grid } from 'semantic-ui-react';
+import { Search, SearchProps, Grid, Modal } from 'semantic-ui-react';
 import _ from 'lodash';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
@@ -10,6 +10,7 @@ import { DiscoverModal } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
 import { initialState, searchDescriptionLength } from './constants';
 import { CardContainerComponent } from './CardContainerComponent';
+import { ChatModal } from './ChatModal';
 
 const mapStateToProps = (state: any) => {
 	return {
@@ -49,6 +50,10 @@ class DiscoverComponent extends React.Component<
 			return description;
 		}
 	}
+
+	setChat = (id: string) => {
+		this.setState({ showChat: id });
+	};
 
 	handlesearchChange = (
 		e: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -101,7 +106,7 @@ class DiscoverComponent extends React.Component<
 		place: Array<{
 			lat: number;
 			lng: number;
-			details: { name: string; description: string; image: string };
+			details: { name: string; description: string; image: string, videoURL: string, department: [{name: string, link: string}], FAQLink: string };
 		}>
 	) => {
 		this.setState({ places: place, isModalOpen: true });
@@ -118,25 +123,29 @@ class DiscoverComponent extends React.Component<
 			places,
 		} = this.state;
 
+		const SearchBar = (
+			<Search
+				input={{ fluid: true }}
+				size='big'
+				fluid
+				aligned='left'
+				loading={isLoading}
+				results={results}
+				value={value}
+				onResultSelect={this.handleResultSelect}
+				onSearchChange={_.debounce(this.handlesearchChange, 500, {
+					leading: true,
+				})}
+				onFavouriteBottonClick={this.handleFavouritesChange}
+			/>
+		);
+
 		return (
 			<div>
 				<Grid centered columns={1} container>
 					<div style={{ flex: 1, justifyContent: 'center' }}>
 						<Grid.Column>
-							<Search
-								input={{ fluid: true }}
-								size='big'
-								fluid
-								aligned='left'
-								loading={isLoading}
-								results={results}
-								value={value}
-								onResultSelect={this.handleResultSelect}
-								onSearchChange={_.debounce(this.handlesearchChange, 500, {
-									leading: true,
-								})}
-								onFavouriteBottonClick={this.handleFavouritesChange}
-							/>
+							{this.props.onlyFavourites ? null : SearchBar}
 						</Grid.Column>
 					</div>
 				</Grid>
@@ -147,12 +156,20 @@ class DiscoverComponent extends React.Component<
 					selectedCardData={selection}
 					favouriteUnis={this.props.user.favouriteUnis}
 					onCardClick={this.handleClick}
+					onlyFavourites={this.props.onlyFavourites}
+					setChat={this.setChat}
 				/>
 				<DiscoverModal
 					open={isModalOpen}
 					content={places}
 					onClose={this.handleModalClose}
 				/>
+				<Modal
+					open={this.state.showChat !== null}
+					onClose={() => this.setState({ showChat: null })}
+				>
+					<ChatModal universityId={this.state.showChat} />
+				</Modal>
 			</div>
 		);
 	}

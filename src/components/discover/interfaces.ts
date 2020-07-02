@@ -5,6 +5,7 @@ export interface DiscoverProps {
 	user: any;
 	editFavourites: (payload: { ids: string[]; add?: boolean }) => void;
 	firebase: Firebase;
+	onlyFavourites?: boolean;
 }
 
 export interface initialStateProps {
@@ -14,6 +15,7 @@ export interface initialStateProps {
 	isLoading: boolean;
 	results: object[];
 	value: string | undefined;
+	showChat: string | null;
 	selection: {
 		title: string;
 		image: string;
@@ -24,7 +26,7 @@ export interface initialStateProps {
 	places: Array<{
 		lat: number;
 		lng: number;
-		details: { name: string; description: string; image: string };
+		details: { name: string; description: string; image: string, videoURL: string, department: [{name: string, link: string}], FAQLink: string };
 	}>;
 }
 
@@ -36,11 +38,13 @@ export interface CardContainerProps {
 		place: Array<{
 			lat: number;
 			lng: number;
-			details: { name: string; description: string; image: string };
+			details: { name: string; description: string; image: string, videoURL: string, department: [{name: string, link: string}], FAQLink: string };
 		}>
 	) => void;
+	setChat: (id: string) => void;
 	selectedCardData?: any;
 	favouriteUnis: string[];
+	onlyFavourites?: boolean;
 }
 
 export interface ButtonProps {
@@ -52,10 +56,12 @@ export interface ButtonProps {
 		place: Array<{
 			lat: number;
 			lng: number;
-			details: { name: string; description: string; image: string };
+			details: { name: string; description: string; image: string, videoURL: string, department: [{name: string, link: string}], FAQLink: string };
 			centerMap?: boolean;
 		}>
 	) => void;
+	onlyFavourites?: boolean;
+	setChat: (id: string) => void;
 }
 
 export interface ModalMapContainerPropTypes {
@@ -69,7 +75,8 @@ export interface ModalMapContainerPropTypes {
 }
 
 export interface DiscoverContainerProps {
-	firebase: Firebase;
-	universities: any;
-	isLoggedIn: boolean;
+	firebase?: Firebase;
+	universities?: any;
+	isLoggedIn?: boolean;
+	onlyFavourites?: boolean;
 }

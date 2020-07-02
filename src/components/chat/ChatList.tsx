@@ -1,54 +1,79 @@
-import React from 'react';
-import {
-	Grid,
-	Segment,
-	Card,
-	Header,
-	Feed,
-	Input,
-	Divider,
-} from 'semantic-ui-react';
-import user from '../landing/assets/user.png';
+import React, { Children } from 'react';
+import { Feed, Input, Divider, Segment, Grid, Card } from 'semantic-ui-react';
 import './allstyle.css';
-import { EachChat } from './EachChat';
-export interface ChatListProps {}
+import { ChatListEntry } from './ChatListEntry';
+import { Firebase } from '../../firebase';
+import { compose } from 'redux';
+import { withFirebase } from '../../firebase/withFirebase';
+import _ from 'lodash';
 
-export interface ChatListState {}
+interface ChatListProps {
+	firebase: Firebase;
+	selectChat: (chat: any) => void;
+}
 
-export class ChatList extends React.Component<ChatListProps, ChatListState> {
-	//state = { :  }
+interface ChatListState {
+	chats: any[];
+}
+
+class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
+	constructor(props: ChatListProps) {
+		super(props);
+		this.state = { chats: [] };
+	}
+
+	async componentDidMount() {
+		this.props.firebase.getUserChatsRef().on('child_added', snapshot => {
+			this.setState({
+				chats: [...this.state.chats],
+				...[{ userId: snapshot.key, ...snapshot.val() }],
+			});
+		});
+
+		const chats = await this.props.firebase.getUserChats();
+		this.setState({
+			chats: _.union(chats, this.state.chats),
+		});
+	}
+
 	render() {
 		return (
 			<Card
 				style={{
 					marginTop: '20vh',
-					maxHeight: '70vh',
-					width: '30vw',
+					height: '70vh',
+					width: '30%',
 					overflow: 'auto',
 				}}
-				centered
 			>
-				<Card.Content>
-					<Card.Header>ALL CHATS</Card.Header>
-				</Card.Content>
-				<Card.Content>
-					<Input icon='search' style={{ width: '100%' }}></Input>
-				</Card.Content>
-				<Divider />
-				<Feed style={{ padding: '2%' }}>
-					<EachChat />
-					<Divider />
-					<EachChat />
-					<Divider />
-					<EachChat />
-					<Divider />
-					<EachChat />
-					<Divider />
-					<EachChat />
-					<Divider />
-					<EachChat />
-				</Feed>
+				<Grid>
+					<Grid.Row style={{ paddingLeft: '10vh' }}>
+						<h2>All Chats</h2>
+					</Grid.Row>
+					<Divider style={{ margin: 0 }} />
+					<Grid.Row>
+						<Grid.Column>
+							<Input icon='search' style={{ width: '100%' }} />
+							<Feed>
+								{this.state.chats.map((chat: any) => {
+									return (
+										<Feed>
+											<ChatListEntry
+												id={chat.userId}
+												chatDetails={chat}
+												clickHandler={this.props.selectChat}
+											/>
+											<Divider />
+										</Feed>
+									);
+								})}
+							</Feed>
+						</Grid.Column>
+					</Grid.Row>
+				</Grid>
 			</Card>
 		);
 	}
 }
+
+export const ChatList = compose(withFirebase)(ChatListUncomposed);

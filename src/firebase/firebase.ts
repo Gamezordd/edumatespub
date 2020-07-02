@@ -1,11 +1,19 @@
 import config from '../firebaseConfig.json';
-import app, { firestore, auth } from 'firebase/app';
+import app, { firestore, database } from 'firebase/app';
 import React from 'react';
-import { toInteger } from 'lodash';
+import { toInteger, merge } from 'lodash';
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/database');
 require('firebase/storage');
+
+interface MessageRequest {
+	name: string;
+	content: string;
+	reciever: string;
+	recieverName: string;
+	chatId: string;
+}
 
 export class Firebase {
 	auth: app.auth.Auth;
@@ -26,6 +34,7 @@ export class Firebase {
 			uid,
 			currentInstitute,
 			universityId,
+			university,
 			type,
 			name,
 			email,
@@ -33,9 +42,27 @@ export class Firebase {
 			phone,
 			country,
 			isAmbassador,
+			course,
+			degreeType,
+			undergradCourse,
+			workExperience,
+			experienceYears,
+			experienceIndustry,
+			jobTitle,
+			description,
 		} = payload;
+		const analyticsData = isAmbassador
+			? { description }
+			: degreeType === 'undergraduate'
+			? { degreeType, undergradCourse }
+			: { workExperience, experienceYears, experienceIndustry, jobTitle };
 		const data = payload.isAmbassador.value
-			? { universityId: universityId.value, type: type.value }
+			? {
+					universityId: universityId.value,
+					type: type.value,
+					university: university.value,
+					course: course.value,
+			  }
 			: { currentInstitute: currentInstitute.value };
 		await this.db
 			.collection('USER')
@@ -50,7 +77,7 @@ export class Firebase {
 					isAmbassador: isAmbassador.value,
 					favouriteUnis: isAmbassador.value ? [universityId.value] : [],
 				},
-				data: data,
+				data: { ...data, ...analyticsData },
 			});
 	};
 
@@ -126,7 +153,12 @@ export class Firebase {
 		await this.auth.sendPasswordResetEmail(email);
 
 	getProfileImageUrl = async (uid: string) => {
-		return this.storage.ref(`profileImages/${uid}.jpg`);
+		return this.storage
+			.ref(`profileImages/${uid}.jpg`)
+			.getDownloadURL()
+			.catch(err => {
+				return '';
+			});
 	};
 
 	editFavourites = async (
@@ -158,22 +190,9 @@ export class Firebase {
 		}
 	};
 
-	async sendChat(message: string, fromUid: string, toUid: string) {
-		const messagesListRef = this.rtdb.ref('Chats/');
-		messagesListRef
-			.push()
-			.set({
-				message: message,
-				receiver: toUid,
-				sender: fromUid,
-				timestamp: toInteger(new Date().getTime() / 1000),
-			})
-			.then(async id => {
-				console.log('sent: ', await id);
-			});
-	}
-
 	signOut = async () => await this.auth.signOut();
+
+	//posts
 
 	like = async (post: string) =>
 		await this.db
@@ -200,6 +219,171 @@ export class Firebase {
 
 	deletePostImage = async (filename: string) => {
 		this.storage.ref(`postImages/${filename}`).delete();
+	};
+
+	//chats
+
+	//Get entries for ChatList
+	getUserChats = async () => {
+		return await this.rtdb
+			.ref(`userChats/${this.auth.currentUser?.uid}`)
+			.once('value')
+			.then(snapshot => {
+				var data: Array<any> = [];
+				snapshot.forEach(child => {
+					if (!child.exists()) return;
+					data.push({ userId: child.key, ...child.val() });
+				});
+				return data;
+			});
+	};
+
+	//Ref for listener in ChatList
+	getUserChatsRef = () => {
+		return this.rtdb.ref(`userChats/${this.auth.currentUser?.uid}`);
+	};
+
+	//get messages for chat
+	getChat = async (chatId: string) => {
+		return await this.rtdb
+			.ref(`chats/${chatId}`)
+			.once('value')
+			.then(snapshot => {
+				var data: Array<any> = [];
+				snapshot.forEach(child => {
+					data.push({ ...{ id: child.key }, ...child.val() });
+				});
+				console.log('Fetched chat', data);
+				return data;
+			});
+	};
+
+	//Ref for listener in Chat
+	getChatRef = (chatId: string) => {
+		return this.rtdb.ref(`chats/${chatId}`);
+	};
+
+	//send message. Payload defined in MessageRequest interface.
+	sendMessage = async (messageRequest: MessageRequest) => {
+		const { name, content, reciever, recieverName, chatId } = messageRequest;
+
+		const key = (await this.rtdb.ref('chats/').push()).key;
+
+		const newUserChatData = {
+			chat: chatId,
+			lastActive: database.ServerValue.TIMESTAMP,
+			latest: content,
+		};
+
+		var updates: any = {};
+		updates[`userChats/${this.auth.currentUser?.uid}/${reciever}`] = {
+			...newUserChatData,
+			name: recieverName,
+		};
+
+		updates[`userChats/${reciever}/${this.auth.currentUser?.uid}`] = {
+			...newUserChatData,
+			name: name,
+		};
+
+		updates[`chats/${chatId}/${key}`] = {
+			content: content,
+			sender: this.auth.currentUser?.uid,
+			timestamp: database.ServerValue.TIMESTAMP,
+		};
+
+		await this.rtdb.ref().update(updates);
+	};
+
+	fetchUser = async (uid: string) => {
+		return this.db
+			.collection('USER')
+			.doc(uid)
+			.get()
+			.then(user => {
+				return user.data();
+			});
+	};
+
+	updateUser = async (uid: string, fields: object) => {
+		return this.db
+			.collection('USER')
+			.doc(uid)
+			.set({ ...fields }, { merge: true });
+	};
+
+	setProfileImage = async (url: string) => {
+		this.rtdb.ref(`USER/${this.auth.currentUser?.uid}/image`).set(url);
+	};
+
+	fetchUserFromRtdb = async (uid: string) => {
+		const data: any = {};
+		await this.rtdb.ref(`USER/${uid}`).once('value', snapshot => {
+			snapshot.forEach(child => {
+				if (child.key === null) return;
+				data[child.key] = child.val();
+			});
+		});
+		return data;
+	};
+
+	getExperts = async () => {
+		const data: any[] = [];
+		const experts: any[] = [];
+		await this.rtdb.ref('experts').once('value', snapshot => {
+			snapshot.forEach(child => {
+				if (child.key === null) return;
+				experts.push({ id: child.key });
+			});
+		});
+		experts.forEach(async expert => {
+			data.push({ ...expert, ...(await this.fetchUserFromRtdb(expert.id)) });
+		});
+		console.log(data);
+		return data;
+	};
+
+	getAmbassadors = async (id: string) => {
+		const data: any[] = [];
+		const ambassadors: any[] = [];
+		await this.rtdb.ref(`ambassadors/${id}`).once('value', snapshot => {
+			snapshot.forEach(child => {
+				if (child.key === null) return;
+				ambassadors.push({ id: child.key, type: child.val() });
+			});
+		});
+		ambassadors.forEach(async amb => {
+			data.push({ ...amb, ...(await this.fetchUserFromRtdb(amb.id)) });
+		});
+		console.log(data);
+		return data;
+	};
+
+	getChatRoom = async (target: { name: string; id: string }) => {
+		const data: any[] = [];
+		await this.rtdb
+			.ref(`userChats/${this.auth.currentUser?.uid}/${target.id}`)
+			.once('value', async snapshot => {
+				if (snapshot.exists()) {
+					console.log('Getting');
+					data.push({ userId: snapshot.key, ...snapshot.val() });
+				} else {
+					console.log('Setting');
+					const key = (await this.rtdb.ref('chats').push()).key;
+					const userChat = {
+						chat: key,
+						lastActive: database.ServerValue.TIMESTAMP,
+						latest: '',
+						name: target.name,
+					};
+					await this.rtdb
+						.ref(`userChats/${this.auth.currentUser?.uid}/${target.id}`)
+						.set(userChat);
+					data.push({ ...userChat, userId: target.id });
+				}
+			});
+		console.log('In firebase', data);
+		return data[0];
 	};
 }
 

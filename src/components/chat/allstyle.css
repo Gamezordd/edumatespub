@@ -1,4 +1,4 @@
-.bubbleright{
+.bubbleleft{
    position:relative;
    float: left;
    clear: both;
@@ -13,7 +13,7 @@
   
 }
 
-.bubbleleft{
+.bubbleright{
   position:relative;
   clear: both;
   float: right;

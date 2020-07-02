@@ -44,6 +44,12 @@ export type PostActions =
 	| ClearPosts
 	| StoreScroll;
 
+interface SetChat {
+	type: ActionTypes.SET_CHAT;
+	selectedChat: any;
+}
+
+export type ChatActions = SetChat;
 //actions
 
 export const exampleAction = () => ({
@@ -87,10 +93,6 @@ export const appendPosts = (
 	lastFetched: lastFetched,
 });
 
-export const addChatsAction = (messages: object[]) => ({
-	type: ActionTypes.ADD_CHATS,
-	payload: messages,
-});
 export const fetchLikes = (likes: string[]): FetchLikes => ({
 	type: ActionTypes.FETCH_LIKES,
 	likes: likes,
@@ -113,4 +115,9 @@ export const clearPosts = (): ClearPosts => ({
 export const storeScroll = (scroll: number): StoreScroll => ({
 	type: ActionTypes.STORE_SCROLL,
 	scroll: scroll,
+});
+
+export const setChat = (selectedChat: any): SetChat => ({
+	type: ActionTypes.SET_CHAT,
+	selectedChat: selectedChat,
 });
