@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { ValidatorType, validators } from './constants';
 import {
 	Form,
@@ -11,6 +11,7 @@ import {
 	Grid,
 	Transition,
 	Radio,
+	TextArea,
 } from 'semantic-ui-react';
 import { RegisterState } from './types';
 import { countryOptions } from './countriesData';
@@ -62,9 +63,10 @@ class RegistrationFormUncomposed extends React.Component<
 			degreeType: { value: '' },
 			course: { value: '' },
 			workExperience: { value: '' },
-			years: { value: '' },
-			industry: { value: '' },
+			experienceYears: { value: '' },
+			experienceIndustry: { value: '' },
 			jobTitle: { value: '' },
+			description: { value: '' },
 		};
 
 		this.makeVisible();
@@ -145,6 +147,14 @@ class RegistrationFormUncomposed extends React.Component<
 		}
 	};
 
+	descriptionHandler = (e: React.FormEvent<HTMLTextAreaElement>) => {
+		if (e.currentTarget.textLength > 80) return;
+		const value = e.currentTarget.textContent
+			? e.currentTarget.textContent.toString()
+			: '';
+		this.setState({ description: { value: value } });
+	};
+
 	syntheticEventHandler = (key: keyof RegisterState, value: string) => {
 		this.setState({ ...this.state, ...{ [key]: { value: value } } });
 	};
@@ -159,9 +169,16 @@ class RegistrationFormUncomposed extends React.Component<
 	makeVisible = () => {
 		setTimeout(
 			() => this.setState({ ...this.state, animationDone: { value: true } }),
-			10
+			1
 		);
 	};
+
+	componentDidUpdate(prevProps: {}, prevState: RegisterState) {
+		if (prevState.didNext.value != this.state.didNext.value) {
+			this.setState({ animationDone: { value: false } });
+			this.makeVisible();
+		}
+	}
 
 	render() {
 		if (this.state.redirect.value) return <Redirect to='/login' />;
@@ -303,163 +320,185 @@ class RegistrationFormUncomposed extends React.Component<
 								</div>
 							) : (
 								<div>
-									<Form.Field>
-										Type of Degree:
-										<Form.Field>
-											<Radio
-												label='Undergraduate'
-												name='degreegroup'
-												value='undergraduate'
-												checked={
-													this.state.degreeType.value === 'undergraduate'
-												}
-												onChange={() =>
-													this.setState({
-														degreeType: { value: 'undergraduate' },
-													})
-												}
-											/>
-										</Form.Field>
-										<Form.Field>
-											<Radio
-												label='Postgraduate'
-												name='degreegroup'
-												value='postgraduate'
-												checked={this.state.degreeType.value === 'postgraduate'}
-												onChange={() =>
-													this.setState({
-														degreeType: { value: 'postgraduate' },
-													})
-												}
-											/>
-										</Form.Field>
-										<Form.Field>
-											<Radio
-												label='PhD'
-												name='degreegroup'
-												value='phd'
-												checked={this.state.degreeType.value === 'phd'}
-												onChange={() =>
-													this.setState({ degreeType: { value: 'phd' } })
-												}
-											/>
-										</Form.Field>
-									</Form.Field>
-									{this.state.degreeType.value == 'undergraduate' && (
-										<Form.Field>
+									{this.state.isAmbassador.value ? (
+										<div>
 											<Form.Field>
-												<Input
-													placeholder='Course'
-													name='course'
-													icon='graduation'
-													iconPosition='left'
-													required
-													onChange={(
-														event: React.SyntheticEvent<HTMLElement>,
-														{ value }
-													) => {
-														if (value !== undefined) {
-															this.syntheticEventHandler(
-																'course',
-																value.toString()
-															);
-														}
-													}}
-												></Input>
+												<b>
+													Tell us how you will be of help to future students of
+													your college?
+												</b>
+												<TextArea
+													placeholder='Tell us in 80 words....'
+													rows={3}
+													onChange={e => this.descriptionHandler(e)}
+													value={this.state.description.value.toString()}
+												/>
 											</Form.Field>
-										</Form.Field>
-									)}
-									{this.state.degreeType.value == 'postgraduate' ||
-										(this.state.degreeType.value == 'phd' && (
+										</div>
+									) : (
+										<div>
 											<Form.Field>
+												<b>Which degree are you pursuing?</b>
 												<Form.Field>
-													<Input
-														placeholder='Work Experience'
-														name='workExperience'
-														icon='envelope open'
-														iconPosition='left'
-														required
-														onChange={(
-															event: React.SyntheticEvent<HTMLElement>,
-															{ value }
-														) => {
-															if (value !== undefined) {
-																this.syntheticEventHandler(
-																	'workExperience',
-																	value.toString()
-																);
-															}
-														}}
-													></Input>
-												</Form.Field>
-												<Form.Field>
-													<Form.Dropdown
-														placeholder='Years of Experience:'
-														fluid
-														search
-														selection
-														required
-														options={Years}
-														style={{
-															border: 'none',
-															borderBottom: 'solid',
-															borderBottomWidth: '1px',
-														}}
-														onChange={(
-															event: React.SyntheticEvent<HTMLElement>,
-															{ value }
-														) => {
-															if (value !== undefined) {
-																this.syntheticEventHandler(
-																	'years',
-																	value.toString()
-																);
-															}
-														}}
+													<Radio
+														label='Undergraduate'
+														name='degreegroup'
+														value='undergraduate'
+														checked={
+															this.state.degreeType.value === 'undergraduate'
+														}
+														onChange={() =>
+															this.setState({
+																degreeType: { value: 'undergraduate' },
+															})
+														}
 													/>
 												</Form.Field>
 												<Form.Field>
-													<Input
-														placeholder='Industry Worked In'
-														name='industry'
-														icon='industry'
-														iconPosition='left'
-														required
-														onChange={(
-															event: React.SyntheticEvent<HTMLElement>,
-															{ value }
-														) => {
-															if (value !== undefined) {
-																this.syntheticEventHandler(
-																	'industry',
-																	value.toString()
-																);
-															}
-														}}
-													></Input>
+													<Radio
+														label='Postgraduate'
+														name='degreegroup'
+														value='postgraduate'
+														checked={
+															this.state.degreeType.value === 'postgraduate'
+														}
+														onChange={() =>
+															this.setState({
+																degreeType: { value: 'postgraduate' },
+															})
+														}
+													/>
 												</Form.Field>
 												<Form.Field>
-													<Input
-														placeholder='Job Title'
-														name='jobTitle'
-														icon='vcard'
-														iconPosition='left'
-														required
-														onChange={(
-															event: React.SyntheticEvent<HTMLElement>,
-															{ value }
-														) => {
-															if (value !== undefined) {
-																this.syntheticEventHandler(
-																	'jobTitle',
-																	value.toString()
-																);
-															}
-														}}
-													></Input>
+													<Radio
+														label='PhD'
+														name='degreegroup'
+														value='phd'
+														checked={this.state.degreeType.value === 'phd'}
+														onChange={() =>
+															this.setState({ degreeType: { value: 'phd' } })
+														}
+													/>
 												</Form.Field>
 											</Form.Field>
-										))}
+											{this.state.degreeType.value == 'undergraduate' && (
+												<Form.Field>
+													<Form.Field>
+														<Input
+															placeholder='Course'
+															name='course'
+															icon='graduation'
+															iconPosition='left'
+															required
+															onChange={(
+																event: React.SyntheticEvent<HTMLElement>,
+																{ value }
+															) => {
+																if (value !== undefined) {
+																	this.syntheticEventHandler(
+																		'course',
+																		value.toString()
+																	);
+																}
+															}}
+														></Input>
+													</Form.Field>
+												</Form.Field>
+											)}
+											{this.state.degreeType.value == 'postgraduate' ||
+												(this.state.degreeType.value == 'phd' && (
+													<Form.Field>
+														<Form.Field>
+															<Input
+																placeholder='Work Experience'
+																name='workExperience'
+																icon='envelope open'
+																iconPosition='left'
+																required
+																onChange={(
+																	event: React.SyntheticEvent<HTMLElement>,
+																	{ value }
+																) => {
+																	if (value !== undefined) {
+																		this.syntheticEventHandler(
+																			'workExperience',
+																			value.toString()
+																		);
+																	}
+																}}
+															></Input>
+														</Form.Field>
+														<Form.Field>
+															<Form.Dropdown
+																placeholder='Years of Experience:'
+																fluid
+																search
+																selection
+																required
+																options={Years}
+																style={{
+																	border: 'none',
+																	borderBottom: 'solid',
+																	borderBottomWidth: '1px',
+																}}
+																onChange={(
+																	event: React.SyntheticEvent<HTMLElement>,
+																	{ value }
+																) => {
+																	if (value !== undefined) {
+																		this.syntheticEventHandler(
+																			'experienceYears',
+																			value.toString()
+																		);
+																	}
+																}}
+															/>
+														</Form.Field>
+														<Form.Field>
+															<Input
+																placeholder='Industry Worked In'
+																name='industry'
+																icon='industry'
+																iconPosition='left'
+																required
+																onChange={(
+																	event: React.SyntheticEvent<HTMLElement>,
+																	{ value }
+																) => {
+																	if (value !== undefined) {
+																		this.syntheticEventHandler(
+																			'experienceIndustry',
+																			value.toString()
+																		);
+																	}
+																}}
+															></Input>
+														</Form.Field>
+														<Form.Field>
+															<Input
+																placeholder='Job Title'
+																name='jobTitle'
+																icon='vcard'
+																iconPosition='left'
+																required
+																onChange={(
+																	event: React.SyntheticEvent<HTMLElement>,
+																	{ value }
+																) => {
+																	if (value !== undefined) {
+																		this.syntheticEventHandler(
+																			'jobTitle',
+																			value.toString()
+																		);
+																	}
+																}}
+															></Input>
+														</Form.Field>
+													</Form.Field>
+												))}
+										</div>
+									)}
+									}
 									<Button
 										content='Submit'
 										onClick={() => this.handleSubmit()}

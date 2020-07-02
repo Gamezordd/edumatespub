@@ -43,7 +43,19 @@ export class Firebase {
 			country,
 			isAmbassador,
 			course,
+			degreeType,
+			undergradCourse,
+			workExperience,
+			experienceYears,
+			experienceIndustry,
+			jobTitle,
+			description,
 		} = payload;
+		const analyticsData = isAmbassador
+			? { description }
+			: degreeType === 'undergraduate'
+			? { degreeType, undergradCourse }
+			: { workExperience, experienceYears, experienceIndustry, jobTitle };
 		const data = payload.isAmbassador.value
 			? {
 					universityId: universityId.value,
@@ -65,7 +77,7 @@ export class Firebase {
 					isAmbassador: isAmbassador.value,
 					favouriteUnis: isAmbassador.value ? [universityId.value] : [],
 				},
-				data: data,
+				data: { ...data, ...analyticsData },
 			});
 	};
 

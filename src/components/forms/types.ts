@@ -54,8 +54,8 @@ export interface RegisterState {
 
 	//higher than undergrad
 	workExperience: FieldState;
-	years: FieldState;
-	industry: FieldState;
+	experienceYears: FieldState;
+	experienceIndustry: FieldState;
 	jobTitle: FieldState;
 
 	//ambassador fields
@@ -64,6 +64,7 @@ export interface RegisterState {
 	universityId: FieldState;
 	university: FieldState;
 	course: FieldState;
+	description: FieldState;
 
 	//UI states
 	redirect: FieldState;
