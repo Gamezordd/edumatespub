@@ -11,6 +11,10 @@ import {
 	Grid,
 	Transition,
 } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
+import applestore from '../landing/assets/appledownload.png';
+import pic from '../landing/assets/googleplay.png';
+
 import { LoginState } from './types';
 import { FormFields } from './LoginFields';
 import { Firebase } from '../../firebase';
@@ -22,6 +26,7 @@ import { Redirect, Link } from 'react-router-dom';
 import './allforms.css';
 import logo from '../landing/assets/logo2.png';
 import axios from 'axios';
+import loginside from '../landing/assets/loginside2.png';
 
 const likesUrl =
 	'https://us-central1-mpfirebaseproject-7ff28.cloudfunctions.net/api/likes';
@@ -150,58 +155,239 @@ class LoginForm extends React.Component<
 		}
 
 		return (
-			<Grid
-				textAlign='center'
-				style={{ height: '100vh' }}
-				verticalAlign='middle'
-			>
-				<Grid.Column style={{ maxWidth: 600 }}>
-					<Transition
-						animation='slide down'
-						visible={this.state.animationDone.value ? true : false}
+			<div className='background'>
+				<Grid
+					textAlign='center'
+					style={{ height: '100vh' }}
+					verticalAlign='middle'
+				>
+					<Grid.Row
+						style={{
+							visibility: 'hidden',
+						}}
 					>
-						<Form
-							style={{
-								backgroundColor: 'white',
-								border: '3px solid #f3f3f3',
-								borderRadius: '25px',
-								textAlign: 'left',
-								padding: '5%',
-								boxShadow:
-									'0 0 0 1px #d4d4d5,0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.15)',
-							}}
-						>
-							<Image size='medium' src={logo} centered />
-							<h2>Log in</h2>
-							{_.map(FormFields, field => (
-								<FormField
-									{...field.properties}
-									control={Input}
-									error={this.getError(field.key)}
-									onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-										this.validate(field.validate, field.key, e)
-									}
-								/>
-							))}
-							<Button
-								content='Submit'
-								onClick={() => this.handleSubmit()}
-								className='btn'
-								color='orange'
-								style={{ width: '100%' }}
-							/>
-							{this.state.showError.value && (
-								<Card fluid style={{ padding: '10px' }}>
-									<p style={{ color: 'red' }}>
-										{this.state.errorMessage.value}
+						..
+					</Grid.Row>
+
+					<Grid.Row only='computer'>
+						<Grid.Column width={6}>
+							<Transition
+								animation='slide down'
+								visible={this.state.animationDone.value ? true : false}
+							>
+								<div>
+									<Image src={loginside} />
+									<p>
+										<b>Get the app now</b>
 									</p>
-								</Card>
-							)}
-							<Link to={'/forgotPassword'}>Forgot Password?</Link>{' '}
-						</Form>
-					</Transition>
-				</Grid.Column>
-			</Grid>
+									<img src={pic} className='playstore' />{' '}
+									<img src={applestore} className='appstore' />{' '}
+								</div>
+							</Transition>
+						</Grid.Column>
+						<Grid.Column width={1}>OR</Grid.Column>
+						<Grid.Column width={1}></Grid.Column>
+						<Grid.Column width={6}>
+							<Transition
+								animation='slide down'
+								visible={this.state.animationDone.value ? true : false}
+							>
+								<Form
+									style={{
+										backgroundColor: 'white',
+										border: '3px solid #f3f3f3',
+										borderRadius: '25px',
+										textAlign: 'left',
+										padding: '5%',
+									}}
+								>
+									<Image size='medium' src={logo} centered />
+									<h2>Log in</h2>
+									{_.map(FormFields, field => (
+										<FormField
+											{...field.properties}
+											control={Input}
+											error={this.getError(field.key)}
+											onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+												this.validate(field.validate, field.key, e)
+											}
+										/>
+									))}
+									<Button
+										content='Submit'
+										onClick={() => this.handleSubmit()}
+										className='btn'
+										color='orange'
+										style={{ width: '100%' }}
+									/>
+									{this.state.showError.value && (
+										<Card fluid style={{ padding: '10px' }}>
+											<p style={{ color: 'red' }}>
+												{this.state.errorMessage.value}
+											</p>
+										</Card>
+									)}
+									<Link to={'/forgotPassword'}>Forgot Password?</Link>{' '}
+								</Form>
+							</Transition>
+						</Grid.Column>
+					</Grid.Row>
+					<Grid.Row only='tablet'>
+						<Grid.Column width={6}>
+							{' '}
+							<Image src={loginside} />
+							<p>
+								<b>Get the app now</b>
+							</p>
+							<img src={pic} className='playstore' />{' '}
+							<img src={applestore} className='appstore' />{' '}
+						</Grid.Column>
+						<Grid.Column width={1}>OR</Grid.Column>
+						<Grid.Column width={1}></Grid.Column>
+						<Grid.Column width={6}>
+							<Transition
+								animation='slide down'
+								visible={this.state.animationDone.value ? true : false}
+							>
+								<Form
+									style={{
+										backgroundColor: 'white',
+										border: '3px solid #f3f3f3',
+										borderRadius: '25px',
+										textAlign: 'left',
+										padding: '5%',
+									}}
+								>
+									<Image size='medium' src={logo} centered />
+									<h2>Log in</h2>
+									{_.map(FormFields, field => (
+										<FormField
+											{...field.properties}
+											control={Input}
+											error={this.getError(field.key)}
+											onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+												this.validate(field.validate, field.key, e)
+											}
+										/>
+									))}
+									<Button
+										content='Submit'
+										onClick={() => this.handleSubmit()}
+										className='btn'
+										color='orange'
+										style={{ width: '100%' }}
+									/>
+									{this.state.showError.value && (
+										<Card fluid style={{ padding: '10px' }}>
+											<p style={{ color: 'red' }}>
+												{this.state.errorMessage.value}
+											</p>
+										</Card>
+									)}
+									<Link to={'/forgotPassword'}>Forgot Password?</Link>{' '}
+								</Form>
+							</Transition>
+						</Grid.Column>
+					</Grid.Row>
+
+					<Grid.Row
+						only='mobile'
+						style={{
+							visibility: 'hidden',
+						}}
+					>
+						..
+					</Grid.Row>
+
+					<Grid.Row only='mobile'>
+						<Grid.Column width={12}>
+							<Transition
+								animation='slide down'
+								visible={this.state.animationDone.value ? true : false}
+							>
+								<Form
+									style={{
+										backgroundColor: 'white',
+										border: '3px solid #f3f3f3',
+										borderRadius: '25px',
+										textAlign: 'left',
+										padding: '5%',
+									}}
+								>
+									<Image size='medium' src={logo} centered />
+									<h2>Log in</h2>
+									{_.map(FormFields, field => (
+										<FormField
+											{...field.properties}
+											control={Input}
+											error={this.getError(field.key)}
+											onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+												this.validate(field.validate, field.key, e)
+											}
+										/>
+									))}
+									<Button
+										content='Submit'
+										onClick={() => this.handleSubmit()}
+										className='btn'
+										color='orange'
+										style={{ width: '100%' }}
+									/>
+									{this.state.showError.value && (
+										<Card fluid style={{ padding: '10px' }}>
+											<p style={{ color: 'red' }}>
+												{this.state.errorMessage.value}
+											</p>
+										</Card>
+									)}
+									<Link to={'/forgotPassword'}>Forgot Password?</Link>{' '}
+								</Form>
+							</Transition>
+						</Grid.Column>
+					</Grid.Row>
+					<Grid.Row only='mobile'>OR</Grid.Row>
+
+					<Grid.Row only='mobile'>
+						<p>
+							<b>Get the app now</b>
+						</p>{' '}
+					</Grid.Row>
+
+					<Grid.Row only='mobile'>
+						<img src={pic} className='playstore' />{' '}
+						<img src={applestore} className='appstore' />{' '}
+					</Grid.Row>
+
+					<Grid.Row
+						style={{
+							visibility: 'hidden',
+						}}
+					>
+						..
+					</Grid.Row>
+					<Grid.Row
+						style={{
+							visibility: 'hidden',
+						}}
+					>
+						..
+					</Grid.Row>
+					<Grid.Row
+						style={{
+							visibility: 'hidden',
+						}}
+					>
+						..
+					</Grid.Row>
+					<Grid.Row
+						style={{
+							visibility: 'hidden',
+						}}
+					>
+						..
+					</Grid.Row>
+				</Grid>
+			</div>
 		);
 	}
 }

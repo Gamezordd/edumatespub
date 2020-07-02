@@ -47,6 +47,17 @@ export interface RegisterState {
 
 	//student fields
 	currentInstitute: FieldState;
+
+	//undergraduate
+	degreeType: FieldState;
+	undergradCourse: FieldState;
+
+	//higher than undergrad
+	workExperience: FieldState;
+	years: FieldState;
+	industry: FieldState;
+	jobTitle: FieldState;
+
 	//ambassador fields
 	code: FieldState;
 	type: FieldState;
@@ -58,6 +69,7 @@ export interface RegisterState {
 	redirect: FieldState;
 	errorMessage: FieldState;
 	showError: FieldState;
+	didNext: FieldState;
 
 	animationDone: FieldState;
 }
@@ -69,6 +81,5 @@ export interface PasswordForgotProps {
 export interface PasswordForgotState {
 	email: string;
 	error: any;
-
 	animationDone: boolean;
 }
