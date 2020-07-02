@@ -5,6 +5,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { addLike, removeLike } from '../../redux/ActionCreators';
 import { PostProps, PostState } from './types';
+import user from '../landing/assets/user.png';
 import _ from 'lodash';
 
 const dateOptions = {
@@ -88,8 +89,9 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 	render() {
 		const { post } = this.props;
 		const { name, profileImage, university } = this.state;
+		const unformatted = new Date(post.createdAt);
 		const date = new Intl.DateTimeFormat('en-us', dateOptions).format(
-			post.createdAt
+			unformatted
 		);
 		return (
 			<div id={post.id} style={{ marginTop: '5vh', padding: '5px' }}>
@@ -97,7 +99,7 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 					<Card centered fluid style={{ maxWidth: '720px' }} raised>
 						<Card.Content>
 							<Image
-								src={profileImage}
+								src={profileImage ? profileImage : user}
 								size='mini'
 								floated='left'
 								style={{

@@ -43,7 +43,8 @@ class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
 					marginTop: '20vh',
 					height: '70vh',
 					width: '30%',
-					overflow: 'auto',
+					overflowY: 'scroll',
+					overflowX: 'hidden',
 				}}
 			>
 				<Grid>
