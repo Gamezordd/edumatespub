@@ -1,3 +1,22 @@
+.EduMates{
+  font-size:400%;
+  color:white;
+}
+.endadd{
+  color:white;
+  font-size:100%;
+}
+.endquote {
+  color:white;
+  font-family:"helvetica neue";
+  font-size:200%;
+  font-weight:bold;
+}
+
+.symbol {
+  width:20%;
+  border-radius: 5%;
+}
 
 P{
   color:black;
@@ -13,7 +32,7 @@ font-size: 150%;
 }
 
 .bannerbottom{
-  background: linear-gradient(to bottom,#f95700ff,#ffcf76);
+  background: #141618;
   color: #fff;
 
 
@@ -26,7 +45,7 @@ position:absolute;
 bottom:0;
 left:0;
 width:100%;
-height:6%;
+height:8%;
 background:url('./assets/wave1.png');
 background-size: cover;
 background-repeat: no-repeat;
@@ -40,14 +59,18 @@ background-repeat: no-repeat;
   
 }
 
+.play {
+  padding-left:10%;
+}
+
 .promo-title{
-  font-size: 4.5vw;
+  font-size: 190%;
   font-weight: 300%;
   
   color:white;
   
  
-  margin:10%;
+ 
   font-style: bold;
   
 }
@@ -56,10 +79,10 @@ background-repeat: no-repeat;
 .add {
   width:100%;
   color:black;
-  margin:10%;
+ 
   font-weight: 200%;
   font-style: oblique;
-  font-size: 2vw;
+  font-size: 175%;
 }
 
 
@@ -70,10 +93,7 @@ background-repeat: no-repeat;
   background-color: whitesmoke;
 }
 
-.SMtitle {
-  text-align : center;
-  font-size: 200%;
-}
+
 
 
 .title{
@@ -124,25 +144,6 @@ display: block;
 font-style: normal;
 
 }
-.btn-primary{
-  box-shadow: none;
-  padding: 2% 2%;
-  border: none;
-  border-radius: 8%;
-  background-image: linear-gradient(to right,#ff9e16,orange);
-  height: 90%;
-  width:70%;
-  align-content: center;
-  
-  align-items: center;
-}
-
-
-
-
-
-
-
 
 
 
@@ -171,10 +172,11 @@ display: block;
 }
 
 .Appimage{
-  
-    margin-left: 40%;
-    width:30vw;
+    margin-top:10%;
+    margin-left: 30%;
+    width:70%;
     margin-bottom: 0;
+    
     
     
     
@@ -243,8 +245,10 @@ h5 {
 }
 
 .Mediaimg {
-  width:5vw;
+  width:25%;
+  padding-right:10%;
 }
+
 
 .honescreenuserimg{
   height:5%;
@@ -257,48 +261,70 @@ h5 {
 
 
 
-@media screen and (max-width:799px) {
+@media screen and (max-width:700px) {
+
+
+  .Appimage{
+    margin-top:20%;
+    margin-left: 30%;
+    height:66vw;
+    width:auto;
+    margin-bottom: 0;
+    
+    
+    
+    
+}
+.EduMates {
+  font-size:200%;
+}
+
+
+.title {
+  font-size:200%;
+}
+
+.symbol {
+  width:30%;
+}
+
+.endadd {
+  color:white;
+  font-size:70%;
+}
+
+.endquote {
+  font-size:100%;
+}
+
   h1 {
     font-size: 200%;
   }
-
- .contact  {
-    font-size: 70%;
-  }
   
-  .Appimage {
-    height : 66vw;
-    width:auto;
-  }
   
   .Mediaimg {
-    width:17vw;
+    width:30%;
   }
   
-  
-
-  .descwedo {
+    .descwedo {
     font-size: 100%;
   }
-
-  
+ 
  
   .list{
     font-size: 2.4vw;
    
   }
 
-  .Button {
-    font-size: 2.5vw;
+  .add{
+    font-size:70%;
   }
   .Phone{
   padding-right:12vw;
   padding-left:1vw;
   }
   
-  .btn-primary{
-    width: 100%;
-    height: 40px;}
+
 
     .Phone {
       width:65%;
@@ -315,10 +341,20 @@ h5 {
       font-size:130%;
     }
  
+    .promo-title{
+      font-size:100%;
+    }
   
 
 
 }
+
+
+
+
+
+
+
 @media screen and (max-width:1200px) {
   .Phone{
     width:85%;
@@ -328,7 +364,14 @@ h5 {
     font-size: 150%;
   }
 }
-@media screen and (min-width:799px) {
+@media screen and (min-width:700px) {
+
+
+  .add{
+    font-size:110%;
+  
+  }
+
 
   .Testimonial {
     font-size: 1.5vw;
@@ -354,6 +397,29 @@ h5 {
  
 
 }
+
+
+@media screen and (min-width:100px) {
+
+.promo-title {
+  padding-bottom:10% ;
+}
+
+.add {
+  font-size:140% ;
+}
+}
+
+@media (max-width:1299px) and (min-width:1199px) {
+.add {
+  font-size:170%;
+}
+.promo-title{
+  padding-bottom:15%;
+}
+}
+
+
 
 
 

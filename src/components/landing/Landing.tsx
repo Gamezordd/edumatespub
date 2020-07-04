@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import pic from './assets/google-play-badge.png';
+import pic from './assets/googleplay.png';
 import app from './assets/app.png';
 
 
@@ -9,20 +9,14 @@ import personal from './assets/Ethnic friendship-rafiki.svg';
 import informeddecision from './assets/Onboarding-amico.svg';
 import easyprocess from './assets/Select-amico.svg';
 import infosource from './assets/Setup Analytics-pana.svg'
-
-
-
-
+import symbol from './assets/orangelogo.jpeg';
 import insta from './assets/instagram.png';
-import twitter from './assets/twitter.png';
+import facebook from './assets/facebook.png';
 import linkedin from './assets/linkedin.png';
-import logo from './assets/logo.png';
-import user from './assets/user.png';
-import applestore from './assets/appstoreicon.jpg'
+import applestore from './assets/appledownload.png'
 import chat from './assets/chat.png';
 import './Landing.css'; 
-import Tutorial1 from './Tut1';
-import Tutorial2 from './Tut2';
+
 
 export const LandingPage: React.FC<{}> = ({}) => (
 	<div>
@@ -33,11 +27,13 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					<Grid.Row className='Hidden'>....</Grid.Row>{' '}
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
+					<Grid.Row className='Hidden'>....</Grid.Row>
+					<Grid.Row className='Hidden'>....</Grid.Row>
 					
 					<Grid.Row>
-						<p className='promo-title'>
+						
 							{' '}
-							<b>eduMates</b> -Helping you make #yourOnechoice {' '}
+							<p className="EduMates"><b>eduMates</b></p> </Grid.Row> <Grid.Row> <p className='promo-title'>-Helping you make #yourOnechoice {' '}
 						</p>
 					</Grid.Row>{' '}
 					<Grid.Row className='Hidden'>....</Grid.Row>
@@ -47,6 +43,13 @@ export const LandingPage: React.FC<{}> = ({}) => (
 							A one stop platform to interact and engage with current students at your dream univerisities. Build your ideal life and make an educated decision. {' '}
 						</p>{' '}
 					</Grid.Row>
+					<Grid.Row className='Hidden'>....</Grid.Row>
+					<Grid.Row className='play'>
+						{' '}
+						<img src={pic} className='playstore' />{' '}
+					
+						<img src={applestore} className='appstore' />{' '}
+					</Grid.Row>{' '}
 					
 
 				</Grid.Column>
@@ -54,19 +57,15 @@ export const LandingPage: React.FC<{}> = ({}) => (
 				<Grid.Column width={7}>
 					<Grid.Row className='Hidden'>....</Grid.Row>{' '}
 					<Grid.Row className='Hidden'>....</Grid.Row>
-				
-					
+				<Grid.Row only="mobile">
+					<Grid.Row className='Hidden' only="mobile">....</Grid.Row>
+					<Grid.Row className='Hidden' only="mobile">....</Grid.Row>
+					<Grid.Row className='Hidden' only="mobile">....</Grid.Row>
+					<Grid.Row className='Hidden' only="mobile">....</Grid.Row> </Grid.Row>
 					<Grid.Row>
 						<img src={app} className='Appimage' />
 					</Grid.Row>{' '}
-					<Grid.Row className='play'>
-						{' '}
-						<img src={pic} className='playstore' />{' '}
-					</Grid.Row>{' '}
-                    <Grid.Row className='play'>
-						{' '}
-						<img src={applestore} className='appstore' />{' '}
-					</Grid.Row>{' '}
+					
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
 				</Grid.Column>
@@ -494,31 +493,80 @@ of the universities so that you can experience the life in the university throug
 			
 
 		
-			<Grid.Row className='Media' centered columns={1}> 
-			<Grid.Column>
-				{' '}
-				<h3 className="SMtitle">Find us on social media</h3>
-		</Grid.Column>
-
-			</Grid.Row>
-			<Grid.Row className='social-icons'>
-				<Grid.Column width={5}></Grid.Column>
-				<Grid.Column width={2}>
-					<img src={insta} className='Mediaimg' />{' '}
-				</Grid.Column>
-				<Grid.Column width={2}>
-					{' '}
-					<img src={linkedin} className='Mediaimg' />
-				</Grid.Column>
-				<Grid.Column width={2}>
-					{' '}
-					<img src={twitter} className='Mediaimg' />
-				</Grid.Column>
-
-				<Grid.Column width={5}></Grid.Column>
-			</Grid.Row>
-			<Grid.Row className='Media'></Grid.Row>
+			
+			
 			<Grid.Row className='Hidden'>....</Grid.Row>
+			<Grid.Row className='bannerbottom'>
+                {' '}
+                <Grid.Column width={1}></Grid.Column>
+                <Grid.Column width={6}>
+                    <Grid.Row className='Hidden'>
+                        .................{' '}
+                    </Grid.Row>
+                    <Grid.Row className='Hidden'>....</Grid.Row>
+                    <Grid.Row className='Hidden'>....</Grid.Row>
+					<Grid.Row>
+					<img src={symbol} className='symbol'/>
+                    </Grid.Row>{' '}
+					<Grid.Row className='Hidden'>....</Grid.Row> 
+					<Grid.Row>
+					eduMates
+					</Grid.Row>
+                    <Grid.Row> <p className="endadd">
+					eduMates is a platform that aims to add value in students life by providing them the personal 
+					support and guidance to make an educated decision that would change the course of their life.
+                    </p></Grid.Row>{' '}
+                    <Grid.Row className='Hidden'>....</Grid.Row>
+					<Grid.Row className='Hidden'>....</Grid.Row>
+				<Grid.Row className='Hidden'>....</Grid.Row>
+                    <Grid.Row> <p className="endadd">
+                        Phone: </p>
+                    </Grid.Row>
+                   
+                    <Grid.Row> <p className="endadd">
+                         +91 8552003436 / 9989008038 </p>
+                    </Grid.Row>
+                    <Grid.Row className='Hidden'>....</Grid.Row>
+					<Grid.Row> <p className="endadd">Email: </p> </Grid.Row>
+                    <Grid.Row> <p className="endadd">
+                         contact@edumates.co </p>
+                        <Grid.Row className='Hidden'>....</Grid.Row>
+                        <Grid.Row className='Hidden'>....</Grid.Row>
+                    </Grid.Row>
+                </Grid.Column>{' '}
+                <Grid.Column width={2}></Grid.Column>
+                <Grid.Column width={6}>
+				<Grid.Row className='Hidden'>....</Grid.Row>
+				<Grid.Row className='Hidden'>....</Grid.Row>
+				
+                    
+				
+			<Grid.Row > 
+				     <a href="https://www.instagram.com/edumates.co/">
+					<img src={insta} className='Mediaimg' />{' '} </a>
+				
+					{' '} <a href="https://www.linkedin.com/company/edumates/">
+					<img src={linkedin} className='Mediaimg' /> </a>
+				
+					{' '}<a href="https://www.facebook.com/EduMates-101707294909891">
+					<img src={facebook} className='Mediaimg' />  </a>
+				
+			</Grid.Row>
+			<Grid.Row className='Hidden'>....</Grid.Row>
+				<Grid.Row> <p className='endquote'> Stop hoping to get “lucky” 
+				and make an informed decision. Design your ideal university life Today! </p>      </Grid.Row>
+				
+				<Grid.Row className='Hidden'>....</Grid.Row>
+				<Grid.Row className='Hidden'>....</Grid.Row>
+				<Grid.Row className='Hidden'>....</Grid.Row>
+				<Grid.Row>
+				Make #YourOneChoice
+				</Grid.Row>
+				<Grid.Row className='Hidden'>....</Grid.Row>
+				<Grid.Row className='Hidden'>....</Grid.Row>
+                </Grid.Column>{' '}
+                <Grid.Column width={1}></Grid.Column>
+            </Grid.Row>
 			
 		</Grid>
 	</div>
