@@ -3,7 +3,6 @@ import { Card, Icon, Grid, Button } from 'semantic-ui-react';
 import { ButtonProps } from './interfaces';
 import { descriptionLength, uniImagePlaceholder } from './constants';
 import { UniversityPostsModal } from './UniversityPostsModal';
-import { stringify } from 'querystring';
 
 export const DiscoverCard = (props: ButtonProps) => {
 	var { image, name, description, id, location, video, department } = props.content;
