@@ -1,9 +1,10 @@
 import React from 'react';
-import { Feed } from 'semantic-ui-react';
+import { Feed, Image } from 'semantic-ui-react';
 import './allstyle.css';
 import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
 import { LoadingContainer } from '../maps';
+import user from '../landing/assets/user.png';
 
 const dateOptions = {
 	year: 'numeric',
@@ -36,9 +37,11 @@ class ChatListEntryUncomposed extends React.Component<
 		};
 	}
 	componentDidMount() {
-		this.props.firebase.getProfileImageUrl(this.props.chatDetails).then(url => {
-			this.setState({ imageUrl: url });
-		});
+		this.props.firebase
+			.getProfileImageUrlRtdb(this.props.chatDetails.userId)
+			.then(url => {
+				this.setState({ imageUrl: url });
+			});
 	}
 
 	formatDescription = (description: string) => {
@@ -50,16 +53,28 @@ class ChatListEntryUncomposed extends React.Component<
 	};
 	render() {
 		const { chatDetails } = this.props;
+		console.log(chatDetails.lastActive);
+		const unformatted = new Date(chatDetails.lastActive);
 		const date = new Intl.DateTimeFormat('en-us', dateOptions).format(
-			chatDetails.createdAt
+			unformatted
 		);
 		if (chatDetails) {
 			return (
-				<Feed.Event onClick={() => this.props.clickHandler(chatDetails)}>
-					<Feed.Label
-						image={this.state.imageUrl === '' ? null : this.state.imageUrl}
-						style={{ paddingLeft: '5px' }}
+				<Feed.Event
+					onClick={() => this.props.clickHandler(chatDetails)}
+					style={{ paddingLeft: '2vw' }}
+				>
+					<Image
+						src={this.state.imageUrl ? this.state.imageUrl : user}
+						floated='left'
+						style={{
+							objectFit: 'cover',
+							borderRadius: '50%',
+							height: '8vh',
+							width: '8vh',
+						}}
 					/>
+
 					<Feed.Content>
 						<Feed.Summary>{chatDetails.name}</Feed.Summary>
 						<Feed.Date>{date}</Feed.Date>

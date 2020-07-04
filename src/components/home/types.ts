@@ -5,6 +5,7 @@ import { addLike, removeLike, storeScroll } from '../../redux/ActionCreators';
 export interface InfiniteScrollState {
 	hasMore: boolean;
 	scroll: number;
+	authFail: boolean;
 }
 
 export interface InfiniteScrollProps {

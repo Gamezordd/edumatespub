@@ -26,7 +26,14 @@ export interface initialStateProps {
 	places: Array<{
 		lat: number;
 		lng: number;
-		details: { name: string; description: string; image: string, videoURL: string, department: [{name: string, link: string}], FAQLink: string };
+		details: {
+			name: string;
+			description: string;
+			image: string;
+			videoURL: string;
+			department: [{ name: string; link: string }];
+			FAQLink: string;
+		};
 	}>;
 }
 
@@ -38,7 +45,14 @@ export interface CardContainerProps {
 		place: Array<{
 			lat: number;
 			lng: number;
-			details: { name: string; description: string; image: string, videoURL: string, department: [{name: string, link: string}], FAQLink: string };
+			details: {
+				name: string;
+				description: string;
+				image: string;
+				videoURL: string;
+				department: [{ name: string; link: string }];
+				FAQLink: string;
+			};
 		}>
 	) => void;
 	setChat: (id: string) => void;
@@ -56,7 +70,14 @@ export interface ButtonProps {
 		place: Array<{
 			lat: number;
 			lng: number;
-			details: { name: string; description: string; image: string, videoURL: string, department: [{name: string, link: string}], FAQLink: string };
+			details: {
+				name: string;
+				description: string;
+				image: string;
+				videoURL: string;
+				department: [{ name: string; link: string }];
+				FAQLink: string;
+			};
 			centerMap?: boolean;
 		}>
 	) => void;

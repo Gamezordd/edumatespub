@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Dimmer, Loader, Input, Button } from 'semantic-ui-react';
+import { Card, Dimmer, Loader, Input, Button, Form } from 'semantic-ui-react';
 import './allstyle.css';
 import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
@@ -22,6 +22,7 @@ interface ChatState {
 	isLoading: boolean;
 	firstLoadDone: boolean;
 	currentID: string | undefined;
+	authFail: boolean;
 }
 
 const mapStateToProps = (state: any) => ({
@@ -39,10 +40,11 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 			isLoading: false,
 			firstLoadDone: false,
 			currentID: undefined,
+			authFail: false,
 		};
 	}
 
-	chatEndRef = React.createRef<HTMLDivElement>();
+	messagesRef = React.createRef<HTMLDivElement>();
 
 	inititate = async () => {
 		if (this.props.selectedChat === undefined) return;
@@ -56,6 +58,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 					...{ messages: messages, isLoading: false, firstLoadDone: true },
 				});
 				console.log('onInititate', this.state.messages);
+				this.scrollToBottom();
 			});
 
 		this.props.firebase
@@ -82,10 +85,15 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 	};
 
 	scrollToBottom = () => {
-		this.chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+		// this.chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+		console.log(this.messagesRef.current?.scrollTop);
+		this.messagesRef.current?.scrollTo({
+			top: this.messagesRef.current.clientHeight,
+		});
 	};
 
 	componentDidUpdate() {
+		if (!this.props.firebase.isLoggedIn()) this.setState({ authFail: true });
 		if (this.state.currentID !== this.props.selectedChat.userId)
 			this.setState({ firstLoadDone: false });
 		if (this.state.isLoading === true) return;
@@ -99,25 +107,14 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 			this.inititate();
 			this.setState({ currentID: selectedChat.userId });
 		}
-		this.scrollToBottom();
 	}
 
 	async componentDidMount() {
-		document
-			.getElementById('newMessage')
-			?.addEventListener('keypress', sendEvent => {
-				if (
-					sendEvent.keyCode === 13 &&
-					this.state.newMessage != '' &&
-					this.props.selectedChat
-				) {
-					this.sendMessage();
-				}
-			});
 		this.scrollToBottom();
 	}
 
 	sendMessage = () => {
+		if (this.state.newMessage.length === 0) return;
 		this.props.firebase.sendMessage({
 			content: this.state.newMessage,
 			name: this.props.name,
@@ -134,14 +131,14 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 
 	render() {
 		const { selectedChat, isLoggedIn } = this.props;
-		const { isLoading } = this.state;
+		const { isLoading, authFail } = this.state;
 		const defaultView = (
 			<div>
 				<h3>Please Select a user</h3>
 			</div>
 		);
 
-		if (!isLoggedIn) return <Redirect to='/login' />;
+		if (!isLoggedIn || authFail) return <Redirect to='/login' />;
 
 		return (
 			<Card
@@ -161,7 +158,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 						{selectedChat ? selectedChat.name : null}{' '}
 					</Card.Header>
 				</Card.Content>
-				<Card.Content style={{ overflow: 'auto' }}>
+				<Card.Content ref={this.messagesRef} style={{ overflow: 'auto' }}>
 					{selectedChat
 						? this.state.messages.map(message => (
 								<ChatMessage
@@ -171,32 +168,27 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 								/>
 						  ))
 						: defaultView}
-					<div
-						id='scrollRef'
-						ref={this.chatEndRef}
-						style={{ verticalAlign: 'base' }}
-					>
-						<input hidden />
-					</div>
 				</Card.Content>
 				{this.props.selectedChat && (
 					<Card.Content style={{ maxHeight: '10vh' }}>
-						<Input
-							id='newMessage'
-							style={{ width: '75%' }}
-							onChange={this.handleOnChange}
-							placeholder='Message'
-							value={this.state.newMessage ? this.state.newMessage : ''}
-						/>
-						<Button
-							icon='send'
-							labelPosition='left'
-							content='Send'
-							onClick={e => {
-								this.sendMessage();
-							}}
-							style={{ width: '20%' }}
-						/>
+						<Form>
+							<Input
+								style={{ width: '75%' }}
+								onChange={this.handleOnChange}
+								placeholder='Message'
+								value={this.state.newMessage ? this.state.newMessage : ''}
+							/>
+							<Button
+								floated='right'
+								icon='send'
+								labelPosition='left'
+								content='Send'
+								onClick={e => {
+									this.sendMessage();
+								}}
+								style={{ width: '20%' }}
+							/>
+						</Form>
 					</Card.Content>
 				)}
 			</Card>

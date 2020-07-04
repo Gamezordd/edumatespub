@@ -2,6 +2,7 @@ import config from '../firebaseConfig.json';
 import app, { firestore, database } from 'firebase/app';
 import React from 'react';
 import { toInteger, merge } from 'lodash';
+import firebase from 'firebase';
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/database');
@@ -27,6 +28,7 @@ export class Firebase {
 		this.db = app.firestore();
 		this.rtdb = app.database();
 		this.storage = app.storage();
+		this.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
 	}
 
 	createUserEntry = async (payload: any) => {
@@ -43,7 +45,19 @@ export class Firebase {
 			country,
 			isAmbassador,
 			course,
+			degreeType,
+			undergradCourse,
+			workExperience,
+			experienceYears,
+			experienceIndustry,
+			jobTitle,
+			description,
 		} = payload;
+		const analyticsData = isAmbassador
+			? { description }
+			: degreeType === 'undergraduate'
+			? { degreeType, undergradCourse }
+			: { workExperience, experienceYears, experienceIndustry, jobTitle };
 		const data = payload.isAmbassador.value
 			? {
 					universityId: universityId.value,
@@ -65,8 +79,12 @@ export class Firebase {
 					isAmbassador: isAmbassador.value,
 					favouriteUnis: isAmbassador.value ? [universityId.value] : [],
 				},
-				data: data,
+				data: { ...data, ...analyticsData },
 			});
+	};
+
+	isLoggedIn = async () => {
+		return this.auth.currentUser !== null;
 	};
 
 	doCreateUserWithEmailAndPassword = async (email: string, password: string) =>
@@ -147,6 +165,13 @@ export class Firebase {
 			.catch(err => {
 				return '';
 			});
+	};
+
+	getProfileImageUrlRtdb = async (uid: string) => {
+		return await this.rtdb
+			.ref(`USER/${uid}/image`)
+			.once('value')
+			.then(url => url.val());
 	};
 
 	editFavourites = async (
@@ -348,13 +373,13 @@ export class Firebase {
 	};
 
 	getChatRoom = async (target: { name: string; id: string }) => {
-		const data: any[] = [];
-		await this.rtdb
+		return await this.rtdb
 			.ref(`userChats/${this.auth.currentUser?.uid}/${target.id}`)
-			.once('value', async snapshot => {
+			.once('value')
+			.then(async snapshot => {
 				if (snapshot.exists()) {
 					console.log('Getting');
-					data.push({ userId: snapshot.key, ...snapshot.val() });
+					return { userId: snapshot.key, ...snapshot.val() };
 				} else {
 					console.log('Setting');
 					const key = (await this.rtdb.ref('chats').push()).key;
@@ -364,14 +389,14 @@ export class Firebase {
 						latest: '',
 						name: target.name,
 					};
-					await this.rtdb
+					return await this.rtdb
 						.ref(`userChats/${this.auth.currentUser?.uid}/${target.id}`)
-						.set(userChat);
-					data.push({ ...userChat, userId: target.id });
+						.set(userChat)
+						.then(a => {
+							return { ...userChat, userId: target.id };
+						});
 				}
 			});
-		console.log('In firebase', data);
-		return data[0];
 	};
 }
 

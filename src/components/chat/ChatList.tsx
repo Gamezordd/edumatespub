@@ -43,34 +43,30 @@ class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
 					marginTop: '20vh',
 					height: '70vh',
 					width: '30%',
-					overflow: 'auto',
+					overflowX: 'hidden',
 				}}
 			>
-				<Grid>
-					<Grid.Row style={{ paddingLeft: '10vh' }}>
-						<h2>All Chats</h2>
-					</Grid.Row>
-					<Divider style={{ margin: 0 }} />
-					<Grid.Row>
-						<Grid.Column>
-							<Input icon='search' style={{ width: '100%' }} />
-							<Feed>
-								{this.state.chats.map((chat: any) => {
-									return (
-										<Feed>
-											<ChatListEntry
-												id={chat.userId}
-												chatDetails={chat}
-												clickHandler={this.props.selectChat}
-											/>
-											<Divider />
-										</Feed>
-									);
-								})}
-							</Feed>
-						</Grid.Column>
-					</Grid.Row>
-				</Grid>
+				<Card.Content>
+					<Card.Header content='Chats' />
+					<Input icon='search' style={{ width: '100%' }} />
+				</Card.Content>
+
+				<div style={{ overflowX: 'scroll' }}>
+					<Feed>
+						{this.state.chats.map((chat: any) => {
+							return (
+								<Feed>
+									<ChatListEntry
+										id={chat.userId}
+										chatDetails={chat}
+										clickHandler={this.props.selectChat}
+									/>
+									<Divider />
+								</Feed>
+							);
+						})}
+					</Feed>
+				</div>
 			</Card>
 		);
 	}

@@ -2,19 +2,42 @@ import React, { Component } from 'react';
 import { Responsive, Container, MenuProps, ItemProps } from 'semantic-ui-react';
 import { NavBarDesktop } from './NavBarDesktop';
 import { NavBarMobile } from './NavBarMobile';
+import { Firebase } from '../../firebase';
+import { logoutAction } from '../../redux';
+import { compose } from 'recompose';
+import { withFirebase } from '../../firebase/withFirebase';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 //Add margin above components added after NavBar
 const NavBarChildren: React.FC = ({ children }) => (
-	<Container >{children}</Container>
+	<Container>{children}</Container>
 );
 
-export class NavBar extends Component<
-	{ leftItems: ItemProps[] | null; rightItems: ItemProps[] | null },
-	MenuProps
-> {
-	state = {
-		visible: false,
-	};
+interface NavbarProps {
+	leftItems: ItemProps[] | null;
+	rightItems: ItemProps[] | null;
+	firebase: Firebase;
+	logout: typeof logoutAction;
+	isLoggedIn: boolean;
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+	logout: () => dispatch(logoutAction),
+});
+
+const mapStateToProps = (state: any) => ({
+	isLoggedIn: state.user.isLoggedIn,
+});
+
+export class NavBarUncomposed extends Component<NavbarProps, any> {
+	constructor(props: NavbarProps) {
+		super(props);
+		this.state = {
+			visible: false,
+			redirect: false,
+		};
+	}
 
 	handlePusher = () => {
 		const { visible } = this.state;
@@ -26,6 +49,8 @@ export class NavBar extends Component<
 	render() {
 		const { children, leftItems, rightItems } = this.props;
 		const { visible } = this.state;
+
+		if (this.state.redirect === true) return <Redirect to='/' />;
 
 		return (
 			<div>
@@ -48,3 +73,8 @@ export class NavBar extends Component<
 		);
 	}
 }
+
+export const NavBar = compose<NavbarProps, any>(
+	withFirebase,
+	connect(mapStateToProps, mapDispatchToProps)
+)(NavBarUncomposed);

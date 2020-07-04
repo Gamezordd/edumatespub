@@ -1,10 +1,11 @@
 import React from 'react';
-import { Icon, Card, Image, Transition } from 'semantic-ui-react';
+import { Icon, Card, Image, Transition, Divider } from 'semantic-ui-react';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { addLike, removeLike } from '../../redux/ActionCreators';
 import { PostProps, PostState } from './types';
+import user from '../landing/assets/user.png';
 import _ from 'lodash';
 
 const dateOptions = {
@@ -88,16 +89,25 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 	render() {
 		const { post } = this.props;
 		const { name, profileImage, university } = this.state;
+		const unformatted = new Date(post.createdAt.toDate());
 		const date = new Intl.DateTimeFormat('en-us', dateOptions).format(
-			post.createdAt
+			unformatted
 		);
 		return (
 			<div id={post.id} style={{ marginTop: '5vh', padding: '5px' }}>
 				<Transition animation='slide up' visible={this.state.animationDone}>
-					<Card centered fluid style={{ maxWidth: '720px' }} raised>
+					<Card
+						centered
+						fluid
+						style={{
+							maxWidth: '720px',
+							boxShadow: '0 2px 4px 5px rgba(255,208,0,0.40)',
+						}}
+						raised
+					>
 						<Card.Content>
 							<Image
-								src={profileImage}
+								src={profileImage ? profileImage : user}
 								size='mini'
 								floated='left'
 								style={{
@@ -114,7 +124,12 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 						</Card.Content>
 						<Card.Content>
 							<Card.Header>{post.title}</Card.Header>
-							{post.files && <Image src={this.props.post.files[0]} />}
+							{post.files && (
+								<Image
+									src={this.props.post.files[0]}
+									style={{ paddingTop: '4vh', paddingBottom: '2vh' }}
+								/>
+							)}
 							<Card.Description>{post.content}</Card.Description>
 						</Card.Content>
 						<Card.Content extra>

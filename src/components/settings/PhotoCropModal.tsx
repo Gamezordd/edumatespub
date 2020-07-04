@@ -286,8 +286,12 @@ class PhotoModal extends React.Component<IProps, IState> {
 				//on error
 				console.log(error);
 			},
-			() => {
+			async () => {
 				this.setState({ uploadProgress: 100 });
+				const URL = await this.props.firebase.storage
+					.ref(`/USER/${uid}`)
+					.getDownloadURL();
+				await this.props.firebase.setProfileImage(URL);
 			}
 		);
 	}
