@@ -5,16 +5,21 @@ import { NavBarMobile } from './NavBarMobile';
 
 //Add margin above components added after NavBar
 const NavBarChildren: React.FC = ({ children }) => (
-	<Container >{children}</Container>
+	<Container>{children}</Container>
 );
 
-export class NavBar extends Component<
-	{ leftItems: ItemProps[] | null; rightItems: ItemProps[] | null },
-	MenuProps
-> {
-	state = {
-		visible: false,
-	};
+interface NavbarProps {
+	leftItems: ItemProps[] | null;
+	rightItems: ItemProps[] | null;
+}
+
+export class NavBar extends Component<NavbarProps, MenuProps> {
+	constructor(props: NavbarProps) {
+		super(props);
+		this.state = {
+			visible: false,
+		};
+	}
 
 	handlePusher = () => {
 		const { visible } = this.state;

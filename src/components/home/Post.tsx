@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Card, Image, Transition } from 'semantic-ui-react';
+import { Icon, Card, Image, Transition, Divider } from 'semantic-ui-react';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
@@ -124,7 +124,12 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 						</Card.Content>
 						<Card.Content>
 							<Card.Header>{post.title}</Card.Header>
-							{post.files && <Image src={this.props.post.files[0]} />}
+							{post.files && (
+								<Image
+									src={this.props.post.files[0]}
+									style={{ paddingTop: '4vh', paddingBottom: '2vh' }}
+								/>
+							)}
 							<Card.Description>{post.content}</Card.Description>
 						</Card.Content>
 						<Card.Content extra>

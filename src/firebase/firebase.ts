@@ -161,6 +161,13 @@ export class Firebase {
 			});
 	};
 
+	getProfileImageUrlRtdb = async (uid: string) => {
+		return await this.rtdb
+			.ref(`USER/${uid}/image`)
+			.once('value')
+			.then(url => url.val());
+	};
+
 	editFavourites = async (
 		uid: string,
 		universityIds: string[],
@@ -360,13 +367,13 @@ export class Firebase {
 	};
 
 	getChatRoom = async (target: { name: string; id: string }) => {
-		const data: any[] = [];
-		await this.rtdb
+		return await this.rtdb
 			.ref(`userChats/${this.auth.currentUser?.uid}/${target.id}`)
-			.once('value', async snapshot => {
+			.once('value')
+			.then(async snapshot => {
 				if (snapshot.exists()) {
 					console.log('Getting');
-					data.push({ userId: snapshot.key, ...snapshot.val() });
+					return { userId: snapshot.key, ...snapshot.val() };
 				} else {
 					console.log('Setting');
 					const key = (await this.rtdb.ref('chats').push()).key;
@@ -376,14 +383,14 @@ export class Firebase {
 						latest: '',
 						name: target.name,
 					};
-					await this.rtdb
+					return await this.rtdb
 						.ref(`userChats/${this.auth.currentUser?.uid}/${target.id}`)
-						.set(userChat);
-					data.push({ ...userChat, userId: target.id });
+						.set(userChat)
+						.then(a => {
+							return { ...userChat, userId: target.id };
+						});
 				}
 			});
-		console.log('In firebase', data);
-		return data[0];
 	};
 }
 

@@ -48,8 +48,6 @@ class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
 			>
 				<Card.Content>
 					<Card.Header content='Chats' />
-				</Card.Content>
-				<Card.Content>
 					<Input icon='search' style={{ width: '100%' }} />
 				</Card.Content>
 

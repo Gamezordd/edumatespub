@@ -1,4 +1,4 @@
-export { ConfigureStore } from './ConfigureStore';
+export { store, persistor } from './ConfigureStore';
 export {
 	loginAction,
 	logoutAction,
