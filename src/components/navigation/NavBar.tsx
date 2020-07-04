@@ -10,9 +10,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 //Add margin above components added after NavBar
-const NavBarChildren: React.FC = ({ children }) => (
-	<Container>{children}</Container>
-);
+const NavBarChildren: React.FC = ({ children }) => <div>{children}</div>;
 
 interface NavbarProps {
 	leftItems: ItemProps[] | null;

@@ -23,6 +23,9 @@ import {
 	Genders,
 	UserTypes,
 	Years,
+	ExtraCurricular,
+	SportsInterests,
+	SubjectInterests,
 } from './RegisterFields';
 import './allforms.css';
 import { compose } from 'recompose';
@@ -68,6 +71,9 @@ class RegistrationFormUncomposed extends React.Component<
 			experienceIndustry: { value: '' },
 			jobTitle: { value: '' },
 			description: { value: '' },
+			extraCurricular: { value: '' },
+			subjectInterests: { value: '' },
+			sportsInterests: { value: '' },
 		};
 
 		this.makeVisible();
@@ -381,6 +387,87 @@ class RegistrationFormUncomposed extends React.Component<
 														}
 													/>
 												</Form.Field>
+											</Form.Field>
+											<Form.Field>
+												<Form.Dropdown
+													placeholder='Subject Interests'
+													fluid
+													search
+													selection
+													required
+													multiple
+													options={SubjectInterests}
+													style={{
+														border: 'none',
+														borderBottom: 'solid',
+														borderBottomWidth: '1px',
+													}}
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'subjectInterests',
+																value.toString()
+															);
+														}
+													}}
+												/>
+											</Form.Field>
+											<Form.Field>
+												<Form.Dropdown
+													placeholder='Sports Interests'
+													fluid
+													search
+													selection
+													required
+													multiple
+													options={SportsInterests}
+													style={{
+														border: 'none',
+														borderBottom: 'solid',
+														borderBottomWidth: '1px',
+													}}
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'sportsInterests',
+																value.toString()
+															);
+														}
+													}}
+												/>
+											</Form.Field>
+											<Form.Field>
+												<Form.Dropdown
+													placeholder='Extra Curricular Interests'
+													fluid
+													search
+													selection
+													required
+													multiple
+													options={ExtraCurricular}
+													style={{
+														border: 'none',
+														borderBottom: 'solid',
+														borderBottomWidth: '1px',
+													}}
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'extraCurricular',
+																value.toString()
+															);
+														}
+													}}
+												/>
 											</Form.Field>
 											{this.state.degreeType.value == 'undergraduate' && (
 												<Form.Field>

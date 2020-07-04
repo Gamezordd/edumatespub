@@ -47,6 +47,9 @@ export interface RegisterState {
 
 	//student fields
 	currentInstitute: FieldState;
+	subjectInterests: FieldState;
+	sportsInterests: FieldState;
+	extraCurricular: FieldState;
 
 	//undergraduate
 	degreeType: FieldState;

@@ -44,7 +44,7 @@ export class ChatBoxUncomposed extends React.Component<
 
 	render() {
 		return (
-			<Grid>
+			<Grid centered style={{ paddingLeft: '10vh' }}>
 				<Grid.Row>
 					<ChatList selectChat={this.handleChatSelect} />
 					<Chat selectedChat={this.state.selectedChat} />
