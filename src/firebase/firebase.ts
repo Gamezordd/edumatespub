@@ -2,6 +2,7 @@ import config from '../firebaseConfig.json';
 import app, { firestore, database } from 'firebase/app';
 import React from 'react';
 import { toInteger, merge } from 'lodash';
+import firebase from 'firebase';
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/database');
@@ -27,6 +28,7 @@ export class Firebase {
 		this.db = app.firestore();
 		this.rtdb = app.database();
 		this.storage = app.storage();
+		this.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
 	}
 
 	createUserEntry = async (payload: any) => {
@@ -79,6 +81,10 @@ export class Firebase {
 				},
 				data: { ...data, ...analyticsData },
 			});
+	};
+
+	isLoggedIn = async () => {
+		return this.auth.currentUser !== null;
 	};
 
 	doCreateUserWithEmailAndPassword = async (email: string, password: string) =>

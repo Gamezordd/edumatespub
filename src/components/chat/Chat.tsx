@@ -22,6 +22,7 @@ interface ChatState {
 	isLoading: boolean;
 	firstLoadDone: boolean;
 	currentID: string | undefined;
+	authFail: boolean;
 }
 
 const mapStateToProps = (state: any) => ({
@@ -39,6 +40,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 			isLoading: false,
 			firstLoadDone: false,
 			currentID: undefined,
+			authFail: false,
 		};
 	}
 
@@ -91,6 +93,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 	};
 
 	componentDidUpdate() {
+		if (!this.props.firebase.isLoggedIn()) this.setState({ authFail: true });
 		if (this.state.currentID !== this.props.selectedChat.userId)
 			this.setState({ firstLoadDone: false });
 		if (this.state.isLoading === true) return;
@@ -128,14 +131,14 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 
 	render() {
 		const { selectedChat, isLoggedIn } = this.props;
-		const { isLoading } = this.state;
+		const { isLoading, authFail } = this.state;
 		const defaultView = (
 			<div>
 				<h3>Please Select a user</h3>
 			</div>
 		);
 
-		if (!isLoggedIn) return <Redirect to='/login' />;
+		if (!isLoggedIn || authFail) return <Redirect to='/login' />;
 
 		return (
 			<Card

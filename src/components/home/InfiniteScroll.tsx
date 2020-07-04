@@ -34,7 +34,7 @@ class InfiniteScrollUncomposed extends React.Component<
 > {
 	constructor(props: InfiniteScrollProps) {
 		super(props);
-		this.state = { hasMore: true, scroll: 0 };
+		this.state = { hasMore: true, scroll: 0, authFail: false };
 		if (this.props.lastFetched === null) {
 			this.initiate();
 		}
@@ -71,6 +71,7 @@ class InfiniteScrollUncomposed extends React.Component<
 	};
 
 	componentDidMount() {
+		if (!this.props.firebase.isLoggedIn()) this.setState({ authFail: true });
 		window.scrollTo(0, this.props.scroll);
 	}
 
@@ -79,7 +80,8 @@ class InfiniteScrollUncomposed extends React.Component<
 	}
 
 	render() {
-		if (!this.props.isLoggedIn) return <Redirect to='/login' />;
+		if (!this.props.isLoggedIn || this.state.authFail)
+			return <Redirect to='/login' />;
 		return (
 			<div
 				style={{
