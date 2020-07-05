@@ -162,7 +162,13 @@ class RegistrationFormUncomposed extends React.Component<
 		this.setState({ description: { value: value } });
 	};
 
-	syntheticEventHandler = (key: keyof RegisterState, value: string) => {
+	syntheticEventHandler = (
+		key: keyof RegisterState,
+		value: string | string[],
+		multiSelect: boolean = false
+	) => {
+		if (multiSelect) value = value.toString().split(',');
+		console.log(value);
 		this.setState({ ...this.state, ...{ [key]: { value: value } } });
 	};
 
@@ -409,7 +415,8 @@ class RegistrationFormUncomposed extends React.Component<
 														if (value !== undefined) {
 															this.syntheticEventHandler(
 																'subjectInterests',
-																value.toString()
+																value.toString(),
+																true
 															);
 														}
 													}}
@@ -436,7 +443,8 @@ class RegistrationFormUncomposed extends React.Component<
 														if (value !== undefined) {
 															this.syntheticEventHandler(
 																'sportsInterests',
-																value.toString()
+																value.toString(),
+																true
 															);
 														}
 													}}
@@ -463,7 +471,8 @@ class RegistrationFormUncomposed extends React.Component<
 														if (value !== undefined) {
 															this.syntheticEventHandler(
 																'extraCurricular',
-																value.toString()
+																value.toString(),
+																true
 															);
 														}
 													}}

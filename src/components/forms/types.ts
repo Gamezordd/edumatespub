@@ -20,7 +20,7 @@ export interface FieldError {
 }
 
 export interface FieldState {
-	value: string | boolean;
+	value: string | boolean | string[];
 	error?: FieldError | false;
 }
 
