@@ -183,7 +183,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 						)}
 					</Card.Header>
 				</Card.Content>
-				<Card.Content style={{ overflow: 'auto' }}>
+				<Card.Content ref={this.messagesRef} style={{ overflow: 'auto' }}>
 					{selectedChat
 						? this.state.messages.map(message => (
 								<ChatMessage
