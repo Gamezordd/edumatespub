@@ -50,6 +50,8 @@ export interface RegisterState {
 	subjectInterests: FieldState;
 	sportsInterests: FieldState;
 	extraCurricular: FieldState;
+	supportAnswer: FieldState;
+	potentialAnswer: FieldState;
 
 	//undergraduate
 	degreeType: FieldState;

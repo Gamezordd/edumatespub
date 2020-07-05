@@ -71,9 +71,11 @@ class RegistrationFormUncomposed extends React.Component<
 			experienceIndustry: { value: '' },
 			jobTitle: { value: '' },
 			description: { value: '' },
-			extraCurricular: { value: '' },
-			subjectInterests: { value: '' },
-			sportsInterests: { value: '' },
+			extraCurricular: { value: [] },
+			subjectInterests: { value: [] },
+			sportsInterests: { value: [] },
+			supportAnswer: { value: '' },
+			potentialAnswer: { value: '' },
 		};
 
 		this.makeVisible();
@@ -593,6 +595,41 @@ class RegistrationFormUncomposed extends React.Component<
 														</Form.Field>
 													</Form.Field>
 												))}
+											<Form.Field>
+												How do you see yourself leveraging your potential in the
+												University?
+												<TextArea
+													placeholder='Answer here'
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'potentialAnswer',
+																value.toString()
+															);
+														}
+													}}
+												/>
+											</Form.Field>
+											<Form.Field>
+												How can the University best support you?
+												<TextArea
+													placeholder='Answer here'
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'supportAnswer',
+																value.toString()
+															);
+														}
+													}}
+												/>
+											</Form.Field>
 										</div>
 									)}
 									<Button
