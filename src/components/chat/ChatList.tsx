@@ -10,11 +10,26 @@ import _ from 'lodash';
 interface ChatListProps {
 	firebase: Firebase;
 	selectChat: (chat: any) => void;
+	isMobile: boolean;
 }
 
 interface ChatListState {
 	chats: any[];
 }
+
+const desktopStyle = {
+	marginTop: '20vh',
+	height: '70vh',
+	width: '30%',
+	overflowX: 'hidden',
+};
+
+const mobileStyle = {
+	marginTop: '20vh',
+	height: '70vh',
+	width: '30%',
+	overflowX: 'hidden',
+};
 
 class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
 	constructor(props: ChatListProps) {
@@ -37,15 +52,9 @@ class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
 	}
 
 	render() {
+		const { isMobile } = this.props;
 		return (
-			<Card
-				style={{
-					marginTop: '20vh',
-					height: '70vh',
-					width: '30%',
-					overflowX: 'hidden',
-				}}
-			>
+			<Card style={isMobile ? mobileStyle : desktopStyle}>
 				<Card.Content>
 					<Card.Header content='Chats' />
 					<Input icon='search' style={{ width: '100%' }} />

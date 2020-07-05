@@ -14,6 +14,8 @@ interface ChatProps {
 	firebase: Firebase;
 	name: string;
 	isLoggedIn: boolean;
+	isMobile: boolean;
+	clearChat?: () => void;
 }
 
 interface ChatState {
@@ -24,6 +26,21 @@ interface ChatState {
 	currentID: string | undefined;
 	authFail: boolean;
 }
+
+const desktopStyle = {
+	marginTop: '20vh',
+	maxHeight: '70vh',
+	width: '60%',
+	overflow: 'auto',
+};
+
+const mobileStyle = {
+	marginTop: '20vh',
+	maxHeight: '70vh',
+	height: '95%',
+	width: '95%',
+	overflow: 'auto',
+};
 
 const mapStateToProps = (state: any) => ({
 	name: state.user.details.name,
@@ -130,7 +147,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 	};
 
 	render() {
-		const { selectedChat, isLoggedIn } = this.props;
+		const { selectedChat, isLoggedIn, isMobile, clearChat } = this.props;
 		const { isLoading, authFail } = this.state;
 		const defaultView = (
 			<div>
@@ -141,21 +158,24 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 		if (!isLoggedIn || authFail) return <Redirect to='/login' />;
 
 		return (
-			<Card
-				style={{
-					marginTop: '20vh',
-					maxHeight: '70vh',
-					width: '60%',
-					overflow: 'auto',
-				}}
-				centered
-			>
+			<Card style={isMobile ? mobileStyle : desktopStyle} centered>
 				<Dimmer active={isLoading} inverted>
 					<Loader content='Fetching messages!' inverted />
 				</Dimmer>
 				<Card.Content style={{ maxHeight: '10vh' }}>
 					<Card.Header style={{ padding: 0 }}>
 						{selectedChat ? selectedChat.name : null}{' '}
+						{/* Button only rendered for phones allowing user to return to chat list */}
+						{isMobile && (
+							<Button
+								circular
+								floated='right'
+								icon='arrow left'
+								onClick={() => {
+									if (clearChat) clearChat();
+								}}
+							/>
+						)}
 					</Card.Header>
 				</Card.Content>
 				<Card.Content ref={this.messagesRef} style={{ overflow: 'auto' }}>
