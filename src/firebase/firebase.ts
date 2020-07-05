@@ -1,7 +1,6 @@
 import config from '../firebaseConfig.json';
 import app, { firestore, database } from 'firebase/app';
 import React from 'react';
-import { toInteger, merge } from 'lodash';
 import firebase from 'firebase';
 require('firebase/auth');
 require('firebase/firestore');
@@ -28,7 +27,7 @@ export class Firebase {
 		this.db = app.firestore();
 		this.rtdb = app.database();
 		this.storage = app.storage();
-		this.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+		this.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 	}
 
 	createUserEntry = async (payload: any) => {

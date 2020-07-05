@@ -62,7 +62,7 @@ export class ChatBoxUncomposed extends React.Component<
 					</div>
 				</Responsive>
 				<Responsive minWidth={Responsive.onlyTablet.minWidth}>
-					<Grid centered style={{ paddingLeft: '10vh' }}>
+					<Grid centered style={{ paddingLeft: '8vh' }}>
 						<Grid.Row>
 							<ChatList selectChat={this.handleChatSelect} />
 							<Chat selectedChat={this.state.selectedChat} />

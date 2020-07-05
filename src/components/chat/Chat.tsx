@@ -1,5 +1,13 @@
 import React from 'react';
-import { Card, Dimmer, Loader, Input, Button, Form } from 'semantic-ui-react';
+import {
+	Card,
+	Dimmer,
+	Loader,
+	Input,
+	Button,
+	Form,
+	MessageList,
+} from 'semantic-ui-react';
 import './allstyle.css';
 import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
@@ -35,8 +43,8 @@ const desktopStyle = {
 };
 
 const mobileStyle = {
-	marginTop: '10vh',
-	maxHeight: '70vh',
+	marginTop: '15vh',
+	maxHeight: '85vh',
 	height: '120%',
 	width: '95%',
 	overflow: 'auto',
@@ -60,8 +68,6 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 			authFail: false,
 		};
 	}
-
-	messagesRef = React.createRef<HTMLDivElement>();
 
 	inititate = async () => {
 		console.log('Load initiate', this.props.selectedChat);
@@ -104,9 +110,9 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 
 	scrollToBottom = () => {
 		// this.chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-		this.messagesRef.current?.scrollTo({
-			top: this.messagesRef.current.clientHeight,
-		});
+		const messages = document.getElementById('messages');
+		const height = messages?.scrollHeight;
+		messages?.scrollTo(0, height ? height : 0);
 	};
 
 	loadHandler = () => {
@@ -128,6 +134,14 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 
 	componentDidUpdate() {
 		this.loadHandler();
+		const messages = document.getElementById('messages');
+		if (
+			(messages?.scrollHeight ? messages.scrollHeight : 0) -
+				(messages?.scrollTop ? messages.scrollTop : 0) <
+			500
+		) {
+			this.scrollToBottom();
+		}
 	}
 
 	async componentDidMount() {
@@ -183,7 +197,10 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 						)}
 					</Card.Header>
 				</Card.Content>
-				<Card.Content ref={this.messagesRef} style={{ overflow: 'auto' }}>
+				<Card.Content
+					id='messages'
+					style={{ overflow: 'auto', minHeight: '50vh' }}
+				>
 					{selectedChat
 						? this.state.messages.map(message => (
 								<ChatMessage
@@ -198,7 +215,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 					<Card.Content style={{ maxHeight: '10vh' }}>
 						<Form>
 							<Input
-								style={{ width: '70%' }}
+								style={{ width: '90%' }}
 								onChange={this.handleOnChange}
 								placeholder='Message'
 								value={this.state.newMessage ? this.state.newMessage : ''}
@@ -206,12 +223,10 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 							<Button
 								floated='right'
 								icon='send'
-								labelPosition='left'
-								content='Send'
+								circular
 								onClick={e => {
 									this.sendMessage();
 								}}
-								style={{ width: '15%' }}
 							/>
 						</Form>
 					</Card.Content>
