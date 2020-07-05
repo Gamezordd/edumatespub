@@ -53,7 +53,6 @@ class ChatListEntryUncomposed extends React.Component<
 	};
 	render() {
 		const { chatDetails } = this.props;
-		console.log(chatDetails.lastActive);
 		const unformatted = new Date(chatDetails.lastActive);
 		const date = new Intl.DateTimeFormat('en-us', dateOptions).format(
 			unformatted

@@ -35,9 +35,9 @@ const desktopStyle = {
 };
 
 const mobileStyle = {
-	marginTop: '20vh',
+	marginTop: '10vh',
 	maxHeight: '70vh',
-	height: '95%',
+	height: '100%',
 	width: '95%',
 	overflow: 'auto',
 };
@@ -64,6 +64,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 	messagesRef = React.createRef<HTMLDivElement>();
 
 	inititate = async () => {
+		console.log('Load initiate', this.props.selectedChat);
 		if (this.props.selectedChat === undefined) return;
 		this.setState({ ...this.state, ...{ isLoading: true } });
 		await this.props.firebase
@@ -103,13 +104,12 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 
 	scrollToBottom = () => {
 		// this.chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-		console.log(this.messagesRef.current?.scrollTop);
 		this.messagesRef.current?.scrollTo({
 			top: this.messagesRef.current.clientHeight,
 		});
 	};
 
-	componentDidUpdate() {
+	loadHandler = () => {
 		if (!this.props.firebase.isLoggedIn()) this.setState({ authFail: true });
 		if (this.state.currentID !== this.props.selectedChat.userId)
 			this.setState({ firstLoadDone: false });
@@ -124,9 +124,14 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 			this.inititate();
 			this.setState({ currentID: selectedChat.userId });
 		}
+	};
+
+	componentDidUpdate() {
+		this.loadHandler();
 	}
 
 	async componentDidMount() {
+		this.loadHandler();
 		this.scrollToBottom();
 	}
 
@@ -178,7 +183,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 						)}
 					</Card.Header>
 				</Card.Content>
-				<Card.Content ref={this.messagesRef} style={{ overflow: 'auto' }}>
+				<Card.Content style={{ overflow: 'auto' }}>
 					{selectedChat
 						? this.state.messages.map(message => (
 								<ChatMessage

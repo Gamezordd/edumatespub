@@ -266,7 +266,6 @@ export class Firebase {
 				snapshot.forEach(child => {
 					data.push({ ...{ id: child.key }, ...child.val() });
 				});
-				console.log('Fetched chat', data);
 				return data;
 			});
 	};
