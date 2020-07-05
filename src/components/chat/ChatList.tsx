@@ -26,7 +26,7 @@ const desktopStyle = {
 
 const mobileStyle = {
 	marginTop: '15vh',
-	height: '70vh',
+	height: '80vh',
 	width: '95%',
 	overflowX: 'hidden',
 };

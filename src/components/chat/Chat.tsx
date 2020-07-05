@@ -37,7 +37,7 @@ const desktopStyle = {
 const mobileStyle = {
 	marginTop: '10vh',
 	maxHeight: '70vh',
-	height: '100%',
+	height: '120%',
 	width: '95%',
 	overflow: 'auto',
 };
@@ -198,7 +198,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 					<Card.Content style={{ maxHeight: '10vh' }}>
 						<Form>
 							<Input
-								style={{ width: '75%' }}
+								style={{ width: '70%' }}
 								onChange={this.handleOnChange}
 								placeholder='Message'
 								value={this.state.newMessage ? this.state.newMessage : ''}
@@ -211,7 +211,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 								onClick={e => {
 									this.sendMessage();
 								}}
-								style={{ width: '20%' }}
+								style={{ width: '15%' }}
 							/>
 						</Form>
 					</Card.Content>
