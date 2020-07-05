@@ -110,6 +110,7 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 	};
 
 	loadHandler = () => {
+		if (this.props.selectedChat === undefined) return;
 		if (!this.props.firebase.isLoggedIn()) this.setState({ authFail: true });
 		if (this.state.currentID !== this.props.selectedChat.userId)
 			this.setState({ firstLoadDone: false });
@@ -117,7 +118,6 @@ class ChatComponent extends React.Component<ChatProps, ChatState> {
 		const { selectedChat } = this.props;
 		if (
 			!this.state.firstLoadDone &&
-			selectedChat !== undefined &&
 			(this.state.messages.length === 0 ||
 				this.state.currentID != selectedChat.userId)
 		) {
