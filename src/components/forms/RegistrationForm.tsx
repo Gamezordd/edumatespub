@@ -26,6 +26,7 @@ import {
 	ExtraCurricular,
 	SportsInterests,
 	SubjectInterests,
+	RadioQuestions,
 } from './RegisterFields';
 import './allforms.css';
 import { compose } from 'recompose';
@@ -35,6 +36,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../landing/assets/logo2.png';
 import { Link } from 'react-router-dom';
+import { RadioGroups } from './RadioGroups';
 
 const validateURL = `https://us-central1-mpfirebaseproject-7ff28.cloudfunctions.net/api/tokens/validate/`;
 
@@ -76,6 +78,15 @@ class RegistrationFormUncomposed extends React.Component<
 			sportsInterests: { value: [] },
 			supportAnswer: { value: '' },
 			potentialAnswer: { value: '' },
+			universityRank: { value: '' },
+			universityLocation: { value: '' },
+			coursesApplying: { value: '' },
+			sportsFacilities: { value: '' },
+			societiesOffered: { value: '' },
+			enterpriseOpportunities: { value: '' },
+			overallExperience: { value: '' },
+			networkingOpportunities: { value: '' },
+			desiredPopulation: { value: '' },
 		};
 
 		this.makeVisible();
@@ -154,6 +165,11 @@ class RegistrationFormUncomposed extends React.Component<
 				},
 			});
 		}
+	};
+
+	handler = (key: keyof RegisterState, val: any) => {
+		console.log('Value is:' + val);
+		this.setState({ ...this.state, ...{ [key]: { value: val } } });
 	};
 
 	descriptionHandler = (e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -504,100 +520,110 @@ class RegistrationFormUncomposed extends React.Component<
 													</Form.Field>
 												</Form.Field>
 											)}
-											{this.state.degreeType.value == 'postgraduate' ||
-												(this.state.degreeType.value == 'phd' && (
+											{this.state.degreeType.value !== 'undergraduate' && (
+												<Form.Field>
 													<Form.Field>
-														<Form.Field>
-															<Input
-																placeholder='Work Experience'
-																name='workExperience'
-																icon='envelope open'
-																iconPosition='left'
-																required
-																onChange={(
-																	event: React.SyntheticEvent<HTMLElement>,
-																	{ value }
-																) => {
-																	if (value !== undefined) {
-																		this.syntheticEventHandler(
-																			'workExperience',
-																			value.toString()
-																		);
-																	}
-																}}
-															></Input>
-														</Form.Field>
-														<Form.Field>
-															<Form.Dropdown
-																placeholder='Years of Experience:'
-																fluid
-																search
-																selection
-																required
-																options={Years}
-																style={{
-																	border: 'none',
-																	borderBottom: 'solid',
-																	borderBottomWidth: '1px',
-																}}
-																onChange={(
-																	event: React.SyntheticEvent<HTMLElement>,
-																	{ value }
-																) => {
-																	if (value !== undefined) {
-																		this.syntheticEventHandler(
-																			'experienceYears',
-																			value.toString()
-																		);
-																	}
-																}}
-															/>
-														</Form.Field>
-														<Form.Field>
-															<Input
-																placeholder='Industry Worked In'
-																name='industry'
-																icon='industry'
-																iconPosition='left'
-																required
-																onChange={(
-																	event: React.SyntheticEvent<HTMLElement>,
-																	{ value }
-																) => {
-																	if (value !== undefined) {
-																		this.syntheticEventHandler(
-																			'experienceIndustry',
-																			value.toString()
-																		);
-																	}
-																}}
-															></Input>
-														</Form.Field>
-														<Form.Field>
-															<Input
-																placeholder='Job Title'
-																name='jobTitle'
-																icon='vcard'
-																iconPosition='left'
-																required
-																onChange={(
-																	event: React.SyntheticEvent<HTMLElement>,
-																	{ value }
-																) => {
-																	if (value !== undefined) {
-																		this.syntheticEventHandler(
-																			'jobTitle',
-																			value.toString()
-																		);
-																	}
-																}}
-															></Input>
-														</Form.Field>
+														<Input
+															placeholder='Work Experience'
+															name='workExperience'
+															icon='envelope open'
+															iconPosition='left'
+															required
+															onChange={(
+																event: React.SyntheticEvent<HTMLElement>,
+																{ value }
+															) => {
+																if (value !== undefined) {
+																	this.syntheticEventHandler(
+																		'workExperience',
+																		value.toString()
+																	);
+																}
+															}}
+														></Input>
 													</Form.Field>
-												))}
+													<Form.Field>
+														<Form.Dropdown
+															placeholder='Years of Experience:'
+															fluid
+															search
+															selection
+															required
+															options={Years}
+															style={{
+																border: 'none',
+																borderBottom: 'solid',
+																borderBottomWidth: '1px',
+															}}
+															onChange={(
+																event: React.SyntheticEvent<HTMLElement>,
+																{ value }
+															) => {
+																if (value !== undefined) {
+																	this.syntheticEventHandler(
+																		'experienceYears',
+																		value.toString()
+																	);
+																}
+															}}
+														/>
+													</Form.Field>
+													<Form.Field>
+														<Input
+															placeholder='Industry Worked In'
+															name='industry'
+															icon='industry'
+															iconPosition='left'
+															required
+															onChange={(
+																event: React.SyntheticEvent<HTMLElement>,
+																{ value }
+															) => {
+																if (value !== undefined) {
+																	this.syntheticEventHandler(
+																		'experienceIndustry',
+																		value.toString()
+																	);
+																}
+															}}
+														></Input>
+													</Form.Field>
+													<Form.Field>
+														<Input
+															placeholder='Job Title'
+															name='jobTitle'
+															icon='vcard'
+															iconPosition='left'
+															required
+															onChange={(
+																event: React.SyntheticEvent<HTMLElement>,
+																{ value }
+															) => {
+																if (value !== undefined) {
+																	this.syntheticEventHandler(
+																		'jobTitle',
+																		value.toString()
+																	);
+																}
+															}}
+														></Input>
+													</Form.Field>
+												</Form.Field>
+											)}
+											{RadioQuestions.map(question => (
+												<div className='radioQuestion'>
+													<b>{question.ques}</b>
+													<RadioGroups
+														handler={this.handler}
+														fieldname={question.key}
+													/>
+												</div>
+											))}
 											<Form.Field>
-												How do you see yourself leveraging your potential in the
-												University?
+												<b>
+													How do you see yourself leveraging your potential in
+													the University?
+												</b>
 												<TextArea
 													placeholder='Answer here'
 													onChange={(
@@ -614,7 +640,7 @@ class RegistrationFormUncomposed extends React.Component<
 												/>
 											</Form.Field>
 											<Form.Field>
-												How can the University best support you?
+												<b>How can the University best support you?</b>
 												<TextArea
 													placeholder='Answer here'
 													onChange={(

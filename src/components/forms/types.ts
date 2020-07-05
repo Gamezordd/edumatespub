@@ -50,8 +50,6 @@ export interface RegisterState {
 	subjectInterests: FieldState;
 	sportsInterests: FieldState;
 	extraCurricular: FieldState;
-	supportAnswer: FieldState;
-	potentialAnswer: FieldState;
 
 	//undergraduate
 	degreeType: FieldState;
@@ -70,6 +68,19 @@ export interface RegisterState {
 	university: FieldState;
 	course: FieldState;
 	description: FieldState;
+
+	//questionnaire
+	universityRank: FieldState;
+	universityLocation: FieldState;
+	coursesApplying: FieldState;
+	sportsFacilities: FieldState;
+	societiesOffered: FieldState;
+	enterpriseOpportunities: FieldState;
+	overallExperience: FieldState;
+	networkingOpportunities: FieldState;
+	desiredPopulation: FieldState;
+	supportAnswer: FieldState;
+	potentialAnswer: FieldState;
 
 	//UI states
 	redirect: FieldState;

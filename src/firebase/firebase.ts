@@ -51,8 +51,19 @@ export class Firebase {
 			experienceIndustry,
 			jobTitle,
 			description,
+			universityRank,
+			universityLocation,
+			coursesApplying,
+			sportsFacilities,
+			societiesOffered,
+			enterpriseOpportunities,
+			overallExperience,
+			networkingOpportunities,
+			desiredPopulation,
+			potentialAnswer,
+			supportAnswer,
 		} = payload;
-		const analyticsData = isAmbassador
+		const extraData = isAmbassador
 			? { description }
 			: degreeType === 'undergraduate'
 			? { degreeType, undergradCourse }
@@ -76,9 +87,26 @@ export class Firebase {
 					phone: phone.value,
 					country: country.value,
 					isAmbassador: isAmbassador.value,
-					favouriteUnis: isAmbassador.value ? [universityId.value] : [],
+					favouriteUnis: isAmbassador.value
+						? [universityId.value, 'edumatesReps']
+						: ['edumatesStudent'],
 				},
-				data: { ...data, ...analyticsData },
+				data: { ...data, ...extraData },
+				analyticsData: isAmbassador
+					? {}
+					: {
+							universityRank,
+							universityLocation,
+							coursesApplying,
+							sportsFacilities,
+							societiesOffered,
+							enterpriseOpportunities,
+							overallExperience,
+							networkingOpportunities,
+							desiredPopulation,
+							potentialAnswer,
+							supportAnswer,
+					  },
 			});
 	};
 
