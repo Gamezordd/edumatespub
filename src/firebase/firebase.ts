@@ -109,6 +109,19 @@ export class Firebase {
 							supportAnswer,
 					  },
 			});
+		const entryData = isAmbassador
+			? { name, university, universityId, course, description, image: '' }
+			: { name, image: '' };
+		await this.createRtdbUserEntry(uid, entryData);
+		if (isAmbassador) await this.createAmbassadorEntry(universityId, uid, type);
+	};
+
+	createRtdbUserEntry = async (uid: any, data: any) => {
+		await this.rtdb.ref(`/USER/${uid}`).set(data);
+	};
+
+	createAmbassadorEntry = async (universityId: any, uid: any, type: any) => {
+		await this.rtdb.ref(`ambassadors/${universityId}/${uid}`).set(type);
 	};
 
 	isLoggedIn = async () => {
