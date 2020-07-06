@@ -4,7 +4,8 @@ button {
   border:none;
   text-align:center;
   font-size:400%;
-  padding: 4% 13%;
+ width :240px;
+ height:35px;
   border-radius:4px;
   
 
@@ -16,6 +17,14 @@ button:hover {
 .buttontext {
   font-size:150%;
   color:white;
+}
+
+.playstorel {
+  width:120px;
+}
+
+.appstorel {
+  width:120px;
 }
 
 
@@ -77,8 +86,9 @@ background-repeat: no-repeat;
   font-size: 190%;
   font-weight: 300%;
   
-  color:white;
   
+  font-family:"century gothic";
+  color:black;
  
  
   font-style: bold;
@@ -182,15 +192,7 @@ display: block;
         
 }
 
-.playstore{
-  width: 40% ;
-  margin-left: 59%;
-}
 
-.appstore {
-  width:35%;
-  margin-left : 62%;
-}
 
 
 ul li{
@@ -226,7 +228,7 @@ h5 {
 
 
 .Mediaimg {
-  width:25%;
+  width:22%;
   padding-right:10%;
 }
 
@@ -235,6 +237,20 @@ h5 {
 
 
 @media screen and (max-width:700px) {
+
+  .playstorel {
+    width:45%;
+
+  }
+
+  .appstorel {
+    width:44%;
+  }
+  
+
+  .buttontext {
+    font-size:50%;
+  }
 
 
   .Appimage{
@@ -326,7 +342,10 @@ h5 {
     width:70%;
   }
 
+  
+
   .contact  {
+
     font-size: 150%;
   }
 }
@@ -337,6 +356,9 @@ h5 {
     font-size:110%;
   
   }
+
+  .buttontext {
+  font-size:100%; }
 
 
   
@@ -352,6 +374,34 @@ h5 {
 
 }
 
+@media (max-width:800px) and (min-width:640px){
+  .appstorel {
+    width:80px;
+  }
+
+  .playstorel {
+    width:80px;
+  }
+
+  button {
+    width:160px;
+  }
+}
+
+@media (max-width:649px) and (min-width:400px){
+  .appstorel {
+    width:50px; }
+  
+  .playstorel {
+    width:50px;
+  }
+
+  button {
+    width:100px;
+    height:18px;
+  }
+}
+
 
 @media screen and (min-width:1000px) {
 
@@ -362,6 +412,10 @@ h5 {
 .add {
   font-size:140% ;
 }
+
+
+
+
 }
 
 
