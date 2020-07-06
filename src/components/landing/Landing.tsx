@@ -14,6 +14,7 @@ import linkedin from './assets/clinkedin.png';
 import applestore from './assets/appledownload.png';
 import chat from './assets/loginside2.png';
 import './Landing.css';
+import { Link } from 'react-router-dom';
 
 export const LandingPage: React.FC<{}> = ({}) => (
 	<div>
@@ -40,9 +41,11 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row className='play'>
-						<button>
-							<p className='buttontext'>Get started today</p>
-						</button>
+						<Link to='/register'>
+							<button>
+								<p className='buttontext'>Get started today</p>
+							</button>
+						</Link>
 					</Grid.Row>
 					<Grid.Row className='hidden'>..</Grid.Row>
 					<Grid.Row className='play'>
