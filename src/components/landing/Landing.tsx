@@ -10,9 +10,9 @@ import informeddecision from './assets/Onboarding-amico.svg';
 import easyprocess from './assets/Select-amico.svg';
 import infosource from './assets/Setup Analytics-pana.svg'
 import symbol from './assets/orangelogo.jpeg';
-import insta from './assets/instagram.png';
-import facebook from './assets/facebook.png';
-import linkedin from './assets/linkedin.png';
+import insta from './assets/cinstagram.png';
+import facebook from './assets/cfacebook.png';
+import linkedin from './assets/clinkedin.png';
 import applestore from './assets/appledownload.png'
 import chat from './assets/loginside2.png';
 import './Landing.css'; 
@@ -46,9 +46,9 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					<Grid.Row className='hidden'>..</Grid.Row>
 					<Grid.Row className='play'>
 						{' '}
-						<img src={pic} className='playstore' />{' '}
+						<img src={pic} className='playstorel'  />{' '}
 					
-						<img src={applestore} className='appstore' />{' '}
+						<img src={applestore} className='appstorel' />{' '}
 					</Grid.Row>{' '}
 					
 
