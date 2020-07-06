@@ -1,15 +1,41 @@
-.EduMates{
+button {
+  color:white;
+  background-color:black;
+  border:none;
+  text-align:center;
   font-size:400%;
+ width :240px;
+ height:35px;
+  border-radius:4px;
+  
+
+}
+button:hover {
+  background-color: #f95700db;
+}
+
+.buttontext {
+  font-size:150%;
   color:white;
 }
+
+.playstorel {
+  width:120px;
+}
+
+.appstorel {
+  width:120px;
+}
+
+
 .endadd{
   color:white;
   font-size:100%;
 }
 .endquote {
   color:white;
-  font-family:"helvetica neue";
-  font-size:200%;
+  font-family:"century gothic";
+  font-size:250%;
   font-weight:bold;
 }
 
@@ -25,7 +51,7 @@ font-size: 150%;
 }
 
 .bannertop{
-  background: linear-gradient(to bottom,#f95700ff,#ffcf76);
+  background: linear-gradient(to bottom,#f95700db,#ffffff);
   color: #fff;
   padding: 20%;
 
@@ -50,13 +76,6 @@ background:url('./assets/wave1.png');
 background-size: cover;
 background-repeat: no-repeat;
 
-
-}
-
-
-.Media{
-  background-color: whitesmoke;
-  
 }
 
 .play {
@@ -67,8 +86,9 @@ background-repeat: no-repeat;
   font-size: 190%;
   font-weight: 300%;
   
-  color:white;
   
+  font-family:"century gothic";
+  color:black;
  
  
   font-style: bold;
@@ -89,9 +109,6 @@ background-repeat: no-repeat;
 
 
 
-.whatwedo {
-  background-color: whitesmoke;
-}
 
 
 
@@ -101,12 +118,8 @@ background-repeat: no-repeat;
   text-align: center;
   margin:43%;
  
- 
- 
 
- }
-
- 
+ } 
 
  .title{
  content:'';
@@ -128,14 +141,13 @@ h5{
  
 }
 
-h4{
-  padding: 30%;
-  
+.subhead{
+   
   margin-top: 30%;
   margin-left: 1%;
   margin-right:1%;
   text-transform: uppercase;
-  font-size: 200%;
+  font-size: 150%;
   text-align: center;
   
   margin-left: auto;
@@ -152,7 +164,7 @@ font-style: normal;
 }
 
 .whatwedo {
-width:14vw;
+width:60%;
 margin-left: auto;
 margin-right: auto;
 display: block;
@@ -174,35 +186,14 @@ display: block;
 .Appimage{
     margin-top:10%;
     margin-left: 30%;
-    width:70%;
+    width:50%;
     margin-bottom: 0;
-    
-    
-    
-    
-}
-
-.playstore{
-  width: 40% ;
-  margin-left: 59%;
-}
-
-.appstore {
-  width:35%;
-  margin-left : 62%;
+       
+        
 }
 
 
 
- .social-icons :hover img{
-   transform: translateY(-20%);
-}
-
-.social-icons {
-  background-color: whitesmoke;
-  
-  
-}
 
 ul li{
   margin:7% 0;
@@ -210,24 +201,18 @@ ul li{
 
 }
 .list {
-  font-size:1.75vw;
+  font-size:120%;
   
   
 }
 
-.Endthing {
-  width:100%;
-  font-size: 2.5vw;
-}
 
-.Userimage{
-  width:8vw;
-}
+
 
 
 
 .descwedo {
-  font-size: 1.5vw;
+  font-size: 100%;
   text-align: center;
 
 }
@@ -240,28 +225,32 @@ h5 {
   color: black;
   font-size: 2.5vw;
 }
-.Testimonial {
-  font-size: 2.5vw;
-}
+
 
 .Mediaimg {
-  width:25%;
+  width:22%;
   padding-right:10%;
 }
 
-
-.honescreenuserimg{
-  height:5%;
-}
-
-.Button {
-  font-size : 2vw;
-}
 
 
 
 
 @media screen and (max-width:700px) {
+
+  .playstorel {
+    width:45%;
+
+  }
+
+  .appstorel {
+    width:44%;
+  }
+  
+
+  .buttontext {
+    font-size:50%;
+  }
 
 
   .Appimage{
@@ -272,12 +261,7 @@ h5 {
     margin-bottom: 0;
     
     
-    
-    
-}
-.EduMates {
-  font-size:200%;
-}
+  }
 
 
 .title {
@@ -294,7 +278,7 @@ h5 {
 }
 
 .endquote {
-  font-size:100%;
+  font-size:130%;
 }
 
   h1 {
@@ -307,7 +291,7 @@ h5 {
   }
   
     .descwedo {
-    font-size: 100%;
+    font-size: 120%;
   }
  
  
@@ -320,14 +304,14 @@ h5 {
     font-size:70%;
   }
   .Phone{
-  padding-right:12vw;
+  padding-right:40%;
   padding-left:1vw;
   }
   
 
 
     .Phone {
-      width:65%;
+      width:40%;
       align-self: center;
       padding-left: 5% ;
       padding-right: 5% ;
@@ -337,9 +321,7 @@ h5 {
       width: 40%;
     }
 
-    .SMtitle{
-      font-size:130%;
-    }
+    
  
     .promo-title{
       font-size:100%;
@@ -357,10 +339,13 @@ h5 {
 
 @media screen and (max-width:1200px) {
   .Phone{
-    width:85%;
+    width:70%;
   }
 
+  
+
   .contact  {
+
     font-size: 150%;
   }
 }
@@ -372,23 +357,14 @@ h5 {
   
   }
 
+  .buttontext {
+  font-size:100%; }
 
-  .Testimonial {
-    font-size: 1.5vw;
 
-  }
   
-  .Endthing {
-    width:100%;
-    font-size: 1.5vw;
-  }
-
-  .Testiomonialmobile{
-    display:none;
-  }
 
   .Phone {
-    width:130%;
+    width:90%;
     padding-left:30%;
   }
 
@@ -398,8 +374,36 @@ h5 {
 
 }
 
+@media (max-width:800px) and (min-width:640px){
+  .appstorel {
+    width:80px;
+  }
 
-@media screen and (min-width:100px) {
+  .playstorel {
+    width:80px;
+  }
+
+  button {
+    width:160px;
+  }
+}
+
+@media screen and (max-width:649px) {
+  .appstorel {
+    width:40px; }
+  
+  .playstorel {
+    width:40px;
+  }
+
+  button {
+    width:80px;
+    height:18px;
+  }
+}
+
+
+@media screen and (min-width:1000px) {
 
 .promo-title {
   padding-bottom:10% ;
@@ -408,6 +412,23 @@ h5 {
 .add {
   font-size:140% ;
 }
+
+
+
+
+}
+
+
+@media (max-width:690px) and (min-width:501px) {
+  .add {
+    font-size:100%;
+  }
+
+  .promo-title {
+    padding-bottom : 20%;
+  }
+
+  
 }
 
 @media (max-width:1299px) and (min-width:1199px) {
@@ -415,25 +436,14 @@ h5 {
   font-size:170%;
 }
 .promo-title{
-  padding-bottom:15%;
+  padding-bottom:25%;
+  font-size:300%;
 }
 }
-
-
-
-
-
-
-
-
 
 
 @media screen and (min-width:1300px) {
 
-  .Testimonial {
-    font-size: 1.5vw;
-
-  }
 
   .bannertop:before{
     height:6%;
@@ -444,12 +454,8 @@ h5 {
     font-size: 1.5vw;
   }
 
-  .Testiomonialmobile{
-    display:none;
-  }
-
   .Phone {
-    width:190%;
+    width:140%;
     padding-left:30%;
   }
 
@@ -465,12 +471,8 @@ h5 {
    font-size:450%;
  }
 
- .Button {
-  font-size: 200%;
-}
-
 .descwedo {
-  font-size: 1vw;
+  font-size: 140%;
   
 }
 
