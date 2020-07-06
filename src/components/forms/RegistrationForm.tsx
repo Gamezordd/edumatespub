@@ -54,7 +54,7 @@ class RegistrationFormUncomposed extends React.Component<
 			gender: { value: '' },
 			phone: { value: '', error: false },
 			country: { value: '' },
-			isAmbassador: { value: false },
+			isAmbassador: { value: true },
 			code: { value: '', error: false },
 			type: { value: '', error: false },
 			universityId: { value: '', error: false },
@@ -191,8 +191,17 @@ class RegistrationFormUncomposed extends React.Component<
 	};
 
 	handleRole = (value: string) => {
-		const val = value === 'ambassador' ? true : false;
-		this.setState({ ...this.state, ...{ isAmbassador: { value: val } } });
+		console.log(value);
+		if (value === 'student') {
+			this.setState({
+				showError: { value: true },
+				errorMessage: {
+					value:
+						'We will be starting registrations for students soon! please stay tuned. You can use your unique code to Sign up as an ambassador. Stay safe!',
+				},
+			});
+		}
+		console.log(this.state);
 	};
 
 	getError = (key: keyof RegisterState) => this.state[key].error;
@@ -310,6 +319,8 @@ class RegistrationFormUncomposed extends React.Component<
 										selection
 										required
 										options={UserTypes}
+										value='ambassador' //hardcoded for beta to prevent student registrations
+										text='Ambassador'
 										style={{
 											border: 'none',
 											borderBottom: 'solid',
@@ -663,13 +674,13 @@ class RegistrationFormUncomposed extends React.Component<
 										onClick={() => this.handleSubmit()}
 										className='btn'
 										color='orange'
-										style={{ width: '100%' }}
+										style={{ width: '100%', marginTop: '5vh' }}
 									/>
 								</div>
 							)}
 							{this.state.showError.value && (
 								<Card fluid style={{ padding: '10px' }}>
-									<p style={{ color: 'red' }}>
+									<p style={{ color: 'red', fontSize: '1.2rem' }}>
 										{this.state.errorMessage.value}
 									</p>
 								</Card>

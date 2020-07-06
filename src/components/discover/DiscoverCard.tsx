@@ -5,7 +5,15 @@ import { descriptionLength, uniImagePlaceholder } from './constants';
 import { UniversityPostsModal } from './UniversityPostsModal';
 
 export const DiscoverCard = (props: ButtonProps) => {
-	var { image, name, description, id, location, video, department } = props.content;
+	var {
+		image,
+		name,
+		description,
+		id,
+		location,
+		video,
+		department,
+	} = props.content;
 	const {
 		show,
 		favourite,
@@ -17,13 +25,20 @@ export const DiscoverCard = (props: ButtonProps) => {
 	const [isLoaded, setLoaded] = useState(false);
 
 	function handleClick() {
-		console.log("content: ", props.content["FAQ Link"]);
-		
+		console.log('content: ', props.content['FAQ Link']);
+
 		onCardClick([
 			{
 				lat: location.latitude,
 				lng: location.longitude,
-				details: { name: name, description: description, image: image, videoURL: video, department: department, FAQLink: props.content["FAQ link"] },
+				details: {
+					name: name,
+					description: description,
+					image: image,
+					videoURL: video,
+					department: department,
+					FAQLink: props.content['FAQ link'],
+				},
 				centerMap: true,
 			},
 		]);
@@ -80,7 +95,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 								opacity: '0.8',
 							}}
 						>
-							{favourite ? isfavourite : notFavourite}
+							{/* {favourite ? isfavourite : notFavourite} */}
 						</div>
 					) : null}
 				</div>
@@ -95,7 +110,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 						</div>
 					</Card.Description>
 					<Card.Meta>
-						<Button
+						{/* <Button
 							basic
 							floated='left'
 							color='grey'
@@ -104,7 +119,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 						>
 							{' '}
 							Chat{' '}
-						</Button>
+						</Button> */}
 						<UniversityPostsModal
 							buttonText='Posts'
 							universityId={id}
