@@ -330,7 +330,7 @@ class LoginForm extends React.Component<
 										padding: '5%',
 									}}
 								>
-									<Image size='medium' src={logo} centered />
+									<Image size='small' src={logo} centered />
 									<h2>Log in</h2>
 									{_.map(FormFields, field => (
 										<FormField

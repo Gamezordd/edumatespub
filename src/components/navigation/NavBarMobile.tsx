@@ -22,7 +22,12 @@ export const NavBarMobile: React.FC<SidebarProps> = ({
 			width='thin'
 		>
 			{_.map(leftItems.concat(rightItems), item => (
-				<Menu.Item as={Link} onClick={onPusherClick} {...item} />
+				<Menu.Item
+					as={Link}
+					onClick={onPusherClick}
+					{...item}
+					icon={undefined}
+				/>
 			))}
 		</Sidebar>
 
