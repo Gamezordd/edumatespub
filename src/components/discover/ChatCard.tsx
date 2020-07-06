@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Image, Button } from 'semantic-ui-react';
-import user from '../../../public/userDefault.png';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
@@ -8,6 +7,8 @@ import { AnyAction, Dispatch } from 'redux';
 import { setChat } from '../../redux';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+const user = process.env.PUBLIC_URL + '/userDefault.png';
 
 interface ChatCardProps {
 	details: {
