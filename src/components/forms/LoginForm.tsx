@@ -11,7 +11,6 @@ import {
 	Grid,
 	Transition,
 } from 'semantic-ui-react';
-import { Icon } from 'semantic-ui-react';
 import applestore from '../landing/assets/appledownload.png';
 import pic from '../landing/assets/googleplay.png';
 
@@ -63,6 +62,7 @@ class LoginForm extends React.Component<
 			errorMessage: { value: '' },
 			showError: { value: false },
 			animationDone: { value: false },
+			isLoading: { value: false },
 		};
 
 		this.makeVisible();
@@ -70,7 +70,7 @@ class LoginForm extends React.Component<
 
 	handleSubmit = async () => {
 		try {
-			console.log(this.state);
+			this.setState({ isLoading: { value: true } });
 
 			await this.props.firebase
 				.doSignInWithEmailAndPassword(
@@ -82,9 +82,17 @@ class LoginForm extends React.Component<
 						authUser.user?.email === undefined ||
 						authUser.user.email === null
 					) {
+						await this.props.firebase.doSignOut();
 						return;
 					}
-					console.log(authUser.user.email);
+					if (!authUser.user.emailVerified) {
+						authUser.user.sendEmailVerification();
+						this.setState({
+							showError: { value: true },
+							errorMessage: { value: 'Please verify your email' },
+						});
+						return;
+					}
 					const user = await this.props.firebase.getUser(authUser.user.email);
 					return user;
 				})
@@ -93,20 +101,28 @@ class LoginForm extends React.Component<
 						const payload = user.docs[0].data();
 						payload.uid = user.docs[0].id;
 						this.props.login(payload);
-					}
+					} else return;
 					const unis = await this.props.firebase.getUniversities();
 					const likes = await axios.get(likesUrl, {
 						headers: { Authorization: await this.props.firebase.getVerifyId() },
 					});
+					console.log('Fetched deets');
 					return { unis, likes };
 				})
 				.then(async (details: any) => {
+					if (details == undefined) return false;
 					console.log('Likes in login:', details.likes.data);
 					this.props.fetchUniversities(details.unis);
 					this.props.fetchLikes(details.likes.data.data);
+					return true;
 				})
-				.then(async () => {
-					this.setState({ redirect: { value: true } });
+				.then(async status => {
+					if (status)
+						this.setState({
+							redirect: { value: true },
+							isLoading: { value: false },
+						});
+					else this.setState({ isLoading: { value: false } });
 				});
 		} catch (err) {
 			console.log(err);

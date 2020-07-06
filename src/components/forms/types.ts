@@ -33,6 +33,7 @@ export interface LoginState {
 	showError: FieldState;
 
 	animationDone: FieldState;
+	isLoading: FieldState;
 }
 
 export interface RegisterState {

@@ -19,6 +19,12 @@ const userLeftItems: ItemProps[] = [
 	{ content: 'Favourites', key: 'favourites', to: '/favourites', icon: 'star' },
 ];
 
+const ambassadorLeftItems: ItemProps[] = [
+	{ content: 'Home', key: 'home', to: '/home', icon: 'home' },
+	{ content: 'Chat', key: 'chat', to: '/chat', icon: 'chat' },
+	{ content: 'Discover', key: 'discover', to: '/discover', icon: 'find' },
+];
+
 const userRightItems: ItemProps[] = [
 	{ content: 'Settings', key: 'settings', to: '/settings', icon: 'setting' },
 	{ content: 'Log out', key: 'logout', to: '/logout', icon: 'log out' },
@@ -41,7 +47,7 @@ const NavBarWrapperUncomposed: React.FC<any> = ({
 
 	if (isLoggedIn) {
 		rItems = userRightItems;
-		lItems = userLeftItems;
+		lItems = user.isAmbassador ? ambassadorLeftItems : userLeftItems;
 	}
 
 	return (

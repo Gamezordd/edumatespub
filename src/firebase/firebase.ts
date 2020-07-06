@@ -81,6 +81,7 @@ export class Firebase {
 			.doc(uid)
 			.set({
 				...{
+					createdAt: firestore.FieldValue.serverTimestamp(),
 					name: name.value,
 					email: email.value,
 					gender: gender.value,
