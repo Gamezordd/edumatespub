@@ -340,6 +340,8 @@ export class Firebase {
 
 		updates[`chats/${chatId}/${key}`] = {
 			content: content,
+			recv: reciever,
+			senderName: name,
 			sender: this.auth.currentUser?.uid,
 			timestamp: database.ServerValue.TIMESTAMP,
 		};
