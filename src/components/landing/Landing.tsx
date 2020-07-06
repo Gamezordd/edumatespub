@@ -32,6 +32,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 						<p className='promo-title'> #yourOneChoice </p>
 					</Grid.Row>{' '}
 					<Grid.Row className='Hidden'>....</Grid.Row>
+					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row>
 						{' '}
 						<p className='add'>
