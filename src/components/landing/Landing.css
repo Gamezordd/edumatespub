@@ -3,7 +3,7 @@ button {
   background-color:black;
   border:none;
   text-align:center;
-  font-size:400%;
+ 
  width :240px;
  height:35px;
   border-radius:4px;
@@ -460,7 +460,7 @@ h5 {
   }
 
   .Appimage {
-    width:90%;
+    width:40%;
   }
 
  .add {
@@ -468,7 +468,7 @@ h5 {
  }
 
  .promo-title {
-   font-size:450%;
+   font-size:400%;
  }
 
 .descwedo {
@@ -482,7 +482,7 @@ h5 {
 }
 
 .Phone {
-  width:150%;
+  width:120%;
 }
 
 .Endthing {
@@ -491,4 +491,46 @@ h5 {
 .logo{
   width:45%;
 }
+}
+
+
+@media screen and (min-width:2500px) {
+.Appimage {
+  width:320px;
+}
+
+.add {
+  font-size:40px;
+}
+
+.whatwedo {
+  width:270px;
+}
+
+.Phone {
+  width:1000px;
+}
+
+button {
+  width:400px;
+  height:50px;
+}
+
+.buttontext {
+  font-size:30px;
+}
+
+.playstorel {
+  width : 200px;
+}
+
+.appstorel {
+  width:200px;
+}
+
+.subhead {
+  font-size:30px;
+}
+
+
 }
