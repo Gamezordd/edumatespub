@@ -238,7 +238,7 @@ class LoginForm extends React.Component<
 									/>
 									{this.state.showError.value && (
 										<Card fluid style={{ padding: '10px' }}>
-											<p style={{ color: 'red' }}>
+											<p style={{ color: 'red', fontSize: '1.2rem' }}>
 												{this.state.errorMessage.value}
 											</p>
 										</Card>
@@ -295,7 +295,7 @@ class LoginForm extends React.Component<
 									/>
 									{this.state.showError.value && (
 										<Card fluid style={{ padding: '10px' }}>
-											<p style={{ color: 'red' }}>
+											<p style={{ color: 'red', fontSize: '1.2rem' }}>
 												{this.state.errorMessage.value}
 											</p>
 										</Card>
@@ -351,7 +351,7 @@ class LoginForm extends React.Component<
 									/>
 									{this.state.showError.value && (
 										<Card fluid style={{ padding: '10px' }}>
-											<p style={{ color: 'red' }}>
+											<p style={{ color: 'red', fontSize: '1.2rem' }}>
 												{this.state.errorMessage.value}
 											</p>
 										</Card>
