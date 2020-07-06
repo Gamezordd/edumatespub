@@ -5,7 +5,7 @@ import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { addLike, removeLike } from '../../redux/ActionCreators';
 import { PostProps, PostState } from './types';
-import user from '../landing/assets/user.png';
+import user from '../../../public/userDefault.png';
 import _ from 'lodash';
 
 const dateOptions = {

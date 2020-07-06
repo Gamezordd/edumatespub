@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Image, Button } from 'semantic-ui-react';
-import user from '../landing/assets/user.png';
+import user from '../../../public/userDefault.png';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
