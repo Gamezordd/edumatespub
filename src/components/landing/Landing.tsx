@@ -14,7 +14,7 @@ import insta from './assets/instagram.png';
 import facebook from './assets/facebook.png';
 import linkedin from './assets/linkedin.png';
 import applestore from './assets/appledownload.png'
-import chat from './assets/chat.png';
+import chat from './assets/loginside2.png';
 import './Landing.css'; 
 
 
@@ -30,20 +30,20 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					
-					<Grid.Row>
-						
-							{' '}
-							<p className="EduMates"><b>eduMates</b></p> </Grid.Row> <Grid.Row> <p className='promo-title'>-Helping you make #yourOnechoice {' '}
+					
+ <Grid.Row> <p className='promo-title'> #yourOneChoice {' '}
 						</p>
 					</Grid.Row>{' '}
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					<Grid.Row>
 						{' '}
 						<p className='add'>
-							A one stop platform to interact and engage with current students at your dream univerisities. Build your ideal life and make an educated decision. {' '}
+							A one stop platform to interact and engage with current students at your dream univerisities. {' '}
 						</p>{' '}
 					</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
+					<Grid.Row className='play'><button><p className="buttontext">Get started today</p></button></Grid.Row>
+					<Grid.Row className='hidden'>..</Grid.Row>
 					<Grid.Row className='play'>
 						{' '}
 						<img src={pic} className='playstore' />{' '}
@@ -56,10 +56,10 @@ export const LandingPage: React.FC<{}> = ({}) => (
 
 				<Grid.Column width={7}>
 					<Grid.Row className='Hidden'>....</Grid.Row>{' '}
-					<Grid.Row className='Hidden'>....</Grid.Row>
+					
 				<Grid.Row only="mobile">
 					<Grid.Row className='Hidden' only="mobile">....</Grid.Row>
-					<Grid.Row className='Hidden' only="mobile">....</Grid.Row>
+				
 					<Grid.Row className='Hidden' only="mobile">....</Grid.Row>
 					<Grid.Row className='Hidden' only="mobile">....</Grid.Row> </Grid.Row>
 					<Grid.Row>
@@ -93,12 +93,12 @@ export const LandingPage: React.FC<{}> = ({}) => (
 				<Grid.Column width={2}></Grid.Column>
 				<Grid.Column width={5}>
 					{' '}
-					<h4> Ease of on-boarding process </h4>
+					<h4 className="subhead"> Ease of on-boarding process </h4>
 				</Grid.Column>
 				<Grid.Column width={2}></Grid.Column>
 				<Grid.Column width={5}>
 					{' '}
-					<h4> Personal Relationship </h4>
+					<h4 className="subhead"> Personal Relationship </h4>
 				</Grid.Column>
 				
 				<Grid.Column width={2}></Grid.Column>
@@ -142,12 +142,12 @@ of the universities so that you can experience the life in the university throug
 				<Grid.Column width={2}></Grid.Column>
 				<Grid.Column width={5}>
 					{' '}
-					<h4> From luck to an informed decision</h4>
+					<h4 className="subhead"> From luck to an informed decision</h4>
 				</Grid.Column>
 				<Grid.Column width={2}></Grid.Column>
 				<Grid.Column width={5}>
 					{' '}
-					<h4> Authentic sources of information </h4>
+					<h4 className="subhead"> Authentic sources of information </h4>
 				</Grid.Column>
 				
 				<Grid.Column width={2}></Grid.Column>
@@ -188,7 +188,7 @@ of the universities so that you can experience the life in the university throug
 
 					<Grid.Row>
 						{' '}
-						<h4> Ease of on-boarding process </h4>{' '}
+						<h4 className="subhead">  Ease of on-boarding process </h4>{' '}
 					</Grid.Row>
 
 					<Grid.Row>
@@ -212,7 +212,7 @@ experience the revolutionised way of decision making.Make #yourOnechoice today!{
 
 					<Grid.Row>
 						{' '}
-						<h4> From luck to an informed decision</h4>{' '}
+						<h4 className="subhead"> From luck to an informed decision</h4>{' '}
 					</Grid.Row>
 
 					<Grid.Row>
@@ -236,7 +236,7 @@ experience the revolutionised way of decision making.Make #yourOnechoice today!{
 
 					<Grid.Row>
 						{' '}
-						<h4> Personal Relationship </h4>{' '}
+						<h4 className="subhead"> Personal Relationship </h4>{' '}
 					</Grid.Row>
 
 					<Grid.Row>
@@ -258,7 +258,7 @@ of the universities so that you can experience the life in the university throug
 
 					<Grid.Row>
 						{' '}
-						<h4> Authentic sources of information </h4>{' '}
+						<h4 className="subhead"> Authentic sources of information </h4>{' '}
 					</Grid.Row>
 
 					<Grid.Row>
@@ -294,12 +294,12 @@ of the universities so that you can experience the life in the university throug
 				<Grid.Column width={2}></Grid.Column>
 				<Grid.Column width={5}>
 					{' '}
-					<h4> Ease of on-boarding process </h4>
+					<h4 className="subhead"> Ease of on-boarding process </h4>
 				</Grid.Column>
 				<Grid.Column width={2}></Grid.Column>
 				<Grid.Column width={5}>
 					{' '}
-					<h4> Personal Relationship </h4>
+					<h4 className="subhead"> Personal Relationship </h4>
 				</Grid.Column>
 				
 				<Grid.Column width={2}></Grid.Column>
@@ -343,12 +343,12 @@ of the universities so that you can experience the life in the university throug
 				<Grid.Column width={2}></Grid.Column>
 				<Grid.Column width={5}>
 					{' '}
-					<h4> From luck to an informed decision</h4>
+					<h4 className="subhead"> From luck to an informed decision</h4>
 				</Grid.Column>
 				<Grid.Column width={2}></Grid.Column>
 				<Grid.Column width={5}>
 					{' '}
-					<h4> Authentic sources of information </h4>
+					<h4 className="subhead">  Authentic sources of information </h4>
 				</Grid.Column>
 				
 				<Grid.Column width={2}></Grid.Column>
@@ -516,7 +516,7 @@ of the universities so that you can experience the life in the university throug
 					eduMates is a platform that aims to add value in students life by providing them the personal 
 					support and guidance to make an educated decision that would change the course of their life.
                     </p></Grid.Row>{' '}
-                    <Grid.Row className='Hidden'>....</Grid.Row>
+                   <Grid.Row className='Hidden'>....</Grid.Row> <Grid.Row>#YourOneChoice</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
 				<Grid.Row className='Hidden'>....</Grid.Row>
                     <Grid.Row> <p className="endadd">
@@ -537,6 +537,7 @@ of the universities so that you can experience the life in the university throug
                 <Grid.Column width={2}></Grid.Column>
                 <Grid.Column width={6}>
 				<Grid.Row className='Hidden'>....</Grid.Row>
+				<Grid.Row className='Hidden'>....</Grid.Row> 
 				<Grid.Row className='Hidden'>....</Grid.Row>
 				
                     
@@ -557,12 +558,7 @@ of the universities so that you can experience the life in the university throug
 				and make an informed decision. Design your ideal university life Today! </p>      </Grid.Row>
 				
 				<Grid.Row className='Hidden'>....</Grid.Row>
-				<Grid.Row className='Hidden'>....</Grid.Row>
-				<Grid.Row className='Hidden'>....</Grid.Row>
-				<Grid.Row>
-				Make #YourOneChoice
-				</Grid.Row>
-				<Grid.Row className='Hidden'>....</Grid.Row>
+				
 				<Grid.Row className='Hidden'>....</Grid.Row>
                 </Grid.Column>{' '}
                 <Grid.Column width={1}></Grid.Column>
