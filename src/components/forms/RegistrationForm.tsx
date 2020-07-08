@@ -204,6 +204,32 @@ class RegistrationFormUncomposed extends React.Component<
 		);
 	};
 
+	cannotNext = () => {
+		const {
+			name,
+			email,
+			password,
+			gender,
+			phone,
+			country,
+			code,
+			course,
+			currentInstitute,
+			isAmbassador,
+		} = this.state;
+		return (
+			name.value === '' ||
+			email.value === '' ||
+			password.value === '' ||
+			gender.value === '' ||
+			phone.value === '' ||
+			country.value === '' ||
+			(isAmbassador && code.value === '') ||
+			(isAmbassador && course.value === '') ||
+			(!isAmbassador && currentInstitute.value === '')
+		);
+	};
+
 	componentDidUpdate(prevProps: {}, prevState: RegisterState) {
 		if (prevState.didNext.value != this.state.didNext.value) {
 			this.setState({ animationDone: { value: false } });
@@ -288,6 +314,7 @@ class RegistrationFormUncomposed extends React.Component<
 										search
 										selection
 										required
+										value={this.state.gender.value}
 										options={Genders}
 										style={{
 											border: 'none',
@@ -328,6 +355,7 @@ class RegistrationFormUncomposed extends React.Component<
 										<FormField
 											{...field.properties}
 											control={Input}
+											value={this.state[field.key].value}
 											error={this.getError(field.key)}
 											onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 												this.validate(field.validate, field.key, e)
@@ -339,6 +367,7 @@ class RegistrationFormUncomposed extends React.Component<
 										onClick={() => this.setState({ didNext: { value: true } })}
 										color='orange'
 										style={{ width: '100%' }}
+										disabled={this.cannotNext()}
 									/>
 									<div style={{ textAlign: 'center' }}>
 										By signing up, you accept the Terms of
@@ -361,8 +390,18 @@ class RegistrationFormUncomposed extends React.Component<
 												<TextArea
 													placeholder='Tell us in 80 words....'
 													rows={3}
-													onChange={e => this.descriptionHandler(e)}
-													value={this.state.description.value.toString()}
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'description',
+																value.toString()
+															);
+														}
+													}}
+													value={this.state.description.value as string}
 												/>
 											</Form.Field>
 										</div>
@@ -505,13 +544,14 @@ class RegistrationFormUncomposed extends React.Component<
 															icon='graduation'
 															iconPosition='left'
 															required
+															value={this.state.coursesApplying.value}
 															onChange={(
 																event: React.SyntheticEvent<HTMLElement>,
 																{ value }
 															) => {
 																if (value !== undefined) {
 																	this.syntheticEventHandler(
-																		'course',
+																		'coursesApplying',
 																		value.toString()
 																	);
 																}
@@ -529,6 +569,7 @@ class RegistrationFormUncomposed extends React.Component<
 															icon='envelope open'
 															iconPosition='left'
 															required
+															value={this.state.workExperience.value}
 															onChange={(
 																event: React.SyntheticEvent<HTMLElement>,
 																{ value }
@@ -550,6 +591,7 @@ class RegistrationFormUncomposed extends React.Component<
 															selection
 															required
 															options={Years}
+															value={this.state.experienceYears.value}
 															style={{
 																border: 'none',
 																borderBottom: 'solid',
@@ -575,6 +617,7 @@ class RegistrationFormUncomposed extends React.Component<
 															icon='industry'
 															iconPosition='left'
 															required
+															value={this.state.experienceIndustry.value}
 															onChange={(
 																event: React.SyntheticEvent<HTMLElement>,
 																{ value }
@@ -595,6 +638,7 @@ class RegistrationFormUncomposed extends React.Component<
 															icon='vcard'
 															iconPosition='left'
 															required
+															value={this.state.jobTitle.value}
 															onChange={(
 																event: React.SyntheticEvent<HTMLElement>,
 																{ value }
@@ -626,6 +670,7 @@ class RegistrationFormUncomposed extends React.Component<
 												</b>
 												<TextArea
 													placeholder='Answer here'
+													value={this.state.potentialAnswer.value as string}
 													onChange={(
 														event: React.SyntheticEvent<HTMLElement>,
 														{ value }
@@ -643,6 +688,7 @@ class RegistrationFormUncomposed extends React.Component<
 												<b>How can the University best support you?</b>
 												<TextArea
 													placeholder='Answer here'
+													value={this.state.potentialAnswer.value as string}
 													onChange={(
 														event: React.SyntheticEvent<HTMLElement>,
 														{ value }

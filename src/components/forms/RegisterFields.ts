@@ -316,4 +316,15 @@ export const AmbassadorFields: RegisterFieldType[] = [
 			iconPosition: 'left',
 		},
 	},
+	{
+		key: 'course',
+		validate: 'name',
+		properties: {
+			type: 'text',
+			placeholder: 'Course',
+			icon: 'book',
+			required: true,
+			iconPosition: 'left',
+		},
+	},
 ];
