@@ -1,4 +1,4 @@
-button {
+.play button {
   color:white;
   background-color:black;
   border:none;
@@ -10,7 +10,7 @@ button {
   
 
 }
-button:hover {
+.play button:hover {
   background-color: #f95700db;
 }
 
@@ -383,7 +383,7 @@ h5 {
     width:80px;
   }
 
-  button {
+  .play button {
     width:160px;
   }
 }
@@ -396,7 +396,7 @@ h5 {
     width:40px;
   }
 
-  button {
+  .play button {
     width:80px;
     height:18px;
   }
