@@ -128,7 +128,9 @@ export class Firebase {
 	};
 
 	createAmbassadorEntry = async (universityId: any, uid: any, type: any) => {
-		await this.rtdb.ref(`ambassadors/${universityId.value}/${uid}`).set(type);
+		await this.rtdb
+			.ref(`ambassadors/${universityId.value}/${uid}`)
+			.set(type.value);
 	};
 
 	isLoggedIn = async () => {
