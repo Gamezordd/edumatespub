@@ -144,6 +144,29 @@ class RegistrationFormUncomposed extends React.Component<
 		this.setState({ ...this.state, ...{ gender: { value: e.target.value } } });
 	};
 
+	cannotNext = () => {
+		const {
+			name,
+			email,
+			password,
+			gender,
+			phone,
+			country,
+			code,
+			course,
+		} = this.state;
+		return (
+			name.value === '' ||
+			email.value === '' ||
+			password.value === '' ||
+			gender.value === '' ||
+			phone.value === '' ||
+			country.value === '' ||
+			code.value === '' ||
+			course.value === ''
+		);
+	};
+
 	validate = (
 		key: keyof ValidatorType,
 		stateKey: keyof RegisterState,
@@ -170,14 +193,6 @@ class RegistrationFormUncomposed extends React.Component<
 	handler = (key: keyof RegisterState, val: any) => {
 		console.log('Value is:' + val);
 		this.setState({ ...this.state, ...{ [key]: { value: val } } });
-	};
-
-	descriptionHandler = (e: React.FormEvent<HTMLTextAreaElement>) => {
-		if (e.currentTarget.textLength > 80) return;
-		const value = e.currentTarget.textContent
-			? e.currentTarget.textContent.toString()
-			: '';
-		this.setState({ description: { value: value } });
 	};
 
 	syntheticEventHandler = (
@@ -277,6 +292,7 @@ class RegistrationFormUncomposed extends React.Component<
 										selection
 										required
 										options={countryOptions}
+										value={this.state.country.value}
 										style={{
 											border: 'none',
 											borderBottom: 'solid',
@@ -298,6 +314,7 @@ class RegistrationFormUncomposed extends React.Component<
 										selection
 										required
 										options={Genders}
+										value={this.state.gender.value}
 										style={{
 											border: 'none',
 											borderBottom: 'solid',
@@ -349,6 +366,7 @@ class RegistrationFormUncomposed extends React.Component<
 										content='Next'
 										onClick={() => this.setState({ didNext: { value: true } })}
 										color='orange'
+										disabled={this.cannotNext()}
 										style={{ width: '100%' }}
 									/>
 									<div style={{ textAlign: 'center' }}>
@@ -372,8 +390,18 @@ class RegistrationFormUncomposed extends React.Component<
 												<TextArea
 													placeholder='Tell us in 80 words....'
 													rows={3}
-													onChange={e => this.descriptionHandler(e)}
 													value={this.state.description.value.toString()}
+													onChange={(
+														event: React.SyntheticEvent<HTMLElement>,
+														{ value }
+													) => {
+														if (value !== undefined) {
+															this.syntheticEventHandler(
+																'description',
+																value.toString()
+															);
+														}
+													}}
 												/>
 											</Form.Field>
 										</div>
