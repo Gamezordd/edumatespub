@@ -110,8 +110,15 @@ export class Firebase {
 					  },
 			});
 		const entryData = isAmbassador
-			? { name, university, universityId, course, description, image: '' }
-			: { name, image: '' };
+			? {
+					name: name.value,
+					university: university.value,
+					universityId: universityId.value,
+					course: course.value,
+					description: description.value,
+					image: '',
+			  }
+			: { name: name.value, image: '' };
 		await this.createRtdbUserEntry(uid, entryData);
 		if (isAmbassador) await this.createAmbassadorEntry(universityId, uid, type);
 	};
@@ -121,8 +128,9 @@ export class Firebase {
 	};
 
 	createAmbassadorEntry = async (universityId: any, uid: any, type: any) => {
-		await this.rtdb.ref(`ambassadors/${universityId}/${uid}`).set(type);
+		await this.rtdb.ref(`ambassadors/${universityId.value}/${uid}`).set(type);
 	};
+
 	isLoggedIn = async () => {
 		return this.auth.currentUser !== null;
 	};
