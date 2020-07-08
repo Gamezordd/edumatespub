@@ -22,5 +22,5 @@ export const REMOVE_LIKE = 'REMOVE_LIKE';
 export type REMOVE_LIKE = typeof REMOVE_LIKE;
 export const CLEAR_POSTS = 'CLEAR_POSTS';
 export type CLEAR_POSTS = typeof CLEAR_POSTS;
-export const SET_CHAT = 'SET_CHAT';
-export type SET_CHAT = typeof SET_CHAT;
+export const APPEND_CHAT = 'APPEND_CHAT';
+export type APPEND_CHAT = typeof APPEND_CHAT;
