@@ -24,8 +24,6 @@ interface IProps{
 
 export const NearbyTabContent = (props: IProps) => {
 	const {placesOptions, placesProps, dropdownHandler, searchValueProps} = props;
-	console.log("places: ", placesProps);
-	
     return(
         <React.Fragment>
 			<Grid.Row columns='16'>
