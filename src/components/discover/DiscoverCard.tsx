@@ -125,7 +125,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 				alt={name}
 			/>
 			<Grid.Column>
-				<Card>
+				<Card style={{ maxWidth: '254px' }}>
 					<Placeholder><Placeholder.Image square/></Placeholder>
 					<Card.Content>
 						<Placeholder>

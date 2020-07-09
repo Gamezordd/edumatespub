@@ -36,22 +36,16 @@ export class LetsTalkTabContent extends React.Component<IProps, IState>{
         this.props.loading(false);
     }
     render(){
-        const domainNameMobile = (/^.*\//.exec(this.props.videoURL));
-        const domainNameWeb = (/^.*=/.exec(this.props.videoURL));
+        const videoId = this.props.videoURL.substring(this.props.videoURL.length - 11, this.props.videoURL.length);
+        console.log("url:", this.props.videoURL );
         
-        var videoId = '';
-        if(domainNameMobile){
-            videoId = this.props.videoURL.substring(domainNameMobile[0].length)
-        }
-        else if(domainNameWeb){
-            videoId = this.props.videoURL.substring(domainNameWeb[0].length)
-        }
-
+        console.log("videoid: ", videoId);
+        
         if(this.state.isLoading){
             this.props.loading(true);
             return <div id="ytdiv"><LoadingContainer/></div>
         }
-        else if(this.state.elementWidth && (domainNameMobile || domainNameWeb)){
+        else if(this.state.elementWidth && videoId){
             return(
                 <Grid.Row centered verticalAlign="middle">
                     <Grid.Column>
