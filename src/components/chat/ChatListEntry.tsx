@@ -4,7 +4,8 @@ import './allstyle.css';
 import { withFirebase } from '../../firebase/withFirebase';
 import { Firebase } from '../../firebase';
 import { LoadingContainer } from '../maps';
-import user from '../landing/assets/user.png';
+
+const user = process.env.PUBLIC_URL + '/userDefault.png';
 
 const dateOptions = {
 	year: 'numeric',
