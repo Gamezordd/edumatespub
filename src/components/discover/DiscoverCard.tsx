@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Icon, Grid, Button, Placeholder } from 'semantic-ui-react';
+import { Card, Icon, Grid, Button, Placeholder, Divider } from 'semantic-ui-react';
 import { ButtonProps } from './interfaces';
 import { descriptionLength, uniImagePlaceholder } from './constants';
 import { UniversityPostsModal } from './UniversityPostsModal';
@@ -135,6 +135,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 								<Placeholder.Line length = "long"/>
 							</Placeholder.Paragraph>
 						</Placeholder>
+						<Divider/>
 						<Card.Meta>
 							<Button
 								basic
