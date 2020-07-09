@@ -23,6 +23,7 @@ interface NavbarProps {
 	uid: string;
 	syncChat: typeof appendChat;
 	chat: ChatStore;
+	name: string;
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -33,6 +34,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 const mapStateToProps = (state: any) => ({
 	isLoggedIn: state.user.isLoggedIn,
 	uid: state.user.uid,
+	name: state.user.details.name,
 	chat: state.chat,
 });
 
@@ -43,6 +45,7 @@ export class NavBarUncomposed extends Component<NavbarProps, any> {
 			visible: false,
 			redirect: false,
 			listenersMounted: false,
+			imageUrl: '',
 		};
 	}
 
@@ -50,6 +53,9 @@ export class NavBarUncomposed extends Component<NavbarProps, any> {
 		if (this.props.isLoggedIn && this.state.listenersMounted === false) {
 			this.mountListeners();
 		}
+		const imageUrl = this.props.firebase
+			.getProfileImageUrlRtdb(this.props.uid)
+			.then(imageUrl => this.setState({ imageUrl: imageUrl }));
 	}
 
 	componentDidUpdate() {
@@ -113,7 +119,13 @@ export class NavBarUncomposed extends Component<NavbarProps, any> {
 					</NavBarMobile>
 				</Responsive>
 				<Responsive minWidth={Responsive.onlyTablet.minWidth}>
-					<NavBarDesktop leftItems={leftItems} rightItems={rightItems} />
+					<NavBarDesktop
+						leftItems={leftItems}
+						rightItems={rightItems}
+						name={this.props.name}
+						imageUrl={this.state.imageUrl}
+						isLoggedIn={this.props.isLoggedIn}
+					/>
 					<NavBarChildren>{children}</NavBarChildren>
 				</Responsive>
 			</div>
