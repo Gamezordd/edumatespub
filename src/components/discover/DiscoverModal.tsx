@@ -106,7 +106,7 @@ export const DiscoverModal = (props: IProps) => {
 		if(content[0].details.department){
 			currentPanes = currentPanes.concat(DepartmentsPane);
 		}
-		return currentPanes
+		return currentPanes;
 	}
 
 	return (

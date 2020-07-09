@@ -17,12 +17,10 @@ export const DiscoverCard = (props: ButtonProps) => {
 	const [isLoaded, setLoaded] = useState(false);
 
 	function handleClick() {
-		console.log("content: ", props.content["FAQ Link"]);
-		
 		onCardClick([
 			{
-				lat: location.latitude,
-				lng: location.longitude,
+				lat: location.Ic,
+				lng: location.wc,
 				details: { name: name, description: description, image: image, videoURL: video, department: department, FAQLink: props.content["FAQ link"] },
 				centerMap: true,
 			},
