@@ -13,6 +13,7 @@ interface IProps {
 	firebase?: Firebase;
 	universityId: string;
 	buttonText: string;
+	disabled?: boolean;
 }
 
 interface IState {
@@ -103,6 +104,7 @@ class UniversityPostsModalBasic extends React.Component<IProps, IState> {
 					size='tiny'
 					color='grey'
 					basic
+					disabled={this.props.disabled}
 					onClick={() => {
 						this.setState({ isModalOpen: true });
 						this.fetchPosts();
