@@ -10,4 +10,5 @@ export {
 	clearPosts,
 	storeScroll,
 	setChat,
+	appendChat,
 } from './ActionCreators';

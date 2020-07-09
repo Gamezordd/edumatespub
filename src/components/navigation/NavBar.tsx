@@ -3,11 +3,13 @@ import { Responsive, Container, MenuProps, ItemProps } from 'semantic-ui-react';
 import { NavBarDesktop } from './NavBarDesktop';
 import { NavBarMobile } from './NavBarMobile';
 import { Firebase } from '../../firebase';
-import { logoutAction } from '../../redux';
+import { logoutAction, appendChat } from '../../redux';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { UserChatAction } from '../../redux/ActionCreators';
+import { ChatStore } from '../../redux/reducers/chats';
 
 //Add margin above components added after NavBar
 const NavBarChildren: React.FC = ({ children }) => <div>{children}</div>;
@@ -18,14 +20,20 @@ interface NavbarProps {
 	firebase: Firebase;
 	logout: typeof logoutAction;
 	isLoggedIn: boolean;
+	uid: string;
+	syncChat: typeof appendChat;
+	chat: ChatStore;
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
 	logout: () => dispatch(logoutAction),
+	syncChat: (chat: UserChatAction) => dispatch(appendChat(chat)),
 });
 
 const mapStateToProps = (state: any) => ({
 	isLoggedIn: state.user.isLoggedIn,
+	uid: state.user.uid,
+	chat: state.chat,
 });
 
 export class NavBarUncomposed extends Component<NavbarProps, any> {
@@ -34,8 +42,49 @@ export class NavBarUncomposed extends Component<NavbarProps, any> {
 		this.state = {
 			visible: false,
 			redirect: false,
+			listenersMounted: false,
 		};
 	}
+
+	componentDidMount() {
+		if (this.props.isLoggedIn && this.state.listenersMounted === false) {
+			this.mountListeners();
+		}
+	}
+
+	componentDidUpdate() {
+		if (this.props.isLoggedIn && this.state.listenersMounted === false) {
+			this.mountListeners();
+		}
+
+		console.log(this.props.chat);
+	}
+
+	chatUpdateHandler = ({ id, val }: { id: string; val: any }) => {
+		const name = val.name as string;
+		const lastActive = val.lastActive as number;
+		const latest = val.latest as string;
+		const chat = val.latest as string;
+
+		this.props.syncChat({ id, name, lastActive, latest, chat });
+	};
+
+	mountListeners = () => {
+		const { uid, firebase } = this.props;
+		const userChatRef = firebase.rtdb.ref(`userChats/${uid}`);
+
+		userChatRef.on('child_added', snapshot => {
+			if (snapshot.key === null) return;
+			this.chatUpdateHandler({ id: snapshot.key, val: snapshot.val() });
+		});
+
+		userChatRef.on('child_changed', snapshot => {
+			if (snapshot.key === null) return;
+			console.log('Update detected');
+			this.chatUpdateHandler({ id: snapshot.key, val: snapshot.val() });
+		});
+		this.setState({ listenersMounted: true });
+	};
 
 	handlePusher = () => {
 		const { visible } = this.state;

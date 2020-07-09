@@ -44,7 +44,7 @@ export type PostActions =
 	| ClearPosts
 	| StoreScroll;
 
-interface UserChatAction {
+export interface UserChatAction {
 	id: string;
 	chat: string;
 	lastActive: number;
@@ -52,12 +52,17 @@ interface UserChatAction {
 	name: string;
 }
 
+interface SetChat {
+	type: ActionTypes.SET_CHAT;
+	selectedChat: any;
+}
+
 interface AppendChat {
 	type: ActionTypes.APPEND_CHAT;
 	chat: UserChatAction;
 }
 
-export type ChatActions = AppendChat;
+export type ChatActions = AppendChat | SetChat;
 //actions
 
 export const exampleAction = () => ({
@@ -123,6 +128,11 @@ export const clearPosts = (): ClearPosts => ({
 export const storeScroll = (scroll: number): StoreScroll => ({
 	type: ActionTypes.STORE_SCROLL,
 	scroll: scroll,
+});
+
+export const setChat = (selectedChat: any): SetChat => ({
+	type: ActionTypes.SET_CHAT,
+	selectedChat: selectedChat,
 });
 
 export const appendChat = (chat: UserChatAction): AppendChat => ({
