@@ -31,9 +31,19 @@ margin-left:0%;
 }
 
 
+@media (max-width:500px) and (min-width:300px) {
+
+  .appstore {
+    width:20%;
+  }
+  .playstore {
+    width:20%;
+    margin-right:2%;
+  }
+}
 
 
-@media screen and (max-width:799px) {
+@media  (max-width:799px) and (min-width:500px){
   .playstore{
     width: 27% ;
   margin-left:0%;

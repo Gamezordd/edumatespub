@@ -31,6 +31,8 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					<Grid.Row className='Hidden'>....</Grid.Row>
 					
 					
+					
+					
  <Grid.Row> <p className='promo-title'> #yourOneChoice {' '}
 						</p>
 					</Grid.Row>{' '}
@@ -42,8 +44,8 @@ export const LandingPage: React.FC<{}> = ({}) => (
 						</p>{' '}
 					</Grid.Row>
 					<Grid.Row className='Hidden'>....</Grid.Row>
-					<Grid.Row className='play'><button><p className="buttontext">Get started today</p></button></Grid.Row>
-					<Grid.Row className='hidden'>..</Grid.Row>
+					<Grid.Row className='play'><button className="button"><p className="buttontext">Get started today</p></button></Grid.Row>
+					<Grid.Row className='Hidden'>..</Grid.Row>
 					<Grid.Row className='play'>
 						{' '}
 						<img src={pic} className='playstorel'  />{' '}
@@ -58,9 +60,7 @@ export const LandingPage: React.FC<{}> = ({}) => (
 					<Grid.Row className='Hidden'>....</Grid.Row>{' '}
 					
 				<Grid.Row only="mobile">
-					<Grid.Row className='Hidden' only="mobile">....</Grid.Row>
-				
-					<Grid.Row className='Hidden' only="mobile">....</Grid.Row>
+					
 					<Grid.Row className='Hidden' only="mobile">....</Grid.Row> </Grid.Row>
 					<Grid.Row>
 						<img src={app} className='Appimage' />
@@ -566,4 +566,10 @@ of the universities so that you can experience the life in the university throug
 			
 		</Grid>
 	</div>
+
 );
+
+
+
+
+

@@ -192,7 +192,7 @@ class LoginForm extends React.Component<
 								visible={this.state.animationDone.value ? true : false}
 							>
 								<div>
-									<Image src={loginside} />
+									<Image src={loginside} className="loginside"/>
 									<p>
 										<b>Get the app now</b>
 									</p>
@@ -251,7 +251,7 @@ class LoginForm extends React.Component<
 					<Grid.Row only='tablet'>
 						<Grid.Column width={6}>
 							{' '}
-							<Image src={loginside} />
+							<Image src={loginside} className="loginside"/>
 							<p>
 								<b>Get the app now</b>
 							</p>
