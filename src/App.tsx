@@ -12,6 +12,7 @@ import {
 	ChatBox,
 	FavouritesComponent,
 	SettingsFormComposed,
+	Payments,
 } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -42,6 +43,7 @@ export function App() {
 						<Route exact path={'/chat'} component={ChatBox} />
 						<Route exact path={'/favourites'} component={FavouritesComponent} />
 						<Route exact path={'/settings'} component={SettingsFormComposed} />
+						<Route exact path={'/payments'} component={Payments} />
 					</Switch>
 				</NavBar>
 			</Router>
