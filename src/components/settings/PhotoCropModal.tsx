@@ -60,7 +60,7 @@ class PhotoModal extends React.Component<IProps, IState> {
 
 	renderFirstImage(uid: string) {
 		if (!this.state.currentImage) {
-			this.props.firebase.getProfileImageUrl(uid).then(async url => {
+			this.props.firebase.getProfileImageUrlRtdb(uid).then(async url => {
 				if (url === '') {
 					this.setState({ currentImage: noPicturePlaceholder });
 				} else {
@@ -288,7 +288,7 @@ class PhotoModal extends React.Component<IProps, IState> {
 			},
 			async () => {
 				const URL = await this.props.firebase.storage
-					.ref(`/USER/${uid}`)
+					.ref(`profileImages/${uid}`)
 					.getDownloadURL();
 				await this.props.firebase.setProfileImage(URL);
 				this.setState({ uploadProgress: 100 });

@@ -24,7 +24,6 @@ interface ChatCardProps {
 
 interface ChatCardState {
 	chatSelect: boolean;
-	image: string;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
@@ -34,13 +33,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
 class ChatCardUncomposed extends React.Component<ChatCardProps, ChatCardState> {
 	constructor(props: ChatCardProps) {
 		super(props);
-		this.state = { chatSelect: false, image: '' };
-	}
-
-	componentDidMount() {
-		this.props.firebase
-			.getProfileImageUrl(this.props.details.id)
-			.then(url => this.setState({ image: url }));
+		this.state = { chatSelect: false };
 	}
 
 	chatClick = async (target: { name: string; id: string }) => {
@@ -53,12 +46,12 @@ class ChatCardUncomposed extends React.Component<ChatCardProps, ChatCardState> {
 
 	render() {
 		if (this.state.chatSelect) return <Redirect to='/chat' />;
-		const { name, course, id } = this.props.details;
+		const { name, course, id, image } = this.props.details;
 		return (
 			<Card style={{ width: '10vw', textAlign: 'center' }}>
 				<Card.Content>
 					<Image
-						src={this.state.image === '' ? this.state.image : user}
+						src={image ? image : user}
 						style={{
 							objectFit: 'cover',
 							borderRadius: '50%',

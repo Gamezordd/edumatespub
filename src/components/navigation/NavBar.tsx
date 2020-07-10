@@ -54,7 +54,7 @@ export class NavBarUncomposed extends Component<NavbarProps, any> {
 			this.mountListeners();
 		}
 		const imageUrl = this.props.firebase
-			.getProfileImageUrl(this.props.uid)
+			.getProfileImageUrlRtdb(this.props.uid)
 			.then(imageUrl => {
 				console.log(imageUrl);
 				this.setState({ imageUrl: imageUrl });
