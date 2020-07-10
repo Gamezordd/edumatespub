@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
-import { Card, Icon, Grid, Button, Placeholder, Divider } from 'semantic-ui-react';
+import {
+	Card,
+	Icon,
+	Grid,
+	Button,
+	Placeholder,
+	Divider,
+} from 'semantic-ui-react';
 import { ButtonProps } from './interfaces';
 import { descriptionLength, uniImagePlaceholder } from './constants';
 import { UniversityPostsModal } from './UniversityPostsModal';
 
 export const DiscoverCard = (props: ButtonProps) => {
-	var { image, name, description, id, location, video, department } = props.content;
+	var {
+		image,
+		name,
+		description,
+		id,
+		location,
+		video,
+		department,
+	} = props.content;
 	const {
 		show,
 		favourite,
@@ -21,7 +36,14 @@ export const DiscoverCard = (props: ButtonProps) => {
 			{
 				lat: location.Ic,
 				lng: location.wc,
-				details: { name: name, description: description, image: image, videoURL: video, department: department, FAQLink: props.content["FAQ link"] },
+				details: {
+					name: name,
+					description: description,
+					image: image,
+					videoURL: video,
+					department: department,
+					FAQLink: props.content['FAQ link'],
+				},
 				centerMap: true,
 			},
 		]);
@@ -57,7 +79,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 			<Card centered style={{ maxWidth: '254px' }}>
 				<div
 					style={{ maxWidth: '254px', height: '254px', position: 'relative' }}
-				>	
+				>
 					<img
 						onClick={() => handleClick()}
 						style={{ objectFit: 'cover', maxHeight: '254px', width: '254px' }}
@@ -117,23 +139,27 @@ export const DiscoverCard = (props: ButtonProps) => {
 		<React.Fragment>
 			<img
 				onClick={() => handleClick()}
-				style={{ display: "none" }}
+				style={{ display: 'none' }}
 				src={image}
 				onLoad={() => setLoaded(true)}
 				alt={name}
 			/>
 			<Grid.Column>
 				<Card style={{ maxWidth: '254px' }}>
-					<Placeholder><Placeholder.Image square/></Placeholder>
+					<Placeholder>
+						<Placeholder.Image square />
+					</Placeholder>
 					<Card.Content>
 						<Placeholder>
-							<Placeholder.Header><Placeholder.Line length="short"/></Placeholder.Header>
+							<Placeholder.Header>
+								<Placeholder.Line length='short' />
+							</Placeholder.Header>
 							<Placeholder.Paragraph>
-								<Placeholder.Line length="long"/>
-								<Placeholder.Line length = "long"/>
+								<Placeholder.Line length='long' />
+								<Placeholder.Line length='long' />
 							</Placeholder.Paragraph>
 						</Placeholder>
-						<Divider/>
+						<Divider />
 						<Card.Meta>
 							<Button
 								basic
@@ -156,7 +182,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 				</Card>
 			</Grid.Column>
 		</React.Fragment>
-	)
+	);
 
 	if (show && isLoaded) {
 		if (onlyFavourites && favourite) {

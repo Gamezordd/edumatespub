@@ -1,5 +1,11 @@
 import React from 'react';
-import { Search, SearchProps, Grid, Modal, Placeholder } from 'semantic-ui-react';
+import {
+	Search,
+	SearchProps,
+	Grid,
+	Modal,
+	Placeholder,
+} from 'semantic-ui-react';
 import _ from 'lodash';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
@@ -84,7 +90,7 @@ class DiscoverComponent extends React.Component<
 						};
 					}
 				),
-				isLoading: false
+				isLoading: false,
 			});
 		}, 300);
 	};
@@ -106,7 +112,14 @@ class DiscoverComponent extends React.Component<
 		place: Array<{
 			lat: number;
 			lng: number;
-			details: { name: string; description: string; image: string, videoURL: string, department: [{name: string, link: string}], FAQLink: string };
+			details: {
+				name: string;
+				description: string;
+				image: string;
+				videoURL: string;
+				department: [{ name: string; link: string }];
+				FAQLink: string;
+			};
 		}>
 	) => {
 		this.setState({ places: place, isModalOpen: true });
@@ -140,19 +153,19 @@ class DiscoverComponent extends React.Component<
 			/>
 		);
 
-		const SearchPlaceholder =(
+		const SearchPlaceholder = (
 			<React.Fragment>
 				<Placeholder>
-					<Placeholder.Line length="full"/>
+					<Placeholder.Line length='full' />
 				</Placeholder>
 			</React.Fragment>
-		)
+		);
 
 		const RenderSearchBar = (
 			<React.Fragment>
 				{isLoading ? SearchPlaceholder : SearchBar}
 			</React.Fragment>
-		)
+		);
 
 		return (
 			<div>
@@ -160,7 +173,6 @@ class DiscoverComponent extends React.Component<
 					<div style={{ flex: 1, justifyContent: 'center' }}>
 						<Grid.Column>
 							{this.props.onlyFavourites ? null : RenderSearchBar}
-							
 						</Grid.Column>
 					</div>
 				</Grid>
