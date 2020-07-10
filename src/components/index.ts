@@ -8,5 +8,6 @@ export { DiscoverContainerComposed } from './discover';
 export { HomeContainer } from './home';
 export { PasswordForgot } from './forms';
 export { ChatBox } from './chat';
-export {FavouritesComponent} from './favourites'
-export {  SettingsFormComposed, PhotoModalComposed } from './settings'
+export { Payments } from './payment';
+export { FavouritesComponent } from './favourites';
+export { SettingsFormComposed, PhotoModalComposed } from './settings';
