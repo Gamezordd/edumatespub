@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Icon, Grid, Button } from 'semantic-ui-react';
+import { Card, Icon, Grid, Button, Placeholder, Divider } from 'semantic-ui-react';
 import { ButtonProps } from './interfaces';
 import { descriptionLength, uniImagePlaceholder } from './constants';
 import { UniversityPostsModal } from './UniversityPostsModal';
@@ -17,12 +17,10 @@ export const DiscoverCard = (props: ButtonProps) => {
 	const [isLoaded, setLoaded] = useState(false);
 
 	function handleClick() {
-		console.log("content: ", props.content["FAQ Link"]);
-		
 		onCardClick([
 			{
-				lat: location.latitude,
-				lng: location.longitude,
+				lat: location.Ic,
+				lng: location.wc,
 				details: { name: name, description: description, image: image, videoURL: video, department: department, FAQLink: props.content["FAQ link"] },
 				centerMap: true,
 			},
@@ -59,7 +57,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 			<Card centered style={{ maxWidth: '254px' }}>
 				<div
 					style={{ maxWidth: '254px', height: '254px', position: 'relative' }}
-				>
+				>	
 					<img
 						onClick={() => handleClick()}
 						style={{ objectFit: 'cover', maxHeight: '254px', width: '254px' }}
@@ -68,7 +66,6 @@ export const DiscoverCard = (props: ButtonProps) => {
 								? image
 								: uniImagePlaceholder
 						}
-						onLoad={() => setLoaded(true)}
 						alt={name}
 					/>
 					{isLoaded ? (
@@ -116,7 +113,52 @@ export const DiscoverCard = (props: ButtonProps) => {
 		</Grid.Column>
 	);
 
-	if (show) {
+	const imageLoader = (
+		<React.Fragment>
+			<img
+				onClick={() => handleClick()}
+				style={{ display: "none" }}
+				src={image}
+				onLoad={() => setLoaded(true)}
+				alt={name}
+			/>
+			<Grid.Column>
+				<Card style={{ maxWidth: '254px' }}>
+					<Placeholder><Placeholder.Image square/></Placeholder>
+					<Card.Content>
+						<Placeholder>
+							<Placeholder.Header><Placeholder.Line length="short"/></Placeholder.Header>
+							<Placeholder.Paragraph>
+								<Placeholder.Line length="long"/>
+								<Placeholder.Line length = "long"/>
+							</Placeholder.Paragraph>
+						</Placeholder>
+						<Divider/>
+						<Card.Meta>
+							<Button
+								basic
+								floated='left'
+								color='grey'
+								size='tiny'
+								disabled={!isLoaded}
+							>
+								{' '}
+								Chat{' '}
+							</Button>
+							<UniversityPostsModal
+								buttonText='Posts'
+								universityId={id}
+								buttonFloated='left'
+								disabled={!isLoaded}
+							/>
+						</Card.Meta>
+					</Card.Content>
+				</Card>
+			</Grid.Column>
+		</React.Fragment>
+	)
+
+	if (show && isLoaded) {
 		if (onlyFavourites && favourite) {
 			return <React.Fragment>{card}</React.Fragment>;
 		} else if (!onlyFavourites || onlyFavourites === undefined) {
@@ -126,6 +168,6 @@ export const DiscoverCard = (props: ButtonProps) => {
 			return null;
 		}
 	} else {
-		return null;
+		return imageLoader;
 	}
 };

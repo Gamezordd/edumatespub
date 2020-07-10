@@ -70,21 +70,15 @@ export const DiscoverModal = (props: IProps) => {
 	);
 
 	const handleClose = () => {
-		console.log(content);
-		
 		setSearch('none');
 		onClose();
 	};
 
 	function handleTabLoading(loading: boolean){
 		if(loading){
-			console.log("loading");
-			
 			return setTabLoading(true);
 		}
 		else{ 
-			console.log("done loading");
-			
 			return setTabLoading(false);
 		}
 	}
@@ -106,7 +100,7 @@ export const DiscoverModal = (props: IProps) => {
 		if(content[0].details.department){
 			currentPanes = currentPanes.concat(DepartmentsPane);
 		}
-		return currentPanes
+		return currentPanes;
 	}
 
 	return (

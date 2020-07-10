@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, SearchProps, Grid, Modal } from 'semantic-ui-react';
+import { Search, SearchProps, Grid, Modal, Placeholder } from 'semantic-ui-react';
 import _ from 'lodash';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
@@ -72,7 +72,6 @@ class DiscoverComponent extends React.Component<
 			const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
 
 			this.setState({
-				isLoading: false,
 				results: _.filter(uniList.data, result => re.test(result.name)).map(
 					//restruncturing the elements to conform to "Search" standards
 					element => {
@@ -85,6 +84,7 @@ class DiscoverComponent extends React.Component<
 						};
 					}
 				),
+				isLoading: false
 			});
 		}, 300);
 	};
@@ -140,12 +140,27 @@ class DiscoverComponent extends React.Component<
 			/>
 		);
 
+		const SearchPlaceholder =(
+			<React.Fragment>
+				<Placeholder>
+					<Placeholder.Line length="full"/>
+				</Placeholder>
+			</React.Fragment>
+		)
+
+		const RenderSearchBar = (
+			<React.Fragment>
+				{isLoading ? SearchPlaceholder : SearchBar}
+			</React.Fragment>
+		)
+
 		return (
 			<div>
 				<Grid centered columns={1} container>
 					<div style={{ flex: 1, justifyContent: 'center' }}>
 						<Grid.Column>
-							{this.props.onlyFavourites ? null : SearchBar}
+							{this.props.onlyFavourites ? null : RenderSearchBar}
+							
 						</Grid.Column>
 					</div>
 				</Grid>
