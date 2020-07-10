@@ -210,7 +210,7 @@ export class Firebase {
 
 	getProfileImageUrl = async (uid: string) => {
 		return this.storage
-			.ref(`profileImages/${uid}.jpg`)
+			.ref(`profileImages/${uid}`)
 			.getDownloadURL()
 			.catch(err => {
 				return '';

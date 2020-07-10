@@ -269,7 +269,7 @@ class PhotoModal extends React.Component<IProps, IState> {
 		if (!uid || !this.props.storageLocation) return null;
 		const storage = this.props.firebase.storage;
 		const uploadAction = storage
-			.ref(`${this.props.storageLocation}/${uid}.jpg`)
+			.ref(`${this.props.storageLocation}/${uid}`)
 			.putString(this.state.croppedImage, 'data_url');
 		this.setState({
 			isUploading: true,
@@ -287,11 +287,11 @@ class PhotoModal extends React.Component<IProps, IState> {
 				console.log(error);
 			},
 			async () => {
-				this.setState({ uploadProgress: 100 });
 				const URL = await this.props.firebase.storage
 					.ref(`/USER/${uid}`)
 					.getDownloadURL();
 				await this.props.firebase.setProfileImage(URL);
+				this.setState({ uploadProgress: 100 });
 			}
 		);
 	}

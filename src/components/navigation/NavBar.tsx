@@ -54,8 +54,11 @@ export class NavBarUncomposed extends Component<NavbarProps, any> {
 			this.mountListeners();
 		}
 		const imageUrl = this.props.firebase
-			.getProfileImageUrlRtdb(this.props.uid)
-			.then(imageUrl => this.setState({ imageUrl: imageUrl }));
+			.getProfileImageUrl(this.props.uid)
+			.then(imageUrl => {
+				console.log(imageUrl);
+				this.setState({ imageUrl: imageUrl });
+			});
 	}
 
 	componentDidUpdate() {
@@ -63,7 +66,7 @@ export class NavBarUncomposed extends Component<NavbarProps, any> {
 			this.mountListeners();
 		}
 
-		console.log(this.props.chat);
+		console.log(this.state.imageUrl);
 	}
 
 	chatUpdateHandler = ({ id, val }: { id: string; val: any }) => {

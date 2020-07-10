@@ -39,7 +39,7 @@ class ChatListEntryUncomposed extends React.Component<
 	}
 	componentDidMount() {
 		this.props.firebase
-			.getProfileImageUrlRtdb(this.props.chatDetails.userId)
+			.getProfileImageUrl(this.props.chatDetails.userId)
 			.then(url => {
 				this.setState({ imageUrl: url });
 			});
