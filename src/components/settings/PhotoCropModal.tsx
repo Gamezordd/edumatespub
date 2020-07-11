@@ -7,7 +7,6 @@ import { LoadingContainer } from '../maps';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from './cropImage';
 import { Firebase } from '../../firebase';
-import { noPicturePlaceholder } from './constants';
 
 interface IProps {
 	buttonText: string;
@@ -62,7 +61,9 @@ class PhotoModal extends React.Component<IProps, IState> {
 		if (!this.state.currentImage) {
 			this.props.firebase.getProfileImageUrl(uid).then(async url => {
 				if (url === '') {
-					this.setState({ currentImage: noPicturePlaceholder });
+					this.setState({
+						currentImage: process.env.PUBLIC_URL + '/userDefault.png',
+					});
 				} else {
 					this.setState({ currentImage: url });
 				}
