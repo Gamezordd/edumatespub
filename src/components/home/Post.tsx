@@ -37,12 +37,16 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 			name: '',
 			university: '',
 			profileImage: '',
+			likeCount: this.props.post.likeCount,
 		};
 		this.makeVisible();
 	}
 
 	toggler = () => {
-		this.setState({ liked: !this.state.liked });
+		this.setState({
+			liked: !this.state.liked,
+			likeCount: this.state.likeCount + (this.state.liked ? -1 : 1),
+		});
 		this.spamHandler(this.state.liked);
 	};
 
@@ -89,20 +93,23 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 
 	render() {
 		const { post } = this.props;
-		const { name, profileImage, university } = this.state;
+		const { name, profileImage, university, likeCount } = this.state;
 		const unformatted = new Date(post.createdAt.toDate());
 		const date = new Intl.DateTimeFormat('en-us', dateOptions).format(
 			unformatted
 		);
 		return (
-			<div id={post.id} style={{ marginTop: '5vh', padding: '5px' }}>
+			<div
+				id={post.id}
+				style={{ marginTop: '5vh', padding: '5px', paddingBottom: '0' }}
+			>
 				<Transition animation='slide up' visible={this.state.animationDone}>
 					<Card
 						centered
 						fluid
 						style={{
 							maxWidth: '720px',
-							boxShadow: '0 2px 4px 5px rgba(255,208,0,0.40)',
+							boxShadow: '0px 0px 30px 8px rgba(242,113,28,0.2)',
 						}}
 						raised
 					>
@@ -139,7 +146,7 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 								color={this.state.liked ? 'orange' : undefined}
 								onClick={() => this.toggler()}
 							/>
-							{post.likeCount}
+							{likeCount}
 						</Card.Content>
 					</Card>
 				</Transition>

@@ -172,11 +172,10 @@ class CreatePostUncomposed extends React.Component<
 						style={{
 							padding: '5px',
 							maxWidth: '720px',
-							boxShadow: '0 2px 4px 5px rgba(255,208,0,0.40)',
+							boxShadow: '0px 0px 30px 8px rgba(242,113,28,0.2)',
 						}}
 						centered
 						fluid
-						raised
 					>
 						{(this.state.success || this.state.error) && (
 							<Card.Content

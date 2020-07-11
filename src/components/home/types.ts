@@ -27,6 +27,7 @@ export interface PostState {
 	name: string;
 	profileImage: string;
 	university: string;
+	likeCount: number;
 }
 
 export interface PostProps {

@@ -89,7 +89,9 @@ class InfiniteScrollUncomposed extends React.Component<
 				}}
 			>
 				<Grid centered>
-					<Grid.Column style={{ padding: '5vw' }}>
+					<Grid.Column
+						style={{ padding: '5vw', paddingBottom: '0', height: '100%' }}
+					>
 						{this.props.isAmbassador && <CreatePost />}
 						<InfiniteScrollComponent
 							style={{ overflowX: 'hidden' }}
