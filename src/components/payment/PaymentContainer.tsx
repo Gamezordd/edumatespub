@@ -132,8 +132,10 @@ class PaymentContainerUncomposed extends React.Component<
 														<Grid.Row>
 															<ul>
 																<li>{plan.description} </li>
-																<li>24 hour access to Student Ambassadors</li>
-																<li>Explore over 150+ universities</li>
+																<li>
+																	Unrestricted access to all university
+																	representatives.
+																</li>
 																<li>{plan.description2} </li>
 															</ul>
 														</Grid.Row>

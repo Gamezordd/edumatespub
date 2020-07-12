@@ -121,7 +121,8 @@ export class Firebase {
 			  }
 			: { name: name.value, image: '' };
 		await this.createRtdbUserEntry(uid, entryData);
-		if (isAmbassador) await this.createAmbassadorEntry(universityId, uid, type);
+		if (isAmbassador.value)
+			await this.createAmbassadorEntry(universityId, uid, type);
 	};
 
 	createRtdbUserEntry = async (uid: any, data: any) => {
