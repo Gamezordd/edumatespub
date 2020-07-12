@@ -122,22 +122,10 @@ class PaymentContainerUncomposed extends React.Component<
 															</Grid.Row>
 															<Grid.Row className='hidden'> .. </Grid.Row>
 															<Grid.Row>
-																<p className='price'> $ {plan.price} </p>{' '}
+																<p className='price'> $ {plan.price / 100} </p>
+																{'per month'}
 															</Grid.Row>
 															<Grid.Row className='hidden'> .. </Grid.Row>
-															<Grid.Row>
-																{' '}
-																<div className='wrapper'>
-																	{' '}
-																	<p className='button'>
-																		<button
-																			onClick={e => this.startPayment(plan)}
-																		>
-																			{plan.button}
-																		</button>{' '}
-																	</p>{' '}
-																</div>{' '}
-															</Grid.Row>
 															<Grid.Row className='hidden'> .. </Grid.Row>{' '}
 														</div>
 														<Grid.Row className='hidden'> .. </Grid.Row>
@@ -158,52 +146,6 @@ class PaymentContainerUncomposed extends React.Component<
 							))}{' '}
 						</Card.Group>
 					</div>
-
-					<Modal
-						closeOnDimmerClick={true}
-						onClose={e => this.hideDimmer()}
-						size='mini'
-						open={this.state.checkout}
-						style={{ padding: '20px' }}
-						closeIcon
-					>
-						<h2>Pay now</h2>
-						<StripeCheckout
-							stripeKey={
-								process.env.REACT_APP_STRIPE_PUB_LIVE_KEY
-									? process.env.REACT_APP_STRIPE_PUB_LIVE_KEY
-									: ''
-							}
-							name={this.state.currentPlan?.name}
-							description={this.state.currentPlan?.description}
-							token={token => this.handlePayment(token)}
-							amount={this.state.currentPlan?.price}
-							currency='INR'
-						/>
-					</Modal>
-					<Modal
-						closeOnDimmerClick={true}
-						onClose={e => this.hideDimmer()}
-						size='mini'
-						open={this.state.fail}
-						style={{ padding: '20px' }}
-						closeIcon
-					>
-						<h2> ERROR </h2>
-						{this.state.failMessage}
-					</Modal>
-					<Modal
-						closeOnDimmerClick={true}
-						onClose={e => this.hideDimmer()}
-						size='mini'
-						open={this.state.processing}
-						style={{ padding: '20px' }}
-						closeIcon
-					>
-						<h2> Processing.... </h2>
-						Payment for {this.state.currentPlan?.name} plan.
-						{this.state.failMessage}
-					</Modal>
 				</div>
 			</div>
 		);
