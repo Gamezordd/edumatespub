@@ -149,6 +149,7 @@ class RegistrationFormUncomposed extends React.Component<
 		stateKey: keyof RegisterState,
 		e: React.ChangeEvent<HTMLInputElement>
 	) => {
+		console.log(e.target.value);
 		if (RegExp(validators[key].regex).test(e.target.value)) {
 			this.setState({
 				...this.state,
@@ -216,9 +217,9 @@ class RegistrationFormUncomposed extends React.Component<
 			gender.value === '' ||
 			phone.value === '' ||
 			country.value === '' ||
-			(isAmbassador && code.value === '') ||
-			(isAmbassador && course.value === '') ||
-			(!isAmbassador && currentInstitute.value === '')
+			(isAmbassador.value && code.value === '') ||
+			(isAmbassador.value && course.value === '') ||
+			(!isAmbassador.value && currentInstitute.value === '')
 		);
 	};
 
@@ -237,11 +238,7 @@ class RegistrationFormUncomposed extends React.Component<
 			: StudentFields;
 
 		return (
-			<Grid
-				textAlign='center'
-				style={{ height: '160vh' }}
-				verticalAlign='middle'
-			>
+			<Grid textAlign='center' verticalAlign='middle'>
 				<Grid.Column style={{ maxWidth: 600 }}>
 					<Transition
 						animation='slide down'
@@ -253,7 +250,10 @@ class RegistrationFormUncomposed extends React.Component<
 								border: '3px solid #f3f3f3',
 								borderRadius: '25px',
 								textAlign: 'left',
+								marginTop: '15vh',
 								padding: '5%',
+								maxHeight: '80vh',
+								overflowY: 'scroll',
 							}}
 						>
 							{this.state.didNext.value && (
@@ -679,7 +679,7 @@ class RegistrationFormUncomposed extends React.Component<
 												<b>How can the University best support you?</b>
 												<TextArea
 													placeholder='Answer here'
-													value={this.state.potentialAnswer.value as string}
+													value={this.state.supportAnswer.value as string}
 													onChange={(
 														event: React.SyntheticEvent<HTMLElement>,
 														{ value }

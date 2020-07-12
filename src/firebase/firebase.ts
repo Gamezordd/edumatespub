@@ -93,22 +93,22 @@ export class Firebase {
 						: ['edumatesStudent'],
 				},
 				data: { ...data, ...extraData },
-				analyticsData: isAmbassador
+				analyticsData: isAmbassador.value
 					? {}
 					: {
-							universityRank,
-							universityLocation,
-							coursesApplying,
-							sportsFacilities,
-							societiesOffered,
-							enterpriseOpportunities,
-							overallExperience,
-							networkingOpportunities,
-							desiredPopulation,
-							potentialAnswer,
-							supportAnswer,
+							universityRank: universityRank.value,
+							universityLocation: universityLocation.value,
+							coursesApplying: coursesApplying.value,
+							sportsFacilities: sportsFacilities.value,
+							societiesOffered: societiesOffered.value,
+							enterpriseOpportunities: enterpriseOpportunities.value,
+							overallExperience: overallExperience.value,
+							networkingOpportunities: networkingOpportunities.value,
+							desiredPopulation: desiredPopulation.value,
+							potentialAnswer: potentialAnswer.value,
+							supportAnswer: supportAnswer.value,
 					  },
-				memberTill: firestore.Timestamp.fromDate(new Date(2021, 7, 1)),
+				memberTill: firestore.Timestamp.fromDate(new Date(2021, 6, 1)),
 			});
 		const entryData = isAmbassador
 			? {
