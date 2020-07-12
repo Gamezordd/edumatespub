@@ -281,6 +281,10 @@ export class Firebase {
 		});
 	};
 
+	deletePost = async (postId: any) => {
+		await this.db.collection('posts').doc(postId).delete();
+	};
+
 	deletePostImage = async (filename: string) => {
 		this.storage.ref(`postImages/${filename}`).delete();
 	};

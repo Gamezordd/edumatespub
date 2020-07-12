@@ -1,11 +1,19 @@
 import React from 'react';
-import { Icon, Card, Image, Transition, Divider } from 'semantic-ui-react';
+import {
+	Icon,
+	Card,
+	Image,
+	Transition,
+	Divider,
+	Button,
+} from 'semantic-ui-react';
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
 import { addLike, removeLike } from '../../redux/ActionCreators';
 import { PostProps, PostState } from './types';
 import _ from 'lodash';
+import { DeleteButton } from './DeleteButton';
 
 const user = process.env.PUBLIC_URL + '/userDefault.png';
 
@@ -21,6 +29,7 @@ const dateOptions = {
 
 const mapStateToProps = (state: any) => ({
 	liked: state.user.userLikes,
+	uid: state.user.uid,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -129,6 +138,13 @@ class PostUncomposed extends React.Component<PostProps, PostState> {
 							<Card.Meta style={{ fontSize: '1em' }}>
 								{university}, {date}
 							</Card.Meta>
+							{this.props.uid === post.userId && (
+								<DeleteButton
+									refresh={this.props.refresh}
+									postId={post.id}
+									firebase={this.props.firebase}
+								/>
+							)}
 						</Card.Content>
 						<Card.Content>
 							<Card.Header>{post.title}</Card.Header>

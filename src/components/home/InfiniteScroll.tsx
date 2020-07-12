@@ -3,7 +3,12 @@ import { compose } from 'recompose';
 import { InfiniteScrollProps, InfiniteScrollState } from './types';
 import { withFirebase } from '../../firebase/withFirebase';
 import { connect } from 'react-redux';
-import { fetchInitialPosts, appendPosts, storeScroll } from '../../redux';
+import {
+	fetchInitialPosts,
+	appendPosts,
+	storeScroll,
+	clearPosts,
+} from '../../redux';
 import InfiniteScrollComponent from 'react-infinite-scroll-component';
 import { Grid } from 'semantic-ui-react';
 import { Dispatch, AnyAction } from 'redux';
@@ -26,6 +31,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
 	append: (posts: any[], lastFetched: string) =>
 		dispatch(appendPosts(posts, lastFetched)),
 	saveScroll: (scroll: number) => dispatch(storeScroll(scroll)),
+	clearPosts: () => dispatch(clearPosts()),
 });
 
 class InfiniteScrollUncomposed extends React.Component<
@@ -48,6 +54,11 @@ class InfiniteScrollUncomposed extends React.Component<
 			? posts[posts.length - 1].createdAt
 			: null;
 		this.props.fetch(posts, lastFetched);
+	};
+
+	refresh = async () => {
+		this.props.clearPosts();
+		this.initiate();
 	};
 
 	append = async () => {
@@ -105,7 +116,7 @@ class InfiniteScrollUncomposed extends React.Component<
 									<b>You are all caught up!</b>
 								</p>
 							}
-							refreshFunction={this.initiate}
+							refreshFunction={this.refresh}
 							pullDownToRefresh
 							pullDownToRefreshContent={
 								<h3 style={{ textAlign: 'center', color: 'rgba(F,F,F,0.2)' }}>
@@ -120,7 +131,7 @@ class InfiniteScrollUncomposed extends React.Component<
 							initialScrollY={this.props.scroll}
 						>
 							{this.props.posts.map(post => (
-								<Post post={post} />
+								<Post post={post} refresh={this.initiate} />
 							))}
 						</InfiniteScrollComponent>
 					</Grid.Column>
