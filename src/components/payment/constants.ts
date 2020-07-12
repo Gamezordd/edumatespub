@@ -20,7 +20,7 @@ export const plans: Plan[] = [
 			'Create a wish list and chat with unlimited university representatives.',
 		button: 'Sign up',
 		duration: 30,
-		price: 499,
+		price: 399,
 	},
 	{
 		title: ' ',

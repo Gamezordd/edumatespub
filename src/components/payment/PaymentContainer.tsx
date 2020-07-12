@@ -1,16 +1,8 @@
 import React from 'react';
 import { withFirebase } from '../../firebase/withFirebase';
 import { compose } from 'recompose';
-import {
-	Card,
-	Grid,
-	GridColumn,
-	Button,
-	Modal,
-	Message,
-	Icon,
-} from 'semantic-ui-react';
-import StripeCheckout, { Token } from 'react-stripe-checkout';
+import { Card, Grid, Message, Icon } from 'semantic-ui-react';
+import { Token } from 'react-stripe-checkout';
 import { Redirect } from 'react-router-dom';
 import { Plan, PaymentContainerProps, PaymentContainerState } from './types';
 import { plans } from './constants';
