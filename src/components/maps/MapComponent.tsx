@@ -186,6 +186,8 @@ class MapComponent extends React.Component<MapComponentPropTypes, any> {
 }
 
 export default GoogleApiWrapper({
-	apiKey: APIkey,
+	apiKey: process.env.REACT_APP_MAPS_KEY
+		? process.env.REACT_APP_MAPS_KEY
+		: APIkey,
 	LoadingContainer: LoadingContainer,
 })(MapComponent);
