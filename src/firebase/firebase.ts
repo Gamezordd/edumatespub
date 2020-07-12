@@ -108,6 +108,7 @@ export class Firebase {
 							potentialAnswer,
 							supportAnswer,
 					  },
+				memberTill: firestore.Timestamp.fromDate(new Date(2021, 7, 1)),
 			});
 		const entryData = isAmbassador
 			? {

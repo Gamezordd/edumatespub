@@ -1,7 +1,15 @@
 import React from 'react';
 import { withFirebase } from '../../firebase/withFirebase';
 import { compose } from 'recompose';
-import { Card, Grid, GridColumn, Button, Modal } from 'semantic-ui-react';
+import {
+	Card,
+	Grid,
+	GridColumn,
+	Button,
+	Modal,
+	Message,
+	Icon,
+} from 'semantic-ui-react';
 import StripeCheckout, { Token } from 'react-stripe-checkout';
 import { Redirect } from 'react-router-dom';
 import { Plan, PaymentContainerProps, PaymentContainerState } from './types';
@@ -74,8 +82,28 @@ class PaymentContainerUncomposed extends React.Component<
 		return (
 			<div className='bg'>
 				<h1 className='Heading'> Choose your plan : </h1>
-
 				<div>
+					<div
+						className='status'
+						style={{
+							width: '80vw',
+							marginLeft: '10vw',
+							marginTop: '5vh',
+						}}
+					>
+						<Message success icon='gift'>
+							<Icon name='gift' />
+							<Message.Content>
+								<Message.Header>
+									You are eligible for free membership!
+								</Message.Header>
+								<p style={{ color: 'green', fontSize: '1rem' }}>
+									We have awarded our first 100 users free membership till the
+									date of 1st July, 2021.
+								</p>
+							</Message.Content>
+						</Message>
+					</div>
 					<div className='cardHolder'>
 						<Card.Group stackable itemsPerRpw={3}>
 							{plans.map(plan => (

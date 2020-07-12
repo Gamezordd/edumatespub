@@ -25,7 +25,6 @@ export class CardContainerComponent extends React.Component<
 		this.state = {
 			currentCols: 0,
 		};
-		console.log('In cont', this.props.isAmbassador);
 	}
 
 	componentDidMount() {
