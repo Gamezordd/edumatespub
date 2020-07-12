@@ -121,8 +121,7 @@ export class Firebase {
 			  }
 			: { name: name.value, image: '' };
 		await this.createRtdbUserEntry(uid, entryData);
-		if (isAmbassador.value)
-			await this.createAmbassadorEntry(universityId, uid, type);
+		if (isAmbassador) await this.createAmbassadorEntry(universityId, uid, type);
 	};
 
 	createRtdbUserEntry = async (uid: any, data: any) => {
@@ -280,6 +279,10 @@ export class Firebase {
 			...post,
 			...{ createdAt: firestore.FieldValue.serverTimestamp() },
 		});
+	};
+
+	deletePost = async (postId: any) => {
+		await this.db.collection('posts').doc(postId).delete();
 	};
 
 	deletePostImage = async (filename: string) => {
