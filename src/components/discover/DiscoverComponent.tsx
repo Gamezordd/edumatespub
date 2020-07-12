@@ -185,6 +185,7 @@ class DiscoverComponent extends React.Component<
 					onCardClick={this.handleClick}
 					onlyFavourites={this.props.onlyFavourites}
 					setChat={this.setChat}
+					isAmbassador={this.props.user.isAmbassador}
 				/>
 				<DiscoverModal
 					open={isModalOpen}

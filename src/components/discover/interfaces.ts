@@ -6,6 +6,7 @@ export interface DiscoverProps {
 	editFavourites: (payload: { ids: string[]; add?: boolean }) => void;
 	firebase: Firebase;
 	onlyFavourites?: boolean;
+	isAmbassador: boolean;
 }
 
 export interface initialStateProps {
@@ -59,12 +60,14 @@ export interface CardContainerProps {
 	selectedCardData?: any;
 	favouriteUnis: string[];
 	onlyFavourites?: boolean;
+	isAmbassador: boolean;
 }
 
 export interface ButtonProps {
 	content: any;
 	show?: boolean;
 	favourite: boolean;
+	isAmbassador: boolean;
 	onFavouriteButtonClick: (universityId: string[], add?: boolean) => void;
 	onCardClick: (
 		place: Array<{
@@ -100,4 +103,5 @@ export interface DiscoverContainerProps {
 	universities?: any;
 	isLoggedIn?: boolean;
 	onlyFavourites?: boolean;
+	isAmbassador?: boolean;
 }

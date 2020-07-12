@@ -5,11 +5,10 @@ export const User = (
 		uid: '',
 		details: { name: '', phone: '', email: '' },
 		photoURL: '',
-		emailVerified: false,
-		isAnonymous: false,
 		favouriteUnis: new Array<string>(),
 		userLikes: new Array<string>(),
-		isLoggedIn: false
+		isLoggedIn: false,
+		isAmbassador: false,
 	},
 	action: any
 ) => {

@@ -8,7 +8,6 @@ import { Plan, PaymentContainerProps, PaymentContainerState } from './types';
 import { plans } from './constants';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { logoutAction } from '../../redux';
 
 import './payments.css';
 

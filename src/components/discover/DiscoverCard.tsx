@@ -31,6 +31,8 @@ export const DiscoverCard = (props: ButtonProps) => {
 	} = props;
 	const [isLoaded, setLoaded] = useState(false);
 
+	const { isAmbassador } = props;
+
 	function handleClick() {
 		onCardClick([
 			{
@@ -90,7 +92,7 @@ export const DiscoverCard = (props: ButtonProps) => {
 						}
 						alt={name}
 					/>
-					{isLoaded ? (
+					{!isAmbassador && isLoaded ? (
 						<div
 							style={{
 								position: 'absolute',
@@ -113,23 +115,25 @@ export const DiscoverCard = (props: ButtonProps) => {
 							{formatDescription(description)}
 						</div>
 					</Card.Description>
-					<Card.Meta>
-						<Button
-							basic
-							floated='left'
-							color='grey'
-							size='tiny'
-							onClick={() => setChat(id)}
-						>
-							{' '}
-							Chat{' '}
-						</Button>
-						<UniversityPostsModal
-							buttonText='Posts'
-							universityId={id}
-							buttonFloated='left'
-						/>
-					</Card.Meta>
+					{!isAmbassador && (
+						<Card.Meta>
+							<Button
+								basic
+								floated='left'
+								color='grey'
+								size='tiny'
+								onClick={() => setChat(id)}
+							>
+								{' '}
+								Chat{' '}
+							</Button>
+							<UniversityPostsModal
+								buttonText='Posts'
+								universityId={id}
+								buttonFloated='left'
+							/>
+						</Card.Meta>
+					)}
 				</Card.Content>
 			</Card>
 		</Grid.Column>
@@ -160,24 +164,26 @@ export const DiscoverCard = (props: ButtonProps) => {
 							</Placeholder.Paragraph>
 						</Placeholder>
 						<Divider />
-						<Card.Meta>
-							<Button
-								basic
-								floated='left'
-								color='grey'
-								size='tiny'
-								disabled={!isLoaded}
-							>
-								{' '}
-								Chat{' '}
-							</Button>
-							<UniversityPostsModal
-								buttonText='Posts'
-								universityId={id}
-								buttonFloated='left'
-								disabled={!isLoaded}
-							/>
-						</Card.Meta>
+						{!isAmbassador && (
+							<Card.Meta>
+								<Button
+									basic
+									floated='left'
+									color='grey'
+									size='tiny'
+									disabled={!isLoaded}
+								>
+									{' '}
+									Chat{' '}
+								</Button>
+								<UniversityPostsModal
+									buttonText='Posts'
+									universityId={id}
+									buttonFloated='left'
+									disabled={!isLoaded}
+								/>
+							</Card.Meta>
+						)}
 					</Card.Content>
 				</Card>
 			</Grid.Column>

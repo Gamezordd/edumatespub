@@ -172,14 +172,6 @@ class RegistrationFormUncomposed extends React.Component<
 		this.setState({ ...this.state, ...{ [key]: { value: val } } });
 	};
 
-	descriptionHandler = (e: React.FormEvent<HTMLTextAreaElement>) => {
-		if (e.currentTarget.textLength > 80) return;
-		const value = e.currentTarget.textContent
-			? e.currentTarget.textContent.toString()
-			: '';
-		this.setState({ description: { value: value } });
-	};
-
 	syntheticEventHandler = (
 		key: keyof RegisterState,
 		value: string | string[],
@@ -355,7 +347,6 @@ class RegistrationFormUncomposed extends React.Component<
 										<FormField
 											{...field.properties}
 											control={Input}
-											value={this.state[field.key].value}
 											error={this.getError(field.key)}
 											onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 												this.validate(field.validate, field.key, e)

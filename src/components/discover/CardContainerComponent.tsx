@@ -4,18 +4,18 @@ import { cardWidths } from './constants';
 import { Grid } from 'semantic-ui-react';
 import { CardContainerProps } from './interfaces';
 
-type university={
-	"FAQ link"?: string;
-	department?: [{name: string, link: string}];
+type university = {
+	'FAQ link'?: string;
+	department?: [{ name: string; link: string }];
 	description?: string;
 	id?: string;
 	image?: string;
-	location?: {Ic: number, wc: number};
+	location?: { Ic: number; wc: number };
 	logo?: string;
 	name?: string;
 	prefix?: string;
 	video?: string;
-}
+};
 export class CardContainerComponent extends React.Component<
 	CardContainerProps,
 	any
@@ -25,11 +25,12 @@ export class CardContainerComponent extends React.Component<
 		this.state = {
 			currentCols: 0,
 		};
+		console.log('In cont', this.props.isAmbassador);
 	}
 
 	componentDidMount() {
 		window.addEventListener('resize', this.handleEnumerateColumns);
-		this.handleEnumerateColumns();		
+		this.handleEnumerateColumns();
 	}
 
 	componentWillUnmount() {
@@ -73,7 +74,7 @@ export class CardContainerComponent extends React.Component<
 
 		const RenderCards = renderData.map((university: university) => {
 			var isFavourite = false;
-			if(university.id === "fakeId") return null;
+			if (university.id === 'fakeId') return null;
 			if (favouriteUnis === []) {
 				isFavourite = false;
 			} else {
@@ -90,6 +91,7 @@ export class CardContainerComponent extends React.Component<
 					onCardClick={onCardClick}
 					onlyFavourites={this.props.onlyFavourites}
 					setChat={this.props.setChat}
+					isAmbassador={this.props.isAmbassador}
 				/>
 			);
 		});
