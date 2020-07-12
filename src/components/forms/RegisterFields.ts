@@ -238,7 +238,10 @@ export const RadioQuestions = [
 	{ ques: 'Sports facilities:', key: 'sportsFacilities' },
 	{ ques: 'Societies offered by University:', key: 'societiesOffered' },
 	{ ques: 'Enterprise opportunities:', key: 'enterpriseOpportunities' },
-	{ ques: 'Overall Student Experience:', key: 'overallExperience' },
+	{
+		ques: 'Overall Student Experience(Nightlife, Societies, etc):',
+		key: 'overallExperience',
+	},
 	{ ques: 'Networking Oppurtunities:', key: 'networkingOpportunities' },
 	{ ques: 'Desired population in University', key: 'desiredPopulation' },
 ];

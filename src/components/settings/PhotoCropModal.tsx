@@ -7,7 +7,8 @@ import { LoadingContainer } from '../maps';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from './cropImage';
 import { Firebase } from '../../firebase';
-import { noPicturePlaceholder } from './constants';
+
+const noPicturePlaceholder = process.env.PUBLIC_URL + './userDefault.png';
 
 interface IProps {
 	buttonText: string;
@@ -82,23 +83,32 @@ class PhotoModal extends React.Component<IProps, IState> {
 				/>
 			</React.Fragment>
 		);
-		const image = <img src={this.state.currentImage} style={{maxWidth: "90%", maxHeight: "90%"}} alt='currentPicture' />;
+		const image = (
+			<img
+				src={this.state.currentImage}
+				style={{ maxWidth: '90%', maxHeight: '90%' }}
+				alt='currentPicture'
+			/>
+		);
 		const profileImage = (
 			<div
 				style={{
 					display: 'flex',
 					justifyContent: 'center',
-					alignItems: 'center'
+					alignItems: 'center',
 				}}
 			>
 				{!this.state.imageLoading && this.state.currentImage ? image : loader}
 			</div>
 		);
 		return (
-			<div style={{
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center'}}>
+			<div
+				style={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+				}}
+			>
 				{this.state.uploadedImage ? (
 					<img
 						alt='uploadedPicture'
@@ -106,8 +116,8 @@ class PhotoModal extends React.Component<IProps, IState> {
 							display: 'flex',
 							alignItems: 'center',
 							justifyContent: 'center',
-							maxWidth: "90%",
-							maxHeight: "90%"
+							maxWidth: '90%',
+							maxHeight: '90%',
 						}}
 						src={this.state.uploadedImage}
 					/>

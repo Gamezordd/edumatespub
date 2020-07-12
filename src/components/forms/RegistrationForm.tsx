@@ -645,6 +645,12 @@ class RegistrationFormUncomposed extends React.Component<
 													</Form.Field>
 												</Form.Field>
 											)}
+											<Form.Field>
+												<b>
+													How important are the following factors to you while
+													choosing an University?
+												</b>
+											</Form.Field>
 											{RadioQuestions.map(question => (
 												<div className='radioQuestion'>
 													<b>{question.ques}</b>
