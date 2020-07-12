@@ -19,6 +19,7 @@ export interface InfiniteScrollProps {
 	saveScroll: typeof storeScroll;
 	isLoggedIn: boolean;
 	isAmbassador: boolean;
+	clearPosts: () => void;
 }
 
 export interface PostState {
@@ -31,12 +32,14 @@ export interface PostState {
 }
 
 export interface PostProps {
+	uid: string;
 	post: any;
 	liked: string[];
 	likeLocal: typeof addLike;
 	unlikeLocal: typeof removeLike;
 	firebase: Firebase;
 	universityId: string;
+	refresh: () => void;
 }
 
 export interface CreatePostState {
