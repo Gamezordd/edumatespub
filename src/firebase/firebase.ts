@@ -291,6 +291,7 @@ export class Firebase {
 	getUserChats = async () => {
 		return await this.rtdb
 			.ref(`userChats/${this.auth.currentUser?.uid}`)
+			.orderByChild('lastActive')
 			.once('value')
 			.then(snapshot => {
 				var data: Array<any> = [];
@@ -298,7 +299,7 @@ export class Firebase {
 					if (!child.exists()) return;
 					data.push({ userId: child.key, ...child.val() });
 				});
-				return data;
+				return data.reverse();
 			});
 	};
 
