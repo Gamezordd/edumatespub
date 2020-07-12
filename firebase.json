@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "edumates-testing",
+    "site": "mainapp-edumates",
     "public": "build",
     "ignore": [
       "firebase.json",
