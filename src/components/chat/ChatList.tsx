@@ -6,16 +6,24 @@ import { Firebase } from '../../firebase';
 import { compose } from 'redux';
 import { withFirebase } from '../../firebase/withFirebase';
 import _ from 'lodash';
+import { UserChat } from '../../redux/reducers/chats';
+import { UserChatAction } from '../../redux/ActionCreators';
+import { connect } from 'react-redux';
 
 interface ChatListProps {
-	firebase: Firebase;
+	firebase?: Firebase;
 	selectChat: (chat: any) => void;
-	isMobile: boolean;
+	isMobile?: boolean;
+	chatList?: { [uid: string]: UserChat };
 }
 
 interface ChatListState {
 	chats: any[];
 }
+
+const mapStateToProps = (state: any) => ({
+	chatList: state.chat.chatList,
+});
 
 const desktopStyle = {
 	marginTop: '20vh',
@@ -38,18 +46,34 @@ class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
 	}
 
 	async componentDidMount() {
-		this.props.firebase.getUserChatsRef().on('child_added', snapshot => {
-			this.setState({
-				chats: [...this.state.chats],
-				...[{ userId: snapshot.key, ...snapshot.val() }],
-			});
-		});
+		// if (!this.props.firebase) return;
+		// this.props.firebase.getUserChatsRef().on('child_added', snapshot => {
+		// 	this.setState({
+		// 		chats: [...this.state.chats],
+		// 		...[{ userId: snapshot.key, ...snapshot.val() }],
+		// 	});
+		// });
 
-		const chats = await this.props.firebase.getUserChats();
-		this.setState({
-			chats: _.union(chats, this.state.chats),
-		});
+		// const chats = await this.props.firebase.getUserChats();
+		// this.setState({
+		// 	chats: _.union(chats, this.state.chats),
+		// });
+
+		this.mapChatList();
 	}
+
+	componentWillReceiveProps() {
+		this.mapChatList();
+	}
+
+	mapChatList = async () => {
+		const { chatList } = this.props;
+		if (chatList === undefined) return;
+		const users = Object.keys(chatList).sort().reverse();
+		const list: UserChatAction[] = [];
+		users.forEach(user => list.push({ ...{ id: user }, ...chatList[user] }));
+		this.setState({ chats: list });
+	};
 
 	render() {
 		const { isMobile } = this.props;
@@ -81,4 +105,7 @@ class ChatListUncomposed extends React.Component<ChatListProps, ChatListState> {
 	}
 }
 
-export const ChatList = compose(withFirebase)(ChatListUncomposed);
+export const ChatList = compose<React.ComponentType<ChatListProps>>(
+	withFirebase,
+	connect(mapStateToProps)
+)(ChatListUncomposed);
