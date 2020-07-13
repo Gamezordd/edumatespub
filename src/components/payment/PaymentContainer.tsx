@@ -178,7 +178,7 @@ class PaymentContainerUncomposed extends React.Component<
 							description={this.state.currentPlan?.description}
 							token={token => this.handlePayment(token)}
 							amount={this.state.currentPlan?.price}
-							currency='INR'
+							currency='USD'
 						/>
 					</Modal>
 					<Modal
