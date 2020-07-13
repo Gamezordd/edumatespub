@@ -75,7 +75,7 @@ class PaymentContainerUncomposed extends React.Component<
 	};
 
 	render() {
-		if (this.state.done) return <Redirect to='/success' />;
+		if (this.state.done) return <Redirect to='/home' />;
 
 		if (!this.props.isLoggedIn) return <Redirect to='/' />;
 
