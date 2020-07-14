@@ -40,6 +40,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 const mapStateToProps = (state: any) => {
 	return {
 		universities: state.universities,
+		isLoggedIn: state.user.isLoggedIn,
 	};
 };
 
@@ -50,6 +51,7 @@ class LoginForm extends React.Component<
 		fetchUniversities: typeof fetchUniversitiesAction;
 		universities: any;
 		fetchLikes: typeof fetchLikes;
+		isLoggedIn: boolean;
 	},
 	LoginState
 > {
@@ -117,12 +119,12 @@ class LoginForm extends React.Component<
 					return true;
 				})
 				.then(async status => {
-					if (status)
+					if (status) {
 						this.setState({
 							redirect: { value: true },
 							isLoading: { value: false },
 						});
-					else this.setState({ isLoading: { value: false } });
+					} else this.setState({ isLoading: { value: false } });
 				});
 		} catch (err) {
 			console.log(err);
@@ -166,7 +168,7 @@ class LoginForm extends React.Component<
 	};
 
 	render() {
-		if (this.state.redirect.value) {
+		if (this.state.redirect.value || this.props.isLoggedIn) {
 			return <Redirect to='/home' />;
 		}
 
