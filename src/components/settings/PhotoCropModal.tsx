@@ -260,7 +260,13 @@ class PhotoModal extends React.Component<IProps, IState> {
 			} else {
 				return (
 					<div>
-						<Button primary onClick={() => this.setState({ ...initialState })}>
+						<Button
+							primary
+							onClick={() => {
+								this.setState({ ...initialState });
+								window.location.reload();
+							}}
+						>
 							Close
 						</Button>
 					</div>
