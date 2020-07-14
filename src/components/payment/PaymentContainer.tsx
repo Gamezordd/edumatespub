@@ -60,13 +60,13 @@ class PaymentContainerUncomposed extends React.Component<
 			.then(data => {
 				this.setState({ done: true });
 			})
-			.catch(data => {
+			.catch(error => {
 				this.setState({
 					fail: true,
-					failMessage: `${this.state.failMessage}`,
+					failMessage: error,
 					checkout: false,
 				});
-				console.log(`Fail ${data}`);
+				console.log(`Fail ${error}`);
 			});
 	};
 
