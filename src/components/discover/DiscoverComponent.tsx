@@ -14,9 +14,27 @@ import { editFavouritesAction } from '../../redux';
 
 import { DiscoverModal } from './index';
 import { DiscoverProps, initialStateProps } from './interfaces';
-import { initialState, searchDescriptionLength } from './constants';
+import { searchDescriptionLength } from './constants';
 import { CardContainerComponent } from './CardContainerComponent';
 import { ChatModal } from './ChatModal';
+
+export const initialState = {
+	triggerRerender: false, //change will trigger rerender
+	isModalOpen: false,
+	showCard: false,
+	isLoading: false,
+	resultsLoading: false,
+	results: [],
+	value: '',
+	showChat: null,
+	selection: {
+		title: '',
+		image: '',
+		description: '',
+		details: {},
+	},
+	places: [],
+};
 
 const mapStateToProps = (state: any) => {
 	return {
@@ -66,7 +84,7 @@ class DiscoverComponent extends React.Component<
 		{ value }: SearchProps
 	) => {
 		const { uniList } = this.props;
-		this.setState({ isLoading: true, value });
+		this.setState({ value, resultsLoading: true });
 		setTimeout(() => {
 			if (this.state.value) {
 				if (this.state.value.length < 1) {
@@ -90,7 +108,7 @@ class DiscoverComponent extends React.Component<
 						};
 					}
 				),
-				isLoading: false,
+				resultsLoading: false
 			});
 		}, 300);
 	};
@@ -134,6 +152,7 @@ class DiscoverComponent extends React.Component<
 			showCard,
 			isModalOpen,
 			places,
+			resultsLoading
 		} = this.state;
 
 		const SearchBar = (
@@ -142,7 +161,7 @@ class DiscoverComponent extends React.Component<
 				size='big'
 				fluid
 				aligned='left'
-				loading={isLoading}
+				loading={resultsLoading}
 				results={results}
 				value={value}
 				onResultSelect={this.handleResultSelect}

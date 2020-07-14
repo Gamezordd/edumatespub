@@ -58,23 +58,6 @@ export const universities = [
 	},
 ];
 
-export const initialState = {
-	triggerRerender: false, //change will trigger rerender
-	isModalOpen: false,
-	showCard: false,
-	isLoading: false,
-	results: [],
-	value: '',
-	showChat: null,
-	selection: {
-		title: '',
-		image: '',
-		description: '',
-		details: {},
-	},
-	places: [],
-};
-
 //cards for various screen sizes
 
 export const cardWidths = [

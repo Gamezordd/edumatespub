@@ -14,6 +14,7 @@ export interface initialStateProps {
 	isModalOpen: boolean;
 	showCard: boolean;
 	isLoading: boolean;
+	resultsLoading: boolean;
 	results: object[];
 	value: string | undefined;
 	showChat: string | null;
